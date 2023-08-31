@@ -1,14 +1,9 @@
-package shop.mtcoding.project.skill;
+package shop.mtcoding.project.position;
 
-import java.util.List;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Builder;
@@ -17,25 +12,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@Getter
 @Setter
-@Table(name = "skill_tb")
+@Getter
+@Table(name = "position_tb")
 @Entity
-public class Skill {
+public class Position {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 20)
-    private String skill;
+    private String position;
 
     @Builder
-    public Skill(Integer id, String skill) {
+    public Position(Integer id, String position) {
         this.id = id;
-        this.skill = skill;
+        this.position = position;
     }
 
     
-
+    
 }

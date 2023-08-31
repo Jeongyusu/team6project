@@ -1,4 +1,4 @@
-package shop.mtcoding.project.jobpening;
+package shop.mtcoding.project.jobopening;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -19,7 +19,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import shop.mtcoding.project.Apply.Apply;
+import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.scrap.UserScrap;
 import shop.mtcoding.project.skill.RequiredSkill;
@@ -65,26 +65,9 @@ public class JobOpening {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY)
-    private List<RequiredSkill> requiredSkillList;
-
-    @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY)
-    private List<Apply> applyList;
-
-    @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY)
-    private List<UserScrap> userScrapList;
-
-    @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY)
-    private List<Task> taskList;
-
-    @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY)
-    private List<Qualified> qualifiedList;
-
     @Builder
     public JobOpening(Integer id, String title, String process, String career, String careerYear, String edu,
-            String compAddress, Timestamp deadLine, Timestamp createdAt, User user,
-            List<RequiredSkill> requiredSkillList, List<Apply> applyList, List<UserScrap> userScrapList,
-            List<Task> taskList, List<Qualified> qualifiedList) {
+            String compAddress, Timestamp deadLine, Timestamp createdAt, User user) {
         this.id = id;
         this.title = title;
         this.process = process;
@@ -95,11 +78,7 @@ public class JobOpening {
         this.deadLine = deadLine;
         this.createdAt = createdAt;
         this.user = user;
-        this.requiredSkillList = requiredSkillList;
-        this.applyList = applyList;
-        this.userScrapList = userScrapList;
-        this.taskList = taskList;
-        this.qualifiedList = qualifiedList;
     }
+
 
 }

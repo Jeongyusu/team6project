@@ -17,7 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import shop.mtcoding.project.jobpening.JobOpening;
+import shop.mtcoding.project.jobopening.JobOpening;
 
 @NoArgsConstructor
 @Getter
@@ -34,17 +34,13 @@ public class Task {
     @Column(length = 60)
     private String taskContent;
 
-    @CreationTimestamp
-    private Timestamp createdAt;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private JobOpening jobOpening;
 
     @Builder
-    public Task(Integer id, String taskContent, Timestamp createdAt, JobOpening jobOpening) {
+    public Task(Integer id, String taskContent, JobOpening jobOpening) {
         this.id = id;
         this.taskContent = taskContent;
-        this.createdAt = createdAt;
         this.jobOpening = jobOpening;
     }
 

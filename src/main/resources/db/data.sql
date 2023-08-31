@@ -33,6 +33,13 @@ insert into skill_tb (skill) values('JSP');
 insert into skill_tb (skill) values('Vue.js');
 insert into skill_tb (skill) values('Oracle');
 
+insert into position_tb (position) values('서버 백엔드 개발자');
+insert into position_tb (position) values('프론트엔드 개발자');
+insert into position_tb (position) values('웹 풀스택 개발자');
+insert into position_tb (position) values('안드로이드 개발자');
+insert into position_tb (position) values('IOS 개발자');
+insert into position_tb (position) values('크로스 플랫폼 앱 개발자');
+
 insert into required_skill_tb (skill_id, job_opening_id) values('1', '1');
 insert into required_skill_tb (skill_id, job_opening_id) values('2', '1');
 insert into required_skill_tb (skill_id, job_opening_id) values('3', '1');
@@ -41,10 +48,6 @@ insert into required_skill_tb (skill_id, job_opening_id) values('3', '2');
 insert into required_skill_tb (skill_id, job_opening_id) values('4', '2');
 insert into required_skill_tb (skill_id, job_opening_id) values('1', '3');
 insert into required_skill_tb (skill_id, job_opening_id) values('2', '3');
-
-insert into apply_tb (apply_state, job_opening_id) values('대기', '1');
-insert into apply_tb (apply_state, job_opening_id) values('불합격', '1');
-insert into apply_tb (apply_state, job_opening_id) values('합격', '2');
 
 insert into resume_tb (user_id, title, age, tel, address, sub_intro, career, edu, main_intro, created_at) values ('1', 'ssar 이력서입니다', '25', '010-1111-2222', '부산 진구 전포동 그린아카데미', '열심히하는 개발자가 되겠습니다', '자바 2년차', '대학교4년 졸업', '부산/25/남/ssar입니다 어렸을때부터 메타코딩 개발자님 영상을 보며 개발자를 꿈꿧습니다.', now());
 insert into resume_tb (user_id, title, age, tel, address, sub_intro, career, edu, main_intro, created_at) values ('1', 'ssar 이력서2입니다', '28', '010-2222-3333', '부산 진구 전포동 클럽데이즈', '능력있는 개발자가 되겠습니다', 'html/css 1년차', '전문대학교2년 졸업', '부산/28/남/cos입니다 어렸을때부터 메타코딩 개발자님 영상을 보며 개발자를 꿈꿧습니다.', now());
@@ -65,12 +68,12 @@ insert into reply_tb (comment, created_at, user_id, community_id) values('댓글
 
 
 
-insert into task_tb (task_content, created_at, job_opening_id) values('재생에너지 SaaS 백엔드 개발', now(), '1');
-insert into task_tb (task_content, created_at, job_opening_id) values('API 개발(재생에너지모니터링 웹 대시보드)', now(), '2');
-insert into task_tb (task_content, created_at, job_opening_id) values('서비스 아키텍쳐 설계 및 AWS 인프라 관리 및 운영', now(), '3');
+insert into task_tb (task_content, job_opening_id) values('재생에너지 SaaS 백엔드 개발', '1');
+insert into task_tb (task_content, job_opening_id) values('API 개발(재생에너지모니터링 웹 대시보드)', '2');
+insert into task_tb (task_content, job_opening_id) values('서비스 아키텍쳐 설계 및 AWS 인프라 관리 및 운영', '3');
 
-insert into qualified_tb (qualified_content, created_at, job_opening_id) values('백엔드 개발 실무 경력3년이상', now(), '1');
-insert into qualified_tb (qualified_content, created_at, job_opening_id) values('Python 기반 개발 경험', now(), '2');
-insert into qualified_tb (qualified_content, created_at, job_opening_id) values('CI CD 툴을 활용한 빌드,테스트,배포 자동화 경험', now(), '3');
+insert into qualified_tb (qualified_content, job_opening_id) values('백엔드 개발 실무 경력3년이상', '1');
+insert into qualified_tb (qualified_content, job_opening_id) values('Python 기반 개발 경험', '2');
+insert into qualified_tb (qualified_content, job_opening_id) values('CI CD 툴을 활용한 빌드,테스트,배포 자동화 경험', '3');
 
 

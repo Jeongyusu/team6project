@@ -1,4 +1,4 @@
-package shop.mtcoding.project.jobpening;
+package shop.mtcoding.project.jobopening;
 
 import org.springframework.stereotype.Controller;
 

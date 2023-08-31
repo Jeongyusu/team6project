@@ -1,4 +1,4 @@
-package shop.mtcoding.project.Apply;
+package shop.mtcoding.project.position;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,36 +12,30 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import shop.mtcoding.project.Resume.Resume;
-import shop.mtcoding.project.jobpening.JobOpening;
+import shop.mtcoding.project.resume.Resume;
 
 @NoArgsConstructor
-@Getter
 @Setter
-@Table(name = "apply_tb")
+@Getter
+@Table(name = "wish_position_tb")
 @Entity
-public class Apply {
+public class WishPosition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String applyState;
-    private String applyAnswer;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private JobOpening jobOpening;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume;
 
-    @Builder
-    public Apply(Integer id, String applyState, String applyAnswer, JobOpening jobOpening, Resume resume) {
-        this.id = id;
-        this.applyState = applyState;
-        this.applyAnswer = applyAnswer;
-        this.jobOpening = jobOpening;
-        this.resume = resume;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Position position;
 
+    @Builder
+    public WishPosition(Integer id, Resume resume, Position position) {
+        this.id = id;
+        this.resume = resume;
+        this.position = position;
+    }
+    
 }

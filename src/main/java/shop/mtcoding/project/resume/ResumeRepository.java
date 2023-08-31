@@ -1,4 +1,4 @@
-package shop.mtcoding.project.Resume;
+package shop.mtcoding.project.resume;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

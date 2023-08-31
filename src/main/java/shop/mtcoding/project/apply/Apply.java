@@ -1,4 +1,4 @@
-package shop.mtcoding.project.skill;
+package shop.mtcoding.project.apply;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,28 +13,32 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import shop.mtcoding.project.resume.Resume;
+import shop.mtcoding.project.jobopening.JobOpening;
 
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "has_skill_tb")
+@Table(name = "apply_tb")
 @Entity
-public class HasSkill {
+public class Apply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String applyState = "대기중";
+
     @ManyToOne(fetch = FetchType.LAZY)
-    private Skill skill;
+    private JobOpening jobOpening;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume;
 
     @Builder
-    public HasSkill(Integer id, Skill skill, Resume resume) {
+    public Apply(Integer id, String applyState, JobOpening jobOpening, Resume resume) {
         this.id = id;
-        this.skill = skill;
+        this.applyState = applyState;
+        this.jobOpening = jobOpening;
         this.resume = resume;
     }
 

@@ -1,4 +1,4 @@
-package shop.mtcoding.project.Apply;
+package shop.mtcoding.project.apply;
 
 import org.springframework.stereotype.Service;
 

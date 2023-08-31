@@ -16,7 +16,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import shop.mtcoding.project.Resume.Resume;
+import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.user.User;
 
 @NoArgsConstructor
