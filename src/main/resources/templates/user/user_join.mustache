@@ -101,14 +101,13 @@ function userEmailIdChange() {
   }
 
   function checkValidAndWhiteSpace() {
-            console.log("테스트" + userEmailSameCheck)
+            
             let userEmailId = document.querySelector("#email").value;
             if (isWhitespace(userEmailId)) {
                 alert('공백을 입력할 수 없습니다');
                 userEmailIdSameCheck = false;
             } else {
               check();
-              console.log("테스트" + userEmailSameCheck)
             }
 
   

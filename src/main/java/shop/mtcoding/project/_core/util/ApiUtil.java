@@ -6,11 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ApiUtil<T> {
-    private boolean sucuess; // true
+    private boolean success; // true
     private T data; // 댓글쓰기 성공
 
     public ApiUtil(boolean success, T data) {
-        this.sucuess = success;
+        this.success = success;
         this.data = data;
     }
 }

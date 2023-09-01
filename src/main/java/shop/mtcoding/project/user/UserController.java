@@ -89,8 +89,8 @@ public class UserController {
     public @ResponseBody ApiUtil<String> check(String userEmailId) {
         User user = userRepository.findByUserEmailId(userEmailId);
         if (user != null) {
-            return new ApiUtil<String>(false, "유저네임을 사용할 수 없습니다.");
-            // throw new MyApiException("EmailID를 사용할 수 없습니다");
+            // return new ApiUtil<String>(false, "유저네임을 사용할 수 없습니다.");
+            throw new MyApiException("EmailID를 사용할 수 없습니다");
         }
 
         return new ApiUtil<String>(true, "EmailID를 사용할 수 있습니다.");
