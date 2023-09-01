@@ -1,7 +1,5 @@
 package shop.mtcoding.project.user;
 
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +15,33 @@ public class UserService {
 
     @Transactional
     public void 유저회원가입(UserRequest.UserJoinDTO userjoinDTO) {
-        System.out.println("테스트 " + userjoinDTO.getUserEmailId());
+
         User user;
         if (userjoinDTO.getCompEmailId() == null) {
+            if (userjoinDTO.getUserEmailId() == null || userjoinDTO.getUserEmailId().isEmpty()) {
+                throw new MyException("아이디에 값이 없거나 공백문자가 있습니다.");
+            }
+            if (userjoinDTO.getUserPassword() == null || userjoinDTO.getUserPassword().isEmpty()) {
+                throw new MyException("비밀번호에 값이 없거나 공백문자가 있습니다.");
+            }
+
+            if (userjoinDTO.getUserName() == null || userjoinDTO.getUserName().isEmpty()) {
+                throw new MyException("이름에 값이 없거나 공백문자가 있습니다.");
+            }
             user = User.builder().userEmailId(userjoinDTO.getUserEmailId()).userName(userjoinDTO.getUserName())
                     .userPassword(userjoinDTO.getUserPassword()).build();
         } else {
-            user = User.builder().compEmailId(userjoinDTO.getCompEmailId()).compName(userjoinDTO.getCompName())
+            if (userjoinDTO.getCompEmailId() == null || userjoinDTO.getCompEmailId().isEmpty()) {
+                throw new MyException("아이디에 값이 없거나 공백문자가 있습니다.");
+            }
+            if (userjoinDTO.getUserPassword() == null || userjoinDTO.getUserPassword().isEmpty()) {
+                throw new MyException("비밀번호에 값이 없거나 공백문자가 있습니다.");
+            }
+
+            if (userjoinDTO.getUserName() == null || userjoinDTO.getUserName().isEmpty()) {
+                throw new MyException("회사 이름에 값이 없거나 공백문자가 있습니다.");
+            }
+            user = User.builder().compEmailId(userjoinDTO.getCompEmailId()).userName(userjoinDTO.getUserName())
                     .userPassword(userjoinDTO.getUserPassword()).build();
         }
 

@@ -1,5 +1,6 @@
 package shop.mtcoding.project.user;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project._core.error.ex.MyApiException;
+import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
 
 @Controller
@@ -82,9 +85,21 @@ public class UserController {
         return Script.href("/comp", "로그인 완료");
     }
 
-    @GetMapping("/mypage")
-    public String mypage() {
-        return "user/user_mypage";
+    @GetMapping("/api/check")
+    public @ResponseBody ApiUtil<String> check(String userEmailId) {
+        User user = userRepository.findByUserEmailId(userEmailId);
+        if (user != null) {
+            return new ApiUtil<String>(false, "유저네임을 사용할 수 없습니다.");
+            // throw new MyApiException("EmailID를 사용할 수 없습니다");
+        }
+
+        return new ApiUtil<String>(true, "EmailID를 사용할 수 있습니다.");
+
     }
+
+    // @GetMapping("/mypage")
+    // public String mypage() {
+    // return "user/user_mypage";
+    // }
 
 }
