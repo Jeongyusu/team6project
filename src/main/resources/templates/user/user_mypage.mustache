@@ -14,11 +14,11 @@
         <div class="mypage_left">
           <ul>
             <li>
-              <form action="#">
-                <button type="submit">
-                  <img src="image/user_img/def_img.png" alt="기본 이미지">
-                </button>
-              </form>
+              <div class="main_pic">
+                <img id="preview" src="" alt="기본 이미지">
+                <input type="file" onchange="changeUserPic(event)" name="userPic">
+              </div>
+
             </li>
             <li>
               <h3>남은혜</h3>
@@ -81,7 +81,7 @@
                 <ul class="comp_cont">
                   <li class="comp_img">
                     <a href="user_job_opening_apply.html">
-                      <img src="image/company_img/comp_img01.png" alt="기업01">
+                      <img src="/image/company_img/comp_img01.png" alt="기업01">
                       <span class="comp_dday">D - 7</span>
                     </a>
                   </li>
@@ -107,7 +107,7 @@
                 <ul class="comp_cont">
                   <li class="comp_img">
                     <a href="user_job_opening_apply.html">
-                      <img src="image/company_img/comp_img01.png" alt="기업01">
+                      <img src="/image/company_img/comp_img01.png" alt="기업01">
                       <span class="comp_dday">D - 7</span>
                     </a>
                   </li>
@@ -187,7 +187,7 @@
               <div class="resume_count">전체
                 <span class="common_num">3</span>
               </div>
-              <a href="user_resume_write.html" class="btn btn-primary">이력서 작성</a>
+              <a href="/userResumeWriteForm" class="btn btn-primary">이력서 작성</a>
             </div>
             <ul class="com_cont">
               <li class="resume_inner">
@@ -389,4 +389,21 @@
   </div>
 </main>
 <!-- 메인 -->
+<script>
+  function changeUserPic(e1) {
+    let f = e1.srcElement.files[0];
+    console.log(f.type);
+    if (!f.type.match("image.*")) {
+      alert("이미지를 등록해주세요");
+      return;
+    }
+    let reader = new FileReader();
+    reader.onload = function (e2) { // 파일이 다 읽어지면 콜백됨
+      let previewEl = document.querySelector("#preview");
+      previewEl.setAttribute("src", e2.target.result);
+    }
+    reader.readAsDataURL(f); // 파일 읽기 onload()
+  }
+</script>
+
 {{>layout/footer}}
