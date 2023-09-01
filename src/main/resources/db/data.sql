@@ -1,11 +1,10 @@
--- 여기는 유저가 채용공고를 스크랩한 상태 --
 insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('ssar@nate.com', 'ssar', '1234', 'basic.jpg', now(), 1);
 insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('cos@nate.com', 'cos', '1234', 'basic.jpg', now(), 1);
 insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('love@nate.com', 'love', '1234', 'basic.jpg', now(), 1);
 -- 여기는 회사가 유저의 이력서를 스크랩한 상태 --
 insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('toss@nate.com','toss', '1234', now(), '세계1위 토스입니다', 'basic.jpg', now(), 2);
-insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('naver@nate.com', 'naver', '1234',now(), '세계1위 네이버입니다', 'basic.jpg', now(), 2);
-insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('kakao@nate.com', 'kakao', '1234',now(), '세계1위 카카오입니다', 'basic.jpg', now(), 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('naver@nate.com', 'naver', '1234', now(), '세계1위 네이버입니다', 'basic.jpg', now(), 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('kakao@nate.com', 'kakao', '1234', now(), '세계1위 카카오입니다', 'basic.jpg', now(), 2);
 
 insert into comp_scrap_tb (created_at) values(now());
 insert into comp_scrap_tb (created_at) values(now());

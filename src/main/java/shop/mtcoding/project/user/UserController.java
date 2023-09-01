@@ -25,13 +25,10 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/")
-    public String home() {
-        return "user_index";
-    }
+    //////// 구직자///////
 
-    @GetMapping("/mypageForm")
-    public String mypage() {
+    @GetMapping("/userMyPageForm")
+    public String userMyPage() {
         return "user/user_mypage";
     }
 
@@ -43,9 +40,6 @@ public class UserController {
     @PostMapping("/user/update")
     public String userUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
-        System.out.println("테스트1" + sessionUser.getUserPassword());
-        System.out.println("테스트2" + userUpdateDTO.getNowPassword());
 
         if (sessionUser.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
         } else {
@@ -69,15 +63,6 @@ public class UserController {
         return "user/user_mypage";
     }
 
-    @PostMapping("/comp/update")
-    public String compUpdate(Integer id, UserRequest.CompUpdateDTO compUpdateDTO, Model model) {
-        User user = userService.회사정보수정(compUpdateDTO, 4);
-        model.addAttribute("user", user);
-        return "comp/comp_info";
-    }
-
-    /////////////////////////////////////////////////////////////////////////////
-
     @GetMapping("/user/loginForm")
     public String userLoginForm() {
         return "user/user_login";
@@ -93,8 +78,58 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String home1() {
+    public String home(Model model) {
         return "user_index";
+    }
+
+    ///// 기업/////
+    @GetMapping("/comp")
+    public String compMain() {
+        return "comp_index";
+    }
+
+    @GetMapping("/comp/loginForm")
+    public String compLoginForm() {
+        return "comp/comp_login";
+    }
+
+    @GetMapping("/compMyPageForm")
+    public String compMyPage() {
+        return "comp/comp_info";
+    }
+
+    @PostMapping("/comp/login")
+    public @ResponseBody String compLogin(UserRequest.UserLoginDTO userLoginDTO) {
+        User sessionUser = userService.유저로그인(userLoginDTO);
+        session.setAttribute("sessionUser", sessionUser);
+        return Script.href("/comp", "로그인 완료");
+    }
+
+    @PostMapping("/compinfo/update")
+    public String compInfoUpdate(UserRequest.CompInfoUpdateDTO compInfoUpdateDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        User user = userService.회사정보수정(compInfoUpdateDTO, sessionUser.getId());
+        session.setAttribute("sessionUser", user);
+        return "comp/comp_info";
+    }
+
+    @PostMapping("/comppw/update")
+    public String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        if (sessionUser.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
+        } else {
+            return Script.back("현재 비밀번호가 일치하지않습니다.");
+        }
+        if (userUpdateDTO.getNewPassword().equals(userUpdateDTO.getNewPasswordConfirm())) {
+        } else {
+            return Script.back("새로운 비밀번호가 일치하지않습니다.");
+
+        }
+        User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
+        session.setAttribute("sessionUser", user);
+        return "redirect:/";
     }
 
 }

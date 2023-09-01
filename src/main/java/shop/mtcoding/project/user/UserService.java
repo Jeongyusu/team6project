@@ -4,7 +4,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.vo.MyPath;
-import shop.mtcoding.project.user.UserRequest.CompUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
 import shop.mtcoding.project.user.UserRequest.UserPicUpdateDTO;
 import shop.mtcoding.project.user.UserRequest.UserUpdateDTO;
 
@@ -45,7 +44,7 @@ public class UserService {
         }
         User user = userRepository.findById(id).get();
 
-        user.setUserPicUrl(fileName);
+        user.setCompPicUrl(fileName);
 
         userRepository.save(user);
 
@@ -53,12 +52,12 @@ public class UserService {
     }
 
     @Transactional
-    public User 회사정보수정(CompUpdateDTO compUpdateDTO, Integer id) {
+    public User 회사정보수정(CompInfoUpdateDTO compInfoUpdateDTO, Integer id) {
         UUID uuid = UUID.randomUUID();
-        String fileName = uuid + "_" + compUpdateDTO.getCompPic().getOriginalFilename();
+        String fileName = uuid + "_" + compInfoUpdateDTO.getCompPic().getOriginalFilename();
         Path filePath = Paths.get(MyPath.IMG_PATH + fileName);
         try {
-            Files.write(filePath, compUpdateDTO.getCompPic().getBytes());
+            Files.write(filePath, compInfoUpdateDTO.getCompPic().getBytes());
         } catch (Exception e) {
             throw new MyException(e.getMessage());
         }
@@ -67,9 +66,9 @@ public class UserService {
 
         user.setCompPicUrl(fileName);
 
-        Date compHistoryDate = new Date(compUpdateDTO.getCompDate().getTime());
+        Date compHistoryDate = new Date(compInfoUpdateDTO.getCompDate().getTime());
         user.setCompHistory(compHistoryDate);
-        user.setCompIntro(compUpdateDTO.getCompExplan());
+        user.setCompIntro(compInfoUpdateDTO.getCompExplan());
 
         userRepository.save(user);
 
@@ -77,10 +76,10 @@ public class UserService {
 
     }
 
-    //////////////////////////////////////////////////////
+    //////////////////////////////////////////////////
     public User 유저로그인(UserRequest.UserLoginDTO userloginDTO) {
-
         User user;
+
         if (userloginDTO.getCompEmailId() == null) {
             user = userRepository.findByUserEmailId(userloginDTO.getUserEmailId());
         } else {
@@ -96,7 +95,6 @@ public class UserService {
         }
 
         return user;
-
     }
 
 }
