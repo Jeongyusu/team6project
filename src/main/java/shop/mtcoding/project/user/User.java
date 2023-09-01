@@ -33,7 +33,7 @@ public class User {
     private String compEmailId;
 
     @Column(length = 20)
-    private String userName;
+    private String userName; // 통합 Name
 
     @Column(length = 80)
     private String userPassword;
@@ -41,9 +41,6 @@ public class User {
     private String userPicUrl;
 
     private String compPicUrl;
-
-    @Column(length = 30)
-    private String compName;
 
     @Column(length = 100)
     private String compHistory;
@@ -54,10 +51,13 @@ public class User {
     @CreationTimestamp
     private Timestamp createdAt;
 
+    private Integer gubun;
+    // 1 -> user / 2 -> comp
+
     @Builder
     public User(Integer id, String userEmailId, String compEmailId, String userName, String userPassword,
-            String userPicUrl, String compPicUrl, String compName, String compHistory, String compIntro,
-            Timestamp createdAt) {
+            String userPicUrl, String compPicUrl, String compHistory, String compIntro, Timestamp createdAt,
+            Integer gubun) {
         this.id = id;
         this.userEmailId = userEmailId;
         this.compEmailId = compEmailId;
@@ -65,12 +65,10 @@ public class User {
         this.userPassword = userPassword;
         this.userPicUrl = userPicUrl;
         this.compPicUrl = compPicUrl;
-        this.compName = compName;
         this.compHistory = compHistory;
         this.compIntro = compIntro;
         this.createdAt = createdAt;
+        this.gubun = gubun;
     }
-
-    
 
 }
