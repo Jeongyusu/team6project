@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,7 +27,7 @@ public class UserController {
     private HttpSession session;
 
     @GetMapping("/user")
-    public String home() {
+    public String home(Model model) {
         return "user_index";
     }
 
@@ -97,9 +98,16 @@ public class UserController {
 
     }
 
-    // @GetMapping("/mypage")
-    // public String mypage() {
-    // return "user/user_mypage";
-    // }
+    @GetMapping("/user/logout")
+    public String userLogout() {
+        session.invalidate();
+        return "redirect:/user";
+    }
+
+    @GetMapping("/comp/logout")
+    public String compLogout() {
+        session.invalidate();
+        return "redirect:/user";
+    }
 
 }

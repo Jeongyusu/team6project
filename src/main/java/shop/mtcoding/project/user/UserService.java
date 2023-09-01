@@ -16,8 +16,8 @@ public class UserService {
     @Transactional
     public void 유저회원가입(UserRequest.UserJoinDTO userjoinDTO) {
 
-        User user;
-        if (userjoinDTO.getCompEmailId() == null) {
+        User user = null;
+        if (userjoinDTO.getGubun() == 1) {
             if (userjoinDTO.getUserEmailId() == null || userjoinDTO.getUserEmailId().isEmpty()) {
                 throw new MyException("아이디에 값이 없거나 공백문자가 있습니다.");
             }
@@ -29,8 +29,9 @@ public class UserService {
                 throw new MyException("이름에 값이 없거나 공백문자가 있습니다.");
             }
             user = User.builder().userEmailId(userjoinDTO.getUserEmailId()).userName(userjoinDTO.getUserName())
-                    .userPassword(userjoinDTO.getUserPassword()).build();
-        } else {
+                    .userPassword(userjoinDTO.getUserPassword()).gubun(userjoinDTO.getGubun()).build();
+        }
+        if (userjoinDTO.getGubun() == 2) {
             if (userjoinDTO.getCompEmailId() == null || userjoinDTO.getCompEmailId().isEmpty()) {
                 throw new MyException("아이디에 값이 없거나 공백문자가 있습니다.");
             }
@@ -42,7 +43,7 @@ public class UserService {
                 throw new MyException("회사 이름에 값이 없거나 공백문자가 있습니다.");
             }
             user = User.builder().compEmailId(userjoinDTO.getCompEmailId()).userName(userjoinDTO.getUserName())
-                    .userPassword(userjoinDTO.getUserPassword()).build();
+                    .userPassword(userjoinDTO.getUserPassword()).gubun(userjoinDTO.getGubun()).build();
         }
 
         userRepository.save(user);
