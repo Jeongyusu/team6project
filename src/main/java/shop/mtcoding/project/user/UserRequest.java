@@ -8,28 +8,23 @@ public class UserRequest {
     @Getter
     @Setter
     public static class UserJoinDTO {
-        
+
         private String userEmailId;
         private String userName;
-        private String password;
-        
-    }
-
-    @Getter
-    @Setter
-    public static class LoginDTO {
-
-        private Integer userEmailId;
-
-    }
-
-    @Getter
-    @Setter
-    public static class CompJoinDTO {
-
+        private String userPassword;
         private String compEmailId;
         private String compName;
-        private String password;
+
+    }
+
+    @Getter
+    @Setter
+    public static class UserLoginDTO {
+
+        private String userEmailId;
+        private String userPassword;
+        private String compEmailId;
+
     }
 
 }

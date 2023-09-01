@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private HttpSession session;
 
-    @GetMapping("/")
+    @GetMapping("/user")
     public String home() {
         return "user_index";
     }
@@ -32,16 +32,9 @@ public class UserController {
         return "user_index";
     }
 
-    @GetMapping("/joinForm")
+    @GetMapping("/user/joinForm")
     public String userJoinForm() {
         return "user/user_join";
-    }
-
-    @PostMapping("/join")
-    public @ResponseBody String userJoin(UserRequest.UserJoinDTO userJoinDTO) {
-        userService.유저회원가입(userJoinDTO);
-        return Script.href("/", "회원가입 완료"); // Persistence Context초기화
-
     }
 
     @GetMapping("/comp/joinForm")
@@ -49,25 +42,49 @@ public class UserController {
         return "comp/comp_join";
     }
 
-    @PostMapping("/comp/join")
-    public @ResponseBody String compJoin(UserRequest.CompJoinDTO compJoinDTO) {
-        userService.기업회원가입(compJoinDTO);
-        return Script.href("/", "회원가입 완료");// Persistence Context초기화
+    @PostMapping("/user/join")
+    public @ResponseBody String userJoin(UserRequest.UserJoinDTO userJoinDTO) {
+        userService.유저회원가입(userJoinDTO);
+        return Script.href("/user", "회원가입 완료");
 
     }
 
-    // @PostMapping("/login")
-    // public @ResponseBody String login(UserRequest.LoginDTO loginDTO) {
+    @PostMapping("/comp/join")
+    public @ResponseBody String compJoin(UserRequest.UserJoinDTO userJoinDTO) {
+        userService.유저회원가입(userJoinDTO);
+        return Script.href("/comp", "회원가입 완료");
+    }
 
-    // User sessionUser = userService.로그인(loginDTO);
-    // session.setAttribute("sessionUser", sessionUser);
-    // return Script.href("/");
-    // }
+    @GetMapping("/user/loginForm")
+    public String userLoginForm() {
+        return "user/user_login";
 
-    @GetMapping("/loginForm")
-    public String loginForm() {
-        return "user/loginForm";
+    }
 
+    @GetMapping("/comp/loginForm")
+    public String compLoginForm() {
+        return "comp/comp_login";
+    }
+
+    @PostMapping("/user/login")
+    public @ResponseBody String userLogin(UserRequest.UserLoginDTO userLoginDTO) {
+
+        User sessionUser = userService.유저로그인(userLoginDTO);
+        session.setAttribute("sessionUser", sessionUser);
+        return Script.href("/user", "로그인 완료");
+    }
+
+    @PostMapping("/comp/login")
+    public @ResponseBody String compLogin(UserRequest.UserLoginDTO userLoginDTO) {
+
+        User sessionUser = userService.유저로그인(userLoginDTO);
+        session.setAttribute("sessionUser", sessionUser);
+        return Script.href("/comp", "로그인 완료");
+    }
+
+    @GetMapping("/mypage")
+    public String mypage() {
+        return "user/user_mypage";
     }
 
 }
