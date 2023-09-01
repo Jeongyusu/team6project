@@ -18,9 +18,9 @@ public class CommunityController {
     public String compCommunity(@RequestParam(defaultValue = "0") Integer page, String keyword, Model model) {
         Page<Community> communityPG = null;
         if (keyword == null || keyword.trim().isEmpty()) {
-            communityPG = communityService.게시물목록보기(page);
+            communityPG = communityService.게시물목록(page);
         } else {
-            communityPG = communityService.검색후게시물목록보기(page, keyword);
+            communityPG = communityService.검색후게시물목록(page, keyword);
         }
         model.addAttribute("communityPG", communityPG);
         model.addAttribute("prev", communityPG.getNumber() - 1);
@@ -33,9 +33,9 @@ public class CommunityController {
     public String userCommunity(@RequestParam(defaultValue = "0") Integer page, String keyword, Model model) {
         Page<Community> communityPG = null;
         if (keyword == null || keyword.trim().isEmpty()) {
-            communityPG = communityService.게시물목록보기(page);
+            communityPG = communityService.게시물목록(page);
         } else {
-            communityPG = communityService.검색후게시물목록보기(page, keyword);
+            communityPG = communityService.검색후게시물목록(page, keyword);
         }
         model.addAttribute("communityPG", communityPG);
         model.addAttribute("prev", communityPG.getNumber() - 1);
