@@ -11,12 +11,12 @@
     </div>
     <div class="card">
       <div class="card-body">
-        <form action="#">
+        <form action="/user/community/board/save" method="post">
           <div class="mb-3">
-            <input type="text" class="form-control" placeholder="제목을 작성해주세요." name="title">
+            <input type="text" class="form-control" placeholder="제목을 작성해주세요." name="title" required maxlength="30">
           </div>
           <div class="mb-3">
-            <textarea class="form-control" rows="10" name=" content" id="content"></textarea>
+            <textarea class="form-control" rows="10" name="content" id="content" required maxlength="300"></textarea>
           </div>
           <button type="submit" class="btn btn-primary form-control">등록하기</button>
         </form>
