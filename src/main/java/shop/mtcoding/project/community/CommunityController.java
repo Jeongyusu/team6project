@@ -58,4 +58,36 @@ public class CommunityController {
         return "user/user_community_detail";
     }
 
+    // comp_ 커뮤니티 글 수정 화면
+    @GetMapping("comp/community/board/{id}/updateForm")
+    public String compBoardUpdateForm(@PathVariable Integer id, Model model) {
+        Community community = communityService.게시물내용(id);
+        model.addAttribute("community", community);
+        return "comp/comp_community_update";
+    }
+
+    // user_ 커뮤니티 글 수정 화면
+    @GetMapping("user/community/board/{id}/updateForm")
+    public String userBoardUpdateForm(@PathVariable Integer id, Model model) {
+        Community community = communityService.게시물내용(id);
+        model.addAttribute("community", community);
+        return "user/user_community_update";
+    }
+
+    // comp_ 커뮤니티 글 수정
+    @PostMapping("comp/community/board/{id}/update")
+    public String compBoardUpdate(@PathVariable Integer id, @SessionAttribute User sessionUser,
+            CommunityRequest.BoardUpdateDTO boardUpdateDTO) {
+        communityService.게시물수정(sessionUser.getId(), id, boardUpdateDTO);
+        return "redirect:/comp/community/board/" + id;
+    }
+
+    // user_ 커뮤니티 글 수정
+    @PostMapping("user/community/board/{id}/update")
+    public String userBoardUpdate(@PathVariable Integer id, @SessionAttribute User sessionUser,
+            CommunityRequest.BoardUpdateDTO boardUpdateDTO) {
+        communityService.게시물수정(sessionUser.getId(), id, boardUpdateDTO);
+        return "redirect:/user/community/board/" + id;
+    }
+
 }
