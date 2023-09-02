@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import shop.mtcoding.project.user.User;
 import shop.mtcoding.project.user.UserService;
-import shop.mtcoding.project.user.UserRequest.UserUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserUpdateDTO;
+
 
 public class UserUpdateTest {
     private UserService userService;
