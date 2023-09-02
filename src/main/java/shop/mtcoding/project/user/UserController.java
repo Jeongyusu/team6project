@@ -110,4 +110,23 @@ public class UserController {
         return "redirect:/comp";
     }
 
+    
+    @GetMapping("/user/resume/saveForm")
+    public String resumeSaveForm(){
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/user/login";
+        }
+        return "user/user_resume_write";
+    }
+
+    @PostMapping("/user/resume/save")
+    public String saveResume(UserRequest.UserSaveResumeDTO UserSaveResumeDTO) {
+        userService.이력서작성(UserSaveResumeDTO);
+        return "redirect:/";
+
+
+    }
+
+
 }

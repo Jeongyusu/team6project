@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project.resume.Resume;
+import shop.mtcoding.project.user.UserRequest.UserSaveResumeDTO;
 
 @Service
 public class UserService {
@@ -68,6 +70,36 @@ public class UserService {
 
         return user;
 
+    }
+
+    @Transactional
+    public void 이력서작성(UserRequest.UserSaveResumeDTO userSaveResumeDTO, int sessionUserId) {
+        Resume resume = Resume.builder()
+                .title(userSaveResumeDTO.getTitle())
+                .userName(userSaveResumeDTO.getUserName())
+                .userEmailId(userSaveResumeDTO.getUserEmailId())
+                .birth(userSaveResumeDTO.getBirth())
+                .tel(userSaveResumeDTO.getTel())
+                .address(userSaveResumeDTO.getAddress())
+                .subIntro(userSaveResumeDTO.getSubIntro())
+                .career(userSaveResumeDTO.getCareer())
+                .careerYear(userSaveResumeDTO.getCareerYear())
+                .edu(userSaveResumeDTO.getEdu())
+                .resumePic(userSaveResumeDTO.getResumePic())
+                .openCheck(userSaveResumeDTO.getOpenCheck())
+                .mainIntro(userSaveResumeDTO.getMainIntro())
+                .createdAt(userSaveResumeDTO.getCreatedAt())
+                .user(User.builder().id(sessionUserId).build())
+                .positionList(userSaveResumeDTO.getPositionList())
+                .skillist(userSaveResumeDTO.getSkillList())
+                .build();
+
+        
+
+
+
+
+                
     }
 
 }

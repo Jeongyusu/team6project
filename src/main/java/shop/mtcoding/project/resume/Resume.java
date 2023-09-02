@@ -1,6 +1,9 @@
 package shop.mtcoding.project.resume;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -30,19 +35,26 @@ public class Resume {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = true, length = 100)
+    @Column(length = 20)
+    private String userName;
+
+    @Column(length = 40)
+    private String userEmailId;
+
+    @Column(length = 100)
     private String title;
 
-    @Column(nullable = true, length = 10)
-    private String age;
+    @Column(length = 10)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birth;
 
-    @Column(nullable = true, length = 20)
+    @Column(length = 20)
     private String tel;
 
-    @Column(nullable = true, length = 100)
+    @Column(length = 100)
     private String address;
 
-    @Column(nullable = true, length = 200)
+    @Column(length = 200)
     private String subIntro;
 
     private String career;
@@ -51,31 +63,49 @@ public class Resume {
 
     private String edu;
 
+    private MultipartFile resumePic;
+
+    private String openCheck;
+
     @Column(length = 1000)
     private String mainIntro;
 
     @CreationTimestamp
     private Timestamp createdAt;
 
+    private List<String> positionList = new ArrayList<>();
+    private List<String> skillist = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Builder
-    public Resume(Integer id, String title, String age, String tel, String address, String subIntro, String career,
-            String careerYear, String edu, String mainIntro, Timestamp createdAt, User user) {
+    public Resume(Integer id, String userName, String userEmailId, String title, LocalDate birth, String tel,
+            String address, String subIntro, String career, String careerYear, String edu, MultipartFile resumePic,
+            String openCheck, String mainIntro, Timestamp createdAt, List<String> positionList, List<String> skillist,
+            User user) {
         this.id = id;
+        this.userName = userName;
+        this.userEmailId = userEmailId;
         this.title = title;
-        this.age = age;
+        this.birth = birth;
         this.tel = tel;
         this.address = address;
         this.subIntro = subIntro;
         this.career = career;
         this.careerYear = careerYear;
         this.edu = edu;
+        this.resumePic = resumePic;
+        this.openCheck = openCheck;
         this.mainIntro = mainIntro;
         this.createdAt = createdAt;
+        this.positionList = positionList;
+        this.skillist = skillist;
         this.user = user;
     }
-
+ 
+    
+    
+    
     
 }
