@@ -12,4 +12,13 @@ public class CommunityRequest {
         private String content;
 
     }
+
+    @Getter
+    @Setter
+    public static class BoardUpdateDTO {
+
+        private String title;
+        private String content;
+
+    }
 }

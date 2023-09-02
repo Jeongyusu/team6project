@@ -11,12 +11,12 @@
     </div>
     <div class="card">
       <div class="card-body">
-        <form action="#">
+        <form action="/user/community/board/{{community.id}}/update" method="post">
           <div class="mb-3">
-            <input type="text" class="form-control" placeholder="java에 대해서 궁금합니다" name="title">
+            <input type="text" class="form-control" name="title" value="{{community.title}}" required maxlength="30">
           </div>
           <div class="mb-3">
-            <textarea class="form-control" rows="10" name=" content" id="content">이게 궁금합니다.</textarea>
+            <textarea class="form-control" rows="10" name="content" id="content" required maxlength="300">{{community.content}}</textarea>
           </div>
           <button type="submit" class="btn btn-primary form-control">수정하기</button>
         </form>
