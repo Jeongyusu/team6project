@@ -11,7 +11,7 @@
       <div class="main_tit">
         <h2>이력서 등록</h2>
       </div>
-      <form action="#">
+      <form action="/user/picUpdate" method="post" enctype="multipart/form-data">
         <div class="save_title mb-5">
           <input type="text" placeholder="제목을 입력해주세요" name="comp_job_opening_title" value="">
         </div>
@@ -20,7 +20,10 @@
           <div class="main_back container">
             <div class="resume_user_info">
               <div class="resume_user_pic">
-                <img src="/image/user_img/blue_basic_profile.png" alt="basic_profile_png">
+                <button type="submit" class="main_pic">
+                  <img id="preview" src="" alt="기본 이미지">
+                  <input type="file" onchange="changeUserPic(event)" name="userPic">
+                </button>
               </div>
               <div class="resume_user_infomation">
                 <div class="resume_user_display">
@@ -178,19 +181,27 @@
             </div>
           </div>
         </div>
+      </form>
     </div>
-    </form>
-  </div>
 
   </div>
 </main>
 <!-- 메인 -->
-
-
-
-
-
-
-<!--메인-->
+<script>
+  function changeUserPic(e1) {
+    let f = e1.srcElement.files[0];
+    console.log(f.type);
+    if (!f.type.match("image.*")) {
+      alert("이미지를 등록해주세요");
+      return;
+    }
+    let reader = new FileReader();
+    reader.onload = function (e2) { // 파일이 다 읽어지면 콜백됨
+      let previewEl = document.querySelector("#preview");
+      previewEl.setAttribute("src", e2.target.result);
+    }
+    reader.readAsDataURL(f); // 파일 읽기 onload()
+  }
+</script>
 
 {{>layout/footer}}
