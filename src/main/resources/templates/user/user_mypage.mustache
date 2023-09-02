@@ -16,7 +16,7 @@
             <li>
               <div class="main_pic">
                 <img id="preview" src="" alt="기본 이미지">
-                <input type="file" onchange="changeUserPic(event)" name="userPic">
+                <input type="hidden" onchange="changeUserPic(event)" name="userPic">
               </div>
 
             </li>
@@ -39,7 +39,9 @@
         <div class="mypage_right tab-content">
           <div class="mypage_list">
             <div class="resume_count">이력서
-              <span class="common_num">2</span>
+
+              <span class="common_num"></span>
+
             </div>
             <ul class="com_cont">
               <li class="resume_item resume_box">

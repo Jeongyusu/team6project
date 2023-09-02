@@ -34,14 +34,15 @@ public class User {
     private String userPicUrl;
     private String compPicUrl;
     @Column(length = 100)
+
     private Date compHistory;
+
     @Column(length = 100)
     private String compIntro;
     @CreationTimestamp
     private Timestamp createdAt;
     private Integer gubun;
     // 1 -> user / 2 -> comp
-
     @Builder
     public User(Integer id, String userEmailId, String compEmailId, String userName, String userPassword,
             String userPicUrl, String compPicUrl, Date compHistory, String compIntro, Timestamp createdAt,

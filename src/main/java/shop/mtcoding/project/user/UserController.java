@@ -1,5 +1,7 @@
 package shop.mtcoding.project.user;
 
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,14 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import shop.mtcoding.project._core.error.ex.MyApiException;
+import shop.mtcoding.project._core.util.ApiUtil;
+import org.springframework.web.bind.annotation.PathVariable;
 import shop.mtcoding.project._core.util.Script;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -22,11 +28,40 @@ public class UserController {
     @Autowired
     private HttpSession session;
 
-    @Autowired
-    private UserRepository userRepository;
+    @GetMapping("/user")
+    public String home(Model model) {
+        return "user_index";
+    }
+
+    @GetMapping("/comp")
+    public String compHome() {
+        return "comp_index";
+    }
+
+    @GetMapping("/user/joinForm")
+    public String userJoinForm() {
+        return "user/user_join";
+    }
+
+    @GetMapping("/comp/joinForm")
+    public String compJoinForm() {
+        return "comp/comp_join";
+    }
+
+    @PostMapping("/user/join")
+    public @ResponseBody String userJoin(UserRequest.UserJoinDTO userJoinDTO) {
+        userService.유저회원가입(userJoinDTO);
+        return Script.href("/user", "회원가입 완료");
+
+    }
+
+    @PostMapping("/comp/join")
+    public @ResponseBody String compJoin(UserRequest.UserJoinDTO userJoinDTO) {
+        userService.유저회원가입(userJoinDTO);
+        return Script.href("/comp", "회원가입 완료");
 
     //////// 구직자///////
-
+  
     @GetMapping("/userMyPageForm")
     public String userMyPage() {
         return "user/user_mypage";
@@ -69,6 +104,11 @@ public class UserController {
 
     }
 
+    @GetMapping("/comp/loginForm")
+    public String compLoginForm() {
+        return "comp/comp_login";
+    }
+
     @PostMapping("/user/login")
     public @ResponseBody String userLogin(UserRequest.UserLoginDTO userLoginDTO) {
 
@@ -77,21 +117,6 @@ public class UserController {
         return Script.href("/user", "로그인 완료");
     }
 
-    @GetMapping("/user")
-    public String home(Model model) {
-        return "user_index";
-    }
-
-    ///// 기업/////
-    @GetMapping("/comp")
-    public String compMain() {
-        return "comp_index";
-    }
-
-    @GetMapping("/comp/loginForm")
-    public String compLoginForm() {
-        return "comp/comp_login";
-    }
 
     @GetMapping("/compMyPageForm")
     public String compMyPage() {
@@ -104,6 +129,30 @@ public class UserController {
         session.setAttribute("sessionUser", sessionUser);
         return Script.href("/comp", "로그인 완료");
     }
+
+
+    @GetMapping("/api/check")
+    public @ResponseBody ApiUtil<String> check(String userEmailId) {
+        User user = userRepository.findByUserEmailId(userEmailId);
+        if (user != null) {
+            // return new ApiUtil<String>(false, "유저네임을 사용할 수 없습니다.");
+            throw new MyApiException("EmailID를 사용할 수 없습니다");
+        }
+      
+        return new ApiUtil<String>(true, "EmailID를 사용할 수 있습니다.");
+
+    }
+
+    @GetMapping("/user/logout")
+    public String userLogout() {
+        session.invalidate();
+        return "redirect:/user";
+    }
+
+    @GetMapping("/comp/logout")
+    public String compLogout() {
+        session.invalidate();
+        return "redirect:/comp";
 
     @PostMapping("/compinfo/update")
     public String compInfoUpdate(UserRequest.CompInfoUpdateDTO compInfoUpdateDTO) {
@@ -130,6 +179,7 @@ public class UserController {
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
         return "redirect:/";
+
     }
 
 }

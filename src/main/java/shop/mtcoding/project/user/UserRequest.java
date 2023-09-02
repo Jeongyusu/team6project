@@ -1,10 +1,9 @@
 package shop.mtcoding.project.user;
 
+
 import java.sql.Date;
 import java.sql.Timestamp;
-
 import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +11,16 @@ public class UserRequest {
 
     @Getter
     @Setter
+
+    public static class UserJoinDTO {
+
+        private String userEmailId;
+        private String userName;
+        private String userPassword;
+        private String compEmailId;
+        private Integer gubun;
+
+
     public static class UserUpdateDTO {
         private String nowPassword;
         private String newPassword;
@@ -22,6 +31,7 @@ public class UserRequest {
     @Setter
     public static class UserPicUpdateDTO {
         private MultipartFile userPic;
+
     }
 
     @Getter
@@ -34,7 +44,6 @@ public class UserRequest {
 
     }
 
-    ///////////////////////////////////////////////////////////
 
     @Getter
     @Setter
@@ -43,4 +52,5 @@ public class UserRequest {
         private Date compDate;
         private String compExplan;
     }
+
 }
