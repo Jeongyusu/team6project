@@ -1,5 +1,7 @@
 package shop.mtcoding.project.community;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +34,14 @@ public class CommunityService {
                 .build();
         communityRepository.save(community);
     }
+
+    public Community 상세게시물(Integer id) {
+        Optional<Community> communityOP = communityRepository.mfindByIdJoinReplyAndBoard(id);
+        if (communityOP.isPresent()) {
+            return communityOP.get();
+        } else {
+            throw new MyException("해당 게시글을 찾을 수 없습니다.");
+        }
+    }
+
 }
