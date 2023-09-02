@@ -1,13 +1,10 @@
--- 여기는 유저가 채용공고를 스크랩한 상태 --
-insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at) values('ssar@nate.com', 'ssar', '1234', 'basic.jpg', now());
-insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at) values('cos@nate.com', 'cos', '1234', 'basic.jpg', now());
-insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at) values('love@nate.com', 'love', '1234', 'basic.jpg', now());
-
+insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('ssar@nate.com', 'ssar', '1234', 'basic.jpg', now(), 1);
+insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('cos@nate.com', 'cos', '1234', 'basic.jpg', now(), 1);
+insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('love@nate.com', 'love', '1234', 'basic.jpg', now(), 1);
 -- 여기는 회사가 유저의 이력서를 스크랩한 상태 --
-insert into user_tb (comp_email_id, comp_name, comp_history, comp_intro, comp_pic_url, created_at) values('toss@nate.com', 'toss', '2010년 토스창업', '세계1위 토스입니다', 'basic.jpg', now());
-insert into user_tb (comp_email_id, comp_name, comp_history, comp_intro, comp_pic_url, created_at) values('naver@nate.com', 'naver', '2000년 네이버창업', '세계1위 네이버입니다', 'basic.jpg', now());
-insert into user_tb (comp_email_id, comp_name, comp_history, comp_intro, comp_pic_url, created_at ) values('kakao@nate.com', 'kakao', '2005년 카카오창업', '세계1위 카카오입니다', 'basic.jpg', now());
--- 
+insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('toss@nate.com','toss', '1234', now(), '세계1위 토스입니다', 'basic.jpg', now(), 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('naver@nate.com', 'naver', '1234', now(), '세계1위 네이버입니다', 'basic.jpg', now(), 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('kakao@nate.com', 'kakao', '1234', now(), '세계1위 카카오입니다', 'basic.jpg', now(), 2);
 
 insert into comp_scrap_tb (created_at) values(now());
 insert into comp_scrap_tb (created_at) values(now());
@@ -66,8 +63,6 @@ insert into reply_tb (comment, created_at, user_id, community_id) values('댓글
 insert into reply_tb (comment, created_at, user_id, community_id) values('댓글2-1', now(), '2', '2');
 insert into reply_tb (comment, created_at, user_id, community_id) values('댓글3-1', now(), '3', '3');
 
-
-
 insert into task_tb (task_content, job_opening_id) values('재생에너지 SaaS 백엔드 개발', '1');
 insert into task_tb (task_content, job_opening_id) values('API 개발(재생에너지모니터링 웹 대시보드)', '2');
 insert into task_tb (task_content, job_opening_id) values('서비스 아키텍쳐 설계 및 AWS 인프라 관리 및 운영', '3');
@@ -75,5 +70,3 @@ insert into task_tb (task_content, job_opening_id) values('서비스 아키텍�
 insert into qualified_tb (qualified_content, job_opening_id) values('백엔드 개발 실무 경력3년이상', '1');
 insert into qualified_tb (qualified_content, job_opening_id) values('Python 기반 개발 경험', '2');
 insert into qualified_tb (qualified_content, job_opening_id) values('CI CD 툴을 활용한 빌드,테스트,배포 자동화 경험', '3');
-
-
