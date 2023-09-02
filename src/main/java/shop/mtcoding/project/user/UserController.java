@@ -33,7 +33,7 @@ public class UserController {
 
     @GetMapping("/comp")
     public String compHome() {
-        return "user_index";
+        return "comp_index";
     }
 
     @GetMapping("/user/joinForm")
@@ -107,7 +107,7 @@ public class UserController {
     @GetMapping("/comp/logout")
     public String compLogout() {
         session.invalidate();
-        return "redirect:/user";
+        return "redirect:/comp";
     }
 
 }
