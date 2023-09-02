@@ -1,24 +1,23 @@
 package shop.mtcoding.project.user;
 
 
-import javax.transaction.Transactional;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.vo.MyPath;
-import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserPicUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserUpdateDTO;
-
-import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.CompInfoUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserLoginDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserPicUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserUpdateDTO;
 
 @Service
 public class UserService {
@@ -62,8 +61,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User 유저로그인(UserRequest.UserLoginDTO userloginDTO) {
-           User user;
+    public User 유저로그인(UserLoginDTO userloginDTO) {
+
+        User user;
         if (userloginDTO.getCompEmailId() == null) {
             user = userRepository.findByUserEmailId(userloginDTO.getUserEmailId());
         } else {
@@ -81,7 +81,6 @@ public class UserService {
         return user;
 
     }
-  
 
     @Transactional
     public User 회원정보수정(UserUpdateDTO userUpdateDTO, Integer id) {
@@ -138,6 +137,9 @@ public class UserService {
     }
 
 
-    }
+
+
+
 
 }
+

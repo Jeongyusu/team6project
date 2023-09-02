@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import shop.mtcoding.project._core.error.ex.MyApiException;
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.CompInfoUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserLoginDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserPicUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserUpdateDTO;
 
 @Controller
 public class UserController {
@@ -47,14 +52,14 @@ public class UserController {
     }
 
     @PostMapping("/user/join")
-    public @ResponseBody String userJoin(UserRequest.UserJoinDTO userJoinDTO) {
+    public @ResponseBody String userJoin(UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
         return Script.href("/user", "회원가입 완료");
 
     }
 
     @PostMapping("/comp/join")
-    public @ResponseBody String compJoin(UserRequest.UserJoinDTO userJoinDTO) {
+    public @ResponseBody String compJoin(UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
         return Script.href("/comp", "회원가입 완료");
     }
@@ -71,7 +76,7 @@ public class UserController {
     }
 
     @PostMapping("/user/update")
-    public String userUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
+    public String userUpdate(UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         if (sessionUser.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
@@ -89,7 +94,7 @@ public class UserController {
     }
 
     @PostMapping("/user/picUpdate")
-    public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO) {
+    public String userPicUpdate(UserPicUpdateDTO userPicUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.유저사진수정(userPicUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
@@ -108,7 +113,7 @@ public class UserController {
     }
 
     @PostMapping("/user/login")
-    public @ResponseBody String userLogin(UserRequest.UserLoginDTO userLoginDTO) {
+    public @ResponseBody String userLogin(UserLoginDTO userLoginDTO) {
 
         User sessionUser = userService.유저로그인(userLoginDTO);
         session.setAttribute("sessionUser", sessionUser);
@@ -122,7 +127,7 @@ public class UserController {
     }
 
     @PostMapping("/comp/login")
-    public @ResponseBody String compLogin(UserRequest.UserLoginDTO userLoginDTO) {
+    public @ResponseBody String compLogin(UserLoginDTO userLoginDTO) {
         User sessionUser = userService.유저로그인(userLoginDTO);
         session.setAttribute("sessionUser", sessionUser);
         return Script.href("/comp", "로그인 완료");
@@ -151,9 +156,10 @@ public class UserController {
     public String compLogout() {
         session.invalidate();
         return "redirect:/comp";
+    }
 
     @PostMapping("/compinfo/update")
-    public String compInfoUpdate(UserRequest.CompInfoUpdateDTO compInfoUpdateDTO) {
+    public String compInfoUpdate(CompInfoUpdateDTO compInfoUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         User user = userService.회사정보수정(compInfoUpdateDTO, sessionUser.getId());
@@ -162,7 +168,7 @@ public class UserController {
     }
 
     @PostMapping("/comppw/update")
-    public String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
+    public String compPWUpdate(UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         if (sessionUser.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
