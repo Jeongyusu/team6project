@@ -4,11 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project.jobopening.JobOpeningRequest.JobOpeningUpdateDTO;
 import shop.mtcoding.project.position.Position;
 import shop.mtcoding.project.position.PositionRepository;
 import shop.mtcoding.project.position.RequiredPosition;
@@ -121,4 +124,35 @@ public class JobOpeningService {
         }
         // 주요업무 등록
     }
+
+    public Optional<JobOpening> 공고수정페이지(Integer id) {
+        Optional<JobOpening> jobOpening = jobOpeningRepository.findById(id);
+        return jobOpening;
+    }
+
+    @Transactional
+    public void 공고수정(JobOpeningUpdateDTO jobOpeningUpdateDTO, Integer id) {
+
+        Optional<JobOpening> jobOpeningOP = jobOpeningRepository.findById(4);
+
+        if (jobOpeningOP.isPresent()) {
+            JobOpening jobOpening = jobOpeningOP.get();
+
+            jobOpening.setTitle(jobOpeningUpdateDTO.getTitle());
+            jobOpening.setCareer(jobOpeningUpdateDTO.getCareer());
+            jobOpening.setCareerYear(jobOpeningUpdateDTO.getCareerYear());
+            jobOpening.setEdu(jobOpeningUpdateDTO.getEdu());
+            jobOpening.setCompAddress(jobOpeningUpdateDTO.getCompAddress());
+            jobOpening.setProcess(jobOpeningUpdateDTO.getProcess());
+            jobOpening.setUser(jobOpeningUpdateDTO.getUser());
+            // jobOpening.setPositionList(jobOpeningUpdateDTO.getPosition());
+            // jobOpening.setQualList(jobOpeningUpdateDTO.getQual());
+            // jobOpening.setSkillList(jobOpeningUpdateDTO.getSkill());
+            // jobOpening.setQualList(jobOpeningUpdateDTO.getQual());
+
+        } else {
+            throw new MyException(id + "를 찾을 수 없습니다");
+        }
+    }
+
 }

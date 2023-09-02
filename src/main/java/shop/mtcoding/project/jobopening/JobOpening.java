@@ -59,6 +59,11 @@ public class JobOpening {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    // private List<String> positionList = new ArrayList<>();
+    // private List<String> skillList = new ArrayList<>();
+    // private List<String> qualList = new ArrayList<>();
+    // private List<String> taskList = new ArrayList<>();
+
     @Builder
     public JobOpening(Integer id, String title, String process, String career, String careerYear, String edu,
             String compAddress, LocalDate deadLine, Timestamp createdAt, User user) {
