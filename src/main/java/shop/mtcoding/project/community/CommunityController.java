@@ -90,4 +90,18 @@ public class CommunityController {
         return "redirect:/user/community/board/" + id;
     }
 
+    // comp_ 커뮤니티 글 삭제
+    @PostMapping("comp/community/board/{id}/delete")
+    public String compBoardDelete(@PathVariable Integer id, @SessionAttribute User sessionUser) {
+        communityService.게시물삭제(sessionUser.getId(), id);
+        return "redirect:/comp/community";
+    }
+
+    // user_ 커뮤니티 글 삭제
+    @PostMapping("user/community/board/{id}/delete")
+    public String userBoardDelete(@PathVariable Integer id, @SessionAttribute User sessionUser) {
+        communityService.게시물삭제(sessionUser.getId(), id);
+        return "redirect:/user/community";
+    }
+
 }
