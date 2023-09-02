@@ -1,5 +1,15 @@
 package shop.mtcoding.project.community;
 
-public class CommunityRequest {
+import lombok.Getter;
+import lombok.Setter;
 
+public class CommunityRequest {
+    @Getter
+    @Setter
+    public static class BoardSaveDTO {
+
+        private String title;
+        private String content;
+
+    }
 }
