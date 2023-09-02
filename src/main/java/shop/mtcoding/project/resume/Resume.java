@@ -77,5 +77,4 @@ public class Resume {
         this.user = user;
     }
 
-    
 }

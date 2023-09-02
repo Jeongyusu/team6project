@@ -1187,14 +1187,13 @@ footer li:last-child {
   top: -15px;
 }
 
-.parent_btn1,
-.parent_btn2 {
+.parent_btn{
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.parent_btn1 > div,
-.parent_btn2 > div {
+.parent_btn > div{
   width: 20%;
   display: flex;
   align-items: center;

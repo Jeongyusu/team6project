@@ -1,5 +1,7 @@
 package shop.mtcoding.project.position;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,21 +28,16 @@ public class RequiredPosition {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private JobOpening jobopening;
+    private JobOpening jobOpening;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Position position;
 
     @Builder
-    public RequiredPosition(Integer id, JobOpening jobopening, Position position) {
+    public RequiredPosition(Integer id, JobOpening jobOpening, Position position) {
         this.id = id;
-        this.jobopening = jobopening;
+        this.jobOpening = jobOpening;
         this.position = position;
     }
 
-    
-
-
-    
-    
 }

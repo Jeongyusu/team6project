@@ -16,19 +16,20 @@
               </p>
             </div>
           </div>
-          <form action="#">
+          <form action="/comp/join" method="post" onsubmit="return valid()">
             <label for="email" class="form-label mt-2">이메일</label>
             <div style="display: flex;">
-              <input type="email" class="form-control" id="email" placeholder="이메일을 입력해 주세요." name="email">
-              <button type="button" class="btn email_btn ">메일인증</button>
+              <input type="email" class="form-control" id="email" placeholder="이메일을 입력해 주세요." name="compEmailId" onchange="compEmailIdChange()">
+              <button type="button" class="btn email_btn" onclick="checkValidAndWhiteSpace()">메일인증</button>
             </div>
             <div class="mt-4">
               <label for="name" class="form-label">이름</label>
-              <input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요." name="name">
+              <input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요." name="userName">
+              
             </div>
             <div class="mt-4">
               <label for="password" class="form-label">비밀번호</label>
-              <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해 주세요." name="password">
+              <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해 주세요." name="userPassword">
             </div>
             <div class="form-check">
               <label class="form-check-label mt-3 mb-3">
@@ -55,6 +56,7 @@
                 </label>
               </label>
             </div>
+            <input type="hidden" name="gubun" value="2">
             <button type="submit" class="btn btn-primary mt-2">회원가입</button>
 
           </form>
@@ -63,5 +65,54 @@
 
     </div>
   </main>
+  <script>
+    let compEmailIdSameCheck = false;
+    
+    function userEmailIdChange() {
+        compEmailIdSameCheck = false;
+      }
+    
+      function valid() {
+        if (compEmailIdSameCheck) {
+          return true;
+        } else {
+          alert("이메일ID 중복체크가 필요합니다");
+          return false;
+        }
+      }
+    
+      async function check() {
+      
+        let compEmailId = document.querySelector("#email").value;
+        let response = await fetch(`/api/check?userEmailId=${compEmailId}`);
+    
+        let responseBody = await response.json();
+        if (responseBody.success) {
+          alert(responseBody.data);
+          compEmailIdSameCheck = true;
+        } else {
+          alert(responseBody.data);
+          compEmailIdSameCheck = false;
+        }
+    
+      }
+    
+      function isWhitespace(str) {
+                return str.trim() === '';
+      }
+    
+      function checkValidAndWhiteSpace() {
+                
+                let userEmailId = document.querySelector("#email").value;
+                if (isWhitespace(userEmailId)) {
+                    alert('공백을 입력할 수 없습니다');
+                    compEmailIdSameCheck = false;
+                } else {
+                  check();
+                }
+      }
+    </script>
+
+  
   <!--메인-->
   {{>layout/footer}}
