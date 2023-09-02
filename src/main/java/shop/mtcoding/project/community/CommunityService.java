@@ -5,6 +5,10 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
@@ -15,6 +19,16 @@ public class CommunityService {
 
     @Autowired
     private CommunityRepository communityRepository;
+
+    public Page<Community> 게시물목록(Integer page) {
+        Pageable pageable = PageRequest.of(page, 3, Sort.Direction.DESC, "id");
+        return communityRepository.findAll(pageable);
+    }
+
+    public Page<Community> 검색후게시물목록(Integer page, String keyword) {
+        Pageable pageable = PageRequest.of(page, 3, Sort.Direction.DESC, "id");
+        return communityRepository.mfindBySearchAll(pageable, keyword);
+    }
 
     @Transactional
     public void 게시물작성(Integer sessionId, CommunityRequest.BoardSaveDTO boardSaveDTO) {
