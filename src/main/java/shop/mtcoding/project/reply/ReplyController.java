@@ -27,4 +27,20 @@ public class ReplyController {
         return "redirect:/user/community/board/" + replySaveDTO.getBoardId();
     }
 
+    // comp_ 커뮤니티 댓글 삭제
+    // @SessionAttribute User sessionUser
+    @PostMapping("comp/community/reply/{id}/delete")
+    public String compReplyDelete(@PathVariable Integer id) {
+        replyService.댓글삭제(1, id);
+        return "redirect:/comp/community/board/" + id;
+    }
+
+    // user_ 커뮤니티 댓글 삭제
+    // @SessionAttribute User sessionUser
+    @PostMapping("user/community/reply/{id}/delete")
+    public String userReplyDelete(@PathVariable Integer id) {
+        replyService.댓글삭제(1, id);
+        return "redirect:/user/community/board/" + id;
+    }
+
 }
