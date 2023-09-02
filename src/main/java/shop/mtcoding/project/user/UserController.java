@@ -1,8 +1,6 @@
 package shop.mtcoding.project.user;
 
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import shop.mtcoding.project._core.error.ex.MyApiException;
 import shop.mtcoding.project._core.util.ApiUtil;
-import org.springframework.web.bind.annotation.PathVariable;
 import shop.mtcoding.project._core.util.Script;
 
 @Controller
@@ -59,7 +57,7 @@ public class UserController {
     public @ResponseBody String compJoin(UserRequest.UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
         return Script.href("/comp", "회원가입 완료");
-
+    }
     //////// 구직자///////
   
     @GetMapping("/userMyPageForm")
