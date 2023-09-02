@@ -81,4 +81,21 @@ public class CommunityService {
         }
     }
 
+    @Transactional
+    public void 게시물삭제(Integer sessionId, Integer id) {
+        Optional<Community> communityOP = communityRepository.findById(id);
+        if (communityOP.isPresent()) {
+            Community community = communityOP.get();
+
+            // 권한 인증
+            if (sessionId != community.getUser().getId()) {
+                throw new MyException("게시물 삭제의 권한이 없습니다.");
+            }
+
+            communityRepository.deleteById(id);
+        } else {
+            throw new MyException("해당 게시글을 찾을 수 없습니다.");
+        }
+    }
+
 }
