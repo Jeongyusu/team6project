@@ -17,7 +17,6 @@ import shop.mtcoding.project.user.UserRequest.UserJoinDTO;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.CompInfoUpdateDTO;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserLoginDTO;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserPicUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserSaveResumeDTO;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserUpdateDTO;
 
 @Controller
@@ -71,10 +70,6 @@ public class UserController {
         return "user/user_mypage";
     }
 
-    @GetMapping("/userResumeWriteForm")
-    public String UserResumeWrite() {
-        return "user/user_resume_write";
-    }
 
     @PostMapping("/user/update")
     public String userUpdate(UserUpdateDTO userUpdateDTO) {
@@ -157,24 +152,6 @@ public class UserController {
     public String compLogout() {
         session.invalidate();
         return "redirect:/comp";
-    }
-
-    
-    @GetMapping("/user/resume/saveForm")
-    public String resumeSaveForm(){
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null) {
-            return "redirect:/user/login";
-        }
-        return "user/user_resume_write";
-    }
-
-    @PostMapping("/user/resume/save")
-    public String saveResume(UserSaveResumeDTO UserSaveResumeDTO) {
-        userService.이력서작성(UserSaveResumeDTO, 1);
-        return "redirect:/";
-
-
     }
 
 

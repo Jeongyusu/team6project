@@ -53,32 +53,6 @@ public class UserRequest {
 
     }
 
-    @Getter
-    @Setter
-    public static class UserSaveResumeDTO {
-        private String title;
-        private String userName;
-        private String userEmailId;
-        
-        @DateTimeFormat(pattern = "yyyy-MM-dd")
-        private LocalDate birth;
-    
-        private String tel;
-        private String address;
-        private String subIntro;
-        private MultipartFile resumePic;
-        private List<String> positionList = new ArrayList<>();
-        private List<String> skillList = new ArrayList<>();
-        private String career;
-        private String careerYear;
-        private String edu;
-        private String mainIntro;
-        private String openCheck;
-        private Timestamp createdAt;
-
-
-    }
-
 
     @Getter
     @Setter

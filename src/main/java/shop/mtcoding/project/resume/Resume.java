@@ -3,6 +3,7 @@ package shop.mtcoding.project.resume;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,8 +12,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,6 +26,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.user.User;
 
 @NoArgsConstructor
@@ -63,27 +68,22 @@ public class Resume {
 
     private String edu;
 
-    private MultipartFile resumePic;
+    private String resumePicUrl;
 
     private String openCheck;
 
     @Column(length = 1000)
     private String mainIntro;
 
-    @CreationTimestamp
-    private Timestamp createdAt;
-
-    private List<String> positionList = new ArrayList<>();
-    private List<String> skillist = new ArrayList<>();
+    private String createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Builder
     public Resume(Integer id, String userName, String userEmailId, String title, LocalDate birth, String tel,
-            String address, String subIntro, String career, String careerYear, String edu, MultipartFile resumePic,
-            String openCheck, String mainIntro, Timestamp createdAt, List<String> positionList, List<String> skillist,
-            User user) {
+            String address, String subIntro, String career, String careerYear, String edu, String resumePicUrl,
+            String openCheck, String mainIntro, String createdAt, User user) {
         this.id = id;
         this.userName = userName;
         this.userEmailId = userEmailId;
@@ -95,14 +95,18 @@ public class Resume {
         this.career = career;
         this.careerYear = careerYear;
         this.edu = edu;
-        this.resumePic = resumePic;
+        this.resumePicUrl = resumePicUrl;
         this.openCheck = openCheck;
         this.mainIntro = mainIntro;
         this.createdAt = createdAt;
-        this.positionList = positionList;
-        this.skillist = skillist;
         this.user = user;
     }
+
+    
+
+    
+
+    
  
     
     
