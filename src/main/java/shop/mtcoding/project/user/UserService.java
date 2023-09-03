@@ -1,13 +1,25 @@
 package shop.mtcoding.project.user;
 
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Date;
+import java.util.UUID;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project._core.vo.MyPath;
 import shop.mtcoding.project.resume.Resume;
-import shop.mtcoding.project.user.UserRequest.UserSaveResumeDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.CompInfoUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserLoginDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserPicUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserSaveResumeDTO;
+import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserUpdateDTO;
 
 @Service
 public class UserService {
@@ -51,7 +63,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User 유저로그인(UserRequest.UserLoginDTO userloginDTO) {
+    public User 유저로그인(UserLoginDTO userloginDTO) {
 
         User user;
         if (userloginDTO.getCompEmailId() == null) {
@@ -73,7 +85,7 @@ public class UserService {
     }
 
     @Transactional
-    public void 이력서작성(UserRequest.UserSaveResumeDTO userSaveResumeDTO, int sessionUserId) {
+    public void 이력서작성(UserSaveResumeDTO userSaveResumeDTO, int sessionUserId) {
         Resume resume = Resume.builder()
                 .title(userSaveResumeDTO.getTitle())
                 .userName(userSaveResumeDTO.getUserName())
@@ -95,11 +107,63 @@ public class UserService {
                 .build();
 
         
-
-
-
-
                 
     }
 
+    public User 회원정보수정(UserUpdateDTO userUpdateDTO, Integer id) {
+        // 1.조회
+        User user = userRepository.findById(id).get();
+        // 2.변경
+        user.setUserPassword(userUpdateDTO.getNewPassword());
+        userRepository.save(user);
+        return user;
+    }
+
+    @Transactional
+    public User 유저사진수정(UserPicUpdateDTO userPicUpdateDTO, Integer id) {
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + userPicUpdateDTO.getUserPic().getOriginalFilename();
+        Path filePath = Paths.get(MyPath.IMG_PATH + fileName);
+        try {
+            Files.write(filePath, userPicUpdateDTO.getUserPic().getBytes());
+        } catch (Exception e) {
+            throw new MyException(e.getMessage());
+        }
+        User user = userRepository.findById(id).get();
+
+        user.setCompPicUrl(fileName);
+
+        userRepository.save(user);
+
+        return user;
+    }
+
+    @Transactional
+    public User 회사정보수정(CompInfoUpdateDTO compInfoUpdateDTO, Integer id) {
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + compInfoUpdateDTO.getCompPic().getOriginalFilename();
+        Path filePath = Paths.get(MyPath.IMG_PATH + fileName);
+        try {
+            Files.write(filePath, compInfoUpdateDTO.getCompPic().getBytes());
+        } catch (Exception e) {
+            throw new MyException(e.getMessage());
+        }
+
+        User user = userRepository.findById(id).get();
+
+        user.setCompPicUrl(fileName);
+
+        Date compHistoryDate = new Date(compInfoUpdateDTO.getCompDate().getTime());
+        user.setCompHistory(compHistoryDate);
+        user.setCompIntro(compInfoUpdateDTO.getCompExplan());
+
+        userRepository.save(user);
+
+        return user;
+
+    }
+
+
+
 }
+
