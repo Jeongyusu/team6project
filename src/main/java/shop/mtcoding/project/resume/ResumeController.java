@@ -72,8 +72,8 @@ public class ResumeController {
     }
 
     @PostMapping("/api/getSkillList")
-    public @ResponseBody List<HasSkillResponseDTO> getSkillList(@RequestParam("resumeId") Integer resumeId) {
-        List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(resumeId);
+    public @ResponseBody List<HasSkillResponseDTO> getSkillList(Integer resumeId) {
+        List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(1);
         List<HasSkillResponseDTO> hasSkillResponseDTOList = new ArrayList<>();
         for (HasSkill skillList : hasSkillList) {
             HasSkillResponseDTO dtos = HasSkillResponseDTO.builder()

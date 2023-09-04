@@ -27,7 +27,6 @@ public class SkillRequest {
     @Setter
     @Builder
     public static class HasSkillResponseDTO {
-        private Integer id;
         String skill;
     }
 

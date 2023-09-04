@@ -61,4 +61,23 @@ window.onload = function () {
 
   // 썸머노트
 
+  function changeUserPic(e1) {
+    let f = e1.srcElement.files[0];
+    console.log(f.type);
+    if (!f.type.match("image.*")) {
+      alert("이미지를 등록해주세요");
+      return;
+    }
+    let reader = new FileReader();
+    reader.onload = function (e2) { // 파일이 다 읽어지면 콜백됨
+      let previewEl = document.querySelector("#preview");
+      previewEl.setAttribute("src", e2.target.result);
+    }
+    reader.readAsDataURL(f); // 파일 읽기 onload()
+  }
+
+  let currentTime = new Date();
+  document.querySelector("#time").value = currentTime.toISOString();
+
+
 };

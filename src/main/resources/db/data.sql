@@ -52,6 +52,8 @@ insert into resume_tb (user_id, title, user_name, user_email_id, birth, tel, add
 insert into resume_tb (user_id, title, user_name, user_email_id, birth, tel, address, sub_intro, career, edu, main_intro, created_at) values ('3', 'love 이력서입니다', 'love', 'test3@naver.com', '1994-05-11', '010-5555-1111', '부산 진구 전포동 제이앤제이슨', '꿈과 희망이있는 개발자가 되겠습니다', '안드로이드개발 5년차', '고등학교 졸업', '부산/27/남/love입니다 어렸을때부터 메타코딩 개발자님 영상을 보며 개발자를 꿈꿧습니다.', now());
 
 insert into has_skill_tb (skill_id, resume_id) values('1', '1');
+insert into has_skill_tb (skill_id, resume_id) values('2', '1');
+
 insert into has_skill_tb (skill_id, resume_id) values('2', '2');
 insert into has_skill_tb (skill_id, resume_id) values('3', '3');
 
