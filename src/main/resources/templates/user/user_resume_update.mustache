@@ -193,31 +193,31 @@
 
 <script>
 
+let resumeId = document.querySelector("#resumeId").value;
 
-  let selectedSkills = [];
-
-  async function fetchSelectedSkills() {
-  let resumeId = document.querySelector("#resumeId").value;
-
-  let data = {
-    resumeId: resumeId
-  };
+let data = {
+  resumeId: resumeId
+};
 
 
-  let requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  };
+let requestOptions = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+};
 
+
+
+ async function fetchSelectedSkills() {
+ 
   try {
     let response = await fetch('/api/getSkillList', requestOptions);
-
+    console.log("테스트" + JSON.stringify(data));
     if (response.ok) {
       let responseBody = await response.json();
-      console.log(responseBody);
+      console.log("테스트1" + responseBody);
 
       var checkboxes = document.querySelectorAll('input[type="checkbox"][name="skillList"]');
       console.log(checkboxes);
@@ -241,6 +241,74 @@
 
   fetchSelectedSkills();
 
+
+  async function fetchSelectedPositions() {
+
+  try {
+    let response = await fetch('/api/getPositionList', requestOptions);
+    console.log("테스트" + JSON.stringify(data));
+    if (response.ok) {
+      let responseBody = await response.json();
+      console.log("테스트1" + responseBody);
+
+      var checkboxes = document.querySelectorAll('input[type="checkbox"][name="positionList"]');
+      console.log(checkboxes);
+      checkboxes.forEach(function (checkbox) {
+        var positionValue = checkbox.value;
+        console.log(positionValue);
+
+        responseBody.forEach(function(positionObject){
+          if(positionObject.position.includes(positionValue)){
+            checkbox.checked = true;
+          }
+        });
+      });
+    } else {
+      console.error('POST 요청이 실패했습니다.');
+    }
+  } catch (error) {
+    console.error('오류 발생: ' + error);
+  }
+}
+
+  fetchSelectedPositions();
+
+  async function fetchSelectedCareerAndEdu() {
+
+try {
+  let response = await fetch('/api/getCareerAndEdu', requestOptions);
+  
+  if (response.ok) {
+    let responseBody = await response.json();
+   
+
+    var careerRadioButtons= document.querySelectorAll('input[type="radio"][name="career"]');
+    var careerYearCheckboxes = document.querySelectorAll('input[type="radio"][name="careerYear"]');
+    var eduCheckboxes = document.querySelectorAll('input[type="radio"][name="edu"]');
+    
+    careerRadioButtons.forEach(function (radioButton) {
+        radioButton.checked = false;
+      });
+
+      responseBody.forEach(function (careerObject) {
+        var careerValue = careerObject.career;
+
+        // 선택하려는 라디오 버튼의 값을 기반으로 해당 라디오 버튼을 선택합니다.
+        careerRadioButtons.forEach(function (radioButton) {
+          if (radioButton.value === careerValue) {
+            radioButton.checked = true;
+          }
+        });
+      });
+    } else {
+      console.error('POST 요청이 실패했습니다.');
+    }
+  } catch (error) {
+    console.error('오류 발생: ' + error);
+  }
+}
+
+fetchSelectedCareerAndEdu();
 
 
 

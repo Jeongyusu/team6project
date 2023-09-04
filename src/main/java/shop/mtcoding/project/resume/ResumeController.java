@@ -2,6 +2,7 @@ package shop.mtcoding.project.resume;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project.position.WishPosition;
+import shop.mtcoding.project.position.WishPositionRepository;
 import shop.mtcoding.project.position.WishPositionService;
+import shop.mtcoding.project.position.PositionRequest.WishPositionResponseDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
+import shop.mtcoding.project.resume.ResumeResponse.ResumeCareerAndEduResponseDTO;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.skill.HasSkillRepository;
 import shop.mtcoding.project.skill.RequiredSkill;
@@ -37,6 +42,12 @@ public class ResumeController {
 
     @Autowired
     HasSkillRepository hasSkillRepository;
+
+    @Autowired
+    WishPositionRepository wishPositionRepository;
+
+    @Autowired
+    ResumeRepository resumeRepository;
 
     @Autowired
     HttpSession session;
@@ -72,8 +83,9 @@ public class ResumeController {
     }
 
     @PostMapping("/api/getSkillList")
-    public @ResponseBody List<HasSkillResponseDTO> getSkillList(Integer resumeId) {
-        List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(1);
+    public @ResponseBody List<HasSkillResponseDTO> getSkillList(@RequestBody Map<String, Integer> requestBody) {
+        Integer resumeId = requestBody.get("resumeId");
+        List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(resumeId);
         List<HasSkillResponseDTO> hasSkillResponseDTOList = new ArrayList<>();
         for (HasSkill skillList : hasSkillList) {
             HasSkillResponseDTO dtos = HasSkillResponseDTO.builder()
@@ -83,6 +95,36 @@ public class ResumeController {
         }
         System.out.println("테스트" + hasSkillResponseDTOList.get(0).getSkill());
         return hasSkillResponseDTOList;
+    }
+
+    @PostMapping("/api/getPositionList")
+    public @ResponseBody List<WishPositionResponseDTO> getPositionList(@RequestBody Map<String, Integer> requestBody) {
+        Integer resumeId = requestBody.get("resumeId");
+        List<WishPosition> wishPositionList = wishPositionRepository.wishPositionofResume(resumeId);
+        List<WishPositionResponseDTO> wishPositionResponseDTOList = new ArrayList<>();
+        for (WishPosition positionList : wishPositionList) {
+            WishPositionResponseDTO dtos = WishPositionResponseDTO.builder()
+                    .position(positionList.getPosition().getPosition())
+                    .build();
+            wishPositionResponseDTOList.add(dtos);
+        }
+        System.out.println("테스트" + wishPositionResponseDTOList.get(0).getPosition());
+        return wishPositionResponseDTOList;
+    }
+
+    @PostMapping("/api/getCareerAndEdu")
+    public @ResponseBody ResumeCareerAndEduResponseDTO getResumeCareerAndEdu(
+            @RequestBody Map<String, Integer> requestBody) {
+        Integer resumeId = requestBody.get("resumeId");
+        Resume resume = resumeRepository.findById(resumeId).get();
+        ResumeCareerAndEduResponseDTO resumeCareerAndEduResponseDTO = ResumeCareerAndEduResponseDTO.builder()
+                .career(resume.getCareer())
+                .careerYear(resume.getCareerYear())
+                .edu(resume.getEdu())
+                .openCheck(resume.getOpenCheck())
+                .build();
+        return resumeCareerAndEduResponseDTO;
+
     }
 
 }
