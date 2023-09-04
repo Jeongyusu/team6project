@@ -216,6 +216,7 @@
   await fetch(`/api/getSkillList?resumeId=${resumeId}`)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       selectedSkillList = data.selectedSkillList;
 
       var checkboxes = document.querySelectorAll('input[type="checkbox"][name="skillList"]');
