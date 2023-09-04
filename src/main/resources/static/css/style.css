@@ -411,6 +411,10 @@ footer li:last-child {
 }
 
 /* user_mypage.html */
+.mypage .resume_list{
+  display: flex;
+}
+
 .mypage_left {
   background-color: var(--def_wh);
   border-radius: 5px;

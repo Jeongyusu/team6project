@@ -1,6 +1,5 @@
 package shop.mtcoding.project.user;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,33 +63,34 @@ public class UserController {
         return Script.href("/comp", "회원가입 완료");
     }
     //////// 구직자///////
-  
-    @GetMapping("/userMyPageForm")
-    public String userMyPage() {
-        return "user/user_mypage";
-    }
+
+    // @GetMapping("/userMyPageForm")
+    // public String userMyPage() {
+    // return "user/user_mypage";
+    // }
 
     @GetMapping("/userResumeWriteForm")
     public String UserResumeWrite() {
         return "user/user_resume_write";
     }
 
-    @PostMapping("/user/update")
+    @PostMapping("/userPasswordUpdate")
     public String userUpdate(UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         if (sessionUser.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
         } else {
-            return Script.back("현재 비밀번호가 일치하지않습니다.");
+            return Script.back("현재 비밀번호가 틀렸습니다");
         }
         if (userUpdateDTO.getNewPassword().equals(userUpdateDTO.getNewPasswordConfirm())) {
         } else {
             return Script.back("새로운 비밀번호가 일치하지않습니다.");
 
         }
+
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
-        return "redirect:/";
+        return "redirect:/userMyPageForm";
     }
 
     @PostMapping("/user/picUpdate")
@@ -120,11 +120,10 @@ public class UserController {
         return Script.href("/user", "로그인 완료");
     }
 
-
-    @GetMapping("/compMyPageForm")
-    public String compMyPage() {
-        return "comp/comp_info";
-    }
+    // @GetMapping("/compMyPageForm")
+    // public String compMyPage() {
+    // return "comp/comp_info";
+    // }
 
     @PostMapping("/comp/login")
     public @ResponseBody String compLogin(UserLoginDTO userLoginDTO) {
@@ -133,7 +132,6 @@ public class UserController {
         return Script.href("/comp", "로그인 완료");
     }
 
-
     @GetMapping("/api/check")
     public @ResponseBody ApiUtil<String> check(String userEmailId) {
         User user = userRepository.findByUserEmailId(userEmailId);
@@ -141,7 +139,7 @@ public class UserController {
             // return new ApiUtil<String>(false, "유저네임을 사용할 수 없습니다.");
             throw new MyApiException("EmailID를 사용할 수 없습니다");
         }
-      
+
         return new ApiUtil<String>(true, "EmailID를 사용할 수 있습니다.");
 
     }

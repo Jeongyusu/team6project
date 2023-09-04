@@ -22,7 +22,9 @@
               </div>
             </li>
             <li>
-              <h3>유수 컴퍼니</h3>
+              {{#sessionUser}}
+              <h3>{{userName}}</h3>
+              {{/sessionUser}}
             </li>
           </ul>
           <ul class="mypage_menu tab_menu">
@@ -50,14 +52,16 @@
                   </div>
                   <input type="file" onchange="changeCompPic(event)" name="compPic">
                 </div>
+                {{#sessionUser}}
                 <div>
                   <label for="compDate" class="form-label">연력</label>
-                  <input type="date" class="form-control" id="compDate" name="compDate">
+                  <input type="date" class="form-control" id="compDate" name="compDate" value="{{compHistory}}">
                 </div>
                 <div>
                   <label for="compExplan" class="form-label">회사 소개</label>
-                  <input type="text" class="form-control" id="compExplan" name="compExplan">
+                  <input type="text" class="form-control" id="compExplan" name="compExplan" value="{{compIntro}}">
                 </div>
+                {{/sessionUser}}
                 <div style="display: flex; justify-content: center;">
                   <button type="submit" class="btn btn-primary">확인</button>
                 </div>
@@ -70,15 +74,17 @@
           <div class="mypage_list">
             <div class="resume_btn">
               <div class="resume_count">전체
-                <span class="common_num">3</span>
+                <span class="common_num">{{totalJopOpeningList}}</span>
               </div>
               <a href="comp_job_opening_write.html" class="btn btn-primary" type="button">공고 작성</a>
             </div>
+
+            {{#jobOpeningList}}
             <ul class="com_cont">
               <li class="resume_inner">
                 <ul class="resume_cont">
                   <li class="com_tit com_btn">
-                    <h4>웹 프론트 개발자 채용</h4>
+                    <h4>{{title}}</h4>
                     <div class="double_btn">
                       <form action="comp_job_opening_update.html">
                         <button type="submit" class="btn_empty">공고 수정</button>
@@ -89,37 +95,16 @@
                     </div>
                   </li>
                   <li class="com_txt">
-                    고졸 신입
+                    {{edu}},{{career}} {{careerYear}}
                   </li>
                   <li class="com_skill comp_skill">
-                    <span class="skill_box">HTML/CSS</span>
-                    <span class="skill_box">JavaScript</span>
-                  </li>
-                </ul>
-              </li>
-              <li class="resume_inner">
-                <ul class="resume_cont">
-                  <li class="com_tit com_btn">
-                    <h4>웹 프론트 개발자 채용</h4>
-                    <div class="double_btn">
-                      <form action="comp_job_opening_update.html">
-                        <button type="submit" class="btn_empty">공고 수정</button>
-                      </form>
-                      <form action="#">
-                        <button type="submit" class="btn_fill">공고 삭제</button>
-                      </form>
-                    </div>
-                  </li>
-                  <li class="com_txt">
-                    고졸 신입
-                  </li>
-                  <li class="com_skill comp_skill">
-                    <span class="skill_box">HTML/CSS</span>
-                    <span class="skill_box">JavaScript</span>
+                    <!-- 요구 기술 받아오기 -->
                   </li>
                 </ul>
               </li>
             </ul>
+            {{/jobOpeningList}}
+
           </div>
         </div>
         <div class="mypage_right tab-content mypage_list_item" id="comp_applications">
