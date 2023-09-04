@@ -150,56 +150,41 @@
                                     <img src="/image/close.png" alt="close_png">
                                 </button>
                             </div>
-
                             <div class="apply_user_all">
                                 <div class="modal_list">연락정보</div>
                                 <div class="apply_user_information">
                                     <div class="user_information_email">
+                                        {{#sessionUser}}
                                         <p>이메일</p>
-                                        <p>muaga1234@gmail.com</p>
+                                        <p>{{userEmailId}}</p>
+                                        {{/sessionUser}}
                                     </div>
                                     <div class="user_information_phone">
                                         <p>연락처</p>
-                                        <p>01089118911</p>
+                                        <p>{{resumeList.0.tel}}</p>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="apply_resume_all">
                                 <div class="apply_resume_list">
                                     <div class="modal_list">지원 이력서</div>
                                     <div class="apply_sum">
                                         <span>이력서 총</span>
-                                        <span>2개</span>
+                                        <span>{{totalResume}}개</span>
                                     </div>
                                 </div>
-                                <form action="">
+                                <form action="/userApply" method="post">
+                                    <input type="hidden" name="selectedjobOpeningId" value="{{jobOpening.id}}">
+                                    {{#resumeList}}
                                     <ul>
                                         <li class="apply_resume">
                                             <div class="resume_check_button">
-                                                <input type="radio" name="selectedResumeId" value="true" checked="">
+                                                <input type="radio" name="selectedResumeId" value="{{id}}">
                                             </div>
                                             <div class="about_resume">
-                                                <p class="resume_name">남은혜이력서</p>
+                                                <p class="resume_name">{{title}}</p>
                                                 <p class="resume_created_at">
-                                                    <span>2023.08.25
-                                                        <span>등록</span>
-                                                    </span>
-                                                    <span>
-                                                        <a href="user_resume_update.html"><img src="/image/write.png"
-                                                                alt="write_png"></a>
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li class="apply_resume">
-                                            <div class="resume_check_button">
-                                                <input type="radio" name="selectedResumeId" value="true" checked="">
-                                            </div>
-                                            <div class="about_resume">
-                                                <p class="resume_name">남은혜이력서</p>
-                                                <p class="resume_created_at">
-                                                    <span>2023.08.25
+                                                    <span>{{createdAt}}
                                                         <span>등록</span>
                                                     </span>
                                                     <span>
@@ -210,14 +195,14 @@
                                             </div>
                                         </li>
                                     </ul>
+                                    {{/resumeList}}
+                                    <button type="submit" class="resume_apply_button" data-bs-toggle="modal"
+                                        data-bs-target="#myModal">
+                                        지원하기
+                                    </button>
                                 </form>
                             </div>
-                            <form action="#">
-                                <button type="button" class="resume_apply_button" data-bs-toggle="modal"
-                                    data-bs-target="#myModal">
-                                    지원하기
-                                </button>
-                            </form>
+
                         </div>
                     </div>
                 </div>

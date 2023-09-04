@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project.apply.Apply;
+import shop.mtcoding.project.apply.ApplyRepository;
+import shop.mtcoding.project.jobopening.JobOpening;
+import shop.mtcoding.project.jobopening.JobOpeningRepository;
 import shop.mtcoding.project.position.WishPositionService;
 import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
@@ -20,6 +25,14 @@ import shop.mtcoding.project.user.User;
 
 @Controller
 public class ResumeController {
+    @Autowired
+    private JobOpeningRepository jobOpeningRepository;
+
+    @Autowired
+    private ApplyRepository applyRepository;
+
+    @Autowired
+    private ResumeRepository resumeRepository;
 
     @Autowired
     ResumeService resumeService;
@@ -40,9 +53,9 @@ public class ResumeController {
     }
 
     @PostMapping("/user/resume/save")
-    public String saveResume(UserSaveResumeDTO UserSaveResumeDTO) {
+    public String saveResume(UserSaveResumeDTO userSaveResumeDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        resumeService.이력서작성(UserSaveResumeDTO, sessionUser.getId());
+        resumeService.이력서작성(userSaveResumeDTO, sessionUser.getId());
         return "redirect:/userMyPageForm";
 
     }
@@ -67,16 +80,35 @@ public class ResumeController {
 
     }
 
-    @Autowired
-    private ResumeRepository resumeRepository;
-
     @GetMapping("/userMyPageForm")
     public String resumeList(Model model) {
+
         List<Resume> resumeList = resumeRepository.findAll();
         int totalResume = resumeList.size();
-        model.addAttribute("totalResume", totalResume);
         model.addAttribute("resumeList", resumeList);
+        model.addAttribute("totalResume", totalResume);
+
+        List<Apply> applyList = applyRepository.findAll();
+        int totalApplyList = applyList.size();
+        model.addAttribute("applyList", applyList);
+        model.addAttribute("totalApplyList", totalApplyList);
+
+        List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
+
         return "user/user_mypage";
 
     }
+    // @GetMapping("/userMyPageForm")
+    // public @ResponseBody List<Apply> resumeList(Model model) {
+
+    // List<Apply> applyList = applyRepository.findAll();
+    // int totalApplyList = applyList.size();
+    // model.addAttribute("applyList", applyList);
+    // model.addAttribute("totalApplyList", totalApplyList);
+
+    // List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
+
+    // return applyList;
+    // }
+
 }

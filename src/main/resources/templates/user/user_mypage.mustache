@@ -209,7 +209,7 @@
           <div class="mypage_right tab-content mypage_list_item" id="applications">
             <div class="resume_btn">
               <div class="resume_count">지원
-                <span class="common_num">1</span>
+                <span class="common_num">{{totalApplyList}}</span>
               </div>
             </div>
             <div>
@@ -224,13 +224,14 @@
                     <th class="td_width120">상태</th>
                   </tr>
                 </thead>
+                {{#applyList}}
                 <tbody>
                   <tr class="td_border">
-                    <td>1</td>
-                    <td>카카오</td>
-                    <td><a href="user_job_opening_apply.html">백엔드 개발자 채용</a></td>
-                    <td>열심히하는개발자</td>
-                    <td>백엔드</td>
+                    <td>{{totalApplyList}}</td>
+                    <td>{{jobOpening.user.userName}}</td>
+                    <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
+                    <td>{{resume.title}}</td>
+                    <td>백엔드</td> <!-- 포지션넣기 -->
                     <td>
                       <ul>
                         <li class="wait_btn">대기중</li>
@@ -240,6 +241,8 @@
                     </td>
                   </tr>
                 </tbody>
+                {{/applyList}}
+
               </table>
               <div>
                 <div class="resume_btn">
