@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,14 @@ public class SkillRequest {
         private Integer resumeId;
         private Integer skillId;
         private String skill;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    public static class HasSkillResponseDTO {
+        private Integer id;
+        String skill;
     }
 
 }

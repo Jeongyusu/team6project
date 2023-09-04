@@ -16,12 +16,4 @@ public class WishPositionQueryRepository {
     @Autowired
     private EntityManager em;
 
-    List<MySkill> mFindBySkillListofResume(Integer resumeId) {
-        Query query = em.createNativeQuery("select s.skill from has_skill_tb h left outer join skill_tb s on h.skill_id = s.id where h.resume_id = :resumeId", MySkill.class);
-        query.setParameter("resumeId", resumeId);
-        return query.getResultList();
-    }
-
-
-    
 }

@@ -19,6 +19,7 @@
               <input type="text" placeholder="제목을 입력해주세요" name="title" value="{{resume.title}}">
               <input type="hidden" id="time" name="createdAt">
               <input type="hidden" id="resumeId" value="{{resume.id}}">
+      
             </div>
           <div class="main_back container">
             <div class="resume_user_info">
@@ -209,30 +210,54 @@
   let currentTime = new Date();
   document.querySelector("#time").value = currentTime.toISOString();
 
-   var selectedSkills = [];
+
+  let selectedSkills = [];
 
   async function fetchSelectedSkills() {
   let resumeId = document.querySelector("#resumeId").value;
-  await fetch(`/api/getSkillList?resumeId=${resumeId}`)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      selectedSkillList = data.selectedSkillList;
+
+  let data = {
+    resumeId: resumeId
+  };
+
+
+  let requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json' // JSON 형식으로 데이터를 전송하므로 Content-Type을 설정합니다.
+    },
+    body: JSON.stringify(data) // 데이터를 JSON 문자열로 변환하여 body에 설정합니다.
+  };
+
+  try {
+    let response = await fetch('/api/getSkillList', requestOptions);
+
+    if (response.ok) {
+      let responseBody = await response.json();
+      selectedSkills = responseBody.hasSkillResponseDTOList.map(item => item.skill);
+      console.log(selectedSkills);
 
       var checkboxes = document.querySelectorAll('input[type="checkbox"][name="skillList"]');
       checkboxes.forEach(function (checkbox) {
         var skillValue = checkbox.value;
-        if (selectedSkills.includes(skillValue)) {
-          checkbox.checked = true;
+        if (selectedSkills.indexOf(skillValue) !== -1) {
+      checkbox.checked = true;
         }
       });
-    });
+    } else {
+      console.error('POST 요청이 실패했습니다.');
+    }
+  } catch (error) {
+    console.error('오류 발생: ' + error);
+  }
 }
-console.log(selectedSkillList[0]);
 
-window.onload = function () {
+document.addEventListener("DOMContentLoaded", function () {
   fetchSelectedSkills();
-};
+});
+
+
+
 
 </script>
 {{>layout/footer}}

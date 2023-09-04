@@ -51,9 +51,9 @@ insert into resume_tb (user_id, title, user_name, user_email_id, birth, tel, add
 insert into resume_tb (user_id, title, user_name, user_email_id, birth, tel, address, sub_intro, career, edu, main_intro, created_at) values ('1', 'ssar 이력서2입니다', 'cos', 'test2@naver.com', '1995-03-05', '010-2222-3333', '부산 진구 전포동 클럽데이즈', '능력있는 개발자가 되겠습니다', 'html/css 1년차', '전문대학교2년 졸업', '부산/28/남/cos입니다 어렸을때부터 메타코딩 개발자님 영상을 보며 개발자를 꿈꿧습니다.', now());
 insert into resume_tb (user_id, title, user_name, user_email_id, birth, tel, address, sub_intro, career, edu, main_intro, created_at) values ('3', 'love 이력서입니다', 'love', 'test3@naver.com', '1994-05-11', '010-5555-1111', '부산 진구 전포동 제이앤제이슨', '꿈과 희망이있는 개발자가 되겠습니다', '안드로이드개발 5년차', '고등학교 졸업', '부산/27/남/love입니다 어렸을때부터 메타코딩 개발자님 영상을 보며 개발자를 꿈꿧습니다.', now());
 
--- insert into has_skill_tb (skill_id, resume_id) values('1', '1');
--- insert into has_skill_tb (skill_id, resume_id) values('2', '2');
--- insert into has_skill_tb (skill_id, resume_id) values('3', '3');
+insert into has_skill_tb (skill_id, resume_id) values('1', '1');
+insert into has_skill_tb (skill_id, resume_id) values('2', '2');
+insert into has_skill_tb (skill_id, resume_id) values('3', '3');
 
 -- insert into community_tb (title, content, created_at, user_id) values('제목1', '내용1', now(), '1');
 -- insert into community_tb (title, content, created_at, user_id) values('제목2', '내용2', now(), '2');

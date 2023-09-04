@@ -13,9 +13,9 @@ public class WishPositionService {
     @Autowired
     WishPositionQueryRepository wishPositionQueryRepository;
 
-    public List<MySkill> 이력서스킬상태복원(Integer resumeId) {
-        return wishPositionQueryRepository.mFindBySkillListofResume(resumeId);
-        
-    }
-    
+    // public List<MySkill> 이력서스킬상태복원(Integer resumeId) {
+    // // return wishPositionQueryRepository.mFindBySkillListofResume(resumeId);
+
+    // }
+
 }

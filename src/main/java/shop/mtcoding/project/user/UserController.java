@@ -1,5 +1,6 @@
 package shop.mtcoding.project.user;
 
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import shop.mtcoding.project._core.error.ex.MyApiException;
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
+import shop.mtcoding.project.resume.Resume;
+import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.CompInfoUpdateDTO;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserLoginDTO;
@@ -24,6 +27,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ResumeRepository resumeRepository;
 
     @Autowired
     private UserService userService;
@@ -64,12 +70,13 @@ public class UserController {
         return Script.href("/comp", "회원가입 완료");
     }
     //////// 구직자///////
-  
+
     @GetMapping("/userMyPageForm")
-    public String userMyPage() {
+    public String userMyPage(Model model) {
+        List<Resume> resumeList = resumeRepository.findAll();
+        model.addAttribute("resumeList", resumeList);
         return "user/user_mypage";
     }
-
 
     @PostMapping("/user/update")
     public String userUpdate(UserUpdateDTO userUpdateDTO) {
@@ -99,7 +106,7 @@ public class UserController {
 
     @GetMapping("/user/loginForm")
     public String userLoginForm() {
-        
+
         return "user/user_login";
 
     }
@@ -117,7 +124,6 @@ public class UserController {
         return Script.href("/user", "로그인 완료");
     }
 
-
     @GetMapping("/compMyPageForm")
     public String compMyPage() {
         return "comp/comp_info";
@@ -130,7 +136,6 @@ public class UserController {
         return Script.href("/comp", "로그인 완료");
     }
 
-
     @GetMapping("/api/check")
     public @ResponseBody ApiUtil<String> check(String userEmailId) {
         User user = userRepository.findByUserEmailId(userEmailId);
@@ -138,7 +143,7 @@ public class UserController {
             // return new ApiUtil<String>(false, "유저네임을 사용할 수 없습니다.");
             throw new MyApiException("EmailID를 사용할 수 없습니다");
         }
-      
+
         return new ApiUtil<String>(true, "EmailID를 사용할 수 있습니다.");
 
     }
@@ -154,7 +159,6 @@ public class UserController {
         session.invalidate();
         return "redirect:/comp";
     }
-
 
     @PostMapping("/compinfo/update")
     public String compInfoUpdate(CompInfoUpdateDTO compInfoUpdateDTO) {
