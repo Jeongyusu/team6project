@@ -1602,3 +1602,9 @@ footer li:last-child {
   border: 1px solid var(--font_03);
   color: var(--font_03);
 }
+
+.open_resume_box>.main_box{
+  display: flex;
+  flex-wrap: wrap;
+}
+
