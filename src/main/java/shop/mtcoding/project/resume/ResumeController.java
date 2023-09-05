@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project._core.util.Script;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.position.WishPositionRepository;
 import shop.mtcoding.project.position.WishPositionService;
+import shop.mtcoding.project.reply.Reply;
 import shop.mtcoding.project.position.PositionRequest.WishPositionResponseDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
@@ -73,6 +76,32 @@ public class ResumeController {
     public String resumeUpdateForm(@PathVariable Integer id, Model model) {
         Resume resume = resumeService.업데이트폼(id);
         model.addAttribute("resume", resume);
+
+        if (resume.getCareer().equals("신입")) {
+            model.addAttribute("isCareerNew", true);
+        } else if (resume.getCareer().equals("경력")) {
+            model.addAttribute("isCareerOld", true);
+            if (resume.getCareerYear().equals("1년차")) {
+                model.addAttribute("1year", true);
+            } else if (resume.getCareerYear().equals("2년차")) {
+                model.addAttribute("2years", true);
+            } else if (resume.getCareerYear().equals("3년차")) {
+                model.addAttribute("3years", true);
+            } else if (resume.getCareerYear().equals("4년차")) {
+                model.addAttribute("4years", true);
+            } else if (resume.getCareerYear().equals("5년차")) {
+                model.addAttribute("5years", true);
+            }
+        }
+
+        if (resume.getEdu().equals("대졸")) {
+            model.addAttribute("isEduUniversity", true);
+        } else if (resume.getEdu().equals("초대졸")) {
+            model.addAttribute("isEduCollege", true);
+        } else if (resume.getEdu().equals("고졸")) {
+            model.addAttribute("isEduHighSchool", true);
+        }
+
         return "user/user_resume_update";
     }
 
@@ -112,18 +141,11 @@ public class ResumeController {
         return wishPositionResponseDTOList;
     }
 
-    @PostMapping("/api/getCareerAndEdu")
-    public @ResponseBody ResumeCareerAndEduResponseDTO getResumeCareerAndEdu(
-            @RequestBody Map<String, Integer> requestBody) {
-        Integer resumeId = requestBody.get("resumeId");
-        Resume resume = resumeRepository.findById(resumeId).get();
-        ResumeCareerAndEduResponseDTO resumeCareerAndEduResponseDTO = ResumeCareerAndEduResponseDTO.builder()
-                .career(resume.getCareer())
-                .careerYear(resume.getCareerYear())
-                .edu(resume.getEdu())
-                .openCheck(resume.getOpenCheck())
-                .build();
-        return resumeCareerAndEduResponseDTO;
+    @PostMapping("/user/resume/{id}/delete")
+    public @ResponseBody String delete(@PathVariable Integer id) {
+        // 인증체크
+        resumeService.삭제(id);
+        return Script.back("삭제완료");
 
     }
 

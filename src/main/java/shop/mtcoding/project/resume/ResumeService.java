@@ -103,21 +103,28 @@ public class ResumeService {
 
     }
 
+    @Transactional
     public void 이력서수정(ResumeRequest.UserUpdateResumeDTO userUpdateResumeDTO, Integer id) {
-
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid + "_" + userUpdateResumeDTO.getResumePic().getOriginalFilename();
-        Path filePath = Paths.get(MyPath.IMG_PATH + fileName);
-        try {
-            Files.write(filePath, userUpdateResumeDTO.getResumePic().getBytes());
-        } catch (Exception e) {
-            throw new MyException(e.getMessage());
-        }
 
         Optional<Resume> resumeOP = resumeRepository.findById(id);
 
         if (resumeOP.isPresent()) {
             Resume resume = resumeOP.get();
+
+            UUID uuid = UUID.randomUUID();
+
+            String fileName = "";
+
+            fileName = uuid + "_" + userUpdateResumeDTO.getResumePic().getOriginalFilename();
+
+            Path filePath = Paths.get(MyPath.IMG_PATH + fileName);
+
+            try {
+                Files.write(filePath, userUpdateResumeDTO.getResumePic().getBytes());
+            } catch (Exception e) {
+                throw new MyException(e.getMessage());
+            }
+
             resume.setTitle(userUpdateResumeDTO.getTitle());
             resume.setUserName(userUpdateResumeDTO.getUserName());
             resume.setUserEmailId(userUpdateResumeDTO.getUserEmailId());
@@ -170,6 +177,26 @@ public class ResumeService {
         return resumeRepository.findById(id).get();
     }
 
+    @Transactional
+    public void 삭제(Integer id) {
+        List<HasSkill> hasSkillList = hasSkillRepository.findByResumeId(id);
+        for (HasSkill hasSkill : hasSkillList) {
+            hasSkill.setResume(null);
+            hasSkillRepository.save(hasSkill);
+        }
 
+        List<WishPosition> wishPositionList = wishPositionRepository.findByResumeId(id);
+        for (WishPosition wishPosition : wishPositionList) {
+            wishPosition.setResume(null);
+            wishPositionRepository.save(wishPosition);
+        }
+
+        try {
+            resumeRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new MyException("삭제에 실패했습니다.");
+        }
+
+    }
 
 }
