@@ -149,4 +149,21 @@ public class ResumeController {
 
     }
 
+    @GetMapping("/comp/resume/{id}")
+    public String compResumeDetail() {
+        return "user/user_resume_detail";
+    }
+
+    @GetMapping("/user/resume/{id}")
+    public String userResumeDetail(@PathVariable Integer id, Model model) {
+
+        Resume resume = resumeRepository.findById(id).get();
+        List<WishPosition> wishPosition = wishPositionRepository.findByResumeId(id);
+
+        model.addAttribute("resume", resume);
+        model.addAttribute("wishPosition", wishPosition);
+        return "user/user_resume_detail_check";
+
+    }
+
 }
