@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import shop.mtcoding.project._core.error.ex.MyApiException;
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
+import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
+import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.CompInfoUpdateDTO;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserLoginDTO;
@@ -57,6 +59,18 @@ public class UserController {
         return "comp/comp_join";
     }
 
+    @GetMapping("/user/loginForm")
+    public String userLoginForm() {
+
+        return "user/user_login";
+
+    }
+
+    @GetMapping("/comp/loginForm")
+    public String compLoginForm() {
+        return "comp/comp_login";
+    }
+
     @PostMapping("/user/join")
     public @ResponseBody String userJoin(UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
@@ -71,11 +85,24 @@ public class UserController {
     }
     //////// 구직자///////
 
-    @GetMapping("/userMyPageForm")
-    public String userMyPage(Model model) {
-        List<Resume> resumeList = resumeRepository.findAll();
+    @GetMapping("/user/MyPageForm")
+    public String userMyPageForm(Model model) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Resume> resumeList = resumeRepository.findByUserId(sessionUser.getId());
         model.addAttribute("resumeList", resumeList);
+
+        // List<WishPosition> wishPositionList =
+        // wishPositionRepository.positionFindByResumeId(id);
+        // List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(id);
+
+        // model.addAttribute("hasSkillList", hasSkillList);
+        // model.addAttribute("wishPositionList", wishPositionList);
         return "user/user_mypage";
+    }
+
+    @GetMapping("/comp/MyPageForm")
+    public String compMyPageForm() {
+        return "comp/comp_info";
     }
 
     @PostMapping("/user/update")
@@ -104,29 +131,12 @@ public class UserController {
         return "user/user_mypage";
     }
 
-    @GetMapping("/user/loginForm")
-    public String userLoginForm() {
-
-        return "user/user_login";
-
-    }
-
-    @GetMapping("/comp/loginForm")
-    public String compLoginForm() {
-        return "comp/comp_login";
-    }
-
     @PostMapping("/user/login")
     public @ResponseBody String userLogin(UserLoginDTO userLoginDTO) {
 
         User sessionUser = userService.유저로그인(userLoginDTO);
         session.setAttribute("sessionUser", sessionUser);
         return Script.href("/user", "로그인 완료");
-    }
-
-    @GetMapping("/compMyPageForm")
-    public String compMyPage() {
-        return "comp/comp_info";
     }
 
     @PostMapping("/comp/login")
@@ -160,7 +170,7 @@ public class UserController {
         return "redirect:/comp";
     }
 
-    @PostMapping("/compinfo/update")
+    @PostMapping("/comp/info/update")
     public String compInfoUpdate(CompInfoUpdateDTO compInfoUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
@@ -169,7 +179,7 @@ public class UserController {
         return "comp/comp_info";
     }
 
-    @PostMapping("/comppw/update")
+    @PostMapping("/comp/password/update")
     public String compPWUpdate(UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 

@@ -24,6 +24,7 @@ public class ReplyService {
         if (replySaveDTO.getComment() == null || replySaveDTO.getComment().isEmpty()) {
             throw new MyException("내용을 전부 입력해주세요");
         }
+
         Reply reply = Reply.builder()
                 .comment(replySaveDTO.getComment())
                 .user(User.builder().id(sessionId).build())
@@ -49,4 +50,5 @@ public class ReplyService {
             throw new MyException("해당 댓글을 찾을 수 없습니다.");
         }
     }
+
 }

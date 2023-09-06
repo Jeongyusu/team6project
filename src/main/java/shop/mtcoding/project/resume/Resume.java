@@ -3,7 +3,6 @@ package shop.mtcoding.project.resume;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,21 +11,19 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import shop.mtcoding.project.position.WishPosition;
+import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.user.User;
 
 @NoArgsConstructor
@@ -75,15 +72,21 @@ public class Resume {
     @Column(length = 1000)
     private String mainIntro;
 
-    private String createdAt;
+    private Timestamp createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+    List<HasSkill> hasSkillList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+    List<WishPosition> wishPositionList = new ArrayList<>();
+
     @Builder
     public Resume(Integer id, String userName, String userEmailId, String title, LocalDate birth, String tel,
             String address, String subIntro, String career, String careerYear, String edu, String resumePicUrl,
-            String openCheck, String mainIntro, String createdAt, User user) {
+            String openCheck, String mainIntro, Timestamp createdAt, User user) {
         this.id = id;
         this.userName = userName;
         this.userEmailId = userEmailId;

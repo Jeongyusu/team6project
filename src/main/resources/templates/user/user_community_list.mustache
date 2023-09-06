@@ -1,4 +1,4 @@
-{{>layout/userheader}}
+{{>layout/compheader}}
 
 <!--메인-->
 <!-- 각자 페이지 name 작성-->
@@ -7,16 +7,16 @@
     <!-- container 건들지 말기 -->
 
     <div class="community_search">
-      <form action="/user/community" class="d-flex">
+      <form action="/comp/community" class="d-flex">
         <input class="search form-control me-2" type="text" placeholder="검색어를 입력해주세요" name="keyword" />
         <button class="btn btn-primary" type="submit">Search</button>
       </form>
-      <form action="/user/community/board/saveForm">
+      <form action="/comp/community/board/saveForm">
         <button type="submit" class="btn btn-primary">작성하기</button>
       </form>
     </div>
 
-    <div class="user_inner_box_fluid">
+    <div class="company_inner_box_fluid">
       <div class="community-comment">
         <h2>커뮤니티</h2>
         <br>
@@ -26,34 +26,35 @@
     </div>
 
     <div class="board">
-      {{#communityPG}}
+      {{#boardListDTO}}
       <div class="inner_box_board mt-3">
         <div class="each_board">
-          <a href="/user/community/board/{{id}}">
+          <a href="/comp/community/board/{{boardId}}">
             <img class="speech_png " src="/image/com_img/speech.png" alt="speech_png">
             <div class="title">{{title}}</div>
             <div class="content">{{content}}</div>
             <div class="info_write">
               <ul>
-                <li class="write_user">{{user.userName}}</li>
-                <li class="write_created-at">{{createdAt}}</li>
+                <li class="write_user">{{boardUserName}}</li>
+                <li class="write_created-at">{{boardFormatDate}}</li>
               </ul>
             </div>
           </a>
         </div>
       </div>
-      {{/communityPG}}
+      {{/boardListDTO}}
     </div>
 
     <div class="inner_box_button mt-5">
       <ul class="pagination d-flex justify-content-center">
-        <li class="page-item {{#communityPG.first}}disabled{{/communityPG.first}}"><a class="page-link"
+        <li class="page-item {{#boardListDTO.first}}disabled{{/boardListDTO.first}}"><a class="page-link"
             href="?page={{prev}}">Prev</a></li>
-        <li class="page-item {{#communityPG.last}}disabled{{/communityPG.last}}"><a class="page-link"
+        <li class="page-item {{#boardListDTO.last}}disabled{{/boardListDTO.last}}"><a class="page-link"
             href="?page={{next}}">Next</a></li>
       </ul>
     </div>
   </div>
 </main>
 <!--메인-->
+
 {{>layout/footer}}

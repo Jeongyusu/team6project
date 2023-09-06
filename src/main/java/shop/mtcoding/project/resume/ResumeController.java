@@ -1,38 +1,29 @@
 package shop.mtcoding.project.resume;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.util.Script;
+import shop.mtcoding.project.position.PositionResponse.WishPositionResponseDTO;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.position.WishPositionRepository;
-import shop.mtcoding.project.position.WishPositionService;
-import shop.mtcoding.project.reply.Reply;
-import shop.mtcoding.project.position.PositionRequest.WishPositionResponseDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
-import shop.mtcoding.project.resume.ResumeResponse.ResumeCareerAndEduResponseDTO;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.skill.HasSkillRepository;
-import shop.mtcoding.project.skill.RequiredSkill;
-import shop.mtcoding.project.skill.SkillRequest.HasSkillResponseDTO;
-import shop.mtcoding.project.skill.SkillRequest.MySkill;
+import shop.mtcoding.project.skill.SkillResponse.HasSkillResponseDTO;
 import shop.mtcoding.project.user.User;
 
 @Controller
@@ -40,9 +31,6 @@ public class ResumeController {
 
     @Autowired
     ResumeService resumeService;
-
-    @Autowired
-    WishPositionService wishPositionService;
 
     @Autowired
     HasSkillRepository hasSkillRepository;
@@ -107,9 +95,9 @@ public class ResumeController {
     }
 
     @PostMapping("/user/resume/{id}/update")
-    public String updateResume(@PathVariable Integer id, UserUpdateResumeDTO userUpdateResumeDTO) {
+    public @ResponseBody String updateResume(@PathVariable Integer id, UserUpdateResumeDTO userUpdateResumeDTO) {
         resumeService.이력서수정(userUpdateResumeDTO, id);
-        return "redirect:/";
+        return Script.back("수정완료");
     }
 
     @PostMapping("/api/getSkillList")

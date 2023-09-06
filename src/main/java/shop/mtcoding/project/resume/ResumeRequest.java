@@ -3,7 +3,6 @@ package shop.mtcoding.project.resume;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,7 +37,7 @@ public class ResumeRequest {
         private String mainIntro;
         private String openCheck;
 
-        private String createdAt;
+        private Timestamp createdAt;
 
     }
 
@@ -65,7 +64,7 @@ public class ResumeRequest {
         private String mainIntro;
         private String openCheck;
 
-        private String createdAt;
+        private Timestamp createdAt;
     }
 
 }

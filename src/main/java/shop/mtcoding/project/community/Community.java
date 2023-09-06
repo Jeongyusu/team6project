@@ -1,6 +1,7 @@
 package shop.mtcoding.project.community;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -46,16 +47,15 @@ public class Community {
     private User user;
 
     @OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
-    private List<Reply> replyList;
+    private List<Reply> replyList = new ArrayList<>();
 
     @Builder
-    public Community(Integer id, String title, String content, Timestamp createdAt, User user, List<Reply> replyList) {
+    public Community(Integer id, String title, String content, Timestamp createdAt, User user) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
         this.user = user;
-        this.replyList = replyList;
     }
 
 }

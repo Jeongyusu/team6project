@@ -23,11 +23,4 @@ public class SkillRequest {
         private String skill;
     }
 
-    @Getter
-    @Setter
-    @Builder
-    public static class HasSkillResponseDTO {
-        String skill;
-    }
-
 }
