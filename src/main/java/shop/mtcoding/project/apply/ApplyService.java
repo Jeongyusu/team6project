@@ -1,9 +1,11 @@
 package shop.mtcoding.project.apply;
 
-import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.resume.Resume;
@@ -23,7 +25,5 @@ public class ApplyService {
         applyRepository.save(apply);
 
     }
-
-    
 
 }

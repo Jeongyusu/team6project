@@ -33,7 +33,6 @@ public class JobOpening {
     private String process;
     @Column(nullable = false)
     private String career;
-    @Column(nullable = false)
     private String careerYear;
     @Column(nullable = false)
     private String edu;

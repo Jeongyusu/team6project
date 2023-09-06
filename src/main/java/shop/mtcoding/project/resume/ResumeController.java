@@ -21,10 +21,16 @@ import shop.mtcoding.project.position.WishPositionService;
 import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
 import shop.mtcoding.project.skill.SkillRequest.MySkill;
+import shop.mtcoding.project.suggest.Suggest;
+import shop.mtcoding.project.suggest.SuggestRepository;
 import shop.mtcoding.project.user.User;
 
 @Controller
 public class ResumeController {
+
+    @Autowired
+    private SuggestRepository suggestRepository;
+
     @Autowired
     private JobOpeningRepository jobOpeningRepository;
 
@@ -80,35 +86,66 @@ public class ResumeController {
 
     }
 
-    @GetMapping("/userMyPageForm")
-    public String resumeList(Model model) {
-
-        List<Resume> resumeList = resumeRepository.findAll();
-        int totalResume = resumeList.size();
-        model.addAttribute("resumeList", resumeList);
-        model.addAttribute("totalResume", totalResume);
+    @GetMapping("/{id}/userMyPageForm")
+    public String resumeList(@PathVariable Integer id, Model model) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
 
         List<Apply> applyList = applyRepository.findAll();
-        int totalApplyList = applyList.size();
         model.addAttribute("applyList", applyList);
-        model.addAttribute("totalApplyList", totalApplyList);
+        List<Apply> applyList2 = applyRepository.findByResumeUserId(sessionUser.getId());
+        int totalApply = applyList2.size();
+        model.addAttribute("totalApply", totalApply);
+        model.addAttribute("applyList2", applyList2);
+
+        List<Suggest> suggestList = suggestRepository.findAll();
+        int totalSuggestList = suggestList.size();
+        model.addAttribute("suggestList", suggestList);
+        model.addAttribute("totalSuggestList", totalSuggestList);
 
         List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
+        model.addAttribute("jobOpeningList", jobOpeningList);
+
+        List<Resume> resumeList = resumeRepository.findAll();
+        model.addAttribute("resumeList", resumeList);
+        List<Resume> resumeList2 = resumeRepository.findByUserId(sessionUser.getId());
+        int totalResume = resumeList2.size();
+        model.addAttribute("totalResume", totalResume);
+        model.addAttribute("resumeList", resumeList2);
 
         return "user/user_mypage";
 
     }
-    // @GetMapping("/userMyPageForm")
-    // public @ResponseBody List<Apply> resumeList(Model model) {
+    // @GetMapping("/{id}/userMyPageForm")
+    // public @ResponseBody List<Apply> resumeList(@PathVariable Integer id, Model
+    // model) {
+    // User sessionUser = (User) session.getAttribute("sessionUser");
 
     // List<Apply> applyList = applyRepository.findAll();
-    // int totalApplyList = applyList.size();
     // model.addAttribute("applyList", applyList);
-    // model.addAttribute("totalApplyList", totalApplyList);
+    // List<Apply> applyList2 =
+    // applyRepository.findByResumeUserId(sessionUser.getId());
+    // int totalApply = applyList2.size();
+    // model.addAttribute("totalApply", totalApply);
+    // model.addAttribute("applyList2", applyList2);
+
+    // List<Suggest> suggestList = suggestRepository.findAll();
+    // int totalSuggestList = suggestList.size();
+    // model.addAttribute("suggestList", suggestList);
+    // model.addAttribute("totalSuggestList", totalSuggestList);
 
     // List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
+    // model.addAttribute("jobOpeningList", jobOpeningList);
 
-    // return applyList;
+    // List<Resume> resumeList = resumeRepository.findAll();
+    // model.addAttribute("resumeList", resumeList);
+    // List<Resume> resumeList2 =
+    // resumeRepository.findByUserId(sessionUser.getId());
+    // int totalResume = resumeList2.size();
+    // model.addAttribute("totalResume", totalResume);
+    // model.addAttribute("resumeList", resumeList2);
+
+    // return applyList2;
+
     // }
 
 }

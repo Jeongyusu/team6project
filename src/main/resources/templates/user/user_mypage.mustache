@@ -55,7 +55,7 @@
                       <h4>{{title}}</43>
                     </li>
                     <li class="com_txt">
-                      {{edu}} {{career}} {{careerYear}}
+                      {{edu}} {{career}} {{#careerYear}}{{careerYear}}{{/careerYear}}
                     </li>
                     <li class="date">
                       <!-- 만든날 추가돼야함 -->
@@ -193,7 +193,7 @@
                         <h4>{{title}}</43>
                       </li>
                       <li class="com_txt">
-                        {{edu}} {{career}} {{careerYear}}
+                        {{edu}} {{career}} {{#careerYear}}{{careerYear}}{{/careerYear}}
                       </li>
                       <li class="date">
                         2022-08-27
@@ -209,7 +209,7 @@
           <div class="mypage_right tab-content mypage_list_item" id="applications">
             <div class="resume_btn">
               <div class="resume_count">지원
-                <span class="common_num">{{totalApplyList}}</span>
+                <span class="common_num">{{totalApply}}</span>
               </div>
             </div>
             <div>
@@ -224,10 +224,10 @@
                     <th class="td_width120">상태</th>
                   </tr>
                 </thead>
-                {{#applyList}}
+                {{#applyList2}}
                 <tbody>
                   <tr class="td_border">
-                    <td>{{totalApplyList}}</td>
+                    <td>순서</td>
                     <td>{{jobOpening.user.userName}}</td>
                     <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
                     <td>{{resume.title}}</td>
@@ -241,13 +241,13 @@
                     </td>
                   </tr>
                 </tbody>
-                {{/applyList}}
+                {{/applyList2}}
 
               </table>
               <div>
                 <div class="resume_btn">
                   <div class="resume_count">제안
-                    <span class="common_num">1</span>
+                    <span class="common_num">{{totalSuggestList}}</span>
                   </div>
                 </div>
                 <table class="table">
@@ -263,10 +263,11 @@
                   </thead>
                   <tbody>
                     <tr class="td_border">
+                      {{#suggestList}}
                       <td>1</td>
-                      <td>카카오</td>
-                      <td><a href="user_job_opening_apply.html">백엔드 개발자 채용</a></td>
-                      <td>백엔드</td>
+                      <td>네임</td>
+                      <td><a href="user_job_opening_apply.html">공고이름</a></td>
+                      <td>포지션넣기</td>
                       <td>
                         <ul>
                           <li class="wait_btn">대기중</li>
@@ -281,6 +282,7 @@
                           <option value="option3">거절</option>
                         </select>
                       </td>
+                      {{/suggestList}}
                     </tr>
                   </tbody>
                 </table>
