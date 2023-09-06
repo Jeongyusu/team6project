@@ -14,11 +14,11 @@
         <div class="mypage_left">
           <ul>
             <li>
-              <form action="#">
-                <button type="submit">
-                  <img src="/image/user_img/def_img.png" alt="기본 이미지">
-                </button>
-              </form>
+              <div class="main_pic">
+                <img id="preview" src="" alt="기본 이미지">
+                <input type="hidden" onchange="changeUserPic(event)" name="userPic">
+              </div>
+
             </li>
             <li>
               <h3>남은혜</h3>
@@ -39,14 +39,16 @@
         <div class="mypage_right tab-content">
           <div class="mypage_list">
             <div class="resume_count">이력서
-              <span class="common_num">2</span>
+
+              <span class="common_num"></span>
+
             </div>
             <ul class="com_cont">
               <li class="resume_item resume_box">
                 <a href="user_resume_detail.html">
                   <ul class="resume_cont">
                     <li class="com_tit">
-                      <h4>남은혜 이력서_230825</h4>
+                      <h4>남은혜 이력서_230825</43>
                     </li>
                     <li class="com_txt">
                       고졸 신입
@@ -96,7 +98,7 @@
                     </div>
                   </li>
                   <li class="com_tit">
-                    <h4>웹개발(백엔드,프론트엔드)</h4>
+                    <h4>웹개발(백엔드,프론트엔드)</43>
                   </li>
                   <li class="com_txt">
                     CSS3·jQuery·Linux·JavaScript
@@ -107,7 +109,7 @@
                 <ul class="comp_cont">
                   <li class="comp_img">
                     <a href="user_job_opening_apply.html">
-                      <img src="image/company_img/comp_img01.png" alt="기업01">
+                      <img src="/image/company_img/comp_img01.png" alt="기업01">
                       <span class="comp_dday">D - 7</span>
                     </a>
                   </li>
@@ -122,7 +124,7 @@
                     </div>
                   </li>
                   <li class="com_tit">
-                    <h4>웹개발(백엔드,프론트엔드)</h4>
+                    <h4>웹개발(백엔드,프론트엔드)</43>
                   </li>
                   <li class="com_txt">
                     CSS3·jQuery·Linux·JavaScript
@@ -138,13 +140,13 @@
                 <a href="comp_job_opening_detail.html">
                   <ul class="comp_cont">
                     <li class="comp_img">
-                      <img src="/image/company_img/comp_img01.png" alt="기업01">
+                      <img src="image/company_img/comp_img01.png" alt="기업01">
                     </li>
                     <li class="com_name">
                       모트렉스
                     </li>
                     <li class="com_tit">
-                      <h4>웹개발(백엔드,프론트엔드)</h4>
+                      <h4>웹개발(백엔드,프론트엔드)</43>
                     </li>
                     <li class="com_txt">
                       CSS3·jQuery·Linux·JavaScript
@@ -160,13 +162,13 @@
                 <a href="comp_job_opening_detail.html">
                   <ul class="comp_cont">
                     <li class="comp_img">
-                      <img src="/image/company_img/comp_img01.png" alt="기업01">
+                      <img src="image/company_img/comp_img01.png" alt="기업01">
                     </li>
                     <li class="com_name">
                       모트렉스
                     </li>
                     <li class="com_tit">
-                      <h4>웹개발(백엔드,프론트엔드)</h4>
+                      <h4>웹개발(백엔드,프론트엔드)</43>
                     </li>
                     <li class="com_txt">
                       CSS3·jQuery·Linux·JavaScript
@@ -187,59 +189,36 @@
               <div class="resume_count">전체
                 <span class="common_num">3</span>
               </div>
-              <a href="user_resume_write.html" class="btn btn-primary">이력서 작성</a>
+              <a href="/user/resume/saveForm" class="btn btn-primary">이력서 작성</a>
             </div>
             <ul class="com_cont">
+              {{#resumeList}}
               <li class="resume_inner">
                 <ul class="resume_cont">
                   <li class="com_tit com_btn">
-                    <h4>끊임없이 개선하려는 개발자</h4>
+                    <h4>{{title}}</h4>
                     <div class="double_btn">
-                      <form action="user_resume_update.html">
+                      <form action="/user/resume/{{id}}/updateForm">
                         <button type="submit" class="btn_empty">이력서 수정</button>
                       </form>
-                      <form action="#">
+                      <form action="/user/resume/{{id}}/delete" method="post">
                         <button type="submit" class="btn_fill">이력서 삭제</button>
                       </form>
                     </div>
                   </li>
                   <li class="com_txt">
-                    고졸 신입
+                    {{edu}} {{career}} {{#careerYear}}{{careerYear}}{{/careerYear}}
                   </li>
                   <li class="com_skill user_skill">
-                    <span class="skill_box">HTML/CSS</span>
-                    <span class="skill_box">JavaScript</span>
-                    <span class="skill_box">MySQL</span>
-                    <span class="skill_box">Spring</span>
-                    <span class="skill_box">JAVA</span>
+                  {{#hasSkillList}}
+                    
+                    <span class="skill_box">{{skill.skill}}</span>
+                    
+                  {{/hasSkillList}}
                   </li>
                 </ul>
               </li>
-              <li class="resume_inner">
-                <ul class="resume_cont">
-                  <li class="com_tit com_btn">
-                    <h4>끊임없이 개선하려는 개발자</h4>
-                    <div class="double_btn">
-                      <form action="user_resume_update.html">
-                        <button type="submit" class="btn_empty">이력서 수정</button>
-                      </form>
-                      <form action="#">
-                        <button type="submit" class="btn_fill">이력서 삭제</button>
-                      </form>
-                    </div>
-                  </li>
-                  <li class="com_txt">
-                    고졸 신입
-                  </li>
-                  <li class="com_skill user_skill">
-                    <span class="skill_box">HTML/CSS</span>
-                    <span class="skill_box">JavaScript</span>
-                    <span class="skill_box">MySQL</span>
-                    <span class="skill_box">Spring</span>
-                    <span class="skill_box">JAVA</span>
-                  </li>
-                </ul>
-              </li>
+              {{/resumeList}}
             </ul>
           </div>
         </div>
@@ -359,7 +338,7 @@
             <div class="update_box">
               <div class="udpassword ">
 
-                <form action="#" class="pw_update">
+                <form action="/user/update" method="post" class="pw_update">
                   <div class="">
                     <label for="nowPassword" class="form-label">현재 비밀번호</label>
                     <input type="password" class="form-control" id="nowPassword" placeholder="비밀번호를 입력해 주세요."
@@ -378,7 +357,6 @@
                   <div style="display: flex; justify-content: center;">
                     <button type="submit" class="btn btn-primary">확인</button>
                   </div>
-
                 </form>
 
               </div>
@@ -390,4 +368,21 @@
   </div>
 </main>
 <!-- 메인 -->
+<script>
+  function changeUserPic(e1) {
+    let f = e1.srcElement.files[0];
+    console.log(f.type);
+    if (!f.type.match("image.*")) {
+      alert("이미지를 등록해주세요");
+      return;
+    }
+    let reader = new FileReader();
+    reader.onload = function (e2) { // 파일이 다 읽어지면 콜백됨
+      let previewEl = document.querySelector("#preview");
+      previewEl.setAttribute("src", e2.target.result);
+    }
+    reader.readAsDataURL(f); // 파일 읽기 onload()
+  }
+</script>
+
 {{>layout/footer}}

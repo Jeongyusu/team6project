@@ -7,6 +7,6 @@ import org.springframework.data.repository.query.Param;
 public interface PositionRepository extends JpaRepository<Position, Integer> {
 
     @Query("select p from Position p where p.position = :position")
-    Position findByName(@Param("position") String position);
+    Position findByPositionName(@Param("position") String position);
 
 }

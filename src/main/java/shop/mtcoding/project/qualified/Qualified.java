@@ -39,5 +39,4 @@ public class Qualified {
         this.qualifiedContent = qualifiedContent;
         this.jobOpening = jobOpening;
     }
-
 }

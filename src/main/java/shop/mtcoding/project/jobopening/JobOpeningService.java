@@ -3,10 +3,12 @@ package shop.mtcoding.project.jobopening;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.batch.BatchProperties.Job;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,9 +79,9 @@ public class JobOpeningService {
 
         jobOpeningRepository.save(jobOpening);
 
-        List<String> requiredPositionList = jobOpeningSaveDTO.getPosition();
+        List<String> requiredPositionList = jobOpeningSaveDTO.getPositionList();
         for (String positionName : requiredPositionList) {
-            Position position = positionRepository.findByName(positionName);
+            Position position = positionRepository.findByPositionName(positionName);
 
             RequiredPosition requiredPosition = RequiredPosition.builder()
                     .jobOpening(jobOpening)
@@ -90,9 +92,9 @@ public class JobOpeningService {
         }
         // 내가 선택한 체크박스 포지션 등록
 
-        List<String> requiredSkillList = jobOpeningSaveDTO.getSkill();
+        List<String> requiredSkillList = jobOpeningSaveDTO.getSkillList();
         for (String skillName : requiredSkillList) {
-            Skill skill = skillRepository.findByName(skillName);
+            Skill skill = skillRepository.findBySkillName(skillName);
 
             RequiredSkill requiredSkill = RequiredSkill.builder()
                     .jobOpening(jobOpening)
@@ -102,7 +104,7 @@ public class JobOpeningService {
         }
         // 내가 선택한 체크박스 스킬 등록
 
-        List<String> qualContList = jobOpeningSaveDTO.getQual();
+        List<String> qualContList = jobOpeningSaveDTO.getQualList();
 
         for (String qual : qualContList) {
             Qualified qualCont = Qualified.builder()
@@ -113,7 +115,7 @@ public class JobOpeningService {
         }
         // 자격요건 등록
 
-        List<String> taskContList = jobOpeningSaveDTO.getTask();
+        List<String> taskContList = jobOpeningSaveDTO.getTaskList();
 
         for (String task : taskContList) {
             Task taskCont = Task.builder()
@@ -125,19 +127,26 @@ public class JobOpeningService {
         // 주요업무 등록
     }
 
-    public Optional<JobOpening> 공고수정페이지(Integer id) {
+    public JobOpening 공고수정페이지(Integer id) {
         Optional<JobOpening> jobOpening = jobOpeningRepository.findById(id);
-        return jobOpening;
+
+        if (jobOpening.isPresent()) {
+            return jobOpening.get();
+        } else {
+            throw new MyException("해당 채용공고를 찾을 수 없습니다.");
+        }
     }
 
     @Transactional
     public void 공고수정(JobOpeningUpdateDTO jobOpeningUpdateDTO, Integer id) {
-
-        Optional<JobOpening> jobOpeningOP = jobOpeningRepository.findById(4);
+        Optional<JobOpening> jobOpeningOP = jobOpeningRepository.findById(id);
 
         if (jobOpeningOP.isPresent()) {
+
             JobOpening jobOpening = jobOpeningOP.get();
 
+            // 업데이트할 내용 설정
+            jobOpening.setId(jobOpeningUpdateDTO.getId());
             jobOpening.setTitle(jobOpeningUpdateDTO.getTitle());
             jobOpening.setCareer(jobOpeningUpdateDTO.getCareer());
             jobOpening.setCareerYear(jobOpeningUpdateDTO.getCareerYear());
@@ -145,10 +154,49 @@ public class JobOpeningService {
             jobOpening.setCompAddress(jobOpeningUpdateDTO.getCompAddress());
             jobOpening.setProcess(jobOpeningUpdateDTO.getProcess());
             jobOpening.setUser(jobOpeningUpdateDTO.getUser());
-            // jobOpening.setPositionList(jobOpeningUpdateDTO.getPosition());
-            // jobOpening.setQualList(jobOpeningUpdateDTO.getQual());
-            // jobOpening.setSkillList(jobOpeningUpdateDTO.getSkill());
-            // jobOpening.setQualList(jobOpeningUpdateDTO.getQual());
+            jobOpeningRepository.save(jobOpening);
+
+            List<String> positionList = jobOpeningUpdateDTO.getPositionList();
+            for (String positionName : positionList) {
+                Position position = positionRepository.findByPositionName(positionName);
+                RequiredPosition requiredPosition = RequiredPosition.builder()
+                        .jobOpening(jobOpening)
+                        .position(position)
+                        .build();
+                requiredPositionRepository.save(requiredPosition);
+            }
+
+            List<String> skillList = jobOpeningUpdateDTO.getSkillList();
+            for (String skillName : skillList) {
+                Skill skill = skillRepository.findBySkillName(skillName);
+                RequiredSkill requiredSkill = RequiredSkill.builder()
+                        .jobOpening(jobOpening)
+                        .skill(skill)
+                        .build();
+                requiredSkillRepository.save(requiredSkill);
+
+            }
+
+            List<String> qualList = jobOpeningUpdateDTO.getQualList();
+
+            for (String qualName : qualList) {
+                // Qualified qualified = qualifiedRepository.findByQualName(qualName);
+                Qualified requiredQualified = Qualified.builder()
+                        .jobOpening(jobOpening)
+                        .qualifiedContent(qualName)
+                        .build();
+                qualifiedRepository.save(requiredQualified);
+            }
+
+            List<String> taskList = jobOpeningUpdateDTO.getTaskList();
+            for (String taskName : taskList) {
+                // Task task = taskRepository.findByTaskName(taskName).get();
+                Task requiredTask = Task.builder()
+                        .jobOpening(jobOpening)
+                        .taskContent(taskName)
+                        .build();
+                taskRepository.save(requiredTask);
+            }
 
         } else {
             throw new MyException(id + "를 찾을 수 없습니다");

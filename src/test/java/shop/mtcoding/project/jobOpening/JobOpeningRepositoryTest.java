@@ -20,7 +20,7 @@ public class JobOpeningRepositoryTest {
     private RequiredPositionRepository requiredPositionRepository;
 
     @Test
-    public void findById_test() {
-        Optional<JobOpening> jobOpeningOP = jobOpeningRepository.findById(4);
+    public void findById_test(Integer id) {
+        JobOpening jobOpeningOP = jobOpeningRepository.findById(1).get();
     }
 }

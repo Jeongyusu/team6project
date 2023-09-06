@@ -40,9 +40,9 @@ public class CompScrap {
     private Resume resume;
 
     @Builder
-    public CompScrap(Integer id, Timestamp createdAt, User user, Resume resume) {
+    public CompScrap(Integer id, Timestamp timestamp, User user, Resume resume) {
         this.id = id;
-        this.createdAt = createdAt;
+        this.createdAt = timestamp;
         this.user = user;
         this.resume = resume;
     }

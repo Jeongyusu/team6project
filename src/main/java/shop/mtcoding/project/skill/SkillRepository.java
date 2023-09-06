@@ -6,6 +6,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface SkillRepository extends JpaRepository<Skill, Integer> {
     @Query("select s from Skill s where s.skill = :skill")
-    Skill findByName(@Param("skill") String skill);
+    Skill findBySkillName(@Param("skill") String skill);
 
 }

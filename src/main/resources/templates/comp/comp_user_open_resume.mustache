@@ -1,13 +1,13 @@
 {{>layout/compheader}}
-    
-    <!-- 메인 -->
-    <!-- 각자 페이지 main 클래스에 name 작성-->
-    <!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
-    <main class="open_resume main_page">
-      <div class="container">
-          <!-- container 건들지 말기 -->
-          <!-- 여기서부터 시작 -->
-          <div class="position_box">
+
+<!-- 메인 -->
+<!-- 각자 페이지 main 클래스에 name 작성-->
+<!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
+<main class="open_resume main_page">
+    <div class="container">
+        <!-- container 건들지 말기 -->
+        <!-- 여기서부터 시작 -->
+        <div class="position_box">
             <ul class="position_menu">
                 <li class="position_skill com_skill position_active">
                     <span class="skill_box">MySQL</span>
@@ -36,8 +36,9 @@
                 <option>javaScript</option>
             </select>
         </div>
+        {{#resumeList}}
         <div class="main_box">
-            <a href="user_resume_detail.html">
+            <a href="/user/{{id}}/resume/detail">
                 <ul class="user_cont user_box">
                     <li class="user_img">
                         <img src="/image/user_img/j_img.png" alt="이력서 사진">
@@ -45,108 +46,24 @@
                     <li class="user_cont">
                         <div class="com_tit">
                             <h3>
-                                정유수
+                                {{userName}}
                             </h3>
                         </div>
                         <div class="com_tit">
-                            <h4>데이터로 일하는 개발자
+                            <h4>
+                                {{title}}
                             </h4>
                         </div>
-                        <div class="com_txt">신입</div>
-                        <div class="com_txt">서울 특별시</div>
+                        <div class="com_txt">{{career}} {{#careerYear}}{{careerYear}}{{/careerYear}}</div>
+                        <div class="com_txt">{{address}}</div>
                         <div class="com_skill open_resume_skill">
-                            <span class="skill_box">html</span>
-                            <span class="skill_box">JavaScript</span>
-                            <span class="skill_box">HTML/CSS</span>
-                            <span class="skill_box">Spring</span>
-                            <span class="skill_box">Oracle</span>
-                        </div>
-                    </li>
-                </ul>
-            </a>
-            <a href="user_resume_detail.html">
-                <ul class="user_cont user_box">
-                    <li class="user_img">
-                        <img src="/image/user_img/n_img.png" alt="이력서 사진">
-                    </li>
-                    <li class="user_cont">
-                        <div class="com_tit">
-                            <h3>
-                                남은혜
-                            </h3>
-                        </div>
-                        <div class="com_tit">
-                            <h4>데이터로 일하는 개발자
-                            </h4>
-                        </div>
-                        <div class="com_txt">신입</div>
-                        <div class="com_txt">서울 특별시</div>
-                        <div class="com_skill open_resume_skill">
-                            <span class="skill_box">html</span>
-                            <span class="skill_box">JavaScript</span>
-                            <span class="skill_box">HTML/CSS</span>
-                            <span class="skill_box">Spring</span>
-                            <span class="skill_box">Oracle</span>
-                        </div>
-                    </li>
-                </ul>
-            </a>
-            <a href="user_resume_detail.html">
-                <ul class="user_cont user_box">
-                    <li class="user_img">
-                        <img src="/image/user_img/i_img.png" alt="이력서 사진">
-                    </li>
-                    <li class="user_cont">
-                        <div class="com_tit">
-                            <h3>
-                                이은지
-                            </h3>
-                        </div>
-                        <div class="com_tit">
-                            <h4>데이터로 일하는 개발자
-                            </h4>
-                        </div>
-                        <div class="com_txt">신입</div>
-                        <div class="com_txt">서울 특별시</div>
-                        <div class="com_skill open_resume_skill">
-                            <span class="skill_box">html</span>
-                            <span class="skill_box">JavaScript</span>
-                            <span class="skill_box">HTML/CSS</span>
-                            <span class="skill_box">Spring</span>
-                            <span class="skill_box">Oracle</span>
-                        </div>
-                    </li>
-                </ul>
-            </a>
-            <a href="user_resume_detail.html">
-                <ul class="user_cont user_box">
-                    <li class="user_img">
-                        <img src="/image/user_img/c_img.png" alt="이력서 사진">
-                    </li>
-                    <li class="user_cont">
-                        <div class="com_tit">
-                            <h3>
-                                최봉준
-                            </h3>
-                        </div>
-                        <div class="com_tit">
-                            <h4>데이터로 일하는 개발자
-                            </h4>
-                        </div>
-                        <div class="com_txt">신입</div>
-                        <div class="com_txt">서울 특별시</div>
-                        <div class="com_skill open_resume_skill">
-                            <span class="skill_box">html</span>
-                            <span class="skill_box">JavaScript</span>
-                            <span class="skill_box">HTML/CSS</span>
-                            <span class="skill_box">Spring</span>
-                            <span class="skill_box">Oracle</span>
+                            <span class="skill_box"></span>
                         </div>
                     </li>
                 </ul>
             </a>
         </div>
-    </main>
-    <!-- 메인 -->
-
-  {{>layout/footer}}
+        {{/resumeList}}
+    </div>
+</main>
+{{>layout/footer}}

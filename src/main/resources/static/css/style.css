@@ -34,6 +34,9 @@ main {
 main > .container {
   max-width: 1080px;
 }
+#mainJob {
+  margin-bottom: 4px;
+}
 .date {
   text-align: right;
   color: var(--font_03);
@@ -1226,6 +1229,13 @@ footer li:last-child {
   align-items: center;
 }
 
+.plus_Input1 > input {
+  margin-bottom: 4px;
+}
+
+.plus_Input2 > input {
+  margin-bottom: 4px;
+}
 .plus_button {
   border-color: transparent;
   background-color: transparent;

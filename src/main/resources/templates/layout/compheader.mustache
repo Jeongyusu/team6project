@@ -11,7 +11,7 @@
             crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-        <link rel="stylesheet" type="text/css"  href="/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
         <script src="/js/script.js"></script>
     </head>
   <body>
@@ -19,7 +19,7 @@
     <nav class="navbar">
       <div class="container">
         <div class="nav_top">
-          <a class="navbar-brand" href="comp_index.html">봉티드</a>
+          <a class="navbar-brand" href="/comp">봉티드</a>
           <form class="d-flex">
             <input
               class="search form-control me-2"
@@ -45,16 +45,25 @@
             </li>
           </ul>
           <ul class="nav_right">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="comp_login.html" role="button" data-bs-toggle="dropdown">로그인/회원가입</a>
-              <ul class="nav-item-menu dropdown-menu">
-                <li><a class="dropdown-item" href="/jobOpening/compInfo">마이 페이지</a></li>
-                <li><a class="dropdown-item" href="#">로그아웃</a></li>
-              </ul>
-              </li>
-            </li>
+            {{#sessionUser}}
+          <li class="nav-item">
+            <a class="nav-link" href="/comp/MypageForm">회원정보보기</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/comp/logout">로그아웃</a>
+          </li>
+          {{/sessionUser}}
+          
+          {{^sessionUser}}
+          <li class="nav-item">
+            <a class="nav-link" href="/comp/joinForm">회원가입</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/comp/loginForm">로그인</a>
+          </li>
+          {{/sessionUser}}
             <li class="nav-item">
-              <a class="nav-link nav_company_btn" href="user_index.html">개인서비스</a>
+              <a class="nav-link nav_company_btn" href="/user">개인서비스</a>
             </li>
           </ul>
         </div>

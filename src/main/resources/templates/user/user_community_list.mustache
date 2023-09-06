@@ -1,4 +1,5 @@
 {{>layout/userheader}}
+
 <!--메인-->
 <!-- 각자 페이지 name 작성-->
 <main class="community_list common_bg">
@@ -6,11 +7,11 @@
     <!-- container 건들지 말기 -->
 
     <div class="community_search">
-      <form action="#" class="d-flex">
-        <input class="search form-control me-2" type="text" placeholder="검색어를 입력해주세요" />
-        <button class="btn btn-primary" type="button">Search</button>
+      <form action="/user/community" class="d-flex">
+        <input class="search form-control me-2" type="text" placeholder="검색어를 입력해주세요" name="keyword" />
+        <button class="btn btn-primary" type="submit">Search</button>
       </form>
-      <form action="user_community_write.html">
+      <form action="/user/community/board/saveForm">
         <button type="submit" class="btn btn-primary">작성하기</button>
       </form>
     </div>
@@ -25,45 +26,31 @@
     </div>
 
     <div class="board">
+      {{#boardListDTO}}
       <div class="inner_box_board mt-3">
         <div class="each_board">
-          <a href="user_community_detail.html">
+          <a href="/user/community/board/{{boardId}}">
             <img class="speech_png " src="/image/com_img/speech.png" alt="speech_png">
-            <div class="title">개발이 너무 하고 싶어요.</div>
-            <div class="content">안녕하세요. 제가 고민이 너무 많아서 작성합니다.</div>
+            <div class="title">{{title}}</div>
+            <div class="content">{{content}}</div>
             <div class="info_write">
               <ul>
-                <li class="write_user">nammmmu</li>
-                <li class="write_created-at">2022-05-30</li>
+                <li class="write_user">{{boardUserName}}</li>
+                <li class="write_created-at">{{boardFormatDate}}</li>
               </ul>
             </div>
           </a>
         </div>
       </div>
-      <div class="inner_box_board mt-3">
-        <div class="each_board">
-          <a href="user_community_detail.html">
-            <img class="speech_png " src="/image/com_img/speech.png" alt="speech_png">
-            <div class="title">개발이 너무 하고 싶어요.</div>
-            <div class="content">안녕하세요. 제가 고민이 너무 많아서 작성합니다.</div>
-            <div class="info_write">
-              <ul>
-                <li class="write_user">nammmmu</li>
-                <li class="write_created_at">2022-05-30</li>
-              </ul>
-            </div>
-          </a>
-        </div>
-      </div>
+      {{/boardListDTO}}
     </div>
 
     <div class="inner_box_button mt-5">
       <ul class="pagination d-flex justify-content-center">
-        <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item {{#boardListDTO.first}}disabled{{/boardListDTO.first}}"><a class="page-link"
+            href="?page={{prev}}">Prev</a></li>
+        <li class="page-item {{#boardListDTO.last}}disabled{{/boardListDTO.last}}"><a class="page-link"
+            href="?page={{next}}">Next</a></li>
       </ul>
     </div>
   </div>

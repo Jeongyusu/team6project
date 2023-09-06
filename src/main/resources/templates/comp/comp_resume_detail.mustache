@@ -1,0 +1,138 @@
+{{>layout/compheader}}
+<!-- 메인 -->
+<!-- 각자 페이지 main 클래스에 name 작성-->
+<!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
+<main class="resume_details common_bg">
+  <div class="container">
+    <!-- container 건들지 말기 -->
+    <!-- 여기서부터 시작 -->
+    <form action="/userSuggest" method="post">
+      <div class="main_total">
+        <div class="main_tit">
+          <h2>이력서</h2>
+        </div>
+        {{#resume}}
+        <input type="hidden" name="selectedResumeId" value="{{id}}">
+        <input type="hidden" name="selectedUserId" value="{{sessionUser.id}}">
+        <div class="save_title mb-5">
+          <h2>{{title}}</h2>
+        </div>
+        <div>
+          <div class="main_back container">
+            <div class="resume_user_info">
+              <div class="resume_user_pic">
+                <img src="/image/user_img/blue_basic_profile.png" alt="basic_profile_png">
+              </div>
+              <div class="resume_user_infomation">
+                <div class="resume_user_display">
+                  <div class="detail_user_name">{{userName}}</div>
+                </div>
+                <div class="icon_div">
+                  <div class="form-control" id="icon_padding">{{userEmailId}}</div>
+                  <img class="image_icon" src="https://img.icons8.com/material-outlined/100/mail.png" alt="mail" />
+                </div>
+                <div class="resume_user_display">
+                  <div class="icon_div col-sm-5">
+                    <div class="form-control" id="icon_padding">{{birth}}</div>
+                    <img src="https://img.icons8.com/material-outlined/24/calendar--v1.png" alt="calendar--v1" />
+                  </div>
+                  <div class="icon_div col-sm-7">
+                    <div class="form-control" id="icon_padding">{{tel}}</div>
+                    <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/phone--v1.png"
+                      alt="phone--v1" />
+                  </div>
+                </div>
+                <div class="icon_div">
+                  <div class="form-control" id="icon_padding">{{address}}</div>
+                  <img src="https://img.icons8.com/ios-glyphs/30/address.png" alt="address" />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="resume_margin">
+              <label class="job_list mb-3">간단한 소개</label>
+              <div class="form-control" id="icon_padding">{{subIntro}}</div>
+            </div>
+
+            <div class="resume_margin">
+              <div class="skill">
+                <label class="job_list mb-3">개발 직무</label>
+                <ul>
+                  <li class="users_position user_position">
+                    <span class="position_box">서버 백엔드 개발자</span>
+                    <span class="position_box">웹 풀스택 개발자</span>
+                    <span class="position_box">크로스 플랫폼 앱 개발자</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="resume_margin">
+              <div class="skill">
+                <label class="job_list mb-3">기술 스택</label>
+                <ul>
+                  <li class="comp_skill com_skill">
+                    <span class="skill_box">JAVA</span>
+                    <span class="skill_box">JavaScript</span>
+                    <span class="skill_box">Spring</span>
+                    <span class="skill_box">HTML/CSS</span>
+                    <span class="skill_box">MySQL</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="resume_margin">
+              <label class="job_list mb-3" for="mainJob">경력</label>
+              <div>
+                <span>{{career}}</span>
+                <span>{{#careerYear}}{{careerYear}}{{/careerYear}}</span>
+              </div>
+            </div>
+
+            <div class="resume_margin">
+              <label class="job_list mb-3" for="mainJob">학력</label>
+              <span>{{edu}}</span>
+            </div>
+
+            <hr>
+            <div class="resume_margin">
+              <label class="job_list mb-3" for="mainJob">자기소개서</label>
+              <div class="form-control">
+                {{mainIntro}}
+              </div>
+              <div class="double_btn scrap_btn">
+                <button type="button" id="scrap_button" class="btn_empty scrap_icon scrap_button">
+                  <img id="scrap_icon" src="/image/empty_star.png" alt="empty_star.png">
+                  <span>
+                    스크랩
+                  </span>
+                </button>
+                <script>
+                  let scrapButton = document.querySelector("#scrap_button");
+                  let scrapIcon = document.querySelector("#scrap_icon");
+                  let isScrapped = false;
+
+                  scrapButton.addEventListener("click", function () {
+                    if (isScrapped) {
+                      scrapIcon.src = "/image/empty_star.png";
+                    } else {
+                      scrapIcon.src = "/image/full_star.png";
+                    }
+                    isScrapped = !isScrapped;
+                  });
+                      // 스크랩 버튼
+                </script>
+                <button type="submit" class="btn_fill">제안하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/resume}}
+      </div>
+    </form>
+
+  </div>
+</main>
+{{>layout/footer}}
