@@ -1728,8 +1728,8 @@ footer li:last-child {
 }
 
 .resume_defaultPic {
-  background-image: url(basic.jpg);
-  width: 150px;
-  height: 200px;
+  background-image: url(../image/user_img/def_img.png);
+  width: 100px;
+  height: 150px;
 
 }

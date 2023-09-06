@@ -12,8 +12,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import shop.mtcoding.project.resume.Resume;
 
+@ToString
 @NoArgsConstructor
 @Setter
 @Getter
@@ -37,5 +39,5 @@ public class WishPosition {
         this.resume = resume;
         this.position = position;
     }
-    
+
 }

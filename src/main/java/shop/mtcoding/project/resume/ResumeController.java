@@ -1,6 +1,7 @@
 package shop.mtcoding.project.resume;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -158,10 +159,12 @@ public class ResumeController {
     public String userResumeDetail(@PathVariable Integer id, Model model) {
 
         Resume resume = resumeRepository.findById(id).get();
-        List<WishPosition> wishPosition = wishPositionRepository.findByResumeId(id);
+        List<WishPosition> wishPositionList = wishPositionRepository.positionFindByResumeId(id);
+        List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(id);
 
+        model.addAttribute("hasSkillList", hasSkillList);
         model.addAttribute("resume", resume);
-        model.addAttribute("wishPosition", wishPosition);
+        model.addAttribute("wishPositionList", wishPositionList);
         return "user/user_resume_detail_check";
 
     }
