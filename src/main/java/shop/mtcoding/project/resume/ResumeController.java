@@ -9,12 +9,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project._core.error.ex.MyApiException;
+import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
 import shop.mtcoding.project.position.PositionResponse.WishPositionResponseDTO;
 import shop.mtcoding.project.position.WishPosition;
@@ -155,6 +158,30 @@ public class ResumeController {
         model.addAttribute("wishPositionList", wishPositionList);
         return "user/user_resume_detail_check";
 
+    }
+
+    @DeleteMapping("/api/resume/{id}/delete")
+    public @ResponseBody ApiUtil<String> deleteResume(@PathVariable Integer id) {
+        // 1.인증체크
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            throw new MyApiException("인증되지 않았습니다");
+        }
+
+        // 2.핵심로직
+        resumeService.삭제(id);
+        // 3.응답
+        return new ApiUtil<String>(true, "이력서 삭제 완료");
+
+    }
+
+    @GetMapping("/user/resume")
+    public String userResumeList(Model model) {
+
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Resume> resumeList = resumeRepository.findByUserId(sessionUser.getId());
+        model.addAttribute("resumeList", resumeList);
+        return "user/user_resume";
     }
 
 }
