@@ -69,28 +69,18 @@ public class UserController {
     // return "user/user_mypage";
     // }
 
-    @GetMapping("/userResumeWriteForm")
+    @GetMapping("/user/resume/wirteForm")
     public String UserResumeWrite() {
         return "user/user_resume_write";
     }
 
-    @PostMapping("/userPasswordUpdate")
+    ///////// 유저 비번 변경하기 완료
+    @PostMapping("/user/password/update")
     public String userUpdate(UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
-        if (sessionUser.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
-        } else {
-            return Script.back("현재 비밀번호가 틀렸습니다");
-        }
-        if (userUpdateDTO.getNewPassword().equals(userUpdateDTO.getNewPasswordConfirm())) {
-        } else {
-            return Script.back("새로운 비밀번호가 일치하지않습니다.");
-
-        }
-
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
-        return "redirect:/userMyPageForm";
+        return "redirect:/user/myPageForm";
     }
 
     @PostMapping("/user/picUpdate")
@@ -176,7 +166,6 @@ public class UserController {
         if (userUpdateDTO.getNewPassword().equals(userUpdateDTO.getNewPasswordConfirm())) {
         } else {
             return Script.back("새로운 비밀번호가 일치하지않습니다.");
-
         }
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);

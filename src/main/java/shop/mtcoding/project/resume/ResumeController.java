@@ -78,8 +78,8 @@ public class ResumeController {
         return "redirect:/";
     }
 
-    @GetMapping("/{id}/userMyPageForm")
-    public String resumeList(@PathVariable Integer id, Model model) {
+    @GetMapping("/user/myPageForm")
+    public String resumeList(Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         List<Apply> applyList = applyRepository.findAll();
