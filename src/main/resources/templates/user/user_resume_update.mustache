@@ -232,7 +232,7 @@ let requestOptions = {
  async function fetchSelectedSkills() {
  
   try {
-    let response = await fetch('/api/getSkillList', requestOptions);
+    let response = await fetch(`/api/resume/${resumeId}/skillList`);
     console.log("테스트" + JSON.stringify(data));
     if (response.ok) {
       let responseBody = await response.json();

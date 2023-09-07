@@ -44,7 +44,7 @@
                     <ul class="com_cont">
                       <li class="resume_box">
                         {{#resumeList}}
-                        <ul class="resume_cont">
+                        <ul class="resume_cont" id="resume-{{id}}">
                           <li class="com_tit com_btn">
                             <h4>{{title}}</h4>
                             <div class="double_btn">
@@ -78,23 +78,19 @@
 
       <script>
       
+   
        function deleteResume(id){
-        $.ajax({
-        url: `/api/resume/${id}/delete`,
-        method: 'DELETE', // 또는 'DELETE' 등
-        data: { id : id },
-        success: (response) => {
-          $(document).ready(()=>{
-           $(".resume_cont").each(()=>{
-           $(this).find("#resume_del").click(()=>{
-           $(this).closest(".resume_cont").remove();
-             });
-              });
-          });
-
-        }
-      });
-    }
+          $.ajax({
+            url: `/api/resume/${id}`,
+            method: 'delete',
+            success: (response) => {
+              console.log(response);
+              if(response.success === true){
+                $(`#resume-${id}`).remove();
+              }
+          }
+        });
+      }
 
 
 // async function deleteReply(id){

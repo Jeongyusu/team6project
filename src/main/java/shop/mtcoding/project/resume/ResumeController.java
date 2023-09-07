@@ -103,9 +103,8 @@ public class ResumeController {
         return Script.back("수정완료");
     }
 
-    @PostMapping("/api/getSkillList")
-    public @ResponseBody List<HasSkillResponseDTO> getSkillList(@RequestBody Map<String, Integer> requestBody) {
-        Integer resumeId = requestBody.get("resumeId");
+    @GetMapping("/api/resume/{resumeId}/skillList")
+    public @ResponseBody List<HasSkillResponseDTO> getSkillList(@PathVariable Integer resumeId) {
         List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(resumeId);
         List<HasSkillResponseDTO> hasSkillResponseDTOList = new ArrayList<>();
         for (HasSkill skillList : hasSkillList) {
@@ -133,13 +132,6 @@ public class ResumeController {
         return wishPositionResponseDTOList;
     }
 
-    @PostMapping("/user/resume/{id}/delete")
-    public @ResponseBody String delete(@PathVariable Integer id) {
-        // 인증체크
-        resumeService.삭제(id);
-        return Script.back("삭제완료");
-
-    }
 
     @GetMapping("/comp/resume/{id}")
     public String compResumeDetail() {
@@ -160,13 +152,14 @@ public class ResumeController {
 
     }
 
-    @DeleteMapping("/api/resume/{id}/delete")
+    @DeleteMapping("/api/resume/{id}")
     public @ResponseBody ApiUtil<String> deleteResume(@PathVariable Integer id) {
+        System.out.println("test : 삭제 요청됨 : id : "+id);
         // 1.인증체크
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null) {
-            throw new MyApiException("인증되지 않았습니다");
-        }
+        // User sessionUser = (User) session.getAttribute("sessionUser");
+        // if (sessionUser == null) {
+        //     throw new MyApiException("인증되지 않았습니다");
+        // }
 
         // 2.핵심로직
         resumeService.삭제(id);
