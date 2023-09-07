@@ -11,14 +11,14 @@
           <div class="mb-3">
             <h3 class="user_tit mb-5">기업 회원 로그인</h3>
           </div>
-          <form action="#">
+          <form action="/comp/login" method="post">
             <div class="mb-3 mt-3">
               <label for="email" class="form-label">이메일</label>
-              <input type="email" class="form-control" id="email" placeholder="이메일을 입력해주세요." name="email">
+              <input type="email" class="form-control" id="email" placeholder="이메일을 입력해주세요." name="compEmailId">
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">비밀번호</label>
-              <input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력해주세요." name="password">
+              <input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력해주세요." name="userPassword">
             </div>
             <button type="submit" class="btn btn-primary">로그인</button>
             <div class="mt-2">
@@ -26,7 +26,7 @@
                 <input class="" id="remember" type="checkbox" name="remember">
                 <label class="id_save" for="remember">아이디 저장</label>
               </label>
-              <div class="mt-1"><a href="comp_join.html">회원가입</a></div>
+              <div class="mt-1"><a href="/comp/joinForm">회원가입</a></div>
             </div>
           </form>
         </div>

@@ -1,128 +1,48 @@
 {{>layout/userheader}}
-    
-    <!-- 메인 -->
-    <!-- 각자 페이지 main 클래스에 name 작성-->
-    <!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
-    <main class="main_page">
-      <div class="container">
-          <!-- container 건들지 말기 -->
-          <!-- 여기서부터 시작 -->
-          <div class="main_box">
-            <ul class="com_cont com_box">
-              <li class="comp_item">
-                <a href="user_job_opening_apply.html">
-                  <ul class="comp_cont">
-                    <li class="comp_img">
-                      <img src="image/company_img/comp_img01.png" alt="기업01">
-                    </li>
-                    <li class="com_name">
-                        모트렉스
-                    </li>
-                    <li class="com_tit">
-                      <h4>웹개발(백엔드,프론트엔드)</43>
-                    </li>
-                    <li class="com_txt">
-                      CSS3·jQuery·Linux·JavaScript
-                    </li>
-                    <li class="com_etc">
-                      <span class="com_adr">서울 영등포구</span>
-                      <span class="com_car">경력 5-15년</span>
-                    </li>
-                  </ul>
-                </a>
+
+<!-- 메인 -->
+<!-- 각자 페이지 main 클래스에 name 작성-->
+<!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
+<main class="main_page">
+  <div class="container">
+    <!-- container 건들지 말기 -->
+    <!-- 여기서부터 시작 -->
+    <div class="main_box">
+      <ul class="com_cont com_box">
+        {{#jobOpeningMainDTO}}
+        <li class="comp_item">
+          <a href="/user/jobopening/{{jobOpeningId}}">
+            <ul class="comp_cont">
+              <li class="comp_img">
+                <img src="/image/company_img/comp_img01.png" alt="기업01">
               </li>
-              <li class="comp_item">
-                <a href="user_job_opening_apply.html">
-                  <ul class="comp_cont">
-                    <li class="comp_img">
-                      <img src="image/company_img/comp_img01.png" alt="기업01">
-                    </li>
-                    <li class="com_name">
-                        모트렉스
-                    </li>
-                    <li class="com_tit">
-                      <h4>웹개발(백엔드,프론트엔드)</43>
-                    </li>
-                    <li class="com_txt">
-                      CSS3·jQuery·Linux·JavaScript
-                    </li>
-                    <li class="com_etc">
-                      <span class="com_adr">서울 영등포구</span>
-                      <span class="com_car">경력 5-15년</span>
-                    </li>
-                  </ul>
-                </a>
+              <li class="com_name">
+                {{compNameList}}
               </li>
-              <li class="comp_item">
-                <a href="user_job_opening_apply.html">
-                  <ul class="comp_cont">
-                    <li class="comp_img">
-                      <img src="image/company_img/comp_img01.png" alt="기업01">
-                    </li>
-                    <li class="com_name">
-                        모트렉스
-                    </li>
-                    <li class="com_tit">
-                      <h4>웹개발(백엔드,프론트엔드)</43>
-                    </li>
-                    <li class="com_txt">
-                      CSS3·jQuery·Linux·JavaScript
-                    </li>
-                    <li class="com_etc">
-                      <span class="com_adr">서울 영등포구</span>
-                      <span class="com_car">경력 5-15년</span>
-                    </li>
-                  </ul>
-                </a>
+              <li class="com_tit">
+                <h4>{{titleList}}</h4>
               </li>
-              <li class="comp_item">
-                <a href="user_job_opening_apply.html">
-                  <ul class="comp_cont">
-                    <li class="comp_img">
-                      <img src="image/company_img/comp_img01.png" alt="기업01">
-                    </li>
-                    <li class="com_name">
-                        모트렉스
-                    </li>
-                    <li class="com_tit">
-                      <h4>웹개발(백엔드,프론트엔드)</43>
-                    </li>
-                    <li class="com_txt">
-                      CSS3·jQuery·Linux·JavaScript
-                    </li>
-                    <li class="com_etc">
-                      <span class="com_adr">서울 영등포구</span>
-                      <span class="com_car">경력 5-15년</span>
-                    </li>
-                  </ul>
-                </a>
+              <li class="com_txt">
+                <p>{{skillList}}</p>
               </li>
-              <li class="comp_item">
-                <a href="user_job_opening_apply.html">
-                  <ul class="comp_cont">
-                    <li class="comp_img">
-                      <img src="image/company_img/comp_img01.png" alt="기업01">
-                    </li>
-                    <li class="com_name">
-                        모트렉스
-                    </li>
-                    <li class="com_tit">
-                      <h4>웹개발(백엔드,프론트엔드)</43>
-                    </li>
-                    <li class="com_txt">
-                      CSS3·jQuery·Linux·JavaScript
-                    </li>
-                    <li class="com_etc">
-                      <span class="com_adr">서울 영등포구</span>
-                      <span class="com_car">경력 5-15년</span>
-                    </li>
-                  </ul>
-                </a>
+              <li class="com_etc">
+                <span class="com_adr">
+                  <p class="compaddress">{{compAddressList}}</p>
+                  <p>|</p>
+                </span>
+                <span class="com_car">
+                  <p class="career">{{careerList}}</p>
+                  <p>{{careerYearList}}</p>
+                </span>
               </li>
             </ul>
-          </div>
-      </div>
-    </main>
-    <!-- 메인 -->
+          </a>
+        </li>
+        {{/jobOpeningMainDTO}}
+      </ul>
+    </div>
+  </div>
+</main>
+<!-- 메인 -->
 
-  {{>layout/footer}}
+{{>layout/footer}}
