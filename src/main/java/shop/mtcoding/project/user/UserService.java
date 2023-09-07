@@ -105,6 +105,7 @@ public class UserService {
         }
         user.setUserPassword(userUpdateDTO.getNewPassword());
         userRepository.save(user);
+
         return user;
     }
 

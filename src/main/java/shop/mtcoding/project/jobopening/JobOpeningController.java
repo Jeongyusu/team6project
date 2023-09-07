@@ -203,7 +203,7 @@ public class JobOpeningController {
         return requiredPositionResponseDTOList;
     }
 
-    @GetMapping("/comp/MyPageForm")
+    @GetMapping("/comp/myPageForm")
     public String jobOpeningList(Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         // 회사 공고글 전체보기

@@ -76,11 +76,20 @@ public class UserController {
 
     ///////// 유저 비번 변경하기 완료
     @PostMapping("/user/password/update")
-    public String userUpdate(UserUpdateDTO userUpdateDTO) {
+    public @ResponseBody String userUpdate(UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
-        return "redirect:/user/myPageForm";
+        return Script.href("/user/myPageForm", "비밀번호 변경완료");
+    }
+
+    ///////// 회사 비번 변경하기 완료
+    @PostMapping("/com/password/update")
+    public @ResponseBody String compPWUpdate(UserUpdateDTO userUpdateDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
+        session.setAttribute("sessionUser", user);
+        return Script.href("/user/myPageForm", "비밀번호 변경완료");
     }
 
     @PostMapping("/user/picUpdate")
@@ -153,24 +162,6 @@ public class UserController {
         User user = userService.회사정보수정(compInfoUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
         return "comp/comp_info";
-    }
-
-    @PostMapping("/comppw/update")
-    public String compPWUpdate(UserUpdateDTO userUpdateDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
-        if (sessionUser.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
-        } else {
-            return Script.back("현재 비밀번호가 일치하지않습니다.");
-        }
-        if (userUpdateDTO.getNewPassword().equals(userUpdateDTO.getNewPasswordConfirm())) {
-        } else {
-            return Script.back("새로운 비밀번호가 일치하지않습니다.");
-        }
-        User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
-        session.setAttribute("sessionUser", user);
-        return "redirect:/";
-
     }
 
 }
