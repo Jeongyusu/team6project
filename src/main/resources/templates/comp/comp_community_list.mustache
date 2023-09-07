@@ -26,30 +26,30 @@
     </div>
 
     <div class="board">
-      {{#communityPG}}
+      {{#boardListDTO}}
       <div class="inner_box_board mt-3">
         <div class="each_board">
-          <a href="/comp/community/board/{{id}}">
+          <a href="/comp/community/board/{{boardId}}">
             <img class="speech_png " src="/image/com_img/speech.png" alt="speech_png">
             <div class="title">{{title}}</div>
             <div class="content">{{content}}</div>
             <div class="info_write">
               <ul>
-                <li class="write_user">{{user.userName}}</li>
-                <li class="write_created-at">{{createdAt}}</li>
+                <li class="write_user">{{boardUserName}}</li>
+                <li class="write_created-at">{{boardFormatDate}}</li>
               </ul>
             </div>
           </a>
         </div>
       </div>
-      {{/communityPG}}
+      {{/boardListDTO}}
     </div>
 
     <div class="inner_box_button mt-5">
       <ul class="pagination d-flex justify-content-center">
-        <li class="page-item {{#communityPG.first}}disabled{{/communityPG.first}}"><a class="page-link"
+        <li class="page-item {{#boardListDTO.first}}disabled{{/boardListDTO.first}}"><a class="page-link"
             href="?page={{prev}}">Prev</a></li>
-        <li class="page-item {{#communityPG.last}}disabled{{/communityPG.last}}"><a class="page-link"
+        <li class="page-item {{#boardListDTO.last}}disabled{{/boardListDTO.last}}"><a class="page-link"
             href="?page={{next}}">Next</a></li>
       </ul>
     </div>
