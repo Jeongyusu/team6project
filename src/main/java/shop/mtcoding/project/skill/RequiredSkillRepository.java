@@ -17,7 +17,7 @@ public interface RequiredSkillRepository extends JpaRepository<RequiredSkill, In
     List<RequiredSkill> mfindByAllJoinSkillAndJobOpening();
 
     // 메인화면 쿼리 - 쿼리실행 1
-    @Query("select r from RequiredSkill as r left join fetch r.skill as rs left join fetch r.jobOpening as rj where rj.id = :id")
+    @Query("select r from RequiredSkill as r left join fetch r.skill as rs left join fetch r.jobOpening as rj where rs.id = :id")
     List<RequiredSkill> mfindByIdJoinSkillAndJobOpening(@Param("id") Integer id);
 
     @Query("select rs from RequiredSkill rs where rs.jobOpening.id = :jobOpeningId")
