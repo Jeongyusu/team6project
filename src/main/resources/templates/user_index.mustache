@@ -1,4 +1,4 @@
-{{>layout/userheader}}
+{{>layout/compheader}}
 
 <!-- 메인 -->
 <!-- 각자 페이지 main 클래스에 name 작성-->
@@ -11,7 +11,7 @@
       <ul class="com_cont com_box">
         {{#jobOpeningMainDTO}}
         <li class="comp_item">
-          <a href="/user/jobopening/{{jobOpeningId}}">
+          <a href="/comp/jobopening/{{jobOpeningId}}">
             <ul class="comp_cont">
               <li class="comp_img">
                 <img src="/image/company_img/comp_img01.png" alt="기업01">
@@ -20,17 +20,18 @@
                 {{compNameList}}
               </li>
               <li class="com_tit">
-                <h4>{{titleList}}</43>
+                <h4>{{titleList}}</h4>
               </li>
               <li class="com_txt">
                 <p>{{skillList}}</p>
               </li>
               <li class="com_etc">
                 <span class="com_adr">
-                  <p>{{compAddressList}}</p>
+                  <p class="compaddress">{{compAddressList}}</p>
+                  <p>|</p>
                 </span>
                 <span class="com_car">
-                  <p>{{careerList}}</p>
+                  <p class="career">{{careerList}}</p>
                   <p>{{careerYearList}}</p>
                 </span>
               </li>
