@@ -86,6 +86,7 @@ public class ResumeController {
         model.addAttribute("applyList", applyList);
         List<Apply> applyList2 = applyRepository.findByResumeUserId(sessionUser.getId());
         int totalApply = applyList2.size();
+
         List<JobOpening> jobOpeningInfo = suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
         model.addAttribute("jobOpeningInfo", jobOpeningInfo);
 
@@ -111,45 +112,5 @@ public class ResumeController {
         return "user/user_mypage";
 
     }
-
-    // @GetMapping("/{id}/userMyPageForm")
-    // public @ResponseBody List<JobOpening> resumeList(@PathVariable Integer id,
-    // Model model) {
-    // User sessionUser = (User) session.getAttribute("sessionUser");
-
-    // List<Apply> applyList = applyRepository.findAll();
-    // model.addAttribute("applyList", applyList);
-    // List<Apply> applyList2 =
-    // applyRepository.findByResumeUserId(sessionUser.getId());
-    // int totalApply = applyList2.size();
-    // List<JobOpening> jobOpeningInfo =
-    // suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
-    // model.addAttribute("jobOpeningInfo", jobOpeningInfo);
-
-    // model.addAttribute("totalApply", totalApply);
-    // model.addAttribute("applyList2", applyList2);
-
-    // List<Suggest> suggestList = suggestRepository.findAll();
-    // model.addAttribute("suggestList", suggestList);
-    // List<Suggest> suggestList2 =
-    // suggestRepository.findBySuggestUserId(sessionUser.getId());
-    // int totalSuggestList = suggestList2.size();
-    // model.addAttribute("totalSuggestList", totalSuggestList);
-    // model.addAttribute("suggestList2", suggestList2);
-
-    // List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
-    // model.addAttribute("jobOpeningList", jobOpeningList);
-
-    // List<Resume> resumeList = resumeRepository.findAll();
-    // model.addAttribute("resumeList", resumeList);
-    // List<Resume> resumeList2 =
-    // resumeRepository.findByUserId(sessionUser.getId());
-    // int totalResume = resumeList2.size();
-    // model.addAttribute("totalResume", totalResume);
-    // model.addAttribute("resumeList", resumeList2);
-
-    // return jobOpeningInfo;
-
-    // }
 
 }
