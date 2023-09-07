@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 import shop.mtcoding.project.position.Position;
 import shop.mtcoding.project.position.PositionResponse.RequiredPositionResponseDTO;
 import shop.mtcoding.project.position.PositionService;
@@ -78,6 +79,22 @@ public class JobOpeningController {
     }
 
     // --------- get
+
+    // comp_ 채용공고 메인 화면
+    @GetMapping("/comp/mainForm")
+    public String compMainForm(Model model) {
+        List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.메인화면();
+        model.addAttribute("jobOpeningMainDTO", jobOpeningMainDTO);
+        return "comp_index";
+    }
+
+    // comp_ 채용공고 메인 화면
+    @GetMapping("/user/mainForm")
+    public String userMainForm(Model model) {
+        List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.메인화면();
+        model.addAttribute("jobOpeningMainDTO", jobOpeningMainDTO);
+        return "user_index";
+    }
 
     @GetMapping("/comp/jobOpening/saveForm")
     public String saveCompForm(Model model) {
