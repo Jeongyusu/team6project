@@ -17,16 +17,18 @@ import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.apply.ApplyRepository;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.jobopening.JobOpeningRepository;
-import shop.mtcoding.project.position.WishPositionService;
 import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
 import shop.mtcoding.project.skill.SkillRequest.MySkill;
 import shop.mtcoding.project.suggest.Suggest;
+import shop.mtcoding.project.suggest.SuggestQueryRepository;
 import shop.mtcoding.project.suggest.SuggestRepository;
 import shop.mtcoding.project.user.User;
 
 @Controller
 public class ResumeController {
+    @Autowired
+    private SuggestQueryRepository suggestQueryRepository;
 
     @Autowired
     private SuggestRepository suggestRepository;
@@ -42,9 +44,6 @@ public class ResumeController {
 
     @Autowired
     ResumeService resumeService;
-
-    @Autowired
-    WishPositionService wishPositionService;
 
     @Autowired
     HttpSession session;
@@ -79,13 +78,6 @@ public class ResumeController {
         return "redirect:/";
     }
 
-    @GetMapping("/api/getSkillList")
-    public List<MySkill> getSkillList(@RequestParam("resumeId") Integer resumeId) {
-        List<MySkill> mySkillList = wishPositionService.이력서스킬상태복원(resumeId);
-        return mySkillList;
-
-    }
-
     @GetMapping("/{id}/userMyPageForm")
     public String resumeList(@PathVariable Integer id, Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -94,13 +86,18 @@ public class ResumeController {
         model.addAttribute("applyList", applyList);
         List<Apply> applyList2 = applyRepository.findByResumeUserId(sessionUser.getId());
         int totalApply = applyList2.size();
+        List<JobOpening> jobOpeningInfo = suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
+        model.addAttribute("jobOpeningInfo", jobOpeningInfo);
+
         model.addAttribute("totalApply", totalApply);
         model.addAttribute("applyList2", applyList2);
 
         List<Suggest> suggestList = suggestRepository.findAll();
-        int totalSuggestList = suggestList.size();
         model.addAttribute("suggestList", suggestList);
+        List<Suggest> suggestList2 = suggestRepository.findBySuggestUserId(sessionUser.getId());
+        int totalSuggestList = suggestList2.size();
         model.addAttribute("totalSuggestList", totalSuggestList);
+        model.addAttribute("suggestList2", suggestList2);
 
         List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
         model.addAttribute("jobOpeningList", jobOpeningList);
@@ -111,13 +108,13 @@ public class ResumeController {
         int totalResume = resumeList2.size();
         model.addAttribute("totalResume", totalResume);
         model.addAttribute("resumeList", resumeList2);
-
         return "user/user_mypage";
 
     }
+
     // @GetMapping("/{id}/userMyPageForm")
-    // public @ResponseBody List<Apply> resumeList(@PathVariable Integer id, Model
-    // model) {
+    // public @ResponseBody List<JobOpening> resumeList(@PathVariable Integer id,
+    // Model model) {
     // User sessionUser = (User) session.getAttribute("sessionUser");
 
     // List<Apply> applyList = applyRepository.findAll();
@@ -125,13 +122,20 @@ public class ResumeController {
     // List<Apply> applyList2 =
     // applyRepository.findByResumeUserId(sessionUser.getId());
     // int totalApply = applyList2.size();
+    // List<JobOpening> jobOpeningInfo =
+    // suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
+    // model.addAttribute("jobOpeningInfo", jobOpeningInfo);
+
     // model.addAttribute("totalApply", totalApply);
     // model.addAttribute("applyList2", applyList2);
 
     // List<Suggest> suggestList = suggestRepository.findAll();
-    // int totalSuggestList = suggestList.size();
     // model.addAttribute("suggestList", suggestList);
+    // List<Suggest> suggestList2 =
+    // suggestRepository.findBySuggestUserId(sessionUser.getId());
+    // int totalSuggestList = suggestList2.size();
     // model.addAttribute("totalSuggestList", totalSuggestList);
+    // model.addAttribute("suggestList2", suggestList2);
 
     // List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
     // model.addAttribute("jobOpeningList", jobOpeningList);
@@ -144,7 +148,7 @@ public class ResumeController {
     // model.addAttribute("totalResume", totalResume);
     // model.addAttribute("resumeList", resumeList2);
 
-    // return applyList2;
+    // return jobOpeningInfo;
 
     // }
 

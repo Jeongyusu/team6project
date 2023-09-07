@@ -3,20 +3,28 @@ package shop.mtcoding.project.resume;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import shop.mtcoding.project._core.error.ex.MyApiException;
 import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project._core.util.FormatDate;
 import shop.mtcoding.project._core.vo.MyPath;
 import shop.mtcoding.project.position.Position;
 import shop.mtcoding.project.position.PositionRepository;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.position.WishPositionRepository;
+import shop.mtcoding.project.resume.ResumeResponse.ApplyResumeInJobOpeningDTO;
+import shop.mtcoding.project.resume.ResumeResponse.ResumeInJobOpeningDTO;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.skill.HasSkillRepository;
 import shop.mtcoding.project.skill.Skill;
@@ -25,8 +33,12 @@ import shop.mtcoding.project.user.User;
 
 @Service
 public class ResumeService {
+
     @Autowired
     ResumeRepository resumeRepository;
+
+    @Autowired
+    private HttpSession session;
 
     @Autowired
     PositionRepository positionRepository;
@@ -101,21 +113,28 @@ public class ResumeService {
 
     }
 
+    @Transactional
     public void 이력서수정(ResumeRequest.UserUpdateResumeDTO userUpdateResumeDTO, Integer id) {
-
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid + "_" + userUpdateResumeDTO.getResumePic().getOriginalFilename();
-        Path filePath = Paths.get(MyPath.IMG_PATH + fileName);
-        try {
-            Files.write(filePath, userUpdateResumeDTO.getResumePic().getBytes());
-        } catch (Exception e) {
-            throw new MyException(e.getMessage());
-        }
 
         Optional<Resume> resumeOP = resumeRepository.findById(id);
 
         if (resumeOP.isPresent()) {
             Resume resume = resumeOP.get();
+
+            UUID uuid = UUID.randomUUID();
+
+            String fileName = "";
+
+            fileName = uuid + "_" + userUpdateResumeDTO.getResumePic().getOriginalFilename();
+
+            Path filePath = Paths.get(MyPath.IMG_PATH + fileName);
+
+            try {
+                Files.write(filePath, userUpdateResumeDTO.getResumePic().getBytes());
+            } catch (Exception e) {
+                throw new MyException(e.getMessage());
+            }
+
             resume.setTitle(userUpdateResumeDTO.getTitle());
             resume.setUserName(userUpdateResumeDTO.getUserName());
             resume.setUserEmailId(userUpdateResumeDTO.getUserEmailId());
@@ -167,4 +186,69 @@ public class ResumeService {
 
         return resumeRepository.findById(id).get();
     }
+
+    @Transactional
+    public void 삭제(Integer id) {
+        List<HasSkill> hasSkillList = hasSkillRepository.findByResumeId(id);
+        for (HasSkill hasSkill : hasSkillList) {
+            hasSkill.setResume(null);
+            hasSkillRepository.save(hasSkill);
+        }
+
+        List<WishPosition> wishPositionList = wishPositionRepository.findByResumeId(id);
+        for (WishPosition wishPosition : wishPositionList) {
+            wishPosition.setResume(null);
+            wishPositionRepository.save(wishPosition);
+        }
+
+        try {
+            resumeRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new MyException("삭제에 실패했습니다.");
+        }
+
+    }
+
+    public ResumeInJobOpeningDTO 지원화면() {
+        // User sessionUser = (User) session.getAttribute("sessionUser");
+
+        List<Resume> resumeList = resumeRepository.findByUserId(1);
+
+        // 부가로직 - 이력서 null
+        if (resumeList.isEmpty()) {
+            throw new MyApiException("이력서를 먼저 작성해주세요.");
+        }
+
+        // 유저의 이력서 갯수
+        Integer sumResume = resumeList.size();
+
+        // 날짜포맷한 resume 담은 DTO 생성
+        List<ApplyResumeInJobOpeningDTO> formatResume = new ArrayList<>();
+
+        for (Resume resume : resumeList) {
+            // 날짜포맷
+            Timestamp resumeCreatedAt = resume.getCreatedAt();
+            String resumeCreatedAtFormat = FormatDate.formatDate(resumeCreatedAt);
+
+            ApplyResumeInJobOpeningDTO dtos = ApplyResumeInJobOpeningDTO.builder()
+                    .resumeId(resume.getId())
+                    .userTel(resume.getTel())
+                    .resumeTitle(resume.getTitle())
+                    .createdAtFormat(resumeCreatedAtFormat)
+                    .build();
+
+            formatResume.add(dtos);
+        }
+
+        // view를 위한 DTO 생성
+        ResumeInJobOpeningDTO resumeInJobOpeningDTO = ResumeInJobOpeningDTO.builder()
+                .userEmail("nnnnn@nnnnte.com")
+                .applyResumeInJobOpeningDTO(formatResume)
+                .totalResume(sumResume)
+                .build();
+
+        return resumeInJobOpeningDTO;
+
+    }
+
 }

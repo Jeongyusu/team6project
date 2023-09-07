@@ -41,7 +41,7 @@ public class ApplyController {
 
         List<Apply> applyList = applyRepository.findAll();
         model.addAttribute("applyList", applyList);
-        List<Apply> applyList2 = applyRepository.findByResumeId(sessionUser.getId());
+        List<Apply> applyList2 = applyRepository.findByResumeUserId(sessionUser.getId());
         int totalApply = applyList2.size();
         model.addAttribute("totalApply", totalApply);
         model.addAttribute("applyList2", applyList2);

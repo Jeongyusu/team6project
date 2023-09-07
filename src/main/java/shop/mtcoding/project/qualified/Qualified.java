@@ -1,7 +1,5 @@
 package shop.mtcoding.project.qualified;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -31,7 +27,7 @@ public class Qualified {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 60)
+    @Column(nullable = true)
     private String qualifiedContent;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,5 +39,4 @@ public class Qualified {
         this.qualifiedContent = qualifiedContent;
         this.jobOpening = jobOpening;
     }
-
 }

@@ -1,6 +1,5 @@
 package shop.mtcoding.project.user;
 
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.vo.MyPath;
+import shop.mtcoding.project.resume.Resume;
+import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.CompInfoUpdateDTO;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserLoginDTO;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserPicUpdateDTO;
@@ -24,6 +25,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ResumeRepository resumeRepository;
 
     @Transactional
     public void 유저회원가입(UserRequest.UserJoinDTO userjoinDTO) {
@@ -82,7 +86,6 @@ public class UserService {
 
     }
 
-    @Transactional
     public User 회원정보수정(UserUpdateDTO userUpdateDTO, Integer id) {
         // 1.조회
         User user = userRepository.findById(id).get();
@@ -136,10 +139,4 @@ public class UserService {
 
     }
 
-
-
-
-
-
 }
-

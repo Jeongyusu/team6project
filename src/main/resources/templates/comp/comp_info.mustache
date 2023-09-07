@@ -76,7 +76,7 @@
               <div class="resume_count">전체
                 <span class="common_num">{{totalJopOpeningList}}</span>
               </div>
-              <a href="comp_job_opening_write.html" class="btn btn-primary" type="button">공고 작성</a>
+              <a href="/comp/jobOpening/saveForm" class="btn btn-primary" type="button">공고 작성</a>
             </div>
 
             {{#jobOpeningList}}
@@ -86,7 +86,7 @@
                   <li class="com_tit com_btn">
                     <h4>{{title}}</h4>
                     <div class="double_btn">
-                      <form action="comp_job_opening_update.html">
+                      <form action="/comp/jobOpening/{{jobOpening.id}}/updateForm">
                         <button type="submit" class="btn_empty">공고 수정</button>
                       </form>
                       <form action="#">
@@ -95,10 +95,10 @@
                     </div>
                   </li>
                   <li class="com_txt">
-                    {{edu}},{{career}} {{careerYear}}
+                    {{edu}} {{career}} {{#careerYear}}{{careerYear}}{{/careerYear}}
                   </li>
                   <li class="com_skill comp_skill">
-                    <!-- 요구 기술 받아오기 -->
+                    <!-- 요구 기술 받아오기-->
                   </li>
                 </ul>
               </li>
@@ -267,5 +267,4 @@
     }
   </script>
 </main>
-<!-- 메인 -->
 {{>layout/footer}}

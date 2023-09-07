@@ -19,5 +19,5 @@ insert into apply_tb (apply_state, job_opening_id, resume_id) values(null, '3', 
 insert into apply_tb (apply_state, job_opening_id, resume_id) values(null, '2', '3');
 insert into apply_tb (apply_state, job_opening_id, resume_id) values(null, '3', '3');
 
-insert into suggest_tb (sug_state, resume_id, user_id) values(null, '1', '4');
-insert into suggest_tb (sug_state, resume_id, user_id) values(null, '2', '5');
+insert into suggest_tb (sug_state, resume_id, user_id, job_opening_id) values(null, '1', '4', '1');
+insert into suggest_tb (sug_state, resume_id, user_id, job_opening_id) values(null, '3', '5', '3');
