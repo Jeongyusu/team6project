@@ -6,7 +6,6 @@
   <div class="container">
     <!-- container 건들지 말기 -->
     <!-- 여기서부터 시작 -->
-
     <div class="main_total">
       <div class="main_tit">
         <h2>이력서 등록</h2>
@@ -14,8 +13,6 @@
       <form action="/user/resume/save" method="post" enctype="multipart/form-data">
         <div class="save_title mb-5">
           <input type="text" placeholder="제목을 입력해주세요" name="title" value="">
-          <input type="hitten" </div>
-
           <div>
             <div class="main_back container">
               <div class="resume_user_info">
@@ -50,13 +47,11 @@
                   </div>
                 </div>
               </div>
-
               <div class="mb-1">
                 <label class="job_list mb-2">간단한 소개</label>
                 <textarea name="subIntro" class="form-control" placeholder=" 간결하게 요점만 요약해서 3-5줄내로 읽기 쉬운 내용으로 작성해보세요"
                   cols=" 30" rows="2"></textarea>
               </div>
-
               <div class="mb-1">
                 <div>
                   <label class="job_list mt-4 mb-2" for="jobSkill">개발 직무</label>
@@ -92,7 +87,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="mb-4">
                 <label class="job_list mt-4 mb-2" for="jobSkill">기술 스택(업무 툴/스킬)</label>
                 <div class="parent_btn1">
@@ -117,7 +111,6 @@
                     <label class="skill_btns1" for="JQuery">JQuery</label>
                   </div>
                 </div>
-
                 <div class="parent_btn2">
                   <div>
                     <input type="checkbox" id="MySQL" name="skillList" value="MySQL">
@@ -141,9 +134,6 @@
                   </div>
                 </div>
               </div>
-
-
-
               <div class="mb-4">
                 <label class="job_list" for="recruitOrder">경력</label>
                 <br>
@@ -159,8 +149,6 @@
                   <option value="5년차">5년차 이상</option>
                 </select>
               </div>
-
-
               <div class="mb-4">
                 <label class="job_list" for="recruitOrder">학력</label>
                 <br>
@@ -181,9 +169,9 @@
               </div>
             </div>
           </div>
+        </div>
       </form>
     </div>
-
   </div>
 </main>
 <!-- 메인 -->
@@ -203,5 +191,4 @@
     reader.readAsDataURL(f); // 파일 읽기 onload()
   }
 </script>
-
 {{>layout/footer}}

@@ -30,26 +30,31 @@ public class UserController {
     @Autowired
     private HttpSession session;
 
+    ///////// 구직자홈
     @GetMapping("/user")
     public String home(Model model) {
         return "user_index";
     }
 
+    ///////// 회사홈
     @GetMapping("/comp")
     public String compHome() {
         return "comp_index";
     }
 
+    ///////// 구직자 회원가입페이지
     @GetMapping("/user/joinForm")
     public String userJoinForm() {
         return "user/user_join";
     }
 
+    ///////// 회사 회원가입페이지
     @GetMapping("/comp/joinForm")
     public String compJoinForm() {
         return "comp/comp_join";
     }
 
+    ///////// 유저 회원가입
     @PostMapping("/user/join")
     public @ResponseBody String userJoin(UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
@@ -57,21 +62,11 @@ public class UserController {
 
     }
 
+    ///////// 구직자 회원가입
     @PostMapping("/comp/join")
     public @ResponseBody String compJoin(UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
         return Script.href("/comp", "회원가입 완료");
-    }
-    //////// 구직자///////
-
-    // @GetMapping("/userMyPageForm")
-    // public String userMyPage() {
-    // return "user/user_mypage";
-    // }
-
-    @GetMapping("/user/resume/wirteForm")
-    public String UserResumeWrite() {
-        return "user/user_resume_write";
     }
 
     ///////// 유저 비번 변경하기 완료
@@ -90,6 +85,11 @@ public class UserController {
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
         return Script.href("/user/myPageForm", "비밀번호 변경완료");
+    }
+
+    @GetMapping("/user/resume/wirteForm")
+    public String UserResumeWrite() {
+        return "user/user_resume_write";
     }
 
     @PostMapping("/user/picUpdate")
