@@ -1228,7 +1228,9 @@ footer li:last-child {
   justify-content: space-between;
   align-items: center;
 }
-
+.main_job_list {
+  margin-bottom: 4px;
+}
 .plus_Input1 > input {
   margin-bottom: 4px;
 }

@@ -11,7 +11,7 @@
       <ul class="com_cont com_box">
         {{#jobOpeningMainDTO}}
         <li class="comp_item">
-          <a href="/comp/jobOpening/{{jobOpeningId}}">
+          <a href="/comp/jobopening/{{jobOpeningId}}">
             <ul class="comp_cont">
               <li class="comp_img">
                 <img src="/image/company_img/comp_img01.png" alt="기업01">
@@ -27,10 +27,11 @@
               </li>
               <li class="com_etc">
                 <span class="com_adr">
-                  <p>{{compAddressList}}</p>
+                  <p class="compaddress">{{compAddressList}}</p>
+                  <p>|</p>
                 </span>
                 <span class="com_car">
-                  <p>{{careerList}}</p>
+                  <p class="career">{{careerList}}</p>
                   <p>{{careerYearList}}</p>
                 </span>
               </li>

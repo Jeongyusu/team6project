@@ -3,12 +3,10 @@ package shop.mtcoding.project.jobopening;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.BatchProperties.Job;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -177,10 +175,10 @@ public class JobOpeningService {
 
             }
 
+            qualifiedRepository.deleteByJobOpeningId(id);
             List<String> qualList = jobOpeningUpdateDTO.getQualList();
 
             for (String qualName : qualList) {
-                // Qualified qualified = qualifiedRepository.findByQualName(qualName);
                 Qualified requiredQualified = Qualified.builder()
                         .jobOpening(jobOpening)
                         .qualifiedContent(qualName)
@@ -188,9 +186,10 @@ public class JobOpeningService {
                 qualifiedRepository.save(requiredQualified);
             }
 
+            taskRepository.deleteByJobOpeningId(id);
             List<String> taskList = jobOpeningUpdateDTO.getTaskList();
+
             for (String taskName : taskList) {
-                // Task task = taskRepository.findByTaskName(taskName).get();
                 Task requiredTask = Task.builder()
                         .jobOpening(jobOpening)
                         .taskContent(taskName)

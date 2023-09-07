@@ -4,7 +4,6 @@ package shop.mtcoding.project.jobopening;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,21 +17,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project.position.Position;
+import shop.mtcoding.project.position.PositionResponse.RequiredPositionResponseDTO;
 import shop.mtcoding.project.position.PositionService;
 import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.position.RequiredPositionRepository;
-import shop.mtcoding.project.position.PositionResponse.RequiredPositionResponseDTO;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.qualified.QualifiedRepository;
-import shop.mtcoding.project.qualified.QualifiedService;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.Skill;
-import shop.mtcoding.project.skill.SkillService;
 import shop.mtcoding.project.skill.SkillResponse.RequiredSkillResponseDTO;
+import shop.mtcoding.project.skill.SkillService;
 import shop.mtcoding.project.task.Task;
 import shop.mtcoding.project.task.TaskRepository;
-import shop.mtcoding.project.task.TaskService;
 import shop.mtcoding.project.user.User;
 
 @Controller
@@ -60,12 +57,19 @@ public class JobOpeningController {
     private RequiredPositionRepository requiredPositionRepository;
 
     @Autowired
+    private JobOpeningRepository jobOpeningRepository;
+
+    @Autowired
     private HttpSession session;
 
     @GetMapping("/comp/jobOpening/myPageForm")
     public String compInfoFrom(Model model, Integer id) {
         JobOpening jobOpening = jobOpeningService.공고수정페이지(1);
         model.addAttribute("jobOpening", jobOpening);
+        List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
+        int totalJopOpeningList = jobOpeningList.size();
+        model.addAttribute("totalJopOpeningList", totalJopOpeningList);
+        model.addAttribute("jobOpeningList", jobOpeningList);
         return "/comp/comp_info";
     }
 
@@ -105,23 +109,6 @@ public class JobOpeningController {
 
         List<Qualified> qualList = qualifiedRepository.findByJobOpeningId(id);
         model.addAttribute("qualList", qualList);
-
-        // List<Task> taskList = taskRepository.findByJobOpeningId(id);
-        // List<String> taskContList = new ArrayList<>();
-        // for (Task taskCont : taskList) {
-        // String content = taskCont.getTaskContent();
-        // taskContList.add(content);
-        // }
-
-        // model.addAttribute("taskContList", taskContList);
-
-        // List<Qualified> qualList = qualifiedRepository.findByJobOpeningId(id);
-        // List<String> qualContList = new ArrayList<>();
-        // for (Qualified qualCont : qualList) {
-        // String content = qualCont.getQualifiedContent();
-        // qualContList.add(content);
-        // }
-        // model.addAttribute("qualContList", qualContList);
 
         if (jobOpening.getCareer().equals("신입")) {
             model.addAttribute("isCareerNew", true);

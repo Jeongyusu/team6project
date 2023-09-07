@@ -41,22 +41,22 @@ public class JobOpening {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = true, length = 60)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String process;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String career;
 
     @Column(nullable = true)
     private String careerYear;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String edu;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String compAddress;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

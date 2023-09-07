@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.vo.MyPath;
-import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.CompInfoUpdateDTO;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserLoginDTO;

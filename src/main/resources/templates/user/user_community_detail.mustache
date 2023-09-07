@@ -26,10 +26,11 @@
                                     data-bs-toggle="dropdown"><img width="30px" src="/image/com_img/list.png"
                                         alt="list_png"></a>
                                 <ul class="nav-item-menu dropdown-menu">
-                                        <form action="/user/community/board/{{boardDetailDTO.boardId}}/updateForm">
+                                    <form action="/user/community/board/{{boardDetailDTO.boardId}}/updateForm">
                                         <li><button type="submit" class="dropdown-item">수정하기</button></li>
                                     </form>
-                                    <form action="/comp/community/board/{{boardDetailDTO.boardId}}/delete" method="post">
+                                    <form action="/comp/community/board/{{boardDetailDTO.boardId}}/delete"
+                                        method="post">
                                         <li><button type="submit" class="dropdown-item">삭제하기</button></li>
                                     </form>
                                 </ul>
@@ -47,9 +48,10 @@
                 <hr />
                 <div class="user_reply_write">
                     <form action="/user/community/reply/save" method="post">
-                        <input type="hidden" name="boardId" value="{{community.id}}">
+                        <input type="hidden" name="boardId" value="{{boardDetailDTO.boardId}}">
                         <div>
-                            <textarea name="comment" id="" placeholder="댓글을 작성해주세요." required maxlength="100"></textarea>
+                            <textarea name="comment" id="" placeholder="댓글을 작성해주세요." required
+                                maxlength="100"></textarea>
                         </div>
                         <div class="reply_write_button">
                             <button type="submit" class="btn btn-secondary">등록하기</button>
@@ -60,40 +62,30 @@
                 <!-- 댓글 리스트 -->
                 {{#boardDetailDTO.replyList}}
                 <div class="reply_list">
-                        <div class="reply_comment">
-                            <div class="info_reply">
-                                <ul>
-                                    <li class="reply_user">{{replyUserName}}</li>
-                                    <li class="reply_created_at">{{replyFormatDate}}</li>
-                                </ul>
-                                <p class="mb-0">{{comment}}</p>
-                            </div>
+                    <div class="reply_comment">
+                        <div class="info_reply">
+                            <ul>
+                                <li class="reply_user">{{replyUserName}}</li>
+                                <li class="reply_created_at">{{replyFormatDate}}</li>
+                            </ul>
+                            <p class="mb-0">{{comment}}</p>
                         </div>
-                        <ul class="navbar-nav">
-                            <li class="card_detail dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown"><img width="30px" src="/image/com_img/list.png"
-                                        alt="list_png"></a>
-                                <ul class="nav-item-menu dropdown-menu">
-                                    <form action="/user/community/reply/{{replyId}}/delete" method="post">
-                                        <li><button type="submit" class="dropdown-item">삭제하기</button></li>
-                                    </form>
-                                </ul>
-                            </li>
-                        </ul>
                     </div>
+                    <ul class="navbar-nav">
+                        <li class="card_detail dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><img
+                                    width="30px" src="/image/com_img/list.png" alt="list_png"></a>
+                            <ul class="nav-item-menu dropdown-menu">
+                                <form action="/user/community/reply/{{replyId}}/delete" method="post">
+                                    <li><button type="submit" class="dropdown-item">삭제하기</button></li>
+                                </form>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
                 {{/boardDetailDTO.replyList}}
             </div>
         </div>
-    </div>
-
-
-
-    <!-- 댓글리스트 -->
-
-
-
-
     </div>
 </main>
 <!--메인-->
