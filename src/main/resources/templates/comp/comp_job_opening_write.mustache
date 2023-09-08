@@ -13,7 +13,12 @@
       </div>
       <form action="/comp/jobOpening/save" method="post">
         <div class="save_title mb-5">
-          <input type="text" placeholder="제목을 입력해주세요" name="title" value="">
+          <input
+            type="text"
+            placeholder="제목을 입력해주세요"
+            name="title"
+            value=""
+          />
         </div>
         <div class="main_back container">
           <div class="mb-2">
@@ -24,22 +29,35 @@
               <div class="develop_job">
                 {{#positionList}}
                 <div>
-                  <input type="checkbox" id="{{position}}" name="positionList" value="{{position}}">
-                  <label class="skill_btns1" for="{{position}}">{{position}}</label>
+                  <input
+                    type="checkbox"
+                    id="{{ position }}"
+                    name="positionList"
+                    value="{{ position }}"
+                  />
+                  <label class="skill_btns1" for="{{ position }}">{{
+                    position
+                  }}</label>
                 </div>
                 {{/positionList}}
               </div>
-              <div class="develop_job">
-              </div>
+              <div class="develop_job"></div>
             </div>
           </div>
           <div class="mb-4">
-            <label class="job_list mt-2 mb-3" for="jobSkill">기술 스택(업무 툴/스킬)</label>
+            <label class="job_list mt-2 mb-3" for="jobSkill"
+              >기술 스택(업무 툴/스킬)</label
+            >
             <div class="parent_btn">
               {{#skillList}}
               <div>
-                <input type="checkbox" id="{{skill}}" name="skillList" value="{{skill}}">
-                <label class="skill_btns1" for="{{skill}}">{{skill}}</label>
+                <input
+                  type="checkbox"
+                  id="{{ skill }}"
+                  name="skillList"
+                  value="{{ skill }}"
+                />
+                <label class="skill_btns1" for="{{ skill }}">{{ skill }}</label>
               </div>
               {{/skillList}}
             </div>
@@ -49,38 +67,60 @@
             <div class="plus_info">
               <label class="job_list mb-2" for="require">주요 업무</label>
               <button type="button" class="plus_button" onclick="addInput01()">
-                <img src="https://img.icons8.com/android/24/plus.png" alt="plus" />
+                <img
+                  src="https://img.icons8.com/android/24/plus.png"
+                  alt="plus"
+                />
               </button>
             </div>
-            <input type="text" class="form-control" placeholder="주요 업무를 최대 3개까지 작성해주세요" name="taskList" id="mainJob">
-            <div class="plus_Input1">
-            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="주요 업무를 최대 3개까지 작성해주세요"
+              name="taskList"
+              id="mainJob"
+            />
+            <div class="plus_Input1"></div>
           </div>
           <div class="resume_margin">
             <!-- 자격요건 for 문-->
             <div class="plus_info">
               <label class="job_list mb-2" for="require">자격 요건</label>
               <button type="button" class="plus_button" onclick="addInput02()">
-                <img src="https://img.icons8.com/android/24/plus.png" alt="plus" />
+                <img
+                  src="https://img.icons8.com/android/24/plus.png"
+                  alt="plus"
+                />
               </button>
             </div>
-            <input type="text" class="form-control" name="qualList" placeholder="자격요건을 최대 3개까지 작성해주세요" id="mainJob">
-            <div class="plus_Input2">
-            </div>
+            <input
+              type="text"
+              class="form-control"
+              name="qualList"
+              placeholder="자격요건을 최대 3개까지 작성해주세요"
+              id="mainJob"
+            />
+            <div class="plus_Input2"></div>
           </div>
           <div class="mb-4">
             <label class="job_list mb-2" for="recruitOrder">채용 절차</label>
-            <textarea name="process" class="form-control" placeholder="채용절차를 간단히 작성해주세요" id="recruitOrder" cols="30"
-              rows="2"></textarea>
+            <textarea
+              name="process"
+              class="form-control"
+              placeholder="채용절차를 간단히 작성해주세요"
+              id="recruitOrder"
+              cols="30"
+              rows="2"
+            ></textarea>
           </div>
 
           <div class="mb-4">
             <label class="job_list" for="recruitOrder" id="">경력</label>
-            <br>
+            <br />
             <input type="radio" id="new" name="career" value="신입" />
             <label for="new" class="on_btn">신입</label>
             <input type="radio" id="old" name="career" value="경력" />
-            <label for="old" class="on_btn ">경력</label>
+            <label for="old" class="on_btn">경력</label>
             <select class="select_answer" name="careerYear">
               <option value="1년차">1년차</option>
               <option value="2년차">2년차</option>
@@ -91,24 +131,37 @@
           </div>
 
           <div class="mb-4">
-            <label class="job_list" for="recruitOrder" id="" value="">학력</label>
-            <br>
-            <input type="radio" id="coll" name="edu" value="대졸">
+            <label class="job_list" for="recruitOrder" id="" value=""
+              >학력</label
+            >
+            <br />
+            <input type="radio" id="coll" name="edu" value="대졸" />
             <label for="coll" class="on_btn">대졸</label>
-            <input type="radio" id="inv" name="edu" value="초대졸">
+            <input type="radio" id="inv" name="edu" value="초대졸" />
             <label for="inv" class="on_btn">초대졸</label>
-            <input type="radio" id="high" name="edu" value="고졸">
+            <input type="radio" id="high" name="edu" value="고졸" />
             <label for="high" class="on_btn">고졸</label>
           </div>
 
           <div class="row mb-4">
             <div class="col-sm-4">
               <label class="job_list mb-2" for="endDate">마감일</label>
-              <input type="date" class="form-control" id="endDate" name="deadLine">
+              <input
+                type="date"
+                class="form-control"
+                id="endDate"
+                name="deadLine"
+              />
             </div>
             <div class="col-sm-8">
               <label class="job_list mb-2" for="location">근무지역</label>
-              <input type="text" class="form-control" placeholder="근무지역을 넣어주세요" id="location" name="compAddress">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="근무지역을 넣어주세요"
+                id="location"
+                name="compAddress"
+              />
             </div>
           </div>
           <div class="j_save">
@@ -117,7 +170,6 @@
         </div>
       </form>
     </div>
-  </div>
   </div>
 </main>
 <!-- 메인 -->
@@ -165,6 +217,5 @@
     el.appendChild(newEl);
     clickCount++; // 클릭 횟수 증가
   }
-
 </script>
 {{>layout/footer}}

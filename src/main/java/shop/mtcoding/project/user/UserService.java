@@ -13,10 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project._core.vo.MyPath;
 import shop.mtcoding.project._core.util.Script;
 import shop.mtcoding.project._core.vo.MyPath;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
+import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserPicUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserUpdateDTO;
 
 @Service
 public class UserService {

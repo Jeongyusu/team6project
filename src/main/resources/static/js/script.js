@@ -1,5 +1,8 @@
 window.onload = function () {
+<<<<<<< HEAD
+=======
 
+>>>>>>> dev
   const positionCg = document.querySelectorAll(".position_category > li > a");
   const positionMenu = document.querySelectorAll(".position_menu > li");
 
@@ -15,7 +18,11 @@ window.onload = function () {
       positionMenu[idex].classList.add("position_active");
     });
   });
+<<<<<<< HEAD
+  // position_category_tab
+=======
   // 직무 카테고리 탭
 
 
+>>>>>>> dev
 };
