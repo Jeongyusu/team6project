@@ -38,8 +38,4 @@ public class RequiredPosition {
         this.position = position;
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> dev
