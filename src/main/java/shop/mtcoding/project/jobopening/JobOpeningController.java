@@ -10,12 +10,17 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project._core.util.ApiUtil;
+import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
+import shop.mtcoding.project.apply.Apply;
+import shop.mtcoding.project.apply.ApplyRepository;
 import shop.mtcoding.project.position.Position;
 import shop.mtcoding.project.position.PositionResponse.RequiredPositionResponseDTO;
 import shop.mtcoding.project.position.PositionService;
@@ -23,10 +28,15 @@ import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.position.RequiredPositionRepository;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.qualified.QualifiedRepository;
+import shop.mtcoding.project.resume.Resume;
+import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.Skill;
 import shop.mtcoding.project.skill.SkillResponse.RequiredSkillResponseDTO;
+import shop.mtcoding.project.suggest.Suggest;
+import shop.mtcoding.project.suggest.SuggestQueryRepository;
+import shop.mtcoding.project.suggest.SuggestRepository;
 import shop.mtcoding.project.skill.SkillService;
 import shop.mtcoding.project.task.Task;
 import shop.mtcoding.project.task.TaskRepository;
@@ -34,6 +44,14 @@ import shop.mtcoding.project.user.User;
 
 @Controller
 public class JobOpeningController {
+    @Autowired
+    private SuggestRepository suggestRepository;
+
+    @Autowired
+    private SuggestQueryRepository suggestQueryRepository;
+
+    @Autowired
+    private ApplyRepository applyRepository;
 
     @Autowired
     private JobOpeningService jobOpeningService;
@@ -60,10 +78,23 @@ public class JobOpeningController {
     private JobOpeningRepository jobOpeningRepository;
 
     @Autowired
+    private ResumeRepository resumeRepository;
+
+    @Autowired
     private HttpSession session;
 
+    @GetMapping("/comp/indexForm")
+    public String compIndexForm() {
+        return "comp_index";
+    }
+
+    @GetMapping("/comp/MypageForm")
+    public String compMyPageForm() {
+        return "comp/comp_info";
+    }
+
     @GetMapping("/comp/jobOpening/myPageForm")
-    public String compInfoFrom(Model model, Integer id) {
+    public String compInfoForm(Model model, Integer id) {
         JobOpening jobOpening = jobOpeningService.공고수정페이지(1);
         model.addAttribute("jobOpening", jobOpening);
         List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
@@ -73,12 +104,34 @@ public class JobOpeningController {
         return "/comp/comp_info";
     }
 
-    @GetMapping("/comp/jobOpening/mypage/compResum")
-    public String compResumForm() {
-        return "/jobOpening/compInfo";
+    @GetMapping("/comp/jobOpening/compResum")
+    public String compResumForm(Model model, Integer id) {
+        JobOpening jobOpening = jobOpeningService.공고수정페이지(1);
+        model.addAttribute("jobOpening", jobOpening);
+        List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
+        int totalJopOpeningList = jobOpeningList.size();
+        model.addAttribute("totalJopOpeningList", totalJopOpeningList);
+        model.addAttribute("jobOpeningList", jobOpeningList);
+        return "/comp/comp_resume";
     }
 
     // --------- get
+
+    // comp_ 채용공고 메인 화면
+    @GetMapping("/comp/mainForm")
+    public String compMainForm(Model model) {
+        List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.메인화면();
+        model.addAttribute("jobOpeningMainDTO", jobOpeningMainDTO);
+        return "comp_index";
+    }
+
+    // comp_ 채용공고 메인 화면
+    @GetMapping("/user/mainForm")
+    public String userMainForm(Model model) {
+        List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.메인화면();
+        model.addAttribute("jobOpeningMainDTO", jobOpeningMainDTO);
+        return "user_index";
+    }
 
     @GetMapping("/comp/jobOpening/saveForm")
     public String saveCompForm(Model model) {
@@ -198,5 +251,51 @@ public class JobOpeningController {
         System.out.println("테스트" + requiredPositionResponseDTOList.get(0).getPosition());
         return requiredPositionResponseDTOList;
     }
+
+    @DeleteMapping("/api/comp/jobOpening/{id}/delete")
+    public @ResponseBody ApiUtil<String> delete(@PathVariable("id") Integer id) {
+        // 2. 핵심로직
+        jobOpeningService.공고삭제(id);
+        // 3. 응답
+        return new ApiUtil<String>(true, "댓글이 삭제되었습니다");
+    }
+
+    @GetMapping("/comp/myPageForm")
+    public String jobOpeningList(Model model) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        // 회사 공고글 전체보기
+        List<JobOpening> JobOpeningList = jobOpeningRepository.findByUserId(sessionUser.getId());
+        int totalJobOpening = JobOpeningList.size();
+        model.addAttribute("totalJobOpening", totalJobOpening);
+        // 회사 지원자 전제보기
+        List<Apply> compApplyList = applyRepository.findByResumeUserInfo(sessionUser.getId());
+        int totalApplyList = compApplyList.size();
+        model.addAttribute("totalApplyList", totalApplyList);
+        model.addAttribute("compApplyList", compApplyList);
+        // 회사 제안자 전체보기
+        // List<JobOpening> jobOpeningInfo =
+        // suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
+        // model.addAttribute("jobOpeningInfo", jobOpeningInfo);
+
+        List<Suggest> jobOpeningInfo2 = suggestRepository.findBySuggestCompId(sessionUser.getId());
+        int totalSuggest = jobOpeningInfo2.size();
+        model.addAttribute("totalSuggest", totalSuggest);
+        model.addAttribute("jobOpeningInfo2", jobOpeningInfo2);
+
+        return "comp/comp_info";
+    }
+    // @GetMapping("/comp/MyPageForm")
+    // public @ResponseBody List<Suggest> jobOpeningList(Model model) {
+    // User sessionUser = (User) session.getAttribute("sessionUser");
+
+    // List<Apply> compApplyList =
+    // applyRepository.findByResumeUserInfo(sessionUser.getId());
+    // model.addAttribute("compApplyList", compApplyList);
+
+    // List<Suggest> jobOpeningInfo2 =
+    // suggestRepository.findBySuggestCompId(sessionUser.getId());
+    // model.addAttribute("jobOpeningInfo2", jobOpeningInfo2);
+    // return jobOpeningInfo2;
+    // }
 
 }

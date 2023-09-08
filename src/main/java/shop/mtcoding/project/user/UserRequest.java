@@ -19,15 +19,18 @@ public class UserRequest {
     @Getter
     @Setter
     public static class UserJoinDTO {
-
         private String userEmailId;
         private String userName;
         private String userPassword;
         private String compEmailId;
         private Integer gubun;
-
     }
 
+<<<<<<< HEAD
+    }
+
+=======
+>>>>>>> dev
     @Getter
     @Setter
     public static class UserUpdateDTO {
@@ -61,4 +64,8 @@ public class UserRequest {
         private String compExplan;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dev

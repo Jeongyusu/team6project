@@ -1,4 +1,5 @@
 {{>layout/userheader}}
+<<<<<<< HEAD
   <!-- 메인 -->
   <!-- 각자 페이지 main 클래스에 name 작성-->
   <!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
@@ -60,12 +61,99 @@
                   </form>
 
                 </div>
+=======
+<!-- 메인 -->
+<!-- 각자 페이지 main 클래스에 name 작성-->
+<!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
+<main class="user_update common_bg">
+  <div class="container">
+    <!-- container 건들지 말기 -->
+    <!-- 여기서부터 시작 -->
+    <div class="main_tit">
+      <h2>정보 수정</h2>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="mypage_left">
+          <ul>
+            <li>
+              <img src="image/user_img/def_img.png" alt="기본 이미지" />
+            </li>
+            <li>
+              <h3>남은혜</h3>
+            </li>
+          </ul>
+          <ul class="mypage_menu">
+            <li><a href="#">이력서</a></li>
+            <li><a href="#">지원/제안</a></li>
+            <li><a href="#">스크랩</a></li>
+          </ul>
+          <ul class="mypage_menu">
+            <li><a href="#">정보 수정</a></li>
+            <li><a href="#">로그아웃</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="udback col-sm-9">
+        <div class="mypage_right">
+          <div class="mypage_list">
+            <div class="update_box">
+              <div class="udpassword">
+                <form action="#" class="pw_update">
+                  <div class="">
+                    <label for="nowPassword" class="form-label"
+                      >현재 비밀번호</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="nowPassword"
+                      placeholder="비밀번호를 입력해 주세요."
+                      name="nowPassword"
+                    />
+                  </div>
+                  <div class="">
+                    <label for="newPassword" class="form-label"
+                      >새 비밀번호</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="newPassword"
+                      placeholder="비밀번호를 입력해 주세요."
+                      name="newPassword"
+                    />
+                  </div>
+                  <div class="">
+                    <label for="newPasswordConfirm" class="form-label"
+                      >새 비밀번호 확인</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="newPasswordConfirm"
+                      placeholder="비밀번호를 입력해 주세요."
+                      name="newPasswordConfirm"
+                    />
+                  </div>
+                  <div style="display: flex; justify-content: center">
+                    <button type="submit" class="btn btn-primary">확인</button>
+                  </div>
+                </form>
+>>>>>>> dev
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+<<<<<<< HEAD
   </main>
   <!-- 메인 -->
 {{>layout/footer}}
+=======
+  </div>
+</main>
+<!-- 메인 -->
+{{>layout/footer}}
+>>>>>>> dev

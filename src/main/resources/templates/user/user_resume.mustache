@@ -39,7 +39,11 @@
                       <div class="resume_count">전체
                           <span class="common_num">3</span>
                       </div>
+<<<<<<< HEAD
                       <a href="/user/resume/saveForm" class="btn btn-primary" type="button">이력서 작성</a>
+=======
+                      <a href="#" class="btn btn-primary" type="button">이력서 작성</a>
+>>>>>>> dev
                     </div>
                     <ul class="com_cont">
                       <li class="resume_box">
@@ -49,7 +53,11 @@
                             <h4>{{title}}</h4>
                             <div class="double_btn">
                               <form>
+<<<<<<< HEAD
                                 <a href="/user/resume/{{id}}/updateForm" button type="button" class="btn_empty">이력서 수정</button>
+=======
+                                <button type="button" class="btn_empty">이력서 수정</button>
+>>>>>>> dev
                               </form>
                               <form>
                                 <button type="button" class="btn_fill" onclick="deleteResume('{{id}}')">이력서 삭제</button>
@@ -81,8 +89,13 @@
    
        function deleteResume(id){
           $.ajax({
+<<<<<<< HEAD
             url: `/api/resume/${id}/delete`,
             method: 'POST',
+=======
+            url: `/api/resume/${id}`,
+            method: 'delete',
+>>>>>>> dev
             success: (response) => {
               console.log(response);
               if(response.success === true){

@@ -35,26 +35,31 @@ public class UserController {
     @Autowired
     private HttpSession session;
 
+    ///////// 구직자홈
     @GetMapping("/user")
     public String home(Model model) {
         return "user_index";
     }
 
+    ///////// 회사홈
     @GetMapping("/comp")
     public String compHome() {
         return "comp_index";
     }
 
+    ///////// 구직자 회원가입페이지
     @GetMapping("/user/joinForm")
     public String userJoinForm() {
         return "user/user_join";
     }
 
+    ///////// 회사 회원가입페이지
     @GetMapping("/comp/joinForm")
     public String compJoinForm() {
         return "comp/comp_join";
     }
 
+<<<<<<< HEAD
     @GetMapping("/user/loginForm")
     public String userLoginForm() {
 
@@ -67,6 +72,9 @@ public class UserController {
         return "comp/comp_login";
     }
 
+=======
+    ///////// 유저 회원가입
+>>>>>>> dev
     @PostMapping("/user/join")
     public @ResponseBody String userJoin(UserRequest.UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
@@ -74,11 +82,13 @@ public class UserController {
 
     }
 
+    ///////// 구직자 회원가입
     @PostMapping("/comp/join")
     public @ResponseBody String compJoin(UserRequest.UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
         return Script.href("/comp", "회원가입 완료");
     }
+<<<<<<< HEAD
     //////// 구직자///////
 
     @GetMapping("/user/MyPageForm")
@@ -119,6 +129,38 @@ public class UserController {
         return "redirect:/";
     }
 
+=======
+
+    ///////// 유저 비번 변경하기 완료
+    @PostMapping("/user/password/update")
+    public @ResponseBody String userUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
+        session.setAttribute("sessionUser", user);
+        return Script.href("/user/myPageForm", "비밀번호 변경완료");
+    }
+
+    ///////// 회사 비번 변경하기 완료
+    @PostMapping("/com/password/update")
+    public @ResponseBody String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
+        session.setAttribute("sessionUser", user);
+        return Script.href("/user/myPageForm", "비밀번호 변경완료");
+    }
+
+    ///////// 유저 제안 수락
+    @PostMapping("/user/suggest/accept")
+    public @ResponseBody String userSuggestAccept() {
+        return null;
+    }
+
+    @GetMapping("/user/resume/wirteForm")
+    public String UserResumeWrite() {
+        return "user/user_resume_write";
+    }
+
+>>>>>>> dev
     @PostMapping("/user/picUpdate")
     public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -127,6 +169,42 @@ public class UserController {
         return "user/user_mypage";
     }
 
+<<<<<<< HEAD
+=======
+    @GetMapping("/user/loginForm")
+    public String userLoginForm() {
+        return "user/user_login";
+
+    }
+
+    @GetMapping("/comp/loginForm")
+    public String compLoginForm() {
+        return "comp/comp_login";
+    }
+
+    //////// 구직자///////
+
+    @GetMapping("/user/MyPageForm")
+    public String userMyPageForm(Model model) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Resume> resumeList = resumeRepository.findByUserId(sessionUser.getId());
+        model.addAttribute("resumeList", resumeList);
+
+        // List<WishPosition> wishPositionList =
+        // wishPositionRepository.positionFindByResumeId(id);
+        // List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(id);
+
+        // model.addAttribute("hasSkillList", hasSkillList);
+        // model.addAttribute("wishPositionList", wishPositionList);
+        return "user/user_mypage";
+    }
+
+    @GetMapping("/comp/MyPageForm")
+    public String compMyPageForm() {
+        return "comp/comp_info";
+    }
+
+>>>>>>> dev
     @PostMapping("/user/login")
     public @ResponseBody String userLogin(UserRequest.UserLoginDTO userLoginDTO) {
 
@@ -135,6 +213,14 @@ public class UserController {
         return Script.href("/user", "로그인 완료");
     }
 
+<<<<<<< HEAD
+=======
+    // @GetMapping("/compMyPageForm")
+    // public String compMyPage() {
+    // return "comp/comp_info";
+    // }
+
+>>>>>>> dev
     @PostMapping("/comp/login")
     public @ResponseBody String compLogin(UserRequest.UserLoginDTO userLoginDTO) {
         User sessionUser = userService.유저로그인(userLoginDTO);
@@ -166,7 +252,11 @@ public class UserController {
         return "redirect:/comp";
     }
 
+<<<<<<< HEAD
     @PostMapping("/comp/info/update")
+=======
+    @PostMapping("/compinfo/update")
+>>>>>>> dev
     public String compInfoUpdate(UserRequest.CompInfoUpdateDTO compInfoUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
@@ -174,6 +264,7 @@ public class UserController {
         session.setAttribute("sessionUser", user);
         return "comp/comp_info";
     }
+<<<<<<< HEAD
 
     @PostMapping("/comp/password/update")
     public String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
@@ -195,3 +286,6 @@ public class UserController {
     }
 
 }
+=======
+}
+>>>>>>> dev

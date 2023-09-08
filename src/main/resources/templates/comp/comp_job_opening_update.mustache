@@ -43,6 +43,7 @@
                 {{/skillList}}
               </div>
             </div>
+<<<<<<< HEAD
             <div class="resume_margin">
               <!-- 자격요건 for 문-->
               <div class="plus_info">
@@ -50,6 +51,16 @@
                 <button type="button" class="plus_button" onclick="addInput01()">
                   <img src="https://img.icons8.com/android/24/plus.png" alt="plus" />
                 </button>
+=======
+            <div>
+              <div class="develop_job">
+                {{#positionList}}
+                <div>
+                  <input type="checkbox" id="{{position}}" name="positionList" value="{{position}}">
+                  <label class="skill_btns1" for="{{position}}">{{position}}</label>
+                </div>
+                {{/positionList}}
+>>>>>>> dev
               </div>
               {{#taskList}}
               <input type="text" class="form-control main_job_list"  placeholder="주요 업무를 최대 3개까지 작성해주세요" name="taskList" value="{{taskContent}}">
@@ -235,7 +246,13 @@
           console.error('오류 발생: ' + error);
         }
         }
+<<<<<<< HEAD
         fetchSelectedPosition();
         
 </script>
   {{>layout/footer}}
+=======
+        fetchSelectedPosition();   
+</script>
+  {{>layout/footer}}
+>>>>>>> dev

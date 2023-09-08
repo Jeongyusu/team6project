@@ -1,17 +1,26 @@
 package shop.mtcoding.project.community;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project._core.util.FormatDate;
+import shop.mtcoding.project.community.CommunityResponse.BoardDetailDTO;
+import shop.mtcoding.project.community.CommunityResponse.BoardListDTO;
+import shop.mtcoding.project.reply.Reply;
+import shop.mtcoding.project.reply.ReplyResponse.ReplyDetailDTO;
 import shop.mtcoding.project.user.User;
 
 @Service
@@ -20,14 +29,50 @@ public class CommunityService {
     @Autowired
     private CommunityRepository communityRepository;
 
-    public Page<Community> 게시물목록(Integer page) {
+    public Page<BoardListDTO> 게시물목록(Integer page) {
         Pageable pageable = PageRequest.of(page, 3, Sort.Direction.DESC, "id");
-        return communityRepository.findAll(pageable);
+        Page<Community> communityPage = communityRepository.findAll(pageable);
+
+        List<BoardListDTO> boardListDTOList = new ArrayList<>();
+        for (Community community : communityPage) {
+            Date boardCreatedAt = community.getCreatedAt();
+            String boardFormatDate = FormatDate.formatDate(boardCreatedAt);
+
+            BoardListDTO dtos = BoardListDTO.builder()
+                    .boardId(community.getId())
+                    .title(community.getTitle())
+                    .content(community.getContent())
+                    .boardUserName(community.getUser().getUserName())
+                    .boardFormatDate(boardFormatDate)
+                    .build();
+
+            boardListDTOList.add(dtos);
+        }
+
+        return new PageImpl<>(boardListDTOList, pageable, communityPage.getTotalElements());
     }
 
-    public Page<Community> 검색후게시물목록(Integer page, String keyword) {
+    public Page<BoardListDTO> 검색후게시물목록(Integer page, String keyword) {
         Pageable pageable = PageRequest.of(page, 3, Sort.Direction.DESC, "id");
-        return communityRepository.mfindBySearchAll(pageable, keyword);
+        Page<Community> communityPG = communityRepository.mfindBySearchAll(pageable, keyword);
+
+        List<BoardListDTO> boardListDTOList = new ArrayList<>();
+        for (Community community : communityPG.getContent()) {
+            Date boardCreatedAt = community.getCreatedAt();
+            String boardFormatDate = FormatDate.formatDate(boardCreatedAt);
+
+            BoardListDTO dtos = BoardListDTO.builder()
+                    .boardId(community.getId())
+                    .title(community.getTitle())
+                    .content(community.getContent())
+                    .boardUserName(community.getUser().getUserName())
+                    .boardFormatDate(boardFormatDate)
+                    .build();
+
+            boardListDTOList.add(dtos);
+        }
+
+        return new PageImpl<>(boardListDTOList, pageable, communityPG.getTotalElements());
     }
 
     @Transactional
@@ -49,18 +94,61 @@ public class CommunityService {
         communityRepository.save(community);
     }
 
-    public Community 상세게시물(Integer id) {
+    public BoardDetailDTO 상세게시물(Integer id) {
         Optional<Community> communityOP = communityRepository.mfindByIdJoinReplyAndBoard(id);
         if (communityOP.isPresent()) {
-            return communityOP.get();
+            Community community = communityOP.get();
+
+            // Board 날짜포맷
+            Date boardCreatedAt = community.getCreatedAt();
+            String boardFormatDate = FormatDate.formatDate(boardCreatedAt);
+
+            // Reply 날짜포맷
+            List<Reply> replyList = community.getReplyList();
+
+            List<ReplyDetailDTO> replyDetailDTOList = new ArrayList<>();
+            for (Reply reply : replyList) {
+
+                Date replyCreatedAt = reply.getCreatedAt();
+                String replyFormatDate = FormatDate.formatDate(replyCreatedAt);
+
+                ReplyDetailDTO replyDetailDTO = ReplyDetailDTO.builder()
+                        .replyId(reply.getId())
+                        .comment(reply.getComment())
+                        .replyUserName(reply.getUser().getUserName())
+                        .replyFormatDate(replyFormatDate)
+                        .build();
+
+                replyDetailDTOList.add(replyDetailDTO);
+            }
+
+            // 날짜포맷한 글 상세보기 데이터
+            BoardDetailDTO boardDetailDTO = BoardDetailDTO.builder()
+                    .boardId(community.getId())
+                    .title(community.getTitle())
+                    .content(community.getContent())
+                    .boardUserName(community.getUser().getUserName())
+                    .boardFormatDate(boardFormatDate)
+                    .replyList(replyDetailDTOList)
+                    .build();
+
+            return boardDetailDTO;
+
         } else {
             throw new MyException("해당 게시글을 찾을 수 없습니다.");
         }
     }
 
-    public Community 게시물내용(Integer id) {
+    public Community 게시물내용(Integer ssessionId, Integer id) {
         Optional<Community> communityOP = communityRepository.findById(id);
         if (communityOP.isPresent()) {
+            Community community = communityOP.get();
+
+            // 권한 인증
+            if (ssessionId != community.getUser().getId()) {
+                throw new MyException("게시물 수정의 권한이 없습니다.");
+            }
+
             return communityOP.get();
         } else {
             throw new MyException("해당 게시글을 찾을 수 없습니다.");
@@ -72,7 +160,6 @@ public class CommunityService {
         Optional<Community> communityOP = communityRepository.findById(id);
         if (communityOP.isPresent()) {
             Community community = communityOP.get();
-            System.out.println("테스트 : " + community.getTitle());
 
             // 권한 인증
             if (ssessionId != community.getUser().getId()) {

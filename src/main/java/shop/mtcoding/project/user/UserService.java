@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,11 @@ import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.vo.MyPath;
+<<<<<<< HEAD
+=======
+import shop.mtcoding.project._core.util.Script;
+import shop.mtcoding.project._core.vo.MyPath;
+>>>>>>> dev
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
@@ -21,6 +27,8 @@ import shop.mtcoding.project.user.UserRequest.UserUpdateDTO;
 
 @Service
 public class UserService {
+    @Autowired
+    private HttpSession session;
 
     @Autowired
     UserRepository userRepository;
@@ -86,11 +94,24 @@ public class UserService {
     }
 
     public User 회원정보수정(UserRequest.UserUpdateDTO userUpdateDTO, Integer id) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
         // 1.조회
         User user = userRepository.findById(id).get();
         // 2.변경
+        System.out.println("비번" + userUpdateDTO.getNowPassword());
+        System.out.println("비번" + user.getUserPassword());
+        if (!user.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
+            throw new MyException("현재 비밀번호가 틀렸습니다.");
+        }
+        if (!userUpdateDTO.getNewPassword().equals(userUpdateDTO.getNewPasswordConfirm())) {
+            throw new MyException("새로운 비밀번호가 일치하지않습니다.");
+        }
         user.setUserPassword(userUpdateDTO.getNewPassword());
         userRepository.save(user);
+
         return user;
     }
 

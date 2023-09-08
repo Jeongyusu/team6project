@@ -6,24 +6,38 @@
     <!-- container 건들지 말기 -->
     <div class="user_community_write_gif">
       <h2>질문하기</h2>
-      <br>
+      <br />
       <p>무엇이든 물어보세요!</p>
     </div>
     <div class="card">
       <div class="card-body">
         <form action="/user/community/board/save" method="post">
           <div class="mb-3">
-            <input type="text" class="form-control" placeholder="제목을 작성해주세요." name="title" required maxlength="30">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="제목을 작성해주세요."
+              name="title"
+              required
+              maxlength="30"
+            />
           </div>
           <div class="mb-3">
-            <textarea class="form-control" rows="10" name="content" id="content" required maxlength="300"></textarea>
+            <textarea
+              class="form-control"
+              rows="10"
+              name="content"
+              id="content"
+              required
+              maxlength="300"
+            ></textarea>
           </div>
-          <button type="submit" class="btn btn-primary form-control">등록하기</button>
+          <button type="submit" class="btn btn-primary form-control">
+            등록하기
+          </button>
         </form>
       </div>
     </div>
-  </div>
-
   </div>
 </main>
 <!--메인-->

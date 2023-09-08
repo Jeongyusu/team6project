@@ -28,6 +28,7 @@ public class SuggestController {
     @Autowired
     private ResumeRepository resumeRepository;
 
+<<<<<<< HEAD
     @GetMapping("/user/{id}/resume/detail")
     public String userOpenResumeDetail(@PathVariable Integer id, Model model) {
         Resume resume = resumeRepository.findById(id).get();
@@ -36,6 +37,8 @@ public class SuggestController {
         return "user/user_resume_detail";
     }
 
+=======
+>>>>>>> dev
     @GetMapping("/openResumeList")
     public String OpenResumeList(Model model) {
         List<Resume> resumeList = resumeRepository.findAll();

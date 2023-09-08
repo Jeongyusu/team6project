@@ -3,6 +3,7 @@ package shop.mtcoding.project.jobopening;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project.jobopening.JobOpeningRequest.JobOpeningUpdateDTO;
+import net.bytebuddy.agent.builder.AgentBuilder.InitializationStrategy.SelfInjection.Split;
+import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 import shop.mtcoding.project.position.Position;
 import shop.mtcoding.project.position.PositionRepository;
 import shop.mtcoding.project.position.RequiredPosition;
@@ -200,6 +203,60 @@ public class JobOpeningService {
         } else {
             throw new MyException(id + "를 찾을 수 없습니다");
         }
+    }
+
+    @Transactional
+    public void 공고삭제(Integer id) {
+        List<RequiredSkill> requiredSkillList = requiredSkillRepository.findByJobOpeningId(id);
+        for (RequiredSkill requiredSkill : requiredSkillList) {
+            requiredSkill.setJobOpening(null);
+            requiredSkillRepository.save(requiredSkill);
+        }
+        List<RequiredPosition> requiredPositionList = requiredPositionRepository.findByJobOpeningId(id);
+        for (RequiredPosition requiredPosition : requiredPositionList) {
+            requiredPosition.setJobOpening(null);
+            requiredPositionRepository.save(requiredPosition);
+        }
+        try {
+            jobOpeningRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new MyException("삭제에 실패했습니다.");
+        }
+    }
+
+    public List<JobOpeningMainDTO> 메인화면() {
+        List<JobOpening> jobOpeningList = jobOpeningRepository.mfindByAllJoinJobOpeningAndUser();
+
+        // jobOpening을 담기 위한 List
+        List<JobOpeningMainDTO> jobOpeningMainDTOList = new ArrayList<>();
+        for (JobOpening jobOpening : jobOpeningList) {
+
+            // skillName을 담기 위한 List
+            List<String> skillName = new ArrayList<>();
+            for (RequiredSkill requiredSkill : jobOpening.getRequiredSkillList()) {
+                String skill = requiredSkill.getSkill().getSkill();
+                skillName.add(skill);
+            }
+
+            // 이중 for문을 방지하기 위해, 배열을 하나의 문자열로 만들기
+            String skillListString = String.join(" · ", skillName);
+
+            // 주소 포맷
+            String Address = jobOpening.getCompAddress();
+            String compAddressFormat = shop.mtcoding.project._core.util.Split.AddressSplit(Address);
+
+            JobOpeningMainDTO jobOpeningMainDTO = JobOpeningMainDTO.builder()
+                    .jobOpeningId(jobOpening.getId())
+                    .title(jobOpening.getTitle())
+                    .compName(jobOpening.getUser().getUserName())
+                    .compAddress(compAddressFormat)
+                    .career(jobOpening.getCareer())
+                    .careerYear(jobOpening.getCareerYear())
+                    .skill(skillListString)
+                    .build();
+            jobOpeningMainDTOList.add(jobOpeningMainDTO);
+        }
+        return jobOpeningMainDTOList;
     }
 
 }

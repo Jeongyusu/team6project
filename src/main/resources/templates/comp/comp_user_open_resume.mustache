@@ -4,6 +4,7 @@
 <!-- 각자 페이지 main 클래스에 name 작성-->
 <!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
 <main class="open_resume main_page">
+<<<<<<< HEAD
     <div class="container">
         <!-- container 건들지 말기 -->
         <!-- 여기서부터 시작 -->
@@ -67,3 +68,61 @@
     </div>
 </main>
 {{>layout/footer}}
+=======
+  <div class="container">
+    <!-- container 건들지 말기 -->
+    <!-- 여기서부터 시작 -->
+    <div class="position_box">
+      <ul class="position_menu">
+        <li class="position_skill com_skill position_active">
+          {{#uniqueSkillList}}
+          <span class="skill_box">{{.}}</span>
+          {{/uniqueSkillList}}
+        </li>
+      </ul>
+    </div>
+    <div class="position_select">
+      <select class="select select_edu">
+        <option disabled selected>경력</option>
+        <option>java</option>
+        <option>javaScript</option>
+      </select>
+      <select class="select select_adr">
+        <option disabled selected>지역</option>
+        <option>java</option>
+        <option>javaScript</option>
+      </select>
+    </div>
+    {{#resumeList}}
+    <div class="main_box">
+      {{#compUserOpenResumeDTO}}
+      <a href="/user/{{ resumeId }}/resume/detail">
+        <ul class="user_cont user_box">
+          <li class="user_img">
+            <img src="/image/user_img/{{ resumePic }}" alt="이력서 사진" />
+          </li>
+          <li class="user_cont">
+            <div class="com_tit">
+              <h3>
+                {{ userName }}
+              </h3>
+            </div>
+            <div class="com_tit">
+              <h4>
+                {{ title }}
+              </h4>
+            </div>
+            <div class="com_txt">{{ career }}</div>
+            <div class="com_txt">{{ address }}</div>
+            <div class="com_skill open_resume_skill">
+              <span class="skill_box">{{ userSkillList }}</span>
+            </div>
+          </li>
+        </ul>
+      </a>
+      {{/compUserOpenResumeDTO}}
+    </div>
+  </div>
+</main>
+{{>layout/footer}}
+>>>>>>> dev

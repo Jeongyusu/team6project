@@ -21,14 +21,23 @@
 
             </li>
             <li>
-              <h3>남은혜</h3>
+              {{#sessionUser}}
+              <h3>{{userName}}</h3>
+              {{/sessionUser}}
             </li>
           </ul>
           <ul class="mypage_menu tab_menu">
+<<<<<<< HEAD
             <li><a href="/user/resume" >이력서</a></li>
             <li><a href="/user/applyAndSuggest" >지원/제안</a></li>
             <li><a href="/user/scrap" >스크랩</a></li>
             <li><a href="/user/info/update" >정보 수정</a></li>
+=======
+            <li><a href="/user/resume">이력서</a></li>
+            <li><a href="/user/applyAndSuggest">지원/제안</a></li>
+            <li><a href="/user/scrap">스크랩</a></li>
+            <li><a href="/user/info/update">정보 수정</a></li>
+>>>>>>> dev
           </ul>
           <ul class="mypage_menu">
             <li><a href="#">로그아웃</a></li>
@@ -40,31 +49,21 @@
           <div class="mypage_list">
             <div class="resume_count">이력서
 
-              <span class="common_num"></span>
+              <span class="common_num">{{totalResume}}</span>
 
             </div>
+
+            {{#resumeList}}
+
             <ul class="com_cont">
               <li class="resume_item resume_box">
                 <a href="user_resume_detail.html">
                   <ul class="resume_cont">
                     <li class="com_tit">
-                      <h4>남은혜 이력서_230825</43>
+                      <h4>{{title}}</43>
                     </li>
                     <li class="com_txt">
-                      고졸 신입
-                    </li>
-                    <li class="date">
-                      2023-08-27
-                    </li>
-                  </ul>
-                </a>
-                <a href="user_resume_detail.html">
-                  <ul class="resume_cont">
-                    <li class="com_tit">
-                      <h4>남은혜 이력서_230825</h4>
-                    </li>
-                    <li class="com_txt">
-                      고졸 신입
+                      {{edu}} {{career}} {{#careerYear}}{{careerYear}}{{/careerYear}}
                     </li>
                     <li class="date">
                       2023-08-27
@@ -73,6 +72,7 @@
                 </a>
               </li>
             </ul>
+            {{/resumeList}}
           </div>
           <div class="mypage_list">
             <div class="scrp_count">스크랩
@@ -183,6 +183,192 @@
             </ul>
           </div>
         </div>
+<<<<<<< HEAD
+=======
+        <div class="mypage_right tab-content mypage_list_item" id="resume">
+          <div class="mypage_list">
+            <div class="resume_btn">
+              <div class="resume_count">전체
+                <span class="common_num">{{totalResume}}</span>
+              </div>
+              <a href="/user/resume/saveForm" class="btn btn-primary">이력서 작성</a>
+            </div>
+            <ul class="com_cont">
+              {{#resumeList}}
+              <li class="resume_inner">
+                <ul class="resume_cont">
+                  <li class="com_tit com_btn">
+                    <h4>{{title}}</h4>
+                    <div class="double_btn">
+                      <form action="/user/resume/{{id}}/updateForm">
+                        <button type="submit" class="btn_empty">이력서 수정</button>
+                      </form>
+                      <form action="/user/resume/{{id}}/delete" method="post">
+                        <button type="submit" class="btn_fill">이력서 삭제</button>
+                      </form>
+                    </div>
+                  </li>
+                  <li class="com_txt">
+                    {{edu}} {{career}} {{#careerYear}}{{careerYear}}{{/careerYear}}
+                  </li>
+                  <li class="com_skill user_skill">
+                    {{#hasSkillList}}
+
+                    <span class="skill_box">{{skill.skill}}</span>
+
+                    {{/hasSkillList}}
+                  </li>
+                </ul>
+              </li>
+              {{/resumeList}}
+            </ul>
+          </div>
+        </div>
+        <div class="mypage_right tab-content mypage_list_item" id="applications">
+          <div class="resume_btn">
+            <div class="resume_count">지원
+              <span class="common_num">{{totalApply}}</span>
+            </div>
+          </div>
+          <div>
+            <table class="table">
+              <thead>
+                <tr class="table-info">
+                  <th class="td_width80">NO.1</th>
+                  <th class="td_width80">회사명</th>
+                  <th class="td_width160">공고명</th>
+                  <th class="td_width160">이력서</th>
+                  <th class="td_width120">포지션</th>
+                  <th class="td_width120">상태</th>
+                </tr>
+              </thead>
+              {{#applyList2}}
+              <tbody>
+                <tr class="td_border">
+                  <td>1</td>
+                  <td>{{jobOpening.user.userName}}</td>
+                  <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
+                  <td>{{resume.title}}</td>
+                  <td>백엔드</td>
+                  <td>
+                    <ul>
+                      <li class="wait_btn">대기중</li>
+                      <li class="accept_btn">합격</li>
+                      <li class="refuse_btn">불합격</li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+              {{/applyList2}}
+            </table>
+            <div>
+              <div class="resume_btn">
+                <div class="resume_count">제안
+                  <span class="common_num">{{totalSuggestList}}</span>
+                </div>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr class="table-info">
+                    <th class="td_width80">NO.1</th>
+                    <th class="td_width80">회사명</th>
+                    <th class="td_width180">공고명</th>
+                    <th class="td_width120">포지션</th>
+                    <th class="td_width120">상태</th>
+                    <th class="td_width80">응답</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="td_border">
+                    {{#suggestList2}}
+                    <td>1</td>
+                    <td>{{user.userName}}</td>
+                    <td><a href="user_job_opening_apply.html">{{jobOpeningInfo.0.title}}</a></td>
+                    <td>백엔드</td>
+                    <td>
+                      <ul>
+                        <li class="wait_btn">대기중</li>
+                        <li class="accept_btn">수락</li>
+                        <li class="refuse_btn">거절</li>
+                      </ul>
+                    </td>
+                    <td>
+                      <select class="select">
+                        <option value="option1">답변하기</option>
+                        <option value="option2">수락</option>
+                        <option value="option3">거절</option>
+                      </select>
+                    </td>
+                    {{/suggestList2}}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="mypage_right tab-content mypage_list_item" id="scrap">
+          <div class="mypage_list">
+            <div class="resume_count">전체
+              <span class="common_num">3</span>
+            </div>
+            <ul class="com_cont">
+              <li class="resume_inner">
+                <ul class="resume_cont">
+                  <li class="com_tit com_btn">
+                    <div class="apply_scrap">
+                      <form action="#">
+                        <button type="button" id="scrap_button" class="btn_empty scrap_icon scrap_button">
+                          <img id="scrap_icon" src="/image/full_star.png" alt="empty_star.png">
+                        </button>
+                      </form>
+                      <a href="user_job_opening_apply.html">
+                        <h4>백엔드 개발자 채용</h4>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="com_txt">고졸 신입</li>
+                  <li class="com_skill comp_skill">
+                    <span class="skill_box">HTML/CSS</span>
+                    <span class="skill_box">JavaScript</span>
+                    <span class="skill_box">MySQL</span>
+                    <span class="skill_box">Spring</span>
+                    <span class="skill_box">JAVA</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="mypage_right tab-content mypage_list_item" id="user_update">
+          <div class="mypage_list udback">
+            <div class="update_box">
+              <div class="udpassword ">
+
+                <form action="/user/password/update" method="post" class="pw_update">
+                  <div class="">
+                    <label for="nowPassword" class="form-label">현재 비밀번호</label>
+                    <input type="password" class="form-control" id="nowPassword" placeholder="비밀번호를 입력해 주세요."
+                      name="nowPassword">
+                  </div>
+                  <div class="">
+                    <label for="newPassword" class="form-label">새 비밀번호</label>
+                    <input type="password" class="form-control" id="newPassword" placeholder="비밀번호를 입력해 주세요."
+                      name="newPassword">
+                  </div>
+                  <div class="">
+                    <label for="newPasswordConfirm" class="form-label">새 비밀번호 확인</label>
+                    <input type="password" class="form-control" id="newPasswordConfirm" placeholder="비밀번호를 입력해 주세요."
+                      name="newPasswordConfirm">
+                  </div>
+                  <div style="display: flex; justify-content: center;">
+                    <button type="submit" class="btn btn-primary">확인</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+>>>>>>> dev
       </div>
     </div>
   </div>
