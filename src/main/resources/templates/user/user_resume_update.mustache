@@ -210,25 +210,6 @@ function changeUserPic(e1) {
 
   let currentTime = new Date();
   document.querySelector("#time").value = currentTime.toISOString();
-<<<<<<< HEAD
-=======
-
-
-let resumeId = document.querySelector("#resumeId").value;
-
-let data = {
-  resumeId: resumeId
-};
-
-
-let requestOptions = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-};
->>>>>>> dev
 
 
 let resumeId = document.querySelector("#resumeId").value;
@@ -294,20 +275,11 @@ let resumeId = document.querySelector("#resumeId").value;
 
   fetchSelectedSkills();
 
-  
 
-  async function fetchSelectedPositions() {
-
-<<<<<<< HEAD
   async function fetchSelectedPositions() {
 
   try {
     let response = await fetch(`/api/resume/${resumeId}/positionList`);
-=======
-  try {
-    let response = await fetch('/api/getPositionList', requestOptions);
-    console.log("테스트" + JSON.stringify(data));
->>>>>>> dev
     if (response.ok) {
       let responseBody = await response.json();
       console.log("테스트1" + responseBody);

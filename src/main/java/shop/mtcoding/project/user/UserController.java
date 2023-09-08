@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import shop.mtcoding.project._core.error.ex.MyApiException;
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
+import shop.mtcoding.project.apply.Apply;
+import shop.mtcoding.project.apply.ApplyRepository;
+import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
+import shop.mtcoding.project.suggest.SuggestQueryRepository;
 
 @Controller
 public class UserController {
@@ -31,6 +35,12 @@ public class UserController {
 
     @Autowired
     private HttpSession session;
+
+    @Autowired
+    private ApplyRepository applyRepository;
+
+    @Autowired
+    SuggestQueryRepository suggestQueryRepository;
 
     ///////// 구직자홈
     @GetMapping("/user")
@@ -121,22 +131,24 @@ public class UserController {
 
     //////// 구직자///////
 
-    @GetMapping("/user/MyPageForm")
+    @GetMapping("/user/myPageForm")
     public String userMyPageForm(Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Resume> resumeList = resumeRepository.findByUserId(sessionUser.getId());
         model.addAttribute("resumeList", resumeList);
-
-        // List<WishPosition> wishPositionList =
-        // wishPositionRepository.positionFindByResumeId(id);
-        // List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(id);
-
-        // model.addAttribute("hasSkillList", hasSkillList);
-        // model.addAttribute("wishPositionList", wishPositionList);
+        int totalResume = resumeList.size();
+        model.addAttribute("totalResume", totalResume);
+        List<Apply> applyList2 = applyRepository.findByResumeUserId(sessionUser.getId());
+        int totalApply = applyList2.size();
+        List<JobOpening> jobOpeningInfo = suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
+        model.addAttribute("jobOpeningInfo", jobOpeningInfo);
+        model.addAttribute("totalApply", totalApply);
+        model.addAttribute("applyList2", applyList2);
         return "user/user_mypage";
+
     }
 
-    @GetMapping("/comp/MyPageForm")
+    @GetMapping("/comp/myPageForm")
     public String compMyPageForm() {
         return "comp/comp_info";
     }
@@ -192,5 +204,10 @@ public class UserController {
         User user = userService.회사정보수정(compInfoUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
         return "comp/comp_info";
+    }
+
+    @GetMapping("/user/applyAndSuggest")
+    public String userApplyAndSuggest() {
+        return "user/user_resume_management";
     }
 }

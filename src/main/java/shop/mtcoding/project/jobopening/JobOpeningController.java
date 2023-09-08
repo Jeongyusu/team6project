@@ -88,11 +88,6 @@ public class JobOpeningController {
         return "comp_index";
     }
 
-    @GetMapping("/comp/MypageForm")
-    public String compMyPageForm() {
-        return "comp/comp_info";
-    }
-
     @GetMapping("/comp/jobOpening/myPageForm")
     public String compInfoForm(Model model, Integer id) {
         JobOpening jobOpening = jobOpeningService.공고수정페이지(1);
@@ -259,43 +254,5 @@ public class JobOpeningController {
         // 3. 응답
         return new ApiUtil<String>(true, "댓글이 삭제되었습니다");
     }
-
-    @GetMapping("/comp/myPageForm")
-    public String jobOpeningList(Model model) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        // 회사 공고글 전체보기
-        List<JobOpening> JobOpeningList = jobOpeningRepository.findByUserId(sessionUser.getId());
-        int totalJobOpening = JobOpeningList.size();
-        model.addAttribute("totalJobOpening", totalJobOpening);
-        // 회사 지원자 전제보기
-        List<Apply> compApplyList = applyRepository.findByResumeUserInfo(sessionUser.getId());
-        int totalApplyList = compApplyList.size();
-        model.addAttribute("totalApplyList", totalApplyList);
-        model.addAttribute("compApplyList", compApplyList);
-        // 회사 제안자 전체보기
-        // List<JobOpening> jobOpeningInfo =
-        // suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
-        // model.addAttribute("jobOpeningInfo", jobOpeningInfo);
-
-        List<Suggest> jobOpeningInfo2 = suggestRepository.findBySuggestCompId(sessionUser.getId());
-        int totalSuggest = jobOpeningInfo2.size();
-        model.addAttribute("totalSuggest", totalSuggest);
-        model.addAttribute("jobOpeningInfo2", jobOpeningInfo2);
-
-        return "comp/comp_info";
-    }
-    // @GetMapping("/comp/MyPageForm")
-    // public @ResponseBody List<Suggest> jobOpeningList(Model model) {
-    // User sessionUser = (User) session.getAttribute("sessionUser");
-
-    // List<Apply> compApplyList =
-    // applyRepository.findByResumeUserInfo(sessionUser.getId());
-    // model.addAttribute("compApplyList", compApplyList);
-
-    // List<Suggest> jobOpeningInfo2 =
-    // suggestRepository.findBySuggestCompId(sessionUser.getId());
-    // model.addAttribute("jobOpeningInfo2", jobOpeningInfo2);
-    // return jobOpeningInfo2;
-    // }
 
 }

@@ -23,11 +23,7 @@
             </li>
             <li>
               {{#sessionUser}}
-<<<<<<< HEAD
-              <h3>{{userName}}</h3>
-=======
               <h3>{{ userName }}</h3>
->>>>>>> dev
               {{/sessionUser}}
             </li>
           </ul>
@@ -66,16 +62,6 @@
                 {{#sessionUser}}
                 <div>
                   <label for="compDate" class="form-label">연력</label>
-<<<<<<< HEAD
-                  <input type="date" class="form-control" id="compDate" name="compDate" value="{{compHistory}}">
-                </div>
-                <div>
-                  <label for="compExplan" class="form-label">회사 소개</label>
-                  <input type="text" class="form-control" id="compExplan" name="compExplan" value="{{compIntro}}">
-                </div>
-                {{/sessionUser}}
-                <div style="display: flex; justify-content: center;">
-=======
                   <input
                     type="date"
                     class="form-control"
@@ -96,7 +82,6 @@
                 </div>
                 {{/sessionUser}}
                 <div style="display: flex; justify-content: center">
->>>>>>> dev
                   <button type="submit" class="btn btn-primary">확인</button>
                 </div>
               </form>
@@ -106,12 +91,6 @@
         <div class="mypage_right tab-content mypage_list_item" id="comp_resume">
           <div class="mypage_list">
             <div class="resume_btn">
-<<<<<<< HEAD
-              <div class="resume_count">전체
-                <span class="common_num">{{totalJopOpeningList}}</span> 
-              </div>
-              <a href="/comp/jobOpening/saveForm" class="btn btn-primary" type="button">공고 작성</a>
-=======
               <div class="resume_count">
                 전체
                 <span class="common_num">{{ totalJobOpening }}</span>
@@ -122,7 +101,6 @@
                 type="button"
                 >공고 작성</a
               >
->>>>>>> dev
             </div>
 
             {{#jobOpeningList}}
@@ -130,19 +108,12 @@
               <li class="resume_inner">
                 <ul class="resume_cont">
                   <li class="com_tit com_btn">
-<<<<<<< HEAD
-                    <h4>{{title}}</h4>
-                    <div class="double_btn">
-                      <form action="/comp/jobOpening/{{jobOpening.id}}/updateForm">
-                        <button type="submit" class="btn_empty">공고 수정</button>
-=======
                     <h4>{{ title }}</h4>
                     <div class="double_btn">
                       <form action="/comp/jobOpening/{id}/updateForm">
                         <button type="submit" class="btn_empty">
                           공고 수정
                         </button>
->>>>>>> dev
                       </form>
                       <form action="#">
                         <button type="submit" class="btn_fill">
@@ -152,27 +123,16 @@
                     </div>
                   </li>
                   <li class="com_txt">
-<<<<<<< HEAD
-                    {{edu}} {{career}} {{#careerYear}}{{careerYear}}{{/careerYear}}
-                  </li>
-                  <li class="com_skill comp_skill">
-                    <!-- 요구 기술 받아오기--> 
-=======
                     {{ edu }} {{ career }} {{#careerYear}}{{ careerYear
                     }}{{/careerYear}}
                   </li>
                   <li class="com_skill comp_skill">
                     <!-- 요구 기술 받아오기-->
->>>>>>> dev
                   </li>
                 </ul>
               </li>
             </ul>
             {{/jobOpeningList}}
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
           </div>
         </div>
         <div
@@ -366,9 +326,6 @@
     </div>
   </div>
 </main>
-<<<<<<< HEAD
-{{>layout/footer}}
-=======
 <script>
   function changeCompPic(e1) {
     let f = e1.srcElement.files[0];
@@ -387,4 +344,3 @@
   }
 </script>
 {{>layout/footer}}
->>>>>>> dev
