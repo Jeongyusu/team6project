@@ -1253,13 +1253,7 @@ footer li:last-child {
 .comp_pic > input {
   height: 100%;
 }
-.comp_pic_bg {
-  background: url(../image/user_img/blue_basic_profile.png) no-repeat;
-  width: 100%;
-  height: 200px;
-  background-size: cover;
-  margin-bottom: 25px;
-}
+
 .comp_pic > form > button > img {
   width: 180px;
 }
