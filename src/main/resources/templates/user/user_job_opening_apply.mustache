@@ -19,22 +19,22 @@
                     <div class="skill">
                         <h3>개발직무</h3>
                         <ul>
-                            {{#jobOpeningDetailDTO.requiredPositionList}}
                             <li class="position_skill com_skill">
+                                {{#jobOpeningDetailDTO.requiredPositionList}}
                                 <span class="skill_box">{{positionName}}</span>
+                                {{/jobOpeningDetailDTO.requiredPositionList}}
                             </li>
-                            {{/jobOpeningDetailDTO.requiredPositionList}}
                         </ul>
                     </div>
 
                     <div class="skill">
                         <h3>기술스택</h3>
                         <ul>
-                            {{#jobOpeningDetailDTO.requiredSkillList}}
                             <li class="comp_skill com_skill">
-                                <span class="skill_box">{{skillName}}</span>
+                                {{#jobOpeningDetailDTO.requiredSkillList}}
+                                <span class="skill_box">{{skillName}}</spa>n
+                                    {{/jobOpeningDetailDTO.requiredSkillList}}
                             </li>
-                            {{/jobOpeningDetailDTO.requiredSkillList}}
                         </ul>
                     </div>
 

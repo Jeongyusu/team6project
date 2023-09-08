@@ -1,5 +1,7 @@
 package shop.mtcoding.project.user;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ResumeRepository resumeRepository;
 
     @Autowired
     private UserService userService;
@@ -117,6 +122,28 @@ public class UserController {
         return "comp/comp_login";
     }
 
+    //////// 구직자///////
+
+    @GetMapping("/user/MyPageForm")
+    public String userMyPageForm(Model model) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<Resume> resumeList = resumeRepository.findByUserId(sessionUser.getId());
+        model.addAttribute("resumeList", resumeList);
+
+        // List<WishPosition> wishPositionList =
+        // wishPositionRepository.positionFindByResumeId(id);
+        // List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(id);
+
+        // model.addAttribute("hasSkillList", hasSkillList);
+        // model.addAttribute("wishPositionList", wishPositionList);
+        return "user/user_mypage";
+    }
+
+    @GetMapping("/comp/MyPageForm")
+    public String compMyPageForm() {
+        return "comp/comp_info";
+    }
+
     @PostMapping("/user/login")
     public @ResponseBody String userLogin(UserRequest.UserLoginDTO userLoginDTO) {
 
@@ -169,5 +196,4 @@ public class UserController {
         session.setAttribute("sessionUser", user);
         return "comp/comp_info";
     }
-
 }
