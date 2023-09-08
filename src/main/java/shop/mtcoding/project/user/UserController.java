@@ -14,20 +14,43 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import shop.mtcoding.project._core.error.ex.MyApiException;
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
+import shop.mtcoding.project.apply.Apply;
+import shop.mtcoding.project.apply.ApplyRepository;
+import shop.mtcoding.project.jobopening.JobOpening;
+import shop.mtcoding.project.jobopening.JobOpeningRepository;
+import shop.mtcoding.project.jobopening.JobOpeningService;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.skill.HasSkill;
+import shop.mtcoding.project.suggest.Suggest;
+import shop.mtcoding.project.suggest.SuggestQueryRepository;
+import shop.mtcoding.project.suggest.SuggestRepository;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO;
 
 @Controller
 public class UserController {
 
     @Autowired
+    private JobOpeningService jobOpeningService;
+
+    @Autowired
+    private SuggestRepository suggestRepository;
+
+    @Autowired
+    private SuggestQueryRepository suggestQueryRepository;
+
+    @Autowired
+    private ApplyRepository applyRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private ResumeRepository resumeRepository;
+
+    @Autowired
+    private JobOpeningRepository jobOpeningRepository;
 
     @Autowired
     private UserService userService;
@@ -133,9 +156,10 @@ public class UserController {
         return "user/user_mypage";
     }
 
-    @GetMapping("/comp/MyPageForm")
-    public String compMyPageForm() {
-        return "comp/comp_info";
+    @GetMapping("/comp/myPageForm")
+    public String jobOpeningList(Model model) {
+
+        return "/comp/comp_info";
     }
 
     @PostMapping("/user/login")
