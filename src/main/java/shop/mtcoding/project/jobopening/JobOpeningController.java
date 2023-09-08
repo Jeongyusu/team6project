@@ -94,10 +94,6 @@ public class JobOpeningController {
         return "/comp/comp_info";
     }
 
-    @GetMapping("/comp/jobOpening/mypage/compResum")
-    public String compResumForm() {
-        return "/jobOpening/compInfo";
-    }
 
     // --------- get
 
@@ -192,6 +188,11 @@ public class JobOpeningController {
             model.addAttribute("isEduHighSchool", true);
         }
         return "comp/comp_job_opening_update";
+    }
+
+    @GetMapping("/comp/jobOpening/mypage/compResum")
+    public String compResumForm() {
+        return "/jobOpening/compInfo";
     }
 
     // --------- Post
