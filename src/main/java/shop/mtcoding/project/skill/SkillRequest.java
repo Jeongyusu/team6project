@@ -23,4 +23,8 @@ public class SkillRequest {
         private String skill;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dev

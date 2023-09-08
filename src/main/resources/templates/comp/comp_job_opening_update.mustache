@@ -1,127 +1,131 @@
 {{>layout/compheader}}
 
-  <!-- 메인 -->
-  <!-- 각자 페이지 main 클래스에 name 작성-->
-  <!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
-  <main class="comp_job_opening_write common_bg">
-    <div class="container">
-      <!-- container 건들지 말기 -->
-      <!-- 여기서부터 시작 -->
-      <div class="main_total">
-        <div class="main_tit">
-          <h2>공고 수정</h2>
-        </div>
-        <form action="/comp/jobOpening/{{jobOpening.id}}/update" method="post">
-          <input type="hidden" id="jobId" name="id" value="{{jobOpening.id}}">
-          <div class="save_title mb-5">
-            <input type="text" placeholder="제목을 입력해주세요" name="title" value="{{jobOpening.title}}">
-          </div>
-          <div class="main_back container">
-            <div class="mb-2">
-              <div>
-                <label class="job_list mb-3" for="jobSkill">개발 직무</label>
-              </div>
-              <div>
-                <div class="develop_job">
-                  {{#positionList}}
-                  <div>
-                    <input type="checkbox" id="{{position}}" name="positionList" value="{{position}}">
-                    <label class="skill_btns1" for="{{position}}">{{position}}</label>
-                  </div>
-                  {{/positionList}}
-                </div>
-              </div>
-            </div>
-            <div class="mb-4">
-              <label class="job_list mt-2 mb-3" for="jobSkill">기술 스택(업무 툴/스킬)</label>
-              <div class="parent_btn">
-                {{#skillList}}
-                <div>
-                  <input type="checkbox" id="{{skill}}" name="skillList" value="{{skill}}">
-                  <label class="skill_btns1" for="{{skill}}">{{skill}}</label>
-                </div>
-                {{/skillList}}
-              </div>
-            </div>
-            <div class="resume_margin">
-              <!-- 자격요건 for 문-->
-              <div class="plus_info">
-                <label class="job_list mb-2" for="require">주요 업무</label>
-                <button type="button" class="plus_button" onclick="addInput01()">
-                  <img src="https://img.icons8.com/android/24/plus.png" alt="plus" />
-                </button>
-              </div>
-              {{#taskList}}
-              <input type="text" class="form-control main_job_list"  placeholder="주요 업무를 최대 3개까지 작성해주세요" name="taskList" value="{{taskContent}}">
-              <div class="plus_Input1" ></div>
-              {{/taskList}}
-            </div>
-            <div class="resume_margin">
-              <!-- 자격요건 for 문-->
-              <div class="plus_info">
-                <label class="job_list mb-2" for="require">자격 요건</label>
-                <button type="button" class="plus_button" onclick="addInput02()">
-                  <img src="https://img.icons8.com/android/24/plus.png" alt="plus" />
-                </button>
-              </div>
-              {{#qualList}}
-                <input type="text" class="form-control main_job_list" placeholder="자격요건을 최대 3개까지 작성해주세요" name="qualList" value="{{qualifiedContent}}" >
-                <div class="plus_Input2">
-                </div>
-              {{/qualList}}
-            </div> 
-            <div class="mb-4">
-              <label class="job_list mb-2" for="recruitOrder">채용 절차</label>
-              <textarea name="process" class="form-control" placeholder="채용절차를 간단히 작성해주세요" id="recruitOrder" cols="30" rows="2">{{jobOpening.process}}</textarea>
-            </div>
-
-            <div class="mb-4">
-              <label class="job_list" for="recruitOrder">경력</label>
-              <br>
-              <input type="radio" id="new" name="career" value="신입" {{#isCareerNew}}checked{{/isCareerNew}}/>
-              <label for="new" class="on_btn">신입</label>
-              <input type="radio" id="old" name="career" value="경력" {{#isCareerOld}}checked{{/isCareerOld}}/>
-              <label for="old" class="on_btn ">경력</label>
-              <select class="select_answer" name="careerYear">
-                <option value="1년차" {{#1year}}selected{{/1year}}>1년차</option>
-                <option value="2년차" {{#2years}}selected{{/2years}}>2년차</option>
-                <option value="3년차" {{#3years}}selected{{/3years}}>3년차</option>
-                <option value="4년차" {{#4years}}selected{{/4years}}>4년차</option>
-                <option value="5년차 이상" {{#5years}}selected{{/5years}}>5년차 이상</option>
-              </select>
-            </div>
-
-            <div class="mb-4">
-              <label class="job_list" for="recruitOrder" id="">학력</label>
-              <br>
-              <input type="radio" id="university" name="edu" value="대졸" {{#isEduUniversity}}checked{{/isEduUniversity}} />
-              <label for="university" class="on_btn">대졸</label>
-              <input type="radio" id="college" name="edu" value="초대졸" {{#isEduCollege}}checked{{/isEduCollege}}/>
-              <label for="college" class="on_btn">초대졸</label>
-              <input type="radio" id="highSchool" name="edu" value="고졸" {{#isEduHighSchool}}checked{{/isEduHighSchool}}/>
-              <label for="new" class="on_btn">고졸</label>
-            </div>
-            <div class="row mb-4">
-              <div class="col-sm-4">
-                <label class="job_list mb-2" for="endDate">마감일</label>
-                <input type="date" class="form-control" id="endDate" name="deadLine" value="{{jobOpening.deadLine}}">
-              </div>
-              <div class="col-sm-8">
-                <label class="job_list mb-2" for="location">근무지역</label>
-                <input type="text" class="form-control" placeholder="근무지역을 넣어주세요" id="location" name="compAddress" value="{{jobOpening.compAddress}}">
-              </div>
-            </div>
-            <div class="j_save">
-              <button type="submit" class="btn btn-primary">수정하기</button>
-            </div>
-          </div>
-        </form>
+<!-- 메인 -->
+<!-- 각자 페이지 main 클래스에 name 작성-->
+<!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
+<main class="comp_job_opening_write common_bg">
+  <div class="container">
+    <!-- container 건들지 말기 -->
+    <!-- 여기서부터 시작 -->
+    <div class="main_total">
+      <div class="main_tit">
+        <h2>공고 수정</h2>
       </div>
+      <form action="/comp/jobOpening/{{jobOpening.id}}/update" method="post">
+        <input type="hidden" id="jobId" name="id" value="{{jobOpening.id}}">
+        <div class="save_title mb-5">
+          <input type="text" placeholder="제목을 입력해주세요" name="title" value="{{jobOpening.title}}">
+        </div>
+        <div class="main_back container">
+          <div class="mb-2">
+            <div>
+              <label class="job_list mb-3" for="jobSkill">개발 직무</label>
+            </div>
+            <div>
+              <div class="develop_job">
+                {{#positionList}}
+                <div>
+                  <input type="checkbox" id="{{position}}" name="positionList" value="{{position}}">
+                  <label class="skill_btns1" for="{{position}}">{{position}}</label>
+                </div>
+                {{/positionList}}
+              </div>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="job_list mt-2 mb-3" for="jobSkill">기술 스택(업무 툴/스킬)</label>
+            <div class="parent_btn">
+              {{#skillList}}
+              <div>
+                <input type="checkbox" id="{{skill}}" name="skillList" value="{{skill}}">
+                <label class="skill_btns1" for="{{skill}}">{{skill}}</label>
+              </div>
+              {{/skillList}}
+            </div>
+          </div>
+          <div class="resume_margin">
+            <!-- 자격요건 for 문-->
+            <div class="plus_info">
+              <label class="job_list mb-2" for="require">주요 업무</label>
+              <button type="button" class="plus_button" onclick="addInput01()">
+                <img src="https://img.icons8.com/android/24/plus.png" alt="plus" />
+              </button>
+            </div>
+            {{#taskList}}
+            <input type="text" class="form-control main_job_list" placeholder="주요 업무를 최대 3개까지 작성해주세요" name="taskList"
+              value="{{taskContent}}">
+            <div class="plus_Input1"></div>
+            {{/taskList}}
+          </div>
+          <div class="resume_margin">
+            <!-- 자격요건 for 문-->
+            <div class="plus_info">
+              <label class="job_list mb-2" for="require">자격 요건</label>
+              <button type="button" class="plus_button" onclick="addInput02()">
+                <img src="https://img.icons8.com/android/24/plus.png" alt="plus" />
+              </button>
+            </div>
+            {{#qualList}}
+            <input type="text" class="form-control main_job_list" placeholder="자격요건을 최대 3개까지 작성해주세요" name="qualList"
+              value="{{qualifiedContent}}">
+            <div class="plus_Input2">
+            </div>
+            {{/qualList}}
+          </div>
+          <div class="mb-4">
+            <label class="job_list mb-2" for="recruitOrder">채용 절차</label>
+            <textarea name="process" class="form-control" placeholder="채용절차를 간단히 작성해주세요" id="recruitOrder" cols="30"
+              rows="2">{{jobOpening.process}}</textarea>
+          </div>
+
+          <div class="mb-4">
+            <label class="job_list" for="recruitOrder">경력</label>
+            <br>
+            <input type="radio" id="new" name="career" value="신입" {{#isCareerNew}}checked{{/isCareerNew}} />
+            <label for="new" class="on_btn">신입</label>
+            <input type="radio" id="old" name="career" value="경력" {{#isCareerOld}}checked{{/isCareerOld}} />
+            <label for="old" class="on_btn ">경력</label>
+            <select class="select_answer" name="careerYear">
+              <option value="1년차" {{#1year}}selected{{/1year}}>1년차</option>
+              <option value="2년차" {{#2years}}selected{{/2years}}>2년차</option>
+              <option value="3년차" {{#3years}}selected{{/3years}}>3년차</option>
+              <option value="4년차" {{#4years}}selected{{/4years}}>4년차</option>
+              <option value="5년차 이상" {{#5years}}selected{{/5years}}>5년차 이상</option>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label class="job_list" for="recruitOrder" id="">학력</label>
+            <br>
+            <input type="radio" id="university" name="edu" value="대졸" {{#isEduUniversity}}checked{{/isEduUniversity}} />
+            <label for="university" class="on_btn">대졸</label>
+            <input type="radio" id="college" name="edu" value="초대졸" {{#isEduCollege}}checked{{/isEduCollege}} />
+            <label for="college" class="on_btn">초대졸</label>
+            <input type="radio" id="highSchool" name="edu" value="고졸" {{#isEduHighSchool}}checked{{/isEduHighSchool}} />
+            <label for="new" class="on_btn">고졸</label>
+          </div>
+          <div class="row mb-4">
+            <div class="col-sm-4">
+              <label class="job_list mb-2" for="endDate">마감일</label>
+              <input type="date" class="form-control" id="endDate" name="deadLine" value="{{jobOpening.deadLine}}">
+            </div>
+            <div class="col-sm-8">
+              <label class="job_list mb-2" for="location">근무지역</label>
+              <input type="text" class="form-control" placeholder="근무지역을 넣어주세요" id="location" name="compAddress"
+                value="{{jobOpening.compAddress}}">
+            </div>
+          </div>
+          <div class="j_save">
+            <button type="submit" class="btn btn-primary">수정하기</button>
+          </div>
+        </div>
+      </form>
     </div>
-  </main>
-  <!-- 메인 -->
+  </div>
+</main>
+<!-- 메인 -->
 <script>
-  
+
   let clickCount1 = 0;
   let clickCount2 = 0;
   function addInput01() {
@@ -162,80 +166,98 @@
     clickCount2++;
   }
 
-    let jobId = document.querySelector("#jobId").value;
-        let data = {
-          jobId : jobId
-        };
+  let jobId = document.querySelector("#jobId").value;
+  let data = {
+    jobId: jobId
+  };
 
-        let requestOptions = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        };
+  let requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  };
 
-      async function fetchSelectSkill() {
-        
-          try {
-            let response = await fetch("/api/getCheckBoxSkill", requestOptions)
-            if(response.ok) {
-              let responseBody = await response.json();
-              console.log(responseBody);
-              
-              let checkboxes = document.querySelectorAll('input[type="checkbox"][name="skillList"]');
-              checkboxes.forEach((checkbox)=>{
-                let skillValue = checkbox.value;
-                console.log(skillValue);
+  async function fetchSelectSkill() {
 
-                responseBody.forEach((skillObject)=>{
-                  if(skillObject.skill.includes(skillValue)) {
-                    checkbox.checked = true;
-                  }
-                })
-              });
-            } else {
-              console.log("post요청이 실패했습니다.");
+    try {
+      let response = await fetch("/api/getCheckBoxSkill", requestOptions)
+      if (response.ok) {
+        let responseBody = await response.json();
+        console.log(responseBody);
+
+        let checkboxes = document.querySelectorAll('input[type="checkbox"][name="skillList"]');
+        checkboxes.forEach((checkbox) => {
+          let skillValue = checkbox.value;
+          console.log(skillValue);
+
+          responseBody.forEach((skillObject) => {
+            if (skillObject.skill.includes(skillValue)) {
+              checkbox.checked = true;
             }
-            console.log("테스트" + response);
-          } catch(error) {
-            console.log("오류 발생 : " + error);
-          }
+          })
+        });
+      } else {
+        console.log("post요청이 실패했습니다.");
       }
-      fetchSelectSkill();
+      console.log("테스트" + response);
+    } catch (error) {
+      console.log("오류 발생 : " + error);
+    }
+  }
+  fetchSelectSkill();
 
-      // CheckBoxSkill
+  // CheckBoxSkill
 
-      
-      async function fetchSelectedPosition() {
+  function addInput02() {
+    let maxInputCount = 2;
+    if (clickCount2 >= maxInputCount) {
+      return;
+    }
+    let el = document.querySelector(".plus_Input2");
+    let inputCount = el.querySelectorAll("input").length;
+    if (inputCount >= maxInputCount) {
+      return;
+    }
+    let newEl = document.createElement("input");
+    newEl.setAttribute("type", "text");
+    newEl.setAttribute("name", "qualList");
+    newEl.setAttribute("class", "form-control main_job_list");
+    newEl.setAttribute("placeholder", "자격요건을 최대 3개까지 작성해주세요");
+    el.appendChild(newEl);
+    clickCount2++;
+  }
 
-        try {
-          let response = await fetch('/api/getCheckBoxPosition', requestOptions);
-          console.log("테스트" + JSON.stringify(data));
-          if (response.ok) {
-            let responseBody = await response.json();
-            console.log("테스트1" + responseBody);
+  async function fetchSelectedPosition() {
 
-            var checkboxes = document.querySelectorAll('input[type="checkbox"][name="positionList"]');
-            console.log(checkboxes);
-            checkboxes.forEach(function (checkbox) {
-              var positionValue = checkbox.value;
-              console.log(positionValue);
+    try {
+      let response = await fetch('/api/getCheckBoxPosition', requestOptions);
+      console.log("테스트" + JSON.stringify(data));
+      if (response.ok) {
+        let responseBody = await response.json();
+        console.log("테스트1" + responseBody);
 
-              responseBody.forEach(function(positionObject){
-                if(positionObject.position.includes(positionValue)){
-                  checkbox.checked = true;
-                }
-              });
-            });
-          } else {
-            console.error('POST 요청이 실패했습니다.');
-          }
-        } catch (error) {
-          console.error('오류 발생: ' + error);
-        }
-        }
-        fetchSelectedPosition();
-        
+        var checkboxes = document.querySelectorAll('input[type="checkbox"][name="positionList"]');
+        console.log(checkboxes);
+        checkboxes.forEach(function (checkbox) {
+          var positionValue = checkbox.value;
+          console.log(positionValue);
+
+          responseBody.forEach(function (positionObject) {
+            if (positionObject.position.includes(positionValue)) {
+              checkbox.checked = true;
+            }
+          });
+        });
+      } else {
+        console.error('POST 요청이 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('오류 발생: ' + error);
+    }
+  }
+  fetchSelectedPosition();
+
 </script>
-  {{>layout/footer}}
+{{>layout/footer}}

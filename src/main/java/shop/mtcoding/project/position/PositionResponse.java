@@ -35,4 +35,8 @@ public class PositionResponse {
         }
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dev

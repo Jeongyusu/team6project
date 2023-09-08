@@ -18,7 +18,8 @@
         <form action="/user/join" method="post" onsubmit="return valid()">
           <label for="email" class="form-label mt-2">이메일</label>
           <div style="display: flex;">
-            <input type="email" class="form-control" id="email" placeholder="이메일을 입력해 주세요." name="userEmailId" onchange="userEmailIdChange()">
+            <input type="email" class="form-control" id="email" placeholder="이메일을 입력해 주세요." name="userEmailId"
+              onchange="userEmailIdChange()">
             <button type="button" class="btn email_btn" onclick="checkValidAndWhiteSpace()">메일인증</button>
           </div>
           <div class="mt-4">
@@ -66,9 +67,9 @@
 <!--메인-->
 
 <script>
-let userEmailIdSameCheck = false;
+  let userEmailIdSameCheck = false;
 
-function userEmailIdChange() {
+  function userEmailIdChange() {
     userEmailIdSameCheck = false;
   }
 
@@ -82,7 +83,6 @@ function userEmailIdChange() {
   }
 
   async function check() {
-  
     let userEmailId = document.querySelector("#email").value;
     let response = await fetch(`/api/check?userEmailId=${userEmailId}`);
 
@@ -98,20 +98,20 @@ function userEmailIdChange() {
   }
 
   function isWhitespace(str) {
-            return str.trim() === '';
+    return str.trim() === '';
   }
 
   function checkValidAndWhiteSpace() {
-            
-            let userEmailId = document.querySelector("#email").value;
-            if (isWhitespace(userEmailId)) {
-                alert('공백을 입력할 수 없습니다');
-                userEmailIdSameCheck = false;
-            } else {
-              check();
-            }
 
-  
+    let userEmailId = document.querySelector("#email").value;
+    if (isWhitespace(userEmailId)) {
+      alert('공백을 입력할 수 없습니다');
+      userEmailIdSameCheck = false;
+    } else {
+      check();
+    }
+
+
   }
 
 

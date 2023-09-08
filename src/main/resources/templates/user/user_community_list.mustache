@@ -1,4 +1,4 @@
-{{>layout/compheader}}
+{{>layout/userheader}}
 
 <!--메인-->
 <!-- 각자 페이지 name 작성-->
@@ -7,11 +7,11 @@
     <!-- container 건들지 말기 -->
 
     <div class="community_search">
-      <form action="/comp/community" class="d-flex">
+      <form action="/user/community" class="d-flex">
         <input class="search form-control me-2" type="text" placeholder="검색어를 입력해주세요" name="keyword" />
         <button class="btn btn-primary" type="submit">Search</button>
       </form>
-      <form action="/comp/community/board/saveForm">
+      <form action="/user/community/board/saveForm">
         <button type="submit" class="btn btn-primary">작성하기</button>
       </form>
     </div>
@@ -29,7 +29,7 @@
       {{#boardListDTO}}
       <div class="inner_box_board mt-3">
         <div class="each_board">
-          <a href="/comp/community/board/{{boardId}}">
+          <a href="/user/community/board/{{boardId}}">
             <img class="speech_png " src="/image/com_img/speech.png" alt="speech_png">
             <div class="title">{{title}}</div>
             <div class="content">{{content}}</div>
