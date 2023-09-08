@@ -14,4 +14,7 @@ public interface HasSkillRepository extends JpaRepository<HasSkill, Integer> {
     @Query("select h from HasSkill h where h.resume.id = :resumeId")
     public List<HasSkill> findByResumeId(@Param("resumeId") Integer resumeId);
 
-}
+
+
+    }
+
