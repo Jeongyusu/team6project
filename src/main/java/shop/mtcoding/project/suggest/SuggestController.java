@@ -33,7 +33,7 @@ public class SuggestController {
         Resume resume = resumeRepository.findById(id).get();
         model.addAttribute("resume", resume);
 
-        return "user/user_resume_detail";
+        return "comp/comp_resume_detail";
     }
 
     @GetMapping("/openResumeList")

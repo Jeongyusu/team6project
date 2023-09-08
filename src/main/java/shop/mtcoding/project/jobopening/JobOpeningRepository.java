@@ -21,4 +21,7 @@ public interface JobOpeningRepository extends JpaRepository<JobOpening, Integer>
     List<JobOpening> findBySelectedCareerOrCareerYear(@Param("selectedCareer") String selectedCareer,
             @Param("selectedCareerYear") String selectedCareerYear);
 
+    @Query("select jo from JobOpening jo where jo.user.id = :userId")
+    public List<JobOpening> findByUserId(@Param("userId") Integer userId);
+
 }

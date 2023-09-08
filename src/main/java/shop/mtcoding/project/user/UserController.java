@@ -1,7 +1,5 @@
 package shop.mtcoding.project.user;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,46 +29,36 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
-    private ResumeRepository resumeRepository;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
     private HttpSession session;
 
+    ///////// 구직자홈
     @GetMapping("/user")
     public String home(Model model) {
         return "user_index";
     }
 
+    ///////// 회사홈
     @GetMapping("/comp")
     public String compHome() {
         return "comp_index";
     }
 
+    ///////// 구직자 회원가입페이지
     @GetMapping("/user/joinForm")
     public String userJoinForm() {
         return "user/user_join";
     }
 
+    ///////// 회사 회원가입페이지
     @GetMapping("/comp/joinForm")
     public String compJoinForm() {
         return "comp/comp_join";
     }
 
-    @GetMapping("/user/loginForm")
-    public String userLoginForm() {
-
-        return "user/user_login";
-
-    }
-
-    @GetMapping("/comp/loginForm")
-    public String compLoginForm() {
-        return "comp/comp_login";
-    }
-
+    ///////// 유저 회원가입
     @PostMapping("/user/join")
     public @ResponseBody String userJoin(UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
@@ -78,49 +66,34 @@ public class UserController {
 
     }
 
+    ///////// 구직자 회원가입
     @PostMapping("/comp/join")
     public @ResponseBody String compJoin(UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
         return Script.href("/comp", "회원가입 완료");
     }
-    //////// 구직자///////
 
-    @GetMapping("/user/MyPageForm")
-    public String userMyPageForm(Model model) {
+    ///////// 유저 비번 변경하기 완료
+    @PostMapping("/user/password/update")
+    public @ResponseBody String userUpdate(UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Resume> resumeList = resumeRepository.findByUserId(sessionUser.getId());
-        model.addAttribute("resumeList", resumeList);
-
-        // List<WishPosition> wishPositionList =
-        // wishPositionRepository.positionFindByResumeId(id);
-        // List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(id);
-
-        // model.addAttribute("hasSkillList", hasSkillList);
-        // model.addAttribute("wishPositionList", wishPositionList);
-        return "user/user_mypage";
-    }
-
-    @GetMapping("/comp/MyPageForm")
-    public String compMyPageForm() {
-        return "comp/comp_info";
-    }
-
-    @PostMapping("/user/update")
-    public String userUpdate(UserUpdateDTO userUpdateDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
-        if (sessionUser.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
-        } else {
-            return Script.back("현재 비밀번호가 일치하지않습니다.");
-        }
-        if (userUpdateDTO.getNewPassword().equals(userUpdateDTO.getNewPasswordConfirm())) {
-        } else {
-            return Script.back("새로운 비밀번호가 일치하지않습니다.");
-
-        }
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
-        return "redirect:/";
+        return Script.href("/user/myPageForm", "비밀번호 변경완료");
+    }
+
+    ///////// 회사 비번 변경하기 완료
+    @PostMapping("/com/password/update")
+    public @ResponseBody String compPWUpdate(UserUpdateDTO userUpdateDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
+        session.setAttribute("sessionUser", user);
+        return Script.href("/user/myPageForm", "비밀번호 변경완료");
+    }
+
+    @GetMapping("/user/resume/wirteForm")
+    public String UserResumeWrite() {
+        return "user/user_resume_write";
     }
 
     @PostMapping("/user/picUpdate")
@@ -131,6 +104,17 @@ public class UserController {
         return "user/user_mypage";
     }
 
+    @GetMapping("/user/loginForm")
+    public String userLoginForm() {
+        return "user/user_login";
+
+    }
+
+    @GetMapping("/comp/loginForm")
+    public String compLoginForm() {
+        return "comp/comp_login";
+    }
+
     @PostMapping("/user/login")
     public @ResponseBody String userLogin(UserLoginDTO userLoginDTO) {
 
@@ -138,6 +122,11 @@ public class UserController {
         session.setAttribute("sessionUser", sessionUser);
         return Script.href("/user", "로그인 완료");
     }
+
+    // @GetMapping("/compMyPageForm")
+    // public String compMyPage() {
+    // return "comp/comp_info";
+    // }
 
     @PostMapping("/comp/login")
     public @ResponseBody String compLogin(UserLoginDTO userLoginDTO) {
@@ -170,32 +159,13 @@ public class UserController {
         return "redirect:/comp";
     }
 
-    @PostMapping("/comp/info/update")
+    @PostMapping("/compinfo/update")
     public String compInfoUpdate(CompInfoUpdateDTO compInfoUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         User user = userService.회사정보수정(compInfoUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
         return "comp/comp_info";
-    }
-
-    @PostMapping("/comp/password/update")
-    public String compPWUpdate(UserUpdateDTO userUpdateDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
-        if (sessionUser.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
-        } else {
-            return Script.back("현재 비밀번호가 일치하지않습니다.");
-        }
-        if (userUpdateDTO.getNewPassword().equals(userUpdateDTO.getNewPasswordConfirm())) {
-        } else {
-            return Script.back("새로운 비밀번호가 일치하지않습니다.");
-
-        }
-        User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
-        session.setAttribute("sessionUser", user);
-        return "redirect:/";
-
     }
 
 }
