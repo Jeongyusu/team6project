@@ -35,8 +35,4 @@ public class SkillResponse {
             this.skill = skill;
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> dev
