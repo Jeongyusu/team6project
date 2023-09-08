@@ -204,7 +204,7 @@ public class ResumeService {
         try {
             resumeRepository.deleteById(id);
         } catch (Exception e) {
-            throw new MyException("삭제에 실패했습니다. : " + e.getMessage());
+            throw new MyException("삭제에 실패했습니다.");
         }
 
     }

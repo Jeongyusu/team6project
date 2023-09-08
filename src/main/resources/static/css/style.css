@@ -314,7 +314,6 @@ main>.container {
   max-width: 200px;
   width: 100%;
 }
-
 .main_page {
   margin: 5px 0;
 }
@@ -475,6 +474,10 @@ footer li:last-child {
 }
 
 /* user_mypage.html */
+.mypage .resume_list{
+  display: flex;
+}
+
 .mypage_left {
   background-color: var(--def_wh);
   border-radius: 5px;
@@ -1224,19 +1227,16 @@ footer li:last-child {
 .cp_explan>div {
   margin: 40px 0 30px 0;
 }
-
 .comp_pic_bg {
   display: flex;
   justify-content: center;
   position: relative;
 }
-
 .comp_pic_bg input {
   position: absolute;
   bottom: -46px;
   left: 43%;
 }
-
 .comp_pic {
   display: flex;
   justify-content: center;
@@ -1248,10 +1248,10 @@ footer li:last-child {
   height: 200px;
   position: relative;
 }
-
-.comp_pic>input {
+.comp_pic > input {
   height: 100%;
 }
+
 
 
 .comp_back {
@@ -1727,9 +1727,8 @@ footer li:last-child {
   color: var(--font_03);
 }
 
-.resume_defaultPic {
-  background-image: url(../image/user_img/def_img.png);
-  width: 100px;
-  height: 150px;
-
+.open_resume_box>.main_box{
+  display: flex;
+  flex-wrap: wrap;
 }
+
