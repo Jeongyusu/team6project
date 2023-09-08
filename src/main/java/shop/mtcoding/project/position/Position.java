@@ -30,6 +30,4 @@ public class Position {
         this.position = position;
     }
 
-    
-    
 }

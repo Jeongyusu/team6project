@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,18 @@ import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.vo.MyPath;
+import shop.mtcoding.project._core.util.Script;
+import shop.mtcoding.project._core.vo.MyPath;
+import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.CompInfoUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserLoginDTO;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserPicUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserPicUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserUpdateDTO;
 
 @Service
 public class UserService {
+    @Autowired
+    private HttpSession session;
 
     @Autowired
     UserRepository userRepository;
@@ -64,7 +69,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User 유저로그인(UserLoginDTO userloginDTO) {
+    public User 유저로그인(UserRequest.UserLoginDTO userloginDTO) {
 
         User user;
         if (userloginDTO.getCompEmailId() == null) {
@@ -85,17 +90,27 @@ public class UserService {
 
     }
 
-    public User 회원정보수정(UserUpdateDTO userUpdateDTO, Integer id) {
+    public User 회원정보수정(UserRequest.UserUpdateDTO userUpdateDTO, Integer id) {
+
         // 1.조회
         User user = userRepository.findById(id).get();
         // 2.변경
+        System.out.println("비번" + userUpdateDTO.getNowPassword());
+        System.out.println("비번" + user.getUserPassword());
+        if (!user.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
+            throw new MyException("현재 비밀번호가 틀렸습니다.");
+        }
+        if (!userUpdateDTO.getNewPassword().equals(userUpdateDTO.getNewPasswordConfirm())) {
+            throw new MyException("새로운 비밀번호가 일치하지않습니다.");
+        }
         user.setUserPassword(userUpdateDTO.getNewPassword());
         userRepository.save(user);
+
         return user;
     }
 
     @Transactional
-    public User 유저사진수정(UserPicUpdateDTO userPicUpdateDTO, Integer id) {
+    public User 유저사진수정(UserRequest.UserPicUpdateDTO userPicUpdateDTO, Integer id) {
         UUID uuid = UUID.randomUUID();
         String fileName = uuid + "_" + userPicUpdateDTO.getUserPic().getOriginalFilename();
         Path filePath = Paths.get(MyPath.IMG_PATH + fileName);
@@ -114,7 +129,7 @@ public class UserService {
     }
 
     @Transactional
-    public User 회사정보수정(CompInfoUpdateDTO compInfoUpdateDTO, Integer id) {
+    public User 회사정보수정(UserRequest.CompInfoUpdateDTO compInfoUpdateDTO, Integer id) {
         UUID uuid = UUID.randomUUID();
         String fileName = uuid + "_" + compInfoUpdateDTO.getCompPic().getOriginalFilename();
         Path filePath = Paths.get(MyPath.IMG_PATH + fileName);

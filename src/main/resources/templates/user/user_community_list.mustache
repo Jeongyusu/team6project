@@ -8,7 +8,12 @@
 
     <div class="community_search">
       <form action="/user/community" class="d-flex">
-        <input class="search form-control me-2" type="text" placeholder="검색어를 입력해주세요" name="keyword" />
+        <input
+          class="search form-control me-2"
+          type="text"
+          placeholder="검색어를 입력해주세요"
+          name="keyword"
+        />
         <button class="btn btn-primary" type="submit">Search</button>
       </form>
       <form action="/user/community/board/saveForm">
@@ -16,27 +21,35 @@
       </form>
     </div>
 
-    <div class="user_inner_box_fluid">
+    <div class="company_inner_box_fluid">
       <div class="community-comment">
         <h2>커뮤니티</h2>
-        <br>
+        <br />
         <p>다양한 사람을 만나고 생각의 폭을 넓혀보세요.</p>
       </div>
-      <img class="community_gif " src="/image/com_img/community.gif" alt="community-gif">
+      <img
+        class="community_gif"
+        src="/image/com_img/community.gif"
+        alt="community-gif"
+      />
     </div>
 
     <div class="board">
       {{#boardListDTO}}
       <div class="inner_box_board mt-3">
         <div class="each_board">
-          <a href="/user/community/board/{{boardId}}">
-            <img class="speech_png " src="/image/com_img/speech.png" alt="speech_png">
-            <div class="title">{{title}}</div>
-            <div class="content">{{content}}</div>
+          <a href="/user/community/board/{{ boardId }}">
+            <img
+              class="speech_png"
+              src="/image/com_img/speech.png"
+              alt="speech_png"
+            />
+            <div class="title">{{ title }}</div>
+            <div class="content">{{ content }}</div>
             <div class="info_write">
               <ul>
-                <li class="write_user">{{boardUserName}}</li>
-                <li class="write_created-at">{{boardFormatDate}}</li>
+                <li class="write_user">{{ boardUserName }}</li>
+                <li class="write_created-at">{{ boardFormatDate }}</li>
               </ul>
             </div>
           </a>
@@ -47,10 +60,16 @@
 
     <div class="inner_box_button mt-5">
       <ul class="pagination d-flex justify-content-center">
-        <li class="page-item {{#boardListDTO.first}}disabled{{/boardListDTO.first}}"><a class="page-link"
-            href="?page={{prev}}">Prev</a></li>
-        <li class="page-item {{#boardListDTO.last}}disabled{{/boardListDTO.last}}"><a class="page-link"
-            href="?page={{next}}">Next</a></li>
+        <li
+          class="page-item {{#boardListDTO.first}}disabled{{/boardListDTO.first}}"
+        >
+          <a class="page-link" href="?page={{ prev }}">Prev</a>
+        </li>
+        <li
+          class="page-item {{#boardListDTO.last}}disabled{{/boardListDTO.last}}"
+        >
+          <a class="page-link" href="?page={{ next }}">Next</a>
+        </li>
       </ul>
     </div>
   </div>

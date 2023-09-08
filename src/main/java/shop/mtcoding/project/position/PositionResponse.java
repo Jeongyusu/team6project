@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class PositionResponse {
+
     @Getter
     @Setter
     @Builder
@@ -34,5 +35,4 @@ public class PositionResponse {
             this.position = position;
         }
     }
-
 }

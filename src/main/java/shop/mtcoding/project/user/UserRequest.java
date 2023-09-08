@@ -25,40 +25,39 @@ public class UserRequest {
         private String userPassword;
         private String compEmailId;
         private Integer gubun;
+    }
 
-        @Getter
-        @Setter
-        public static class UserUpdateDTO {
-            private String nowPassword;
-            private String newPassword;
-            private String newPasswordConfirm;
-        }
+    @Getter
+    @Setter
+    public static class UserUpdateDTO {
+        private String nowPassword;
+        private String newPassword;
+        private String newPasswordConfirm;
+    }
 
-        @Getter
-        @Setter
-        public static class UserPicUpdateDTO {
-            private MultipartFile userPic;
+    @Getter
+    @Setter
+    public static class UserPicUpdateDTO {
+        private MultipartFile userPic;
 
-        }
+    }
 
-        @Getter
-        @Setter
-        public static class UserLoginDTO {
-            private String userEmailId;
-            private String userPassword;
-            private String compEmailId;
-            private Integer gubun;
+    @Getter
+    @Setter
+    public static class UserLoginDTO {
+        private String userEmailId;
+        private String userPassword;
+        private String compEmailId;
+        private Integer gubun;
 
-        }
+    }
 
-        @Getter
-        @Setter
-        public static class CompInfoUpdateDTO {
-            private MultipartFile compPic;
-            private Date compDate;
-            private String compExplan;
-        }
-
+    @Getter
+    @Setter
+    public static class CompInfoUpdateDTO {
+        private MultipartFile compPic;
+        private Date compDate;
+        private String compExplan;
     }
 
 }

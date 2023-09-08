@@ -12,54 +12,80 @@
         <h2>이력서</h2>
       </div>
       <div class="save_title mb-5">
-        <h2>{{resume.title}}</h2>
+        <h2>{{ resume.title }}</h2>
       </div>
 
       <div>
         <div class="main_back container">
           <div class="resume_user_info">
             <div class="resume_user_pic">
-              <img src="/images/{{#resume.resumePicUrl}}{{resume.resumePicUrl}}{{/resume.resumePicUrl}}" alt="basic_profile_png">
+              <img
+                src="/images/{{#resume.resumePicUrl}}{{
+                  resume.resumePicUrl
+                }}{{/resume.resumePicUrl}}"
+                alt="basic_profile_png"
+              />
             </div>
             <div class="resume_user_infomation">
               <div class="resume_user_display">
-                <div class="detail_user_name">{{resume.userName}}</div>
+                <div class="detail_user_name">{{ resume.userName }}</div>
               </div>
               <div class="icon_div">
-                <div class="form-control" id="icon_padding">{{resume.userEmailId}}</div>
-                <img class="image_icon" src="https://img.icons8.com/material-outlined/100/mail.png" alt="mail" />
+                <div class="form-control" id="icon_padding">
+                  {{ resume.userEmailId }}
+                </div>
+                <img
+                  class="image_icon"
+                  src="https://img.icons8.com/material-outlined/100/mail.png"
+                  alt="mail"
+                />
               </div>
               <div class="resume_user_display">
                 <div class="icon_div col-sm-5">
-                  <div class="form-control" id="icon_padding">{{resume.birth}}</div>
-                  <img src="https://img.icons8.com/material-outlined/24/calendar--v1.png" alt="calendar--v1" />
+                  <div class="form-control" id="icon_padding">
+                    {{ resume.birth }}
+                  </div>
+                  <img
+                    src="https://img.icons8.com/material-outlined/24/calendar--v1.png"
+                    alt="calendar--v1"
+                  />
                 </div>
                 <div class="icon_div col-sm-7">
-                  <div class="form-control" id="icon_padding">{{resume.tel}}</div>
-                  <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/phone--v1.png"
-                    alt="phone--v1" />
+                  <div class="form-control" id="icon_padding">
+                    {{ resume.tel }}
+                  </div>
+                  <img
+                    width="30"
+                    height="30"
+                    src="https://img.icons8.com/ios-glyphs/30/phone--v1.png"
+                    alt="phone--v1"
+                  />
                 </div>
               </div>
               <div class="icon_div">
-                <div class="form-control" id="icon_padding">{{resume.address}}</div>
-                <img src="https://img.icons8.com/ios-glyphs/30/address.png" alt="address" />
+                <div class="form-control" id="icon_padding">
+                  {{ resume.address }}
+                </div>
+                <img
+                  src="https://img.icons8.com/ios-glyphs/30/address.png"
+                  alt="address"
+                />
               </div>
             </div>
           </div>
-
-
           <div class="resume_margin">
             <label class="job_list mb-3">간단한 소개</label>
-            <div class="form-control" id="icon_padding">{{resume.subIntro}}</div>
+            <div class="form-control" id="icon_padding">
+              {{ resume.subIntro }}
+            </div>
           </div>
-
           <div class="resume_margin">
             <div class="skill">
               <label class="job_list mb-3">개발 직무</label>
               <ul>
                 <li class="users_position user_position">
                   {{#wishPositionList}}
-                  <span class="position_box">{{position.position}}</span>
+                  <span class="position_box">{{ position.position }}</span>
                   {{/wishPositionList}}
                 </li>
               </ul>
@@ -72,7 +98,7 @@
               <ul>
                 <li class="comp_skill com_skill">
                   {{#hasSkillList}}
-                  <span class="skill_box">{{skill.skill}}</span>
+                  <span class="skill_box">{{ skill.skill }}</span>
                   {{/hasSkillList}}
                 </li>
               </ul>
@@ -82,29 +108,31 @@
           <div class="resume_margin">
             <label class="job_list mb-3" for="mainJob">경력</label>
             <div>
-              <span>{{resume.career}}</span>
-              <span>{{#resume.careerYear}}{{resume.careerYear}}{{/resume.careerYear}}</span>
+              <span>{{ resume.career }}</span>
+              <span
+                >{{#resume.careerYear}}{{ resume.careerYear
+                }}{{/resume.careerYear}}</span
+              >
             </div>
           </div>
 
           <div class="resume_margin">
             <label class="job_list mb-3" for="mainJob">학력</label>
-            <span>{{resume.edu}}</span>
+            <span>{{ resume.edu }}</span>
           </div>
 
-          <hr>
+          <hr />
           <div class="resume_margin">
             <label class="job_list mb-3" for="mainJob">자기소개서</label>
-            <div class="form-control">{{resume.MainIntro}}
-            </div>
+            <div class="form-control">{{ resume.MainIntro }}</div>
             <div class="j_save">
               <button type="submit" class="btn btn-primary">확인</button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
+  </div>
 </main>
 <!-- 메인 -->
 
