@@ -20,3 +20,4 @@ public interface RequiredPositionRepository extends JpaRepository<RequiredPositi
     List<RequiredPosition> mFindByIdJoinPositionId(@Param("id") Integer id);
 
 }
+

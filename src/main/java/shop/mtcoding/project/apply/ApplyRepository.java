@@ -1,13 +1,11 @@
 package shop.mtcoding.project.apply;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ApplyRepository extends JpaRepository<Apply, Integer> {
-
     @Query("select a from Apply a where a.resume.id = :resumeId")
     public List<Apply> findByResumeId(@Param("resumeId") Integer resumeId);
 
