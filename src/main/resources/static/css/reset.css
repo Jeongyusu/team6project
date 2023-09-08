@@ -358,7 +358,7 @@ input[type="checkbox"] {
   display: none;
 }
 .mypage_list_item {
-  display: none;
+  display: block;
 }
 @media (min-width: 768px) {
   .container,

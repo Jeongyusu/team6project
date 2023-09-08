@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import shop.mtcoding.project.resume.Resume;
+import shop.mtcoding.project.user.User;
 import shop.mtcoding.project.jobopening.JobOpening;
 
 @NoArgsConstructor
@@ -34,12 +35,16 @@ public class Apply {
     @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
     @Builder
-    public Apply(Integer id, String applyState, JobOpening jobOpening, Resume resume) {
+    public Apply(Integer id, String applyState, JobOpening jobOpening, Resume resume, User user) {
         this.id = id;
         this.applyState = applyState;
         this.jobOpening = jobOpening;
         this.resume = resume;
+        this.user = user;
     }
 
 }
