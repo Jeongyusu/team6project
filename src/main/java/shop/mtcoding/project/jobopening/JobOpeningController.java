@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import shop.mtcoding.project._core.util.ApiUtil;
+import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.apply.ApplyRepository;
 import shop.mtcoding.project.position.Position;
@@ -103,6 +105,7 @@ public class JobOpeningController {
         return "/comp/comp_info";
     }
 
+
     @GetMapping("/comp/jobOpening/compResum")
     public String compResumForm(Model model, Integer id) {
         JobOpening jobOpening = jobOpeningService.공고수정페이지(1);
@@ -115,6 +118,22 @@ public class JobOpeningController {
     }
 
     // --------- get
+
+    // comp_ 채용공고 메인 화면
+    @GetMapping("/comp/mainForm")
+    public String compMainForm(Model model) {
+        List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.메인화면();
+        model.addAttribute("jobOpeningMainDTO", jobOpeningMainDTO);
+        return "comp_index";
+    }
+
+    // comp_ 채용공고 메인 화면
+    @GetMapping("/user/mainForm")
+    public String userMainForm(Model model) {
+        List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.메인화면();
+        model.addAttribute("jobOpeningMainDTO", jobOpeningMainDTO);
+        return "user_index";
+    }
 
     @GetMapping("/comp/jobOpening/saveForm")
     public String saveCompForm(Model model) {
@@ -173,6 +192,7 @@ public class JobOpeningController {
             model.addAttribute("isEduHighSchool", true);
         }
         System.out.println("테스트2");
+
 
         return "comp/comp_job_opening_update";
     }

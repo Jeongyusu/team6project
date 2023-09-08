@@ -39,4 +39,7 @@ public class WishPosition {
         this.resume = resume;
         this.position = position;
     }
+
+
 }
+

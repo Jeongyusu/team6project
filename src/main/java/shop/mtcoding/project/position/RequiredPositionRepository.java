@@ -16,4 +16,8 @@ public interface RequiredPositionRepository extends JpaRepository<RequiredPositi
     @Query("select r from RequiredPosition as r where r.position.id = :id")
     List<RequiredPosition> mfindByPositionId(@Param("id") Integer id);
 
+    @Query("select r from RequiredPosition as r left join fetch r.position as rp left join r.jobOpening as rj where rp.id = :id")
+    List<RequiredPosition> mFindByIdJoinPositionId(@Param("id") Integer id);
+
 }
+

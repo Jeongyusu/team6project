@@ -21,4 +21,5 @@ public interface HasSkillRepository extends JpaRepository<HasSkill, Integer> {
     public List<HasSkill> hasSkillofResumeofSkill(@Param("skillId1") Integer skillId1,
             @Param("skillId2") Integer skillId2);
 
-}
+    }
+
