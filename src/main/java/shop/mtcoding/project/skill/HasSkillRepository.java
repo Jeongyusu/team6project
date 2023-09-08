@@ -15,6 +15,5 @@ public interface HasSkillRepository extends JpaRepository<HasSkill, Integer> {
     public List<HasSkill> findByResumeId(@Param("resumeId") Integer resumeId);
 
 
-
     }
 
