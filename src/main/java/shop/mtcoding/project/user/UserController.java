@@ -92,12 +92,6 @@ public class UserController {
         return Script.href("/user/myPageForm", "비밀번호 변경완료");
     }
 
-    ///////// 유저 제안 수락
-    @PostMapping("/user/suggest/accept")
-    public @ResponseBody String userSuggestAccept() {
-        return null;
-    }
-
     @GetMapping("/user/resume/wirteForm")
     public String UserResumeWrite() {
         return "user/user_resume_write";

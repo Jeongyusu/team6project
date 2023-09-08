@@ -95,8 +95,6 @@ public class UserService {
         // 1.조회
         User user = userRepository.findById(id).get();
         // 2.변경
-        System.out.println("비번" + userUpdateDTO.getNowPassword());
-        System.out.println("비번" + user.getUserPassword());
         if (!user.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
             throw new MyException("현재 비밀번호가 틀렸습니다.");
         }

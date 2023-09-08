@@ -277,17 +277,18 @@
                     <td><a href="user_job_opening_apply.html">{{jobOpeningInfo.0.title}}</a></td>
                     <td>백엔드</td>
                     <td>
-                      <ul>
+                      <ul id="requestState">
                         <li class="wait_btn">대기중</li>
                         <li class="accept_btn">수락</li>
                         <li class="refuse_btn">거절</li>
                       </ul>
                     </td>
                     <td>
-                      <select class="select">
+                      <select class="select" onchange="state()">
                         <option value="option1">답변하기</option>
-                        <option value="option2">수락</option>
-                        <option value="option3">거절</option>
+                        <option id="accept" value="수락" onclick="수락()">수락</option>
+                        <option id="deny" value="거절" onclick="거절()">거절</option>
+                        <input type="hidden" id="resumeId" value="{{resume.id}}">
                       </select>
                     </td>
                     {{/suggestList2}}
@@ -379,6 +380,26 @@
     }
     reader.readAsDataURL(f); // 파일 읽기 onload()
   }
-</script>
 
+
+  async function state() {
+    let requestBody = {
+      accept: document.querySelector("#accept").value
+    }
+    let resumeId = document.querySelector("#resumeId").value;
+    console.log("나여기" + resumeId);
+    let response = await fetch(`/api/${resumeId}/suggestAccept`, {
+      method: "post",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(requestBody)
+    });
+    let responseBody = await response.json();
+    if (responseBody.success) {
+    } else {
+      alert(responseBody.data);
+    }
+  }
+</script>
 {{>layout/footer}}

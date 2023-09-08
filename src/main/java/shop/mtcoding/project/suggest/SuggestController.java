@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.suggest.SuggestRequest.SuggestSaveDTO;
@@ -35,13 +37,6 @@ public class SuggestController {
 
         return "comp/comp_user_open_resume";
     }
-    // @GetMapping("/openResumeList")
-    // public @ResponseBody List<Resume> OpenResumeList(Model model) {
-    // List<Resume> resumeList = resumeRepository.findAll();
-    // model.addAttribute("resumeList", resumeList);
-
-    // return resumeList;
-    // }
 
     @PostMapping("/userSuggest")
     public String UserSuggest(SuggestSaveDTO suggestSaveDTO, Model model) {
@@ -52,13 +47,21 @@ public class SuggestController {
         return "redirect:/user/" + id + "/resume/detail";
     }
 
-    // @GetMapping("/userSuggest")
-    // public @ResponseBody List<Resume> userSuggest(Model model) {
-    // List<Resume> resumeList = resumeRepository.findAll();
-    // model.addAttribute("resumeList", resumeList);
+    ///////// 유저 제안 수락
+    @PostMapping("/api/{resumeId}/suggestAccept")
+    public @ResponseBody ApiUtil<String> userSuggestAccept(@PathVariable Integer resumeId,
+            @RequestBody SuggestRequest.SuggestStateDTO suggestStateDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        suggestService.제안수락(suggestStateDTO, resumeId);
+        return new ApiUtil<String>(true, "수락하기완료");
+    }
+
+    // @PostMapping("/user/suggest/accept")
+    // public @ResponseBody String userSuggestAccept(SuggestRequest.SuggestStateDTO
+    // suggestStateDTO, Model model) {
     // User sessionUser = (User) session.getAttribute("sessionUser");
-    // model.addAttribute("sessionUser", sessionUser);
-    // return resumeList;
+    // suggestService.제안수락(suggestStateDTO, sessionUser.getId());
+    // return "/user/myPageForm";
     // }
 
 }

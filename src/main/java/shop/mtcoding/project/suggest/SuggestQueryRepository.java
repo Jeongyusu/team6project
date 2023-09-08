@@ -24,14 +24,4 @@ public class SuggestQueryRepository {
         return query.getResultList();
     }
 
-    // public List<Suggest> findJobOpeningsByCompId(Integer userId) {
-    // Query query = em.createNativeQuery(
-    // "SELECT u.*, r.*, jo.* FROM job_opening_tb jo LEFT OUTER JOIN suggest_tb s ON
-    // jo.id = s.job_opening_id LEFT OUTER JOIN resume_tb r ON s.resume_id = r.id
-    // LEFT OUTER JOIN user_tb u ON jo.user_id = u.id WHERE u.id = :userId",
-    // JobOpening.class);
-    // query.setParameter("userId", userId);
-    // return query.getResultList();
-    // }
-
 }

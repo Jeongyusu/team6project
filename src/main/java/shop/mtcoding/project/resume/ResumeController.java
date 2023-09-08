@@ -173,7 +173,6 @@ public class ResumeController {
         List<Apply> applyList = applyRepository.findAll();
         model.addAttribute("applyList", applyList);
         List<Apply> applyList2 = applyRepository.findByResumeUserId(sessionUser.getId());
-
         int totalApply = applyList2.size();
         List<JobOpening> jobOpeningInfo = suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
 
