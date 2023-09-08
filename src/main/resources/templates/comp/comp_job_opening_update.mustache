@@ -210,6 +210,24 @@
 
   // CheckBoxSkill
 
+  function addInput02() {
+    let maxInputCount = 2;
+    if (clickCount2 >= maxInputCount) {
+      return;
+    }
+    let el = document.querySelector(".plus_Input2");
+    let inputCount = el.querySelectorAll("input").length;
+    if (inputCount >= maxInputCount) {
+      return;
+    }
+    let newEl = document.createElement("input");
+    newEl.setAttribute("type", "text");
+    newEl.setAttribute("name", "qualList");
+    newEl.setAttribute("class", "form-control main_job_list");
+    newEl.setAttribute("placeholder", "자격요건을 최대 3개까지 작성해주세요");
+    el.appendChild(newEl);
+    clickCount2++;
+  }
 
   async function fetchSelectedPosition() {
 

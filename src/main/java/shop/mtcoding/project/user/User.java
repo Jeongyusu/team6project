@@ -42,6 +42,7 @@ public class User {
     @CreationTimestamp
     private Timestamp createdAt;
     private Integer gubun;
+
     // 1 -> user / 2 -> comp
     @Builder
     public User(Integer id, String userEmailId, String compEmailId, String userName, String userPassword,

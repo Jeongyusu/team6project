@@ -18,4 +18,8 @@ public interface WishPositionRepository extends JpaRepository<WishPosition, Inte
 
     @Query("select w from WishPosition as w where w.resume.id = :resumeId")
     public List<WishPosition> positionFindByResumeId(@Param("resumeId") Integer resumeId);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dev

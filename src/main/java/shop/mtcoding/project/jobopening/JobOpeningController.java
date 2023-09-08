@@ -89,16 +89,22 @@ public class JobOpeningController {
 
     @GetMapping("/comp/jobOpening/{id}/updateForm")
     public String updateCompForm(@PathVariable Integer id, Model model) {
+
         List<Skill> skillList = skillService.스킬이름();
         List<Position> positionList = positionService.포지션이름();
+
         model.addAttribute("skillList", skillList);
         model.addAttribute("positionList", positionList);
+
         JobOpening jobOpening = jobOpeningService.공고수정페이지(id);
         model.addAttribute("jobOpening", jobOpening);
+
         List<Task> taskList = taskRepository.findByJobOpeningId(id);
         model.addAttribute("taskList", taskList);
+
         List<Qualified> qualList = qualifiedRepository.findByJobOpeningId(id);
         model.addAttribute("qualList", qualList);
+
         if (jobOpening.getCareer().equals("신입")) {
             model.addAttribute("isCareerNew", true);
         } else if (jobOpening.getCareer().equals("경력")) {

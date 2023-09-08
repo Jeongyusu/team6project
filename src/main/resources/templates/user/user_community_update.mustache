@@ -25,7 +25,80 @@
     </div>
   </div>
 
-  </div>
-</main>
-<!--메인-->
-{{>layout/footer}}
+  <body>
+    <!--헤더-->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav_top">
+          <a class="navbar-brand" href="comp_index.html">봉티드</a>
+          <form class="d-flex">
+            <input class="search form-control me-2" type="text" placeholder="검색어를 입력해주세요" />
+            <button class="btn btn-primary" type="button">Search</button>
+          </form>
+        </div>
+        <div class="navbar-nav">
+          <ul class="nav_left">
+            <li class="nav-item">
+              <a class="nav-link" href="comp_emp_info.html">채용 정보</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="comp_user_open_resume.html">공개 이력서 열람</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="comp_resume_management.html">지원 현황</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="comp_community_list.html">커뮤니티</a>
+            </li>
+          </ul>
+          <ul class="nav_right">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="comp_login.html" role="button"
+                data-bs-toggle="dropdown">로그인/회원가입</a>
+              <ul class="nav-item-menu dropdown-menu">
+                <li><a class="dropdown-item" href="comp_info.html">마이 페이지</a></li>
+                <li><a class="dropdown-item" href="#">로그아웃</a></li>
+              </ul>
+            </li>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav_company_btn" href="user_index.html">개인서비스</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!--헤더-->
+
+    <!--메인-->
+    <!-- 각자 페이지 name 작성-->
+    <main class="community_write common_bg">
+      <div class="container mt-3">
+        <!-- container 건들지 말기 -->
+        <div class="comp_community_write_gif">
+          <h2>수정하기</h2>
+          <br>
+          <p>무엇이든 물어보세요!</p>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <form action="/comp/community/board/{{community.id}}/update" method="post">
+              <div class="mb-3">
+                <input type="text" class="form-control" name="title" value="{{community.title}}" required
+                  maxlength="30">
+              </div>
+              <div class="mb-3">
+                <textarea class="form-control" rows="10" name="content" id="content" required
+                  maxlength="300">{{community.content}}</textarea>
+              </div>
+              <button type="submit" class="btn btn-primary form-control">수정하기</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </main>
+    <!--메인-->
+
+    {{>layout/footer}}

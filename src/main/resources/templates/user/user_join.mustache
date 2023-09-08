@@ -83,7 +83,6 @@
   }
 
   async function check() {
-
     let userEmailId = document.querySelector("#email").value;
     let response = await fetch(`/api/check?userEmailId=${userEmailId}`);
 
