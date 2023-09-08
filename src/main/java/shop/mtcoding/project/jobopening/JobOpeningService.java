@@ -205,7 +205,6 @@ public class JobOpeningService {
         }
     }
 
-
     @Transactional
     public void 공고삭제(Integer id) {
         List<RequiredSkill> requiredSkillList = requiredSkillRepository.findByJobOpeningId(id);
@@ -224,8 +223,6 @@ public class JobOpeningService {
             throw new MyException("삭제에 실패했습니다.");
         }
     }
-
-}
 
     public List<JobOpeningMainDTO> 메인화면() {
         List<JobOpening> jobOpeningList = jobOpeningRepository.mfindByAllJoinJobOpeningAndUser();
@@ -263,4 +260,3 @@ public class JobOpeningService {
     }
 
 }
-
