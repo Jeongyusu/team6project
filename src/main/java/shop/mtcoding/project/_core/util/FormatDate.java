@@ -14,6 +14,12 @@ public class FormatDate {
         return sdf.format(date);
     }
 
+    // yyyy 날짜 포맷 메소드
+    public static String formatDateYear(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        return sdf.format(date);
+    }
+
     // yyyy-mm-dd 날짜 포맷 리스트타입 메소드
     public static List<String> formatDateList(List<Date> dates) {
         List<String> formatDateList = new ArrayList<>();

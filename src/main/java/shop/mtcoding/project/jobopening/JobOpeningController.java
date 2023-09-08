@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningDetailDTO;
 import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.apply.ApplyRepository;
@@ -26,6 +27,8 @@ import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.position.RequiredPositionRepository;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.qualified.QualifiedRepository;
+import shop.mtcoding.project.resume.ResumeResponse.ResumeInJobOpeningDTO;
+import shop.mtcoding.project.resume.ResumeService;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.skill.RequiredSkill;
@@ -60,6 +63,9 @@ public class JobOpeningController {
     private PositionService positionService;
 
     @Autowired
+    private ResumeService resumeService;
+
+    @Autowired
     private TaskRepository taskRepository;
 
     @Autowired
@@ -88,6 +94,7 @@ public class JobOpeningController {
         return "/comp/comp_info";
     }
 
+
     // --------- get
 
     // comp_ 채용공고 메인 화면
@@ -104,6 +111,26 @@ public class JobOpeningController {
         List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.메인화면();
         model.addAttribute("jobOpeningMainDTO", jobOpeningMainDTO);
         return "user_index";
+    }
+
+    // comp_ 채용공고 상세 화면
+    @GetMapping("/comp/jobOpening/{id}")
+    public String compJobOpeningDetailForm(@PathVariable Integer id, Model model) {
+        JobOpeningDetailDTO jobOpeningDetailDTO = jobOpeningService.상세채용공고(id);
+        ResumeInJobOpeningDTO resumeInJobOpeningDTO = resumeService.지원화면();
+        model.addAttribute("jobOpeningDetailDTO", jobOpeningDetailDTO);
+        model.addAttribute("resumeInJobOpeningDTO", resumeInJobOpeningDTO);
+        return "comp/comp_job_opening_detail";
+    }
+
+    // user_채용공고 상세 화면
+    @GetMapping("/user/jobOpening/{id}")
+    public String userJobOpeningDetailForm(@PathVariable Integer id, Model model) {
+        JobOpeningDetailDTO jobOpeningDetailDTO = jobOpeningService.상세채용공고(id);
+        ResumeInJobOpeningDTO resumeInJobOpeningDTO = resumeService.지원화면();
+        model.addAttribute("jobOpeningDetailDTO", jobOpeningDetailDTO);
+        model.addAttribute("resumeInJobOpeningDTO", resumeInJobOpeningDTO);
+        return "user/user_job_opening_apply";
     }
 
     @GetMapping("/comp/jobOpening/saveForm")
