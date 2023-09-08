@@ -17,10 +17,6 @@ import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.user.UserRequest.UserJoinDTO;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.CompInfoUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserLoginDTO;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserPicUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserUpdateDTO;
 
 @Controller
 public class UserController {
@@ -60,7 +56,7 @@ public class UserController {
 
     ///////// 유저 회원가입
     @PostMapping("/user/join")
-    public @ResponseBody String userJoin(UserJoinDTO userJoinDTO) {
+    public @ResponseBody String userJoin(UserRequest.UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
         return Script.href("/user", "회원가입 완료");
 
@@ -68,14 +64,14 @@ public class UserController {
 
     ///////// 구직자 회원가입
     @PostMapping("/comp/join")
-    public @ResponseBody String compJoin(UserJoinDTO userJoinDTO) {
+    public @ResponseBody String compJoin(UserRequest.UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
         return Script.href("/comp", "회원가입 완료");
     }
 
     ///////// 유저 비번 변경하기 완료
     @PostMapping("/user/password/update")
-    public @ResponseBody String userUpdate(UserUpdateDTO userUpdateDTO) {
+    public @ResponseBody String userUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
@@ -84,11 +80,17 @@ public class UserController {
 
     ///////// 회사 비번 변경하기 완료
     @PostMapping("/com/password/update")
-    public @ResponseBody String compPWUpdate(UserUpdateDTO userUpdateDTO) {
+    public @ResponseBody String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
         return Script.href("/user/myPageForm", "비밀번호 변경완료");
+    }
+
+    ///////// 유저 제안 수락
+    @PostMapping("/user/suggest/accept")
+    public @ResponseBody String userSuggestAccept() {
+        return null;
     }
 
     @GetMapping("/user/resume/wirteForm")
@@ -97,7 +99,7 @@ public class UserController {
     }
 
     @PostMapping("/user/picUpdate")
-    public String userPicUpdate(UserPicUpdateDTO userPicUpdateDTO) {
+    public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.유저사진수정(userPicUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
@@ -116,7 +118,7 @@ public class UserController {
     }
 
     @PostMapping("/user/login")
-    public @ResponseBody String userLogin(UserLoginDTO userLoginDTO) {
+    public @ResponseBody String userLogin(UserRequest.UserLoginDTO userLoginDTO) {
 
         User sessionUser = userService.유저로그인(userLoginDTO);
         session.setAttribute("sessionUser", sessionUser);
@@ -129,7 +131,7 @@ public class UserController {
     // }
 
     @PostMapping("/comp/login")
-    public @ResponseBody String compLogin(UserLoginDTO userLoginDTO) {
+    public @ResponseBody String compLogin(UserRequest.UserLoginDTO userLoginDTO) {
         User sessionUser = userService.유저로그인(userLoginDTO);
         session.setAttribute("sessionUser", sessionUser);
         return Script.href("/comp", "로그인 완료");
@@ -160,7 +162,7 @@ public class UserController {
     }
 
     @PostMapping("/compinfo/update")
-    public String compInfoUpdate(CompInfoUpdateDTO compInfoUpdateDTO) {
+    public String compInfoUpdate(UserRequest.CompInfoUpdateDTO compInfoUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         User user = userService.회사정보수정(compInfoUpdateDTO, sessionUser.getId());
