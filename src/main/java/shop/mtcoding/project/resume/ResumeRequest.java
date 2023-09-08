@@ -8,10 +8,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-<<<<<<< HEAD
-=======
 import lombok.Builder;
->>>>>>> dev
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -67,8 +64,6 @@ public class ResumeRequest {
         private String edu;
         private String mainIntro;
         private String openCheck;
-<<<<<<< HEAD
-=======
 
         private Timestamp createdAt;
     }
@@ -102,7 +97,6 @@ public class ResumeRequest {
             this.openCheck = openCheck;
         }
 
->>>>>>> dev
     }
 
 }

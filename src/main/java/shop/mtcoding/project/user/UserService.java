@@ -14,16 +14,7 @@ import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.vo.MyPath;
-<<<<<<< HEAD
-=======
-import shop.mtcoding.project._core.util.Script;
-import shop.mtcoding.project._core.vo.MyPath;
->>>>>>> dev
-import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
-import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserPicUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserUpdateDTO;
 
 @Service
 public class UserService {
@@ -94,10 +85,6 @@ public class UserService {
     }
 
     public User 회원정보수정(UserRequest.UserUpdateDTO userUpdateDTO, Integer id) {
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
         // 1.조회
         User user = userRepository.findById(id).get();
         // 2.변경

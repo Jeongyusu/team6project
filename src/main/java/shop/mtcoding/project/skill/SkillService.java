@@ -16,8 +16,4 @@ public class SkillService {
         return skillList;
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> dev

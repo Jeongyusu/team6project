@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import shop.mtcoding.project._core.error.ex.MyApiException;
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
-import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
-import shop.mtcoding.project.skill.HasSkill;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO;
 
 @Controller
 public class UserController {
@@ -59,22 +56,7 @@ public class UserController {
         return "comp/comp_join";
     }
 
-<<<<<<< HEAD
-    @GetMapping("/user/loginForm")
-    public String userLoginForm() {
-
-        return "user/user_login";
-
-    }
-
-    @GetMapping("/comp/loginForm")
-    public String compLoginForm() {
-        return "comp/comp_login";
-    }
-
-=======
     ///////// 유저 회원가입
->>>>>>> dev
     @PostMapping("/user/join")
     public @ResponseBody String userJoin(UserRequest.UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
@@ -88,48 +70,6 @@ public class UserController {
         userService.유저회원가입(userJoinDTO);
         return Script.href("/comp", "회원가입 완료");
     }
-<<<<<<< HEAD
-    //////// 구직자///////
-
-    @GetMapping("/user/MyPageForm")
-    public String userMyPageForm(Model model) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        List<Resume> resumeList = resumeRepository.findByUserId(sessionUser.getId());
-        model.addAttribute("resumeList", resumeList);
-
-        // List<WishPosition> wishPositionList =
-        // wishPositionRepository.positionFindByResumeId(id);
-        // List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(id);
-
-        // model.addAttribute("hasSkillList", hasSkillList);
-        // model.addAttribute("wishPositionList", wishPositionList);
-        return "user/user_mypage";
-    }
-
-    @GetMapping("/comp/MyPageForm")
-    public String compMyPageForm() {
-        return "comp/comp_info";
-    }
-
-    @PostMapping("/user/update")
-    public String userUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
-        if (sessionUser.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
-        } else {
-            return Script.back("현재 비밀번호가 일치하지않습니다.");
-        }
-        if (userUpdateDTO.getNewPassword().equals(userUpdateDTO.getNewPasswordConfirm())) {
-        } else {
-            return Script.back("새로운 비밀번호가 일치하지않습니다.");
-
-        }
-        User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
-        session.setAttribute("sessionUser", user);
-        return "redirect:/";
-    }
-
-=======
 
     ///////// 유저 비번 변경하기 완료
     @PostMapping("/user/password/update")
@@ -160,7 +100,6 @@ public class UserController {
         return "user/user_resume_write";
     }
 
->>>>>>> dev
     @PostMapping("/user/picUpdate")
     public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -169,8 +108,6 @@ public class UserController {
         return "user/user_mypage";
     }
 
-<<<<<<< HEAD
-=======
     @GetMapping("/user/loginForm")
     public String userLoginForm() {
         return "user/user_login";
@@ -204,7 +141,6 @@ public class UserController {
         return "comp/comp_info";
     }
 
->>>>>>> dev
     @PostMapping("/user/login")
     public @ResponseBody String userLogin(UserRequest.UserLoginDTO userLoginDTO) {
 
@@ -213,14 +149,11 @@ public class UserController {
         return Script.href("/user", "로그인 완료");
     }
 
-<<<<<<< HEAD
-=======
     // @GetMapping("/compMyPageForm")
     // public String compMyPage() {
     // return "comp/comp_info";
     // }
 
->>>>>>> dev
     @PostMapping("/comp/login")
     public @ResponseBody String compLogin(UserRequest.UserLoginDTO userLoginDTO) {
         User sessionUser = userService.유저로그인(userLoginDTO);
@@ -252,11 +185,7 @@ public class UserController {
         return "redirect:/comp";
     }
 
-<<<<<<< HEAD
-    @PostMapping("/comp/info/update")
-=======
     @PostMapping("/compinfo/update")
->>>>>>> dev
     public String compInfoUpdate(UserRequest.CompInfoUpdateDTO compInfoUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
@@ -264,28 +193,4 @@ public class UserController {
         session.setAttribute("sessionUser", user);
         return "comp/comp_info";
     }
-<<<<<<< HEAD
-
-    @PostMapping("/comp/password/update")
-    public String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
-        if (sessionUser.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
-        } else {
-            return Script.back("현재 비밀번호가 일치하지않습니다.");
-        }
-        if (userUpdateDTO.getNewPassword().equals(userUpdateDTO.getNewPasswordConfirm())) {
-        } else {
-            return Script.back("새로운 비밀번호가 일치하지않습니다.");
-
-        }
-        User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
-        session.setAttribute("sessionUser", user);
-        return "redirect:/";
-
-    }
-
 }
-=======
-}
->>>>>>> dev

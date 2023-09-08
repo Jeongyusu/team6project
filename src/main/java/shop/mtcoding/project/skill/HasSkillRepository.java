@@ -14,10 +14,6 @@ public interface HasSkillRepository extends JpaRepository<HasSkill, Integer> {
     @Query("select h from HasSkill h where h.resume.id = :resumeId")
     public List<HasSkill> findByResumeId(@Param("resumeId") Integer resumeId);
 
-<<<<<<< HEAD
-}
-=======
-
     @Query("select h from HasSkill as h left join fetch h.skill as hs left join fetch h.resume hr where hs.id = :skillId1")
     public List<HasSkill> hasSkillofResumeofSkill1(@Param("skillId1") Integer skillId);
 
@@ -25,7 +21,4 @@ public interface HasSkillRepository extends JpaRepository<HasSkill, Integer> {
     public List<HasSkill> hasSkillofResumeofSkill(@Param("skillId1") Integer skillId1,
             @Param("skillId2") Integer skillId2);
 
-    }
-
-
->>>>>>> dev
+}

@@ -1,16 +1,9 @@
 package shop.mtcoding.project.user;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.sql.Date;
-import java.sql.Timestamp;
+
 import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,11 +19,6 @@ public class UserRequest {
         private Integer gubun;
     }
 
-<<<<<<< HEAD
-    }
-
-=======
->>>>>>> dev
     @Getter
     @Setter
     public static class UserUpdateDTO {
@@ -64,8 +52,4 @@ public class UserRequest {
         private String compExplan;
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> dev

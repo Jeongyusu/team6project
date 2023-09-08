@@ -35,8 +35,4 @@ public class Skill {
         this.id = id;
         this.skill = skill;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
 }

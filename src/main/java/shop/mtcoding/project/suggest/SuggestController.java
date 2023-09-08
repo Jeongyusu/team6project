@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
@@ -28,7 +27,6 @@ public class SuggestController {
     @Autowired
     private ResumeRepository resumeRepository;
 
-<<<<<<< HEAD
     @GetMapping("/user/{id}/resume/detail")
     public String userOpenResumeDetail(@PathVariable Integer id, Model model) {
         Resume resume = resumeRepository.findById(id).get();
@@ -37,8 +35,6 @@ public class SuggestController {
         return "user/user_resume_detail";
     }
 
-=======
->>>>>>> dev
     @GetMapping("/openResumeList")
     public String OpenResumeList(Model model) {
         List<Resume> resumeList = resumeRepository.findAll();
