@@ -13,35 +13,37 @@
       <form action="/user/resume/save" method="post" enctype="multipart/form-data">
         <div class="save_title mb-5">
           <input type="text" placeholder="제목을 입력해주세요" name="title" value="">
-        </div>
-
-        <div>
-          <div class="main_back container">
-            <div class="resume_user_info">
-              <div class="resume_user_pic">
-                <button type="submit" class="main_pic">
-                  <img id="preview" src="/image/user_img/blue_basic_profile.png" alt="기본 이미지" onclick="return false;">
-                  <input type="file" onchange="changeUserPic(event)" name="resumePic">
-                </button>
-              </div>
-              <div class="resume_user_infomation">
-                <div class="resume_user_display">
+          <div>
+            <div class="main_back container">
+              <div class="resume_user_info">
+                <div class="resume_user_pic">
+                  <button type="submit" class="main_pic">
+                    <img id="preview" src="/image/user_img/blue_basic_profile.png" alt="기본 이미지" onclick="return false;">
+                    <input type="file" onchange="changeUserPic(event)" name="resumePic">
+                  </button>
+                </div>
+                <div class="resume_user_infomation">
                   <div class="resume_user_display">
-                    <input type="text" class="form-control" placeholder="이름" name="userName" value="">
+                    <div class="resume_user_display">
+                      <input type="text" class="form-control" placeholder="이름" name="userName" value="">
+                    </div>
+                    <div class="resume_public">
+                      <input type="checkbox" class="public_checkbox" name="openCheck" value="1">공개
+                    </div>
                   </div>
-                  <div class="resume_public">
-                    <input type="checkbox" class="public_checkbox" name="openCheck" value="1">공개
+                  <div>
+                    <input type="email" class="form-control" placeholder="이메일" name="userEmailId" value="">
                   </div>
-                </div>
-                <div>
-                  <input type="email" class="form-control" placeholder="이메일" name="userEmailId" value="">
-                </div>
-                <div class="resume_user_display">
-                  <div class="col-sm-5">
-                    <input type="date" class="data_form form-control" placeholder="생년월일" name="birth" value="">
+                  <div class="resume_user_display">
+                    <div class="col-sm-5">
+                      <input type="date" class="data_form form-control" placeholder="생년월일" name="birth" value="">
+                    </div>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" placeholder="휴대폰번호" name="tel" value="">
+                    </div>
                   </div>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control" placeholder="휴대폰번호" name="tel" value="">
+                  <div>
+                    <input type="text" class="form-control" placeholder="주소" name="address" value="">
                   </div>
                 </div>
               </div>
