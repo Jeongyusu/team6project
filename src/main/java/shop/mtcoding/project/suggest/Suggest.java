@@ -16,6 +16,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.user.User;
 
@@ -41,13 +42,17 @@ public class Suggest {
     @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private JobOpening jobOpening;
+
     @Builder
-    public Suggest(Integer id, String sugState, Timestamp createdAt, User user, Resume resume) {
+    public Suggest(Integer id, String sugState, Timestamp createdAt, User user, Resume resume, JobOpening jobOpening) {
         this.id = id;
         this.sugState = sugState;
         this.createdAt = createdAt;
         this.user = user;
         this.resume = resume;
+        this.jobOpening = jobOpening;
     }
 
 }

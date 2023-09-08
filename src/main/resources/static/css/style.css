@@ -294,18 +294,18 @@ footer li:last-child {
 
 /* comp_community_list.html */
 .common_bg {
-    background-color: var(--back_02);
+  background-color: var(--back_02);
 }
 .community_search {
-    padding: 30px 0;
-    display: flex;
-    justify-content: space-between;
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
 }
 .community_search form:nth-child(2) > .btn-primary {
-    width: 100%;
-    background-color: var(--point_01);
-    color: white;
-    width: 140px;
+  width: 100%;
+  background-color: var(--point_01);
+  color: white;
+  width: 140px;
 }
 .container_fluid {
   background-color: var(--sub_02);
@@ -490,7 +490,7 @@ footer li:last-child {
 .resume_item {
   display: flex;
 }
-.resume_item a{
+.resume_item a {
   display: inline-block;
   background-color: var(--def_wh);
   border-radius: 5px;
@@ -506,7 +506,6 @@ footer li:last-child {
   background-color: var(--def_wh);
   border-radius: 5px;
   width: 100%;
-  
 }
 .resume_box > .resume_cont {
   margin-bottom: 16px;
@@ -533,7 +532,6 @@ footer li:last-child {
   margin-bottom: 16px;
   padding: 16px 20px;
   border-radius: 5px;
-
 }
 .resume_btn {
   display: flex;
@@ -654,6 +652,10 @@ footer li:last-child {
 .open_resume_skill > span {
   display: inline-block;
   font-size: 12px;
+}
+.user_img,
+.user_cont {
+  flex: 1;
 }
 .user_box {
   display: flex;
@@ -1113,8 +1115,14 @@ footer li:last-child {
   justify-content: center;
   margin-top: 10px;
 }
-
-.comp_pic > form> button > img {
+.comp_pic_bg {
+  background: url(../image/user_img/blue_basic_profile.png) no-repeat;
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  margin-bottom: 25px;
+}
+.comp_pic > form > button > img {
   width: 180px;
 }
 
@@ -1190,13 +1198,13 @@ footer li:last-child {
   top: -15px;
 }
 
-.parent_btn{
+.parent_btn {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-.parent_btn > div{
+.parent_btn > div {
   width: 20%;
   display: flex;
   align-items: center;
@@ -1533,14 +1541,14 @@ footer li:last-child {
   width: 100%;
   justify-content: center;
 }
-.resume_details .scrap_btn button{
+.resume_details .scrap_btn button {
   padding: 10px;
 }
 .resume_details .double_btn button {
   border-radius: 30px;
   width: 120px;
 }
-.scrap_icon > img{
+.scrap_icon > img {
   width: 15px;
   height: 15px;
   margin-right: 4px;
@@ -1558,7 +1566,7 @@ footer li:last-child {
   position: relative;
 }
 
-.icon_div>img {
+.icon_div > img {
   position: absolute;
   top: 11px;
   left: 12px;
@@ -1570,7 +1578,7 @@ footer li:last-child {
   margin-bottom: 30px;
 }
 
-.resume_margin>span {
+.resume_margin > span {
   display: flex;
 }
 
@@ -1578,14 +1586,14 @@ footer li:last-child {
   margin-top: 10px;
 }
 
-.user_position>span {
+.user_position > span {
   border-radius: 30px;
   margin-right: 5px;
   display: inline-block;
   padding: 6px 20px;
 }
 
-.users_position>.position_box {
+.users_position > .position_box {
   background-color: var(--def_wh);
   border: 1px solid var(--font_03);
   color: var(--font_03);

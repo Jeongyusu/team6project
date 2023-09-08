@@ -10,12 +10,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project.position.Position;
 import shop.mtcoding.project.position.PositionResponse.RequiredPositionResponseDTO;
 import shop.mtcoding.project.position.PositionService;
@@ -23,6 +25,7 @@ import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.position.RequiredPositionRepository;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.qualified.QualifiedRepository;
+import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.Skill;
@@ -60,10 +63,23 @@ public class JobOpeningController {
     private JobOpeningRepository jobOpeningRepository;
 
     @Autowired
+    private ResumeRepository resumeRepository;
+
+    @Autowired
     private HttpSession session;
 
+    @GetMapping("/comp/indexForm")
+    public String compIndexForm() {
+        return "comp_index";
+    }
+
+    @GetMapping("/comp/MypageForm")
+    public String compMyPageForm() {
+        return "comp/comp_info";
+    }
+
     @GetMapping("/comp/jobOpening/myPageForm")
-    public String compInfoFrom(Model model, Integer id) {
+    public String compInfoForm(Model model, Integer id) {
         JobOpening jobOpening = jobOpeningService.공고수정페이지(1);
         model.addAttribute("jobOpening", jobOpening);
         List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
@@ -73,9 +89,15 @@ public class JobOpeningController {
         return "/comp/comp_info";
     }
 
-    @GetMapping("/comp/jobOpening/mypage/compResum")
-    public String compResumForm() {
-        return "/jobOpening/compInfo";
+    @GetMapping("/comp/jobOpening/compResum")
+    public String compResumForm(Model model, Integer id) {
+        JobOpening jobOpening = jobOpeningService.공고수정페이지(1);
+        model.addAttribute("jobOpening", jobOpening);
+        List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
+        int totalJopOpeningList = jobOpeningList.size();
+        model.addAttribute("totalJopOpeningList", totalJopOpeningList);
+        model.addAttribute("jobOpeningList", jobOpeningList);
+        return "/comp/comp_resume";
     }
 
     // --------- get
@@ -197,6 +219,14 @@ public class JobOpeningController {
         }
         System.out.println("테스트" + requiredPositionResponseDTOList.get(0).getPosition());
         return requiredPositionResponseDTOList;
+    }
+
+    @DeleteMapping("/api/comp/jobOpening/{id}/delete")
+    public @ResponseBody ApiUtil<String> delete(@PathVariable("id") Integer id) {
+        // 2. 핵심로직
+        jobOpeningService.공고삭제(id);
+        // 3. 응답
+        return new ApiUtil<String>(true, "댓글이 삭제되었습니다");
     }
 
 }

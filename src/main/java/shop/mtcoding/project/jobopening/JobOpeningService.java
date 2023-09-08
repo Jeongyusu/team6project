@@ -202,4 +202,23 @@ public class JobOpeningService {
         }
     }
 
+    @Transactional
+    public void 공고삭제(Integer id) {
+        List<RequiredSkill> requiredSkillList = requiredSkillRepository.findByJobOpeningId(id);
+        for (RequiredSkill requiredSkill : requiredSkillList) {
+            requiredSkill.setJobOpening(null);
+            requiredSkillRepository.save(requiredSkill);
+        }
+        List<RequiredPosition> requiredPositionList = requiredPositionRepository.findByJobOpeningId(id);
+        for (RequiredPosition requiredPosition : requiredPositionList) {
+            requiredPosition.setJobOpening(null);
+            requiredPositionRepository.save(requiredPosition);
+        }
+        try {
+            jobOpeningRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new MyException("삭제에 실패했습니다.");
+        }
+    }
+
 }

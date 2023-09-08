@@ -10,21 +10,13 @@
         <div class="position_box">
             <ul class="position_menu">
                 <li class="position_skill com_skill position_active">
-                    <span class="skill_box">MySQL</span>
-                    <span class="skill_box">Spring</span>
-                    <span class="skill_box">Java</span>
-                    <span class="skill_box">HTML/CSS</span>
-                    <span class="skill_box">JavaScript</span>
-                    <span class="skill_box">React</span>
+                    {{#uniqueSkillList}}
+                    <span class="skill_box">{{.}}</span>
+                    {{/uniqueSkillList}}
                 </li>
             </ul>
         </div>
         <div class="position_select">
-            <select class="select select_skill">
-                <option disabled selected>기술스택</option>
-                <option>java</option>
-                <option>javaScript</option>
-            </select>
             <select class="select select_edu">
                 <option disabled selected>경력</option>
                 <option>java</option>
@@ -36,12 +28,12 @@
                 <option>javaScript</option>
             </select>
         </div>
-        {{#resumeList}}
         <div class="main_box">
-            <a href="/user/{{id}}/resume/detail">
+            {{#compUserOpenResumeDTO}}
+            <a href="/user/{{resumeId}}/resume/detail">
                 <ul class="user_cont user_box">
                     <li class="user_img">
-                        <img src="/image/user_img/j_img.png" alt="이력서 사진">
+                        <img src="/image/user_img/{{resumePic}}" alt="이력서 사진">
                     </li>
                     <li class="user_cont">
                         <div class="com_tit">
@@ -54,16 +46,16 @@
                                 {{title}}
                             </h4>
                         </div>
-                        <div class="com_txt">{{career}} {{#careerYear}}{{careerYear}}{{/careerYear}}</div>
+                        <div class="com_txt">{{career}}</div>
                         <div class="com_txt">{{address}}</div>
                         <div class="com_skill open_resume_skill">
-                            <span class="skill_box"></span>
+                            <span class="skill_box">{{userSkillList}}</span>
                         </div>
                     </li>
                 </ul>
             </a>
+            {{/compUserOpenResumeDTO}}
         </div>
-        {{/resumeList}}
     </div>
 </main>
 {{>layout/footer}}
