@@ -148,7 +148,6 @@ public class ResumeService {
             resume.setEdu(userUpdateResumeDTO.getEdu());
             resume.setMainIntro(userUpdateResumeDTO.getMainIntro());
             resume.setOpenCheck(userUpdateResumeDTO.getOpenCheck());
-            resume.setCreatedAt(userUpdateResumeDTO.getCreatedAt());
             resumeRepository.save(resume);
 
             List<String> positionList = userUpdateResumeDTO.getPositionList();
@@ -204,7 +203,7 @@ public class ResumeService {
         try {
             resumeRepository.deleteById(id);
         } catch (Exception e) {
-            throw new MyException("삭제에 실패했습니다. : "+e.getMessage());
+            throw new MyException("삭제에 실패했습니다. : " + e.getMessage());
         }
 
     }

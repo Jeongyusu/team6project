@@ -60,7 +60,7 @@ public class ResumeController {
     public String saveResume(UserSaveResumeDTO UserSaveResumeDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         resumeService.이력서작성(UserSaveResumeDTO, sessionUser.getId());
-        return "redirect:/";
+        return "redirect:/user/resume";
 
     }
 
@@ -104,7 +104,7 @@ public class ResumeController {
     }
 
     @GetMapping("/api/resume/{resumeId}/skillList")
-    public @ResponseBody List<HasSkillResponseDTO> getSkillList(@PathVariable Integer resumeId) {
+    public @ResponseBody List<HasSkillResponseDTO> checkboxSkillList(@PathVariable Integer resumeId) {
         List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(resumeId);
         List<HasSkillResponseDTO> hasSkillResponseDTOList = new ArrayList<>();
         for (HasSkill skillList : hasSkillList) {
@@ -117,9 +117,8 @@ public class ResumeController {
         return hasSkillResponseDTOList;
     }
 
-    @PostMapping("/api/getPositionList")
-    public @ResponseBody List<WishPositionResponseDTO> getPositionList(@RequestBody Map<String, Integer> requestBody) {
-        Integer resumeId = requestBody.get("resumeId");
+    @GetMapping("/api/resume/{resumeId}/positionList")
+    public @ResponseBody List<WishPositionResponseDTO> checkboxPositionList(@PathVariable Integer resumeId) {
         List<WishPosition> wishPositionList = wishPositionRepository.wishPositionofResume(resumeId);
         List<WishPositionResponseDTO> wishPositionResponseDTOList = new ArrayList<>();
         for (WishPosition positionList : wishPositionList) {
@@ -131,7 +130,6 @@ public class ResumeController {
         System.out.println("테스트" + wishPositionResponseDTOList.get(0).getPosition());
         return wishPositionResponseDTOList;
     }
-
 
     @GetMapping("/comp/resume/{id}")
     public String compResumeDetail() {
@@ -152,13 +150,13 @@ public class ResumeController {
 
     }
 
-    @DeleteMapping("/api/resume/{id}")
+    @PostMapping("/api/resume/{id}/delete")
     public @ResponseBody ApiUtil<String> deleteResume(@PathVariable Integer id) {
-        System.out.println("test : 삭제 요청됨 : id : "+id);
+        System.out.println("test : 삭제 요청됨 : id : " + id);
         // 1.인증체크
         // User sessionUser = (User) session.getAttribute("sessionUser");
         // if (sessionUser == null) {
-        //     throw new MyApiException("인증되지 않았습니다");
+        // throw new MyApiException("인증되지 않았습니다");
         // }
 
         // 2.핵심로직

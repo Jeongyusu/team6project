@@ -63,8 +63,6 @@ public class ResumeRequest {
         private String edu;
         private String mainIntro;
         private String openCheck;
-
-        private Timestamp createdAt;
     }
 
 }

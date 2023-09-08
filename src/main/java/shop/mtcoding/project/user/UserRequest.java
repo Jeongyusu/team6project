@@ -1,6 +1,5 @@
 package shop.mtcoding.project.user;
 
-
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,7 +26,8 @@ public class UserRequest {
         private String compEmailId;
         private Integer gubun;
 
-    
+    }
+
     @Getter
     @Setter
     public static class UserUpdateDTO {
@@ -53,7 +53,6 @@ public class UserRequest {
 
     }
 
-
     @Getter
     @Setter
     public static class CompInfoUpdateDTO {
@@ -61,7 +60,5 @@ public class UserRequest {
         private Date compDate;
         private String compExplan;
     }
-
-}
 
 }

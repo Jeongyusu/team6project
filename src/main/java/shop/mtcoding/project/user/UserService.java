@@ -1,6 +1,5 @@
 package shop.mtcoding.project.user;
 
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,10 +15,9 @@ import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.vo.MyPath;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.CompInfoUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserLoginDTO;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserPicUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO.UserUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserPicUpdateDTO;
+import shop.mtcoding.project.user.UserRequest.UserUpdateDTO;
 
 @Service
 public class UserService {
@@ -66,7 +64,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User 유저로그인(UserLoginDTO userloginDTO) {
+    public User 유저로그인(UserRequest.UserLoginDTO userloginDTO) {
 
         User user;
         if (userloginDTO.getCompEmailId() == null) {
@@ -87,8 +85,7 @@ public class UserService {
 
     }
 
-
-    public User 회원정보수정(UserUpdateDTO userUpdateDTO, Integer id) {
+    public User 회원정보수정(UserRequest.UserUpdateDTO userUpdateDTO, Integer id) {
         // 1.조회
         User user = userRepository.findById(id).get();
         // 2.변경
@@ -98,7 +95,7 @@ public class UserService {
     }
 
     @Transactional
-    public User 유저사진수정(UserPicUpdateDTO userPicUpdateDTO, Integer id) {
+    public User 유저사진수정(UserRequest.UserPicUpdateDTO userPicUpdateDTO, Integer id) {
         UUID uuid = UUID.randomUUID();
         String fileName = uuid + "_" + userPicUpdateDTO.getUserPic().getOriginalFilename();
         Path filePath = Paths.get(MyPath.IMG_PATH + fileName);
@@ -117,7 +114,7 @@ public class UserService {
     }
 
     @Transactional
-    public User 회사정보수정(CompInfoUpdateDTO compInfoUpdateDTO, Integer id) {
+    public User 회사정보수정(UserRequest.CompInfoUpdateDTO compInfoUpdateDTO, Integer id) {
         UUID uuid = UUID.randomUUID();
         String fileName = uuid + "_" + compInfoUpdateDTO.getCompPic().getOriginalFilename();
         Path filePath = Paths.get(MyPath.IMG_PATH + fileName);
@@ -141,9 +138,4 @@ public class UserService {
 
     }
 
-    
-
-
-
 }
-
