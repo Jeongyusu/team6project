@@ -14,8 +14,10 @@ public class SuggestRequest {
 
     @Getter
     @Setter
-    public static class SuggestRequestDTO {
+    public static class SuggestStateDTO {
         private String sugState;
+        private Integer resumeId;
+        private Integer JobOpeningId;
     }
 
 }

@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -23,7 +24,9 @@ import shop.mtcoding.project.user.User;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "suggest_tb")
+@Table(name = "suggest_tb", uniqueConstraints = {
+           @UniqueConstraint(columnNames = {"resume_id", "job_opening_id"})
+       })
 @Entity
 public class Suggest {
 
@@ -31,7 +34,7 @@ public class Suggest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String sugState = "대기중";
+    private String sugState;
 
     @CreationTimestamp
     private Timestamp createdAt;

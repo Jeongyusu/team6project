@@ -17,6 +17,9 @@ public interface SuggestRepository extends JpaRepository<Suggest, Integer> {
     @Query("select s From Suggest s where s.resume.user.id = :userId")
     List<Suggest> findBySuggestResumeUserId(@Param("userId") Integer userId);
 
+    @Query("select s From Suggest s where s.resume.id = :userId and s.jobOpening.id = :jobOpeningId")
+    Suggest findByResumeIdAndJobOpeningId(@Param("userId") Integer userId, @Param("jobOpeningId") Integer jobOpeningId);
+
     // @Query(value = "SELECT job_opening.* FROM suggest_tb s " +
     // "LEFT OUTER JOIN resume_tb r ON s.resume_id = r.id " +
     // "LEFT OUTER JOIN user_tb u ON r.user_id = u.id " +
