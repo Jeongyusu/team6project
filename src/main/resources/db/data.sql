@@ -20,3 +20,32 @@ insert into apply_tb (apply_state, job_opening_id, resume_id) values(null, '3', 
 
 insert into suggest_tb (sug_state, resume_id, user_id, job_opening_id) values(null, '1', '4', '1');
 insert into suggest_tb (sug_state, resume_id, user_id, job_opening_id) values(null, '3', '5', '3');
+
+insert into comp_scrap_tb (user_id, resume_id) values ('4', '1');
+insert into comp_scrap_tb (user_id, resume_id) values ('4', '2');
+
+insert into user_scrap_tb (user_id, job_opening_id) values ('1', '1');
+insert into user_scrap_tb (user_id, job_opening_id) values ('1', '2');
+
+insert into skill_tb (skill) values('Java');
+insert into skill_tb (skill) values('Spring Boot');
+insert into skill_tb (skill) values('JavaScript');
+insert into skill_tb (skill) values('MySQL');
+insert into skill_tb (skill) values('jQuery');
+insert into skill_tb (skill) values('HTML');
+insert into skill_tb (skill) values('JSP');
+insert into skill_tb (skill) values('React');
+insert into skill_tb (skill) values('Vue.js');
+insert into skill_tb (skill) values('Oracle');
+
+insert into has_skill_tb (skill_id, resume_id) values('1', '1');
+insert into has_skill_tb (skill_id, resume_id) values('2', '1');
+insert into has_skill_tb (skill_id, resume_id) values('2', '2');
+insert into has_skill_tb (skill_id, resume_id) values('3', '2');
+insert into has_skill_tb (skill_id, resume_id) values('3', '3');
+insert into has_skill_tb (skill_id, resume_id) values('4', '3');
+
+insert into required_skill_tb (skill_id, job_opening_id) values('1', '1');
+insert into required_skill_tb (skill_id, job_opening_id) values('2', '1');
+insert into required_skill_tb (skill_id, job_opening_id) values('2', '2');
+insert into required_skill_tb (skill_id, job_opening_id) values('3', '2');

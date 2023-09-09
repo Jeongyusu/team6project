@@ -1,5 +1,6 @@
 package shop.mtcoding.project.scrap;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +17,9 @@ public interface CompScrapRepository extends JpaRepository<CompScrap, Integer> {
     @Modifying
     @Query("delete from CompScrap c where c.resume.id = :resumeId and c.user.id = :userId")
     void mdeleteByResumeId(@Param("resumeId") Integer resumeId, @Param("userId") Integer userId);
+
+    // 기업 - > 스크랩조회
+    @Query("select u from CompScrap u where u.user.id = :userId")
+    List<CompScrap> findByUserIdFromComp(@Param("userId") Integer userId);
 
 }

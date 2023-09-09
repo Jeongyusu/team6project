@@ -1,5 +1,7 @@
 package shop.mtcoding.project.scrap;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -8,11 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project._core.util.Split;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.scrap.CompScrapRequest.CompScrapDTO;
 import shop.mtcoding.project.scrap.CompScrapRequest.CompScrapDeleteDTO;
+import shop.mtcoding.project.scrap.CompScrapResponse.ScrapResumeDTO;
 import shop.mtcoding.project.scrap.UserScrapRequest.UserScrapDTO;
+import shop.mtcoding.project.scrap.UserScrapResponse.ScrapJobOpeningDTO;
+import shop.mtcoding.project.skill.HasSkill;
+import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.user.User;
 import shop.mtcoding.project.user.UserService;
 
@@ -83,4 +90,63 @@ public class ScrapService {
 
     }
 
+    public List<ScrapResumeDTO> 이력서스크랩조회(Integer sessionId) {
+        List<CompScrap> compScrapList = compScrapRepository.findByUserIdFromComp(sessionId);
+
+        List<ScrapResumeDTO> scrapResumeDTOList = new ArrayList<>();
+        for (CompScrap compScrap : compScrapList) {
+
+            List<String> skillList = new ArrayList<>();
+            for (HasSkill skill : compScrap.getResume().getHasSkillList()) {
+                String skillName = skill.getSkill().getSkill();
+                skillList.add(skillName);
+            }
+
+            // 이중 for문을 방지하기 위해, 배열을 하나의 문자열로 만들기
+            String skillListString = String.join(" · ", skillList);
+
+            ScrapResumeDTO scrapResumeDTO = ScrapResumeDTO.builder()
+                    .resumeId(compScrap.getResume().getId())
+                    .title(compScrap.getResume().getTitle())
+                    .userName(compScrap.getUser().getUserName())
+                    .edu(compScrap.getResume().getEdu())
+                    .skillName(skillListString)
+                    .build();
+
+            scrapResumeDTOList.add(scrapResumeDTO);
+        }
+        return scrapResumeDTOList;
+    }
+
+    public List<ScrapJobOpeningDTO> 채용공고스크랩조회(Integer sessionId) {
+        List<UserScrap> userScrapList = userScrapRepository.findByUserIdFromUser(sessionId);
+
+        List<ScrapJobOpeningDTO> scrapJobOpeningDTOList = new ArrayList<>();
+        for (UserScrap userScrap : userScrapList) {
+
+            List<String> skillList = new ArrayList<>();
+            for (RequiredSkill skill : userScrap.getJobOpening().getRequiredSkillList()) {
+                String skillName = skill.getSkill().getSkill();
+                skillList.add(skillName);
+            }
+
+            // 이중 for문을 방지하기 위해, 배열을 하나의 문자열로 만들기
+            String skillListString = String.join(" · ", skillList);
+
+            ScrapJobOpeningDTO scrapJobOpeningDTO = ScrapJobOpeningDTO.builder()
+                    .jobOpeningId(userScrap.getJobOpening().getId())
+                    .title(userScrap.getJobOpening().getTitle())
+                    .compName(userScrap.getUser().getUserName())
+                    .edu(userScrap.getJobOpening().getEdu())
+                    .skillName(skillListString)
+                    .build();
+
+            scrapJobOpeningDTOList.add(scrapJobOpeningDTO);
+        }
+
+        for (ScrapJobOpeningDTO scrapJobOpeningDTO : scrapJobOpeningDTOList) {
+            System.out.println("테테테 : " + scrapJobOpeningDTO.getTitle());
+        }
+        return scrapJobOpeningDTOList;
+    }
 }

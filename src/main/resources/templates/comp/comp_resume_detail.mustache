@@ -112,7 +112,7 @@
                   </span>
                 </button>
                 <script>
-                  let scrapState = 0; // 초기 스크랩 상태 (0: 미스크랩, 1: 스크랩)
+                  let scrapState = 0 // 초기 스크랩 상태 (0: 미스크랩, 1: 스크랩)
 
                   async function toggleScrap() {
                       let resumeId = document.querySelector("#resumeId").value;
@@ -146,6 +146,7 @@
 
                       if (responseBody.success) {
                         alert("스크랩 성공");
+                        location.reload();
                       } else {
                           alert(responseBody.data);
                       }
@@ -166,6 +167,7 @@
 
                       if (responseBody.success) {
                         alert("스크랩 삭제");
+                        location.reload();
                       } else {
                           alert(responseBody.data);
                       }
