@@ -66,10 +66,7 @@
                   <td>백엔드</td>
                   <td>
                     <input type="hidden" id="applyState" value="{{applyState}}">
-                    <ul>
-                      <li class="wait_btn">대기중</li>
-                      <li class="accept_btn">합격</li>
-                      <li class="refuse_btn">불합격</li>
+                    <ul id="applyStateUl">
                     </ul>
                   </td>
                 </tr>
@@ -129,6 +126,7 @@
 <script>
 
 sugStateInitData();
+ApplyStateInitData();
 
 
 
@@ -165,18 +163,18 @@ sugStateInitData();
 }
 
 function ApplyStateInitData() {
-  let initApplyState = document.querySelector("#ApplyState").value;
-  if(initSugState === '대기중'){
-    $("#ApplyStateUl").html('');
-    $("#ApplyStateUl").html("<li class='wait_btn'>대기중</li>");
+  let initApplyState = document.querySelector("#applyState").value;
+  if(initApplyState === '대기중'){
+    $("#applyStateUl").html('');
+    $("#applyStateUl").html("<li class='wait_btn'>대기중</li>");
 
-  } else if(initSugState =='합격'){ 
-    $("#ApplyStateUl").html('');
-    $("#ApplyStateUl").html("<li class='accept_btn'>합격</li>");
+  } else if(initApplyState =='합격'){ 
+    $("#applyStateUl").html('');
+    $("#applyStateUl").html("<li class='accept_btn'>합격</li>");
 
-  } else if(initsugState =='불합격') {
-    $("#ApplyStateUl").html('');
-    $("#ApplyStateUl").html("<li class='refuse_btn'>불합격</li>");
+  } else if(initApplyState =='불합격') {
+    $("#applyStateUl").html('');
+    $("#applyStateUl").html("<li class='refuse_btn'>불합격</li>");
 
   }
 }

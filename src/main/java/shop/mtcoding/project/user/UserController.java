@@ -134,7 +134,7 @@ public class UserController {
         model.addAttribute("resumeList", resumeList);
         int totalResume = resumeList.size();
         model.addAttribute("totalResume", totalResume);
-        List<Apply> applyList2 = applyRepository.findByResumeUserId(sessionUser.getId());
+        List<Apply> applyList2 = applyRepository.findByUserId(sessionUser.getId());
         int totalApply = applyList2.size();
         List<JobOpening> jobOpeningInfo = suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
         model.addAttribute("jobOpeningInfo", jobOpeningInfo);

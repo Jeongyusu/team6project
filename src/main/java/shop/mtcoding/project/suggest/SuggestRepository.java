@@ -8,14 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 public interface SuggestRepository extends JpaRepository<Suggest, Integer> {
 
-    @Query("SELECT s FROM Suggest s JOIN s.resume r JOIN r.user u WHERE u.id = :userId")
-    List<Suggest> findBySuggestUserId(@Param("userId") Integer userId);
 
     @Query(value = "select * from suggest_tb st left outer join resume_tb rt on st.resume_id = rt.id where st.user_id= :userId", nativeQuery = true)
     List<Suggest> findBySuggestCompId(@Param("userId") Integer userId);
 
-    @Query("select s From Suggest s where s.resume.user.id = :userId")
-    List<Suggest> findBySuggestResumeUserId(@Param("userId") Integer userId);
+    @Query("select s From Suggest s where s.user.id = :userId")
+    List<Suggest> findBySuggestUserId(@Param("userId") Integer userId);
 
     @Query("select s From Suggest s where s.resume.id = :userId and s.jobOpening.id = :jobOpeningId")
     Suggest findByResumeIdAndJobOpeningId(@Param("userId") Integer userId, @Param("jobOpeningId") Integer jobOpeningId);

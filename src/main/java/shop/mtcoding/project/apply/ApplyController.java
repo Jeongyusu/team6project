@@ -54,7 +54,7 @@ public class ApplyController {
 
         List<Apply> applyList = applyRepository.findAll();
         model.addAttribute("applyList", applyList);
-        List<Apply> applyList2 = applyRepository.findByResumeUserId(sessionUser.getId());
+        List<Apply> applyList2 = applyRepository.findByUserId(sessionUser.getId());
         int totalApply = applyList2.size();
         model.addAttribute("totalApply", totalApply);
         model.addAttribute("applyList2", applyList2);
@@ -114,9 +114,9 @@ public class ApplyController {
         List<Resume> resumeList = resumeRepository.findByUserId(user.getId());
         model.addAttribute("resumeList", resumeList);
         int totalResume = resumeList.size();
-        List<Apply> applyList = applyRepository.findByResumeUserId(user.getId());
+        List<Apply> applyList = applyRepository.findByUserId(user.getId());
         int totalApply = applyList.size();
-        List<Suggest> suggestList = suggestRepository.findBySuggestResumeUserId(user.getId());
+        List<Suggest> suggestList = suggestRepository.findBySuggestUserId(user.getId());
         model.addAttribute("suggestList", suggestList);
         model.addAttribute("totalApply", totalApply);
         model.addAttribute("applyList", applyList);

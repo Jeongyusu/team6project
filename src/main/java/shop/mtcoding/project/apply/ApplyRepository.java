@@ -9,8 +9,8 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
     @Query("select a from Apply a where a.resume.id = :resumeId")
     public List<Apply> findByResumeId(@Param("resumeId") Integer resumeId);
 
-    @Query("select a from Apply a where a.resume.user.id = :userId")
-    public List<Apply> findByResumeUserId(@Param("userId") Integer userId);
+    @Query("select a from Apply a where a.user.id = :userId")
+    public List<Apply> findByUserId(@Param("userId") Integer userId);
 
     @Query("select a from Apply a where a.jobOpening.user.id = :userId")
     public List<Apply> findByResumeUserInfo(@Param("userId") Integer userId);
