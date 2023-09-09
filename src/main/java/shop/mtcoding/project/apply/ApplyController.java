@@ -17,7 +17,11 @@ import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.jobopening.JobOpeningRepository;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
+import shop.mtcoding.project.suggest.Suggest;
+import shop.mtcoding.project.suggest.SuggestQueryRepository;
+import shop.mtcoding.project.suggest.SuggestRepository;
 import shop.mtcoding.project.user.User;
+import shop.mtcoding.project.user.UserRepository;
 
 @Controller
 public class ApplyController {
@@ -31,6 +35,15 @@ public class ApplyController {
     private ApplyService applyService;
     @Autowired
     private JobOpeningRepository jobOpeningRepository;
+
+    @Autowired
+    private SuggestQueryRepository suggestQueryRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private SuggestRepository suggestRepository;
 
     @GetMapping("/user/jobOpening/{id}/applyForm")
     public String ApplyList(@PathVariable Integer id, Model model) {
@@ -91,5 +104,26 @@ public class ApplyController {
     // model.addAttribute("jobOpeningList", jobOpeningList);
     // return "comp/comp_info";
     // }
+
+    @GetMapping("/user/applyAndSuggest")
+    public String userApplyAndSuggest(Model model) {
+        // User sessionUser = (User) session.getAttribute("sessionUser");
+        // User user = userRepository.findById(sessionUser.getId()).get();
+        User user = userRepository.findById(1).get();
+
+        List<Resume> resumeList = resumeRepository.findByUserId(user.getId());
+        model.addAttribute("resumeList", resumeList);
+        int totalResume = resumeList.size();
+        List<Apply> applyList = applyRepository.findByResumeUserId(user.getId());
+        int totalApply = applyList.size();
+        List<Suggest> suggestList = suggestRepository.findBySuggestResumeUserId(user.getId());
+        model.addAttribute("suggestList", suggestList);
+        model.addAttribute("totalApply", totalApply);
+        model.addAttribute("applyList", applyList);
+        model.addAttribute("totalResume", totalResume);
+
+        return "user/user_resume_management";
+    }
+
 
 }

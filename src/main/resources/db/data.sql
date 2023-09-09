@@ -2,17 +2,17 @@ insert into user_tb (user_email_id, user_name, user_password, user_pic_url, crea
 insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('cos@nate.com', 'cos', '1234', 'basic.jpg', now(), 1);
 insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('love@nate.com', '러브', '1234', null, now(), 1);
 
--- insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('toss@nate.com','toss', '1234', '2010년 토스창업', '세계1위 토스입니다', 'basic.jpg', now(), 2);
--- insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('naver@nate.com', 'naver', '1234','2000년 네이버창업', '세계1위 네이버입니다', 'basic.jpg', now(), 2);
--- insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('kakao@nate.com', 'kakao', '1234','2005년 카카오창업', '세계1위 카카오입니다', 'basic.jpg', now(), 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_intro, comp_pic_url, gubun) values('toss@nate.com','toss', '1234', '세계1위 토스입니다', 'basic.jpg', 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_intro, comp_pic_url, gubun) values('naver@nate.com', 'naver', '1234', '세계1위 네이버입니다', 'basic.jpg', 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_intro, comp_pic_url, gubun) values('kakao@nate.com', 'kakao', '1234', '세계1위 카카오입니다', 'basic.jpg', 2);
 
 -- insert into comp_scrap_tb (created_at) values(now());
 -- insert into comp_scrap_tb (created_at) values(now());
 -- insert into comp_scrap_tb (created_at) values(now());
 
--- insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '네이버 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력자 모집', '1년차 이상', '2년제 이상', '부산 광안리', now(), now());
--- insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '토스 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력자 모집', '2년차 이상', '4년제 이상', '부산 서면', now(), now());
--- insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('5', '카카오 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력자 모집', '5년차 이상', '고등학교 졸업 이상', '부산 장산', now(), now());
+insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '네이버 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력자 모집', '1년차 이상', '2년제 이상', '부산 광안리', now(), now());
+insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '토스 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력자 모집', '2년차 이상', '4년제 이상', '부산 서면', now(), now());
+insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('5', '카카오 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력자 모집', '5년차 이상', '고등학교 졸업 이상', '부산 장산', now(), now());
 
 -- insert into user_scrap_tb (created_at, user_id, job_opening_id) values(now(), '1', '1');
 -- insert into user_scrap_tb (created_at, user_id, job_opening_id) values(now(), '2', '1');
@@ -76,3 +76,12 @@ insert into wish_position_tb (position_id, resume_id) values ('6', '1');
 -- insert into qualified_tb (qualified_content, job_opening_id) values('백엔드 개발 실무 경력3년이상', '1');
 -- insert into qualified_tb (qualified_content, job_opening_id) values('Python 기반 개발 경험', '2');
 -- insert into qualified_tb (qualified_content, job_opening_id) values('CI CD 툴을 활용한 빌드,테스트,배포 자동화 경험', '3');
+
+insert into apply_tb (apply_state, job_opening_id, resume_id) values ('합격', 1, 1);
+insert into apply_tb (apply_state, job_opening_id, resume_id) values ('불합격', 2, 1);
+insert into apply_tb (apply_state, job_opening_id, resume_id) values ('합격', 2, 2);
+
+insert into suggest_tb (sug_state, job_opening_id, resume_id) values ('합격', 1, 1);
+insert into suggest_tb (sug_state, job_opening_id, resume_id) values ('합격', 1, 3);
+
+

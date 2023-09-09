@@ -15,7 +15,7 @@
           <ul>
             <li>
               <div class="main_pic">
-                <img id="preview" src="" alt="기본 이미지">
+                <img id="preview" src="/images/basic.jpg" alt="기본 이미지">
                 <input type="hidden" onchange="changeUserPic(event)" name="userPic">
               </div>
 
@@ -30,7 +30,7 @@
             <li><a href="/user/resume">이력서</a></li>
             <li><a href="/user/applyAndSuggest">지원/제안</a></li>
             <li><a href="/user/scrap">스크랩</a></li>
-            <li><a href="/user/info/update">정보 수정</a></li>
+            <li><a href="/user/info/updateForm">정보 수정</a></li>
           </ul>
           <ul class="mypage_menu">
             <li><a href="#">로그아웃</a></li>
@@ -328,35 +328,6 @@
                 </ul>
               </li>
             </ul>
-          </div>
-        </div>
-        <div class="mypage_right tab-content mypage_list_item" id="user_update">
-          <div class="mypage_list udback">
-            <div class="update_box">
-              <div class="udpassword ">
-
-                <form action="/user/password/update" method="post" class="pw_update">
-                  <div class="">
-                    <label for="nowPassword" class="form-label">현재 비밀번호</label>
-                    <input type="password" class="form-control" id="nowPassword" placeholder="비밀번호를 입력해 주세요."
-                      name="nowPassword">
-                  </div>
-                  <div class="">
-                    <label for="newPassword" class="form-label">새 비밀번호</label>
-                    <input type="password" class="form-control" id="newPassword" placeholder="비밀번호를 입력해 주세요."
-                      name="newPassword">
-                  </div>
-                  <div class="">
-                    <label for="newPasswordConfirm" class="form-label">새 비밀번호 확인</label>
-                    <input type="password" class="form-control" id="newPasswordConfirm" placeholder="비밀번호를 입력해 주세요."
-                      name="newPasswordConfirm">
-                  </div>
-                  <div style="display: flex; justify-content: center;">
-                    <button type="submit" class="btn btn-primary">확인</button>
-                  </div>
-                </form>
-              </div>
-            </div>
           </div>
         </div>
       </div>

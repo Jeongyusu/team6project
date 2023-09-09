@@ -105,10 +105,6 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("/user/resume/wirteForm")
-    public String UserResumeWrite() {
-        return "user/user_resume_write";
-    }
 
     @PostMapping("/user/picUpdate")
     public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO) {
@@ -206,8 +202,14 @@ public class UserController {
         return "comp/comp_info";
     }
 
-    @GetMapping("/user/applyAndSuggest")
-    public String userApplyAndSuggest() {
-        return "user/user_resume_management";
+
+    @GetMapping("/user/info/updateForm")
+    public String userInfoUpdateForm(){
+        return "user/user_update";
+    }
+
+    @GetMapping("/user/scrap")
+    public String userScrap(){
+        return "user/user_scrap";
     }
 }

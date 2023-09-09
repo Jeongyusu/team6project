@@ -17,10 +17,20 @@ public class SuggestService {
     @Transactional
     public void 제안(SuggestRequest.SuggestSaveDTO suggestSaveDTO) {
         Suggest suggest = Suggest.builder()
-                .resume(Resume.builder().id(suggestSaveDTO.getSelectedResumeId()).build())
                 .user(User.builder().id(suggestSaveDTO.getSelectedUserId()).build())
+                .resume(Resume.builder().id(suggestSaveDTO.getSelectedResumeId()).build())
                 .build();
         suggestRepository.save(suggest);
+    }
+
+    @Transactional
+    public void 제안응답(SuggestRequest.SuggestStateDTO suggestStateDTO, Integer userId, Integer resumeId) {
+        Suggest suggest = Suggest.builder()
+                .user(User.builder().id(userId).build())
+                .resume(Resume.builder().id(resumeId).build())
+                .sugState(suggestStateDTO.getSugState())
+                .build();
+            suggestRepository.save(suggest);
     }
 
 }
