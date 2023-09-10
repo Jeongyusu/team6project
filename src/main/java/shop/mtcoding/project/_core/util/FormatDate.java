@@ -2,6 +2,8 @@ package shop.mtcoding.project._core.util;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,4 +25,23 @@ public class FormatDate {
         return formatDateList;
     }
 
+    // D-day 마감일
+    public static String DdayFormatDate(LocalDate dueDate) {
+        // 마감일 Integer로 변환
+        Integer year = dueDate.getYear();
+        Integer month = dueDate.getMonthValue();
+        Integer day = dueDate.getDayOfMonth();
+
+        // 현재일 - 마감일
+        LocalDate deadLine = LocalDate.of(year, month, day);
+        LocalDate currentDate = LocalDate.now();
+        Long daysDifference = ChronoUnit.DAYS.between(currentDate, deadLine);
+
+        if (daysDifference == 0) {
+            return "D-Day";
+        } else {
+            return "D - " + daysDifference;
+        }
+
+    }
 }

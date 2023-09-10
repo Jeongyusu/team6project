@@ -1,5 +1,4 @@
 window.onload = function () {
-
   const positionCg = document.querySelectorAll(".position_category > li > a");
   const positionMenu = document.querySelectorAll(".position_menu > li");
 

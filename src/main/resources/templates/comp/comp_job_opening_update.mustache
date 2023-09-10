@@ -11,12 +11,13 @@
           <h2>공고 수정</h2>
         </div>
         <form action="/comp/jobOpening/{{jobOpening.id}}/update" method="post">
-          <input type="hidden" id="jobOpeningId" name="id" value="{{jobOpening.id}}">
+          <input type="hidden" id="jobId" name="id" value="{{jobOpening.id}}">
           <div class="save_title mb-5">
             <input type="text" placeholder="제목을 입력해주세요" name="title" value="{{jobOpening.title}}">
           </div>
           <div class="main_back container">
             <div class="mb-2">
+
               <div>
                 <label class="job_list mb-3" for="jobSkill">개발 직무</label>
               </div>
@@ -42,12 +43,14 @@
                 {{/skillList}}
               </div>
             </div>
-            <div class="resume_margin">
-              <div class="plus_info">
-                <label class="job_list mb-2" for="require">주요 업무</label>
-                <button type="button" class="plus_button" onclick="addInput01()">
-                  <img src="https://img.icons8.com/android/24/plus.png" alt="plus" />
-                </button>
+            <div>
+              <div class="develop_job">
+                {{#positionList}}
+                <div>
+                  <input type="checkbox" id="{{position}}" name="positionList" value="{{position}}">
+                  <label class="skill_btns1" for="{{position}}">{{position}}</label>
+                </div>
+                {{/positionList}}
               </div>
               {{#taskList}}
               <input type="text" class="form-control main_job_list"  placeholder="주요 업무를 최대 3개까지 작성해주세요" name="taskList" value="{{taskContent}}">
@@ -155,10 +158,12 @@
     el.appendChild(newEl);
     clickCount2++;
   }
+
       let jobOpeningId = document.querySelector("#jobOpeningId").value;
+
       async function fetchSelectSkill() {
           try {
-            let response = await fetch(`/api/jobOpening/${jobOpeningId}/skillList`)
+            let response = await fetch("/api/getCheckBoxSkill", requestOptions)
             if(response.ok) {
               let responseBody = await response.json();
               console.log(responseBody);
@@ -185,6 +190,7 @@
       async function fetchSelectedPosition() {
         try {
           let response = await fetch(`/api/jobOpening/${jobOpeningId}/positionList`);
+          let response = await fetch(`/api/jobOpening/${jobOpeningId}/positionList`);
           if (response.ok) {
             let responseBody = await response.json();
             console.log("테스트1" + responseBody);
@@ -206,6 +212,6 @@
           console.error('오류 발생: ' + error);
         }
         }
-        fetchSelectedPosition();
+        fetchSelectedPosition();   
 </script>
   {{>layout/footer}}

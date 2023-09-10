@@ -17,13 +17,23 @@ import shop.mtcoding.project._core.util.Script;
 import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.apply.ApplyRepository;
 import shop.mtcoding.project.jobopening.JobOpening;
+import shop.mtcoding.project.jobopening.JobOpeningRepository;
+import shop.mtcoding.project.jobopening.JobOpeningService;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
+import shop.mtcoding.project.scrap.ScrapService;
 import shop.mtcoding.project.suggest.SuggestQueryRepository;
+import shop.mtcoding.project.suggest.SuggestRepository;
 import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    private JobOpeningService jobOpeningService;
+
+    @Autowired
+    private SuggestRepository suggestRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -32,7 +42,13 @@ public class UserController {
     private ResumeRepository resumeRepository;
 
     @Autowired
+    private JobOpeningRepository jobOpeningRepository;
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
+    private ScrapService scrapService;
 
     @Autowired
     private HttpSession session;
@@ -108,7 +124,7 @@ public class UserController {
 
 
     @PostMapping("/user/picUpdate")
-    public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO) {
+    public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO, Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.유저사진수정(userPicUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
@@ -149,6 +165,7 @@ public class UserController {
     public String compMyPageForm() {
         return "comp/comp_info_update";
     }
+
 
     @PostMapping("/user/login")
     public @ResponseBody String userLogin(UserRequest.UserLoginDTO userLoginDTO) {

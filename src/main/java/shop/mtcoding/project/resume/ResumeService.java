@@ -28,7 +28,6 @@ import shop.mtcoding.project.resume.ResumeResponse.ApplyResumeInJobOpeningDTO;
 import shop.mtcoding.project.resume.ResumeResponse.ResumeInJobOpeningDTO;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.skill.HasSkillRepository;
-import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.Skill;
 import shop.mtcoding.project.skill.SkillRepository;
@@ -57,9 +56,6 @@ public class ResumeService {
 
     @Autowired
     RequiredSkillRepository requiredSkillRepository;
-
-    @Autowired
-    ResumeQueryRepository resumeQueryRepository;
 
     @Transactional
     public void 이력서작성(ResumeRequest.UserSaveResumeDTO userSaveResumeDTO, int sessionUserId) {
@@ -259,17 +255,18 @@ public class ResumeService {
 
     }
 
-    public List<CompUserOpenResumeDTO> 공개이력서목록(Integer id) {
-        List<RequiredSkill> jobOpeningSkillList = requiredSkillRepository.findByJobOpeningId(1);
+    public List<CompUserOpenResumeDTO> 조건선택(String career, String careerYear, String address) {
 
-        Integer skillId1 = jobOpeningSkillList.get(0).getSkill().getId();
-        Integer skillId2 = jobOpeningSkillList.get(1).getSkill()
-                .getId();
-
-        List<Resume> resumeList = resumeRepository.findByHasSkillIds(skillId1, skillId2);
+        List<Resume> resumeOpenList = null;
+        if (career != null || address != null) {
+            resumeOpenList = resumeRepository.findByOpenAndCareerAndOpenAddress(career, careerYear, address);
+        } else if (career != null && address != null) {
+            resumeOpenList = resumeRepository.findByOpenAndCareerAndOpenAddress(career, careerYear, address);
+        } else {
+        }
 
         List<CompUserOpenResumeDTO> compUserOpenResumeDTOList = new ArrayList<>();
-        for (Resume resume : resumeList) {
+        for (Resume resume : resumeOpenList) {
             List<String> skills = new ArrayList<>();
             for (HasSkill skill : resume.getHasSkillList()) {
                 String skillName = skill.getSkill().getSkill();

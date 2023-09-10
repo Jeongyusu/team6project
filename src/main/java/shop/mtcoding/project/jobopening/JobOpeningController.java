@@ -3,7 +3,6 @@ package shop.mtcoding.project.jobopening;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project._core.util.ApiUtil;
@@ -27,7 +25,7 @@ import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.position.RequiredPositionRepository;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.qualified.QualifiedRepository;
-import shop.mtcoding.project.resume.ResumeRepository;
+import shop.mtcoding.project.scrap.ScrapService;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.Skill;
@@ -46,6 +44,9 @@ public class JobOpeningController {
 
     @Autowired
     private SuggestQueryRepository suggestQueryRepository;
+
+    @Autowired
+    private ScrapService scrapService;
 
     @Autowired
     private ApplyRepository applyRepository;
@@ -75,9 +76,6 @@ public class JobOpeningController {
     private JobOpeningRepository jobOpeningRepository;
 
     @Autowired
-    private ResumeRepository resumeRepository;
-
-    @Autowired
     private HttpSession session;
 
     @GetMapping("/comp/indexForm")
@@ -85,31 +83,23 @@ public class JobOpeningController {
         return "comp_index";
     }
 
-    @GetMapping("/comp/jobOpening/myPageForm")
-    public String compInfoForm(Model model, Integer id) {
-        JobOpening jobOpening = jobOpeningService.공고수정페이지(1);
-        model.addAttribute("jobOpening", jobOpening);
-        List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
-        int totalJopOpeningList = jobOpeningList.size();
-        model.addAttribute("totalJopOpeningList", totalJopOpeningList);
-        model.addAttribute("jobOpeningList", jobOpeningList);
-        return "/comp/comp_info";
-    }
-
+    // 채용 공고 목록 페이지
     @GetMapping("/comp/jobOpening/compResume")
     public String compResumForm(Model model, Integer id) {
+
         User sessionUser = (User) session.getAttribute("sessionUser");
+
         List<JobOpening> JobOpeningList = jobOpeningRepository.findByUserId(sessionUser.getId());
         int totalJobOpening = JobOpeningList.size();
         model.addAttribute("totalJobOpening", totalJobOpening);
+
         List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
         int totalJopOpeningList = jobOpeningList.size();
         model.addAttribute("totalJopOpeningList", totalJopOpeningList);
         model.addAttribute("jobOpeningList", jobOpeningList);
+
         return "/comp/comp_resume";
     }
-
-    // --------- get
 
     // comp_ 채용공고 메인 화면
     @GetMapping("/comp/mainForm")
@@ -139,6 +129,7 @@ public class JobOpeningController {
         return "comp/comp_job_opening_write";
     }
 
+    // 채용 공고 수정 페이지
     @GetMapping("/comp/jobOpening/{id}/updateForm")
     public String updateCompForm(@PathVariable Integer id, Model model) {
 
@@ -174,7 +165,6 @@ public class JobOpeningController {
                 model.addAttribute("5years", true);
             }
         }
-        System.out.println("테스트1");
 
         if (jobOpening.getEdu().equals("대졸")) {
             model.addAttribute("isEduUniversity", true);
@@ -188,32 +178,41 @@ public class JobOpeningController {
         return "comp/comp_job_opening_update";
     }
 
-    // --------- Post
+    // --------- get
 
+    // 채용 공고 작성
     @PostMapping("/comp/jobOpening/save")
     public String saveComp(JobOpeningRequest.JobOpeningSaveDTO jobOpeningSaveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         jobOpeningService.공고등록(jobOpeningSaveDTO, sessionUser.getId());
-        return "redirect:/comp/jobOpening/myPageForm";
+        return "redirect:/comp/jobOpening/compResume";
     }
 
+    // 채용 공고 수정
     @PostMapping("/comp/jobOpening/{id}/update")
     public String updateComp(@PathVariable Integer id,
             JobOpeningRequest.JobOpeningUpdateDTO jobOpeningUpdateDTO) {
         jobOpeningService.공고수정(jobOpeningUpdateDTO, id);
-        return "redirect:/comp/jobOpening/myPageForm";
+        return "redirect:/comp/jobOpening/compResume";
     }
 
-    // --------- api
+    // --------- post
 
-    @PostMapping("/api/getCheckBoxSkill")
-    public @ResponseBody List<RequiredSkillResponseDTO> getCheckboxSkill(
-            @RequestBody Map<String, Integer> requestBody) {
-        System.out.println("테스트");
-        Integer jobId = requestBody.get("jobId");
-        System.out.println("테스트" + jobId);
+    @PostMapping("/api/comp/jobOpening/{id}/delete")
+    public @ResponseBody ApiUtil<String> delete(@PathVariable("id") Integer id) {
+        // 2. 핵심로직
+        jobOpeningService.공고삭제(id);
+        // 3. 응답
+        return new ApiUtil<String>(true, "공고가 삭제되었습니다");
+    }
 
-        List<RequiredSkill> requiredSkillList = requiredSkillRepository.findByJobOpeningId(jobId);
+    // --------- delete
+
+    // 스킬 체크 박스
+    @GetMapping("/api/jobOpening/{jobOpeningId}/skillList")
+    public @ResponseBody List<RequiredSkillResponseDTO> chekboxSkillList(@PathVariable Integer jobOpeningId) {
+
+        List<RequiredSkill> requiredSkillList = requiredSkillRepository.findByJobOpeningId(jobOpeningId);
         List<RequiredSkillResponseDTO> requiredSkillResponseDTOList = new ArrayList<>();
 
         for (RequiredSkill skillList : requiredSkillList) {
@@ -222,18 +221,14 @@ public class JobOpeningController {
                     .build();
             requiredSkillResponseDTOList.add(dtos);
         }
-        System.out.println("테스트" + requiredSkillResponseDTOList.get(0).getSkill());
         return requiredSkillResponseDTOList;
     }
 
-    @PostMapping("/api/getCheckBoxPosition")
-    public @ResponseBody List<RequiredPositionResponseDTO> getCheckboxPosition(
-            @RequestBody Map<String, Integer> requestBody) {
-        System.out.println("테스트");
-        Integer jobId = requestBody.get("jobId");
-        System.out.println("테스트" + jobId);
+    // 포지션 체크 박스
+    @GetMapping("/api/jobOpening/{jobOpeningId}/positionList")
+    public @ResponseBody List<RequiredPositionResponseDTO> checkboxPositionList(@PathVariable Integer jobOpeningId) {
 
-        List<RequiredPosition> requiredPositionList = requiredPositionRepository.findByJobOpeningId(jobId);
+        List<RequiredPosition> requiredPositionList = requiredPositionRepository.findByJobOpeningId(jobOpeningId);
         List<RequiredPositionResponseDTO> requiredPositionResponseDTOList = new ArrayList<>();
 
         for (RequiredPosition positionList : requiredPositionList) {
@@ -242,17 +237,9 @@ public class JobOpeningController {
                     .build();
             requiredPositionResponseDTOList.add(dtos);
         }
-        System.out.println("테스트" + requiredPositionResponseDTOList.get(0).getPosition());
         return requiredPositionResponseDTOList;
     }
 
-    @DeleteMapping("/api/comp/jobOpening/{id}/delete")
-    public @ResponseBody ApiUtil<String> delete(@PathVariable("id") Integer id) {
-        // 2. 핵심로직
-        jobOpeningService.공고삭제(id);
-        // 3. 응답
-        return new ApiUtil<String>(true, "댓글이 삭제되었습니다");
-    }
 
     
 
