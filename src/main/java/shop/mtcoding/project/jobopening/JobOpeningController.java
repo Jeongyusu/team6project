@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project._core.util.ApiUtil;
-import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
-import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.apply.ApplyRepository;
+import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 import shop.mtcoding.project.position.Position;
 import shop.mtcoding.project.position.PositionResponse.RequiredPositionResponseDTO;
 import shop.mtcoding.project.position.PositionService;
@@ -28,16 +27,14 @@ import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.position.RequiredPositionRepository;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.qualified.QualifiedRepository;
-import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.Skill;
 import shop.mtcoding.project.skill.SkillResponse.RequiredSkillResponseDTO;
-import shop.mtcoding.project.suggest.Suggest;
+import shop.mtcoding.project.skill.SkillService;
 import shop.mtcoding.project.suggest.SuggestQueryRepository;
 import shop.mtcoding.project.suggest.SuggestRepository;
-import shop.mtcoding.project.skill.SkillService;
 import shop.mtcoding.project.task.Task;
 import shop.mtcoding.project.task.TaskRepository;
 import shop.mtcoding.project.user.User;
@@ -99,10 +96,12 @@ public class JobOpeningController {
         return "/comp/comp_info";
     }
 
-    @GetMapping("/comp/jobOpening/compResum")
+    @GetMapping("/comp/jobOpening/compResume")
     public String compResumForm(Model model, Integer id) {
-        JobOpening jobOpening = jobOpeningService.공고수정페이지(1);
-        model.addAttribute("jobOpening", jobOpening);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        List<JobOpening> JobOpeningList = jobOpeningRepository.findByUserId(sessionUser.getId());
+        int totalJobOpening = JobOpeningList.size();
+        model.addAttribute("totalJobOpening", totalJobOpening);
         List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
         int totalJopOpeningList = jobOpeningList.size();
         model.addAttribute("totalJopOpeningList", totalJopOpeningList);
@@ -254,5 +253,7 @@ public class JobOpeningController {
         // 3. 응답
         return new ApiUtil<String>(true, "댓글이 삭제되었습니다");
     }
+
+    
 
 }

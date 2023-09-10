@@ -1,5 +1,4 @@
 {{>layout/compheader}}
-
 <!-- 메인 -->
 <!-- 각자 페이지 main 클래스에 name 작성-->
 <!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
@@ -22,15 +21,15 @@
               </form>
             </li>
             <li>
-              <h3>유수 컴퍼니</h3>
+              <h3>{{sessionUser.userName}}</h3>
             </li>
           </ul>
           <ul class="mypage_menu tab_menu">
-            <li><a href="#" data-tab="comp_info">회사 정보 수정</a></li>
-            <li><a href="#" data-tab="comp_resume">채용 공고</a></li>
-            <li><a href="#" data-tab="comp_applications">지원/제안</a></li>
-            <li><a href="#" data-tab="comp_scrap">스크랩</a></li>
-            <li><a href="#" data-tab="comp_user_update">비밀번호 변경</a></li>
+            <li><a href="/comp/myPageForm">회사 정보 수정</a></li>
+            <li><a href="/comp/jobOpening/compResume">채용 공고</a></li>
+            <li><a href="/comp/applyAndSuggest">지원/제안</a></li>
+            <li><a href="/comp/scrap">스크랩</a></li>
+            <li><a href="/comp/password/updateForm">비밀번호 변경</a></li>
           </ul>
           <ul class="mypage_menu">
             <li><a href="#">로그아웃</a></li>
@@ -41,33 +40,49 @@
         <div class="mypage_right tab-content mypage_list_item" id="comp_info">
           <div class="comp_back">
             <div class="basic">
-              <div class="comp_pic">
-                <img src="/image/user_img/def_img.png" alt="기본 이미지" />
-              </div>
-              <form action="#" class="cp_explan">
+              <form action="/comp/info/update" method="post" enctype="multipart/form-data" class="cp_explan">
+                <div class="comp_pic_bg">
+                  <div class="comp_pic">
+                    <img id="preview" src="">
+                  </div>
+                  <input type="file" onchange="changeCompPic(event)" name="compPic">
+                </div>
+                {{#sessionUser}}
                 <div>
                   <label for="compDate" class="form-label">연력</label>
-                  <input type="date" class="form-control" id="compDate" name="compDate" />
+                  <input type="date" class="form-control" id="compDate" name="compDate" value="{{compHistory}}">
                 </div>
                 <div>
                   <label for="compExplan" class="form-label">회사 소개</label>
-                  <input type="text" class="form-control" id="compExplan" name="compExplan" />
+                  <input type="text" class="form-control" id="compExplan" name="compExplan" value="{{compIntro}}">
                 </div>
-                <div style="display: flex; justify-content: center">
+                {{/sessionUser}}
+                <div style="display: flex; justify-content: center;">
                   <button type="submit" class="btn btn-primary">확인</button>
                 </div>
               </form>
             </div>
           </div>
         </div>
-
-
-
-
       </div>
     </div>
   </div>
+  <script>
+    function changeCompPic(e1) {
+      let f = e1.srcElement.files[0];
+      console.log(f.type);
+      if (!f.type.match("image.*")) {
+        alert("이미지를 등록해주세요");
+        return;
+      }
+      let reader = new FileReader();
+      reader.onload = function (e2) { // 파일이 다 읽어지면 콜백됨
+        let previewEl = document.querySelector("#preview");
+        previewEl.setAttribute("src", e2.target.result);
+      }
+      reader.readAsDataURL(f); // 파일 읽기 onload()
+    }
+  </script>
 </main>
 <!-- 메인 -->
-
 {{>layout/footer}}

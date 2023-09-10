@@ -5,8 +5,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import shop.mtcoding.project.apply.Apply;
-import shop.mtcoding.project.apply.ApplyRepository;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.user.User;
@@ -15,9 +13,6 @@ import shop.mtcoding.project.user.User;
 public class SuggestService {
     @Autowired
     private SuggestRepository suggestRepository;
-
-    @Autowired
-    private ApplyRepository applyRepository;
 
     @Transactional
     public void 제안(SuggestRequest.SuggestSaveDTO suggestSaveDTO) {

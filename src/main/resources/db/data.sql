@@ -2,9 +2,11 @@ insert into user_tb (user_email_id, user_name, user_password, user_pic_url, crea
 insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('cos@nate.com', 'cos', '1234', 'basic.jpg', now(), 1);
 insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('love@nate.com', '러브', '1234', null, now(), 1);
 
-insert into user_tb (comp_email_id, user_name, user_password, comp_intro, comp_pic_url, gubun) values('toss@nate.com','toss', '1234', '세계1위 토스입니다', 'basic.jpg', 2);
-insert into user_tb (comp_email_id, user_name, user_password, comp_intro, comp_pic_url, gubun) values('naver@nate.com', 'naver', '1234', '세계1위 네이버입니다', 'basic.jpg', 2);
-insert into user_tb (comp_email_id, user_name, user_password, comp_intro, comp_pic_url, gubun) values('kakao@nate.com', 'kakao', '1234', '세계1위 카카오입니다', 'basic.jpg', 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_pic_url, comp_history, comp_intro, gubun) values('toss@nate.com','toss', '1234', 'basic.jpg', now(), '금융1위 토스입니다', '2');
+insert into user_tb (comp_email_id, user_name, user_password, comp_pic_url, comp_history, comp_intro, gubun) values('naver@nate.com', 'naver', '1234', 'basic.jpg', now(), '세계1위 네이버입니다', '2');
+insert into user_tb (comp_email_id, user_name, user_password, comp_pic_url, comp_history, comp_intro, gubun) values('kakao@nate.com', 'kakao', '1234', 'basic.jpg', now(), '메신저1위 카카오입니다', '2');
+insert into user_tb (comp_email_id, user_name, user_password, comp_pic_url, comp_history, comp_intro, gubun) values('face@nate.com', 'facebook', '1234', 'basic.jpg', now(), 'sns1위 페이스북입니다', '2');
+insert into user_tb (comp_email_id, user_name, user_password, comp_pic_url, comp_history, comp_intro, gubun) values('get@nate.com', 'getinthere', '1234', 'basic.jpg', now(), 'IT계1위 겟인데어입니다', '2');
 
 -- insert into comp_scrap_tb (created_at) values(now());
 -- insert into comp_scrap_tb (created_at) values(now());

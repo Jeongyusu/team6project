@@ -30,4 +30,5 @@ public class ScrapController {
         scrapService.채용공고스크랩삭제(1, userScrapDeleteDTO);
         return new ApiUtil<String>(true, "스크랩 삭제");
     }
+
 }

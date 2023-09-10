@@ -1,7 +1,5 @@
 package shop.mtcoding.project.suggest;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,22 +40,7 @@ public class SuggestController {
         return "user/user_resume_detail";
     }
 
-    @GetMapping("/openResumeList")
-    public String OpenResumeList(Model model) {
-        List<Resume> resumeList = resumeRepository.findAll();
-        model.addAttribute("resumeList", resumeList);
-
-        return "comp/comp_user_open_resume";
-    }
-    // @GetMapping("/openResumeList")
-    // public @ResponseBody List<Resume> OpenResumeList(Model model) {
-    // List<Resume> resumeList = resumeRepository.findAll();
-    // model.addAttribute("resumeList", resumeList);
-
-    // return resumeList;
-    // }
-
-    @PostMapping("/userSuggest")
+    @PostMapping("/user/suggest")
     public String UserSuggest(SuggestSaveDTO suggestSaveDTO, Model model) {
         suggestService.제안(suggestSaveDTO);
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -68,18 +51,9 @@ public class SuggestController {
 
     @PostMapping("/api/suggest/answer/update")
     public @ResponseBody ApiUtil<String> AnswerSuggest(@RequestBody SuggestRequest.SuggestStateDTO suggestStateDTO, Model model){
-        System.out.println("테스트중" + suggestStateDTO.getSugState());
-        // User sessionUser = (User) session.getAttribute("sessionUser");
-        // User user = userRepository.findById(sessionUser.getId()).get();
-        User user = userRepository.findById(1).get();
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userRepository.findById(sessionUser.getId()).get();
         suggestService.제안응답(suggestStateDTO, user.getId());
-        // if (suggestStateDTO.getSugState().equals("대기중")){
-        //     model.addAttribute("isWaiting", "대기중");
-        // } else if (suggestStateDTO.getSugState().equals("수락")){
-        //     model.addAttribute("isAccepted", "합격");
-        // } else if (suggestStateDTO.getSugState().equals("거절")){
-        //     model.addAttribute("isRejected", "불합격");
-        // }
         return new ApiUtil<String>(true, suggestStateDTO.getSugState());
 
     }

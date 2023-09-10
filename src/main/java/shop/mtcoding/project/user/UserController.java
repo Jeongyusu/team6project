@@ -20,6 +20,7 @@ import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.suggest.SuggestQueryRepository;
+import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
 
 @Controller
 public class UserController {
@@ -105,12 +106,6 @@ public class UserController {
         return Script.href("/comp/myPageForm", "비밀번호 변경완료");
       }
 
-    ///////// 유저 제안 수락
-    @PostMapping("/user/suggest/accept")
-    public @ResponseBody String userSuggestAccept() {
-        return null;
-    }
-
 
     @PostMapping("/user/picUpdate")
     public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO) {
@@ -152,7 +147,7 @@ public class UserController {
 
     @GetMapping("/comp/myPageForm")
     public String compMyPageForm() {
-        return "comp/comp_info";
+        return "comp/comp_info_update";
     }
 
     @PostMapping("/user/login")
@@ -175,10 +170,8 @@ public class UserController {
     public @ResponseBody ApiUtil<String> check(String userEmailId) {
         User user = userRepository.findByUserEmailId(userEmailId);
         if (user != null) {
-            // return new ApiUtil<String>(false, "유저네임을 사용할 수 없습니다.");
             throw new MyApiException("EmailID를 사용할 수 없습니다");
         }
-
         return new ApiUtil<String>(true, "EmailID를 사용할 수 있습니다.");
 
     }
@@ -195,16 +188,6 @@ public class UserController {
         return "redirect:/comp";
     }
 
-    @PostMapping("/compinfo/update")
-    public String compInfoUpdate(UserRequest.CompInfoUpdateDTO compInfoUpdateDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
-        User user = userService.회사정보수정(compInfoUpdateDTO, sessionUser.getId());
-        session.setAttribute("sessionUser", user);
-        return "comp/comp_info";
-    }
-
-
     @GetMapping("/user/info/updateForm")
     public String userInfoUpdateForm(){
         return "user/user_update";
@@ -213,5 +196,19 @@ public class UserController {
     @GetMapping("/user/scrap")
     public String userScrap(){
         return "user/user_scrap";
+    }
+
+    //////// 회사정보 수정페이지
+    @GetMapping("/comp/info/updateForm")
+    public String compInfoUpdateForm() {
+        return "comp/comp_info_update";
+    }
+    /////// 회사정보 수정
+    @PostMapping("/comp/info/update")
+    public String compInfoUpdate(CompInfoUpdateDTO compInfoUpdateDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.회사정보수정(compInfoUpdateDTO, sessionUser.getId());
+        session.setAttribute("sessionUser", user);
+        return "comp/comp_info_update";
     }
 }
