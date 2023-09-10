@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 import shop.mtcoding.project.apply.Apply;
@@ -31,6 +30,8 @@ import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.qualified.QualifiedRepository;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
+import shop.mtcoding.project.scrap.CompScrapResponse.ScrapResumeDTO;
+import shop.mtcoding.project.scrap.ScrapService;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.Skill;
@@ -50,6 +51,9 @@ public class JobOpeningController {
 
     @Autowired
     private SuggestQueryRepository suggestQueryRepository;
+
+    @Autowired
+    private ScrapService scrapService;
 
     @Autowired
     private ApplyRepository applyRepository;
@@ -104,7 +108,6 @@ public class JobOpeningController {
         model.addAttribute("jobOpeningList", jobOpeningList);
         return "/comp/comp_info";
     }
-
 
     @GetMapping("/comp/jobOpening/compResum")
     public String compResumForm(Model model, Integer id) {
@@ -192,7 +195,6 @@ public class JobOpeningController {
             model.addAttribute("isEduHighSchool", true);
         }
         System.out.println("테스트2");
-
 
         return "comp/comp_job_opening_update";
     }
@@ -284,6 +286,11 @@ public class JobOpeningController {
         int totalSuggest = jobOpeningInfo2.size();
         model.addAttribute("totalSuggest", totalSuggest);
         model.addAttribute("jobOpeningInfo2", jobOpeningInfo2);
+
+        List<ScrapResumeDTO> scrapResumeDTOList = scrapService.이력서스크랩조회(sessionUser.getId());
+        Integer scrapResumeSum = scrapResumeDTOList.size();
+        model.addAttribute("scrapResumeDTOList", scrapResumeDTOList);
+        model.addAttribute("scrapResumeSum", scrapResumeSum);
 
         return "comp/comp_info";
     }

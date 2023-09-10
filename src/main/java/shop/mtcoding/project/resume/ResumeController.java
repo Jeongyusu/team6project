@@ -27,6 +27,8 @@ import shop.mtcoding.project.jobopening.JobOpeningRepository;
 import shop.mtcoding.project.resume.ResumeRequest.CompUserOpenResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
+import shop.mtcoding.project.scrap.ScrapService;
+import shop.mtcoding.project.scrap.UserScrapResponse.ScrapJobOpeningDTO;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
@@ -79,6 +81,9 @@ public class ResumeController {
 
     @Autowired
     private WishPositionRepository wishPositionRepository;
+
+    @Autowired
+    private ScrapService scrapService;
 
     @Autowired
     private HttpSession session;
@@ -197,6 +202,11 @@ public class ResumeController {
         int totalResume = resumeList2.size();
         model.addAttribute("totalResume", totalResume);
         model.addAttribute("resumeList", resumeList2);
+
+        List<ScrapJobOpeningDTO> scrapJobOpeningDTOList = scrapService.채용공고스크랩조회(sessionUser.getId());
+        Integer scrapJobOpeningSum = scrapJobOpeningDTOList.size();
+        model.addAttribute("scrapJobOpeningDTOList", scrapJobOpeningDTOList);
+        model.addAttribute("scrapJobOpeningSum", scrapJobOpeningSum);
         return "user/user_mypage";
 
     }
