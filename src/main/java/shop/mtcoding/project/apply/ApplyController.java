@@ -125,5 +125,24 @@ public class ApplyController {
         return "user/user_resume_management";
     }
 
+    // @GetMapping("/comp/applyAndSuggest")
+    // public String compApplyAndSuggest(Model model) {
+    //     // User sessionUser = (User) session.getAttribute("sessionUser");
+    //     // User user = userRepository.findById(sessionUser.getId()).get();
+    //     User user = userRepository.findById(4).get();
+
+    //     List<Resume> resumeList = resumeRepository.findByUserIdofJobOpeningList(user.getId());
+    //     model.addAttribute("resumeList", resumeList);
+    //     int totalResume = resumeList.size();
+    //     List<Apply> applyList = applyRepository.findByUserId(user.getId());
+    //     int totalApply = applyList.size();
+    //     List<Suggest> suggestList = suggestRepository.findBySuggestUserId(user.getId());
+    //     model.addAttribute("suggestList", suggestList);
+    //     model.addAttribute("totalApply", totalApply);
+    //     model.addAttribute("applyList", applyList);
+    //     model.addAttribute("totalResume", totalResume);
+    //     return "comp/comp_info";
+    // }
+
 
 }

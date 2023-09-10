@@ -25,6 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.qualified.Qualified;
+import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.scrap.UserScrap;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.task.Task;
@@ -68,6 +69,9 @@ public class JobOpening {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Resume resume;
+
     @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY)
     private List<UserScrap> userScrapList = new ArrayList<>();
 
@@ -85,7 +89,9 @@ public class JobOpening {
 
     @Builder
     public JobOpening(Integer id, String title, String process, String career, String careerYear, String edu,
-            String compAddress, LocalDate deadLine, Timestamp createdAt, User user) {
+            String compAddress, LocalDate deadLine, Timestamp createdAt, User user, Resume resume,
+            List<UserScrap> userScrapList, List<RequiredSkill> requiredSkillList,
+            List<RequiredPosition> requiredPositionList, List<Task> taskList, List<Qualified> qualifiedList) {
         this.id = id;
         this.title = title;
         this.process = process;
@@ -96,6 +102,14 @@ public class JobOpening {
         this.deadLine = deadLine;
         this.createdAt = createdAt;
         this.user = user;
+        this.resume = resume;
+        this.userScrapList = userScrapList;
+        this.requiredSkillList = requiredSkillList;
+        this.requiredPositionList = requiredPositionList;
+        this.taskList = taskList;
+        this.qualifiedList = qualifiedList;
     }
+
+    
 
 }

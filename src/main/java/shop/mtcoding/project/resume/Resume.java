@@ -22,6 +22,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.user.User;
@@ -78,10 +79,13 @@ public class Resume {
     private User user;
 
     @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
-    List<HasSkill> hasSkillList = new ArrayList<>();
+    private List<JobOpening> jobOpeningList = new ArrayList<>();
 
     @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
-    List<WishPosition> wishPositionList = new ArrayList<>();
+    private List<HasSkill> hasSkillList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+    private List<WishPosition> wishPositionList = new ArrayList<>();
 
     @Builder
     public Resume(Integer id, String userName, String userEmailId, String title, LocalDate birth, String tel,
