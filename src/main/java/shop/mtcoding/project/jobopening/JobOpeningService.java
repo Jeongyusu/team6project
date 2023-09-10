@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project._core.util.Split;
 import shop.mtcoding.project.jobopening.JobOpeningRequest.JobOpeningUpdateDTO;
 import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 import shop.mtcoding.project.position.Position;
@@ -165,6 +166,7 @@ public class JobOpeningService {
                         .build();
                 requiredPositionRepository.save(requiredPosition);
             }
+            // 내가 선택한 체크박스 포지션 수정
 
             List<String> skillList = jobOpeningUpdateDTO.getSkillList();
             for (String skillName : skillList) {
@@ -174,8 +176,8 @@ public class JobOpeningService {
                         .skill(skill)
                         .build();
                 requiredSkillRepository.save(requiredSkill);
-
             }
+            // 내가 선택한 체크박스 스킬 수정
 
             qualifiedRepository.deleteByJobOpeningId(id);
             List<String> qualList = jobOpeningUpdateDTO.getQualList();
@@ -187,6 +189,7 @@ public class JobOpeningService {
                         .build();
                 qualifiedRepository.save(requiredQualified);
             }
+            // 자격요건 수정
 
             taskRepository.deleteByJobOpeningId(id);
             List<String> taskList = jobOpeningUpdateDTO.getTaskList();
@@ -198,6 +201,7 @@ public class JobOpeningService {
                         .build();
                 taskRepository.save(requiredTask);
             }
+            // 주요 업무 수정
 
         } else {
             throw new MyException(id + "를 찾을 수 없습니다");
@@ -224,40 +228,39 @@ public class JobOpeningService {
         }
     }
 
-    // public List<JobOpeningMainDTO> 메인화면() {
-    // List<JobOpening> jobOpeningList =
-    // jobOpeningRepository.mfindByAllJoinJobOpeningAndUser();
+    public List<JobOpeningMainDTO> 메인화면() {
+        List<JobOpening> jobOpeningList = jobOpeningRepository.mfindByAllJoinJobOpeningAndUser();
 
-    // // jobOpening을 담기 위한 List
-    // List<JobOpeningMainDTO> jobOpeningMainDTOList = new ArrayList<>();
-    // for (JobOpening jobOpening : jobOpeningList) {
+        // jobOpening을 담기 위한 List
+        List<JobOpeningMainDTO> jobOpeningMainDTOList = new ArrayList<>();
+        for (JobOpening jobOpening : jobOpeningList) {
 
-    // // skillName을 담기 위한 List
-    // List<String> skillName = new ArrayList<>();
-    // for (RequiredSkill requiredSkill : jobOpening.getRequiredSkillList()) {
-    // String skill = requiredSkill.getSkill().getSkill();
-    // skillName.add(skill);
-    // }
+            // skillName을 담기 위한 List
+            List<String> skillName = new ArrayList<>();
+            for (RequiredSkill requiredSkill : jobOpening.getRequiredSkillList()) {
+                String skill = requiredSkill.getSkill().getSkill();
+                skillName.add(skill);
+            }
 
-    // // 이중 for문을 방지하기 위해, 배열을 하나의 문자열로 만들기
-    // String skillListString = String.join(" · ", skillName);
+            // 이중 for문을 방지하기 위해, 배열을 하나의 문자열로 만들기
+            String skillListString = String.join(" · ", skillName);
 
-    // // 주소 포맷
-    // String Address = jobOpening.getCompAddress();
-    // String compAddressFormat = Split.AddressSplit(Address);
+            // 주소 포맷
+            String Address = jobOpening.getCompAddress();
+            String compAddressFormat = Split.AddressSplit(Address);
 
-    // JobOpeningMainDTO jobOpeningMainDTO = JobOpeningMainDTO.builder()
-    // .jobOpeningId(jobOpening.getId())
-    // .title(jobOpening.getTitle())
-    // .compName(jobOpening.getUser().getUserName())
-    // .compAddress(compAddressFormat)
-    // .career(jobOpening.getCareer())
-    // .careerYear(jobOpening.getCareerYear())
-    // .skill(skillListString)
-    // .build();
-    // jobOpeningMainDTOList.add(jobOpeningMainDTO);
-    // }
-    // return jobOpeningMainDTOList;
-    // }
+            JobOpeningMainDTO jobOpeningMainDTO = JobOpeningMainDTO.builder()
+                    .jobOpeningId(jobOpening.getId())
+                    .title(jobOpening.getTitle())
+                    .compName(jobOpening.getUser().getUserName())
+                    .compAddress(compAddressFormat)
+                    .career(jobOpening.getCareer())
+                    .careerYear(jobOpening.getCareerYear())
+                    .skill(skillListString)
+                    .build();
+            jobOpeningMainDTOList.add(jobOpeningMainDTO);
+        }
+        return jobOpeningMainDTOList;
+    }
 
 }

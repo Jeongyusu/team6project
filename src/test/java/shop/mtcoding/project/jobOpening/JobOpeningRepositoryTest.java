@@ -2,7 +2,6 @@ package shop.mtcoding.project.jobOpening;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +9,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.jobopening.JobOpeningRepository;
-import shop.mtcoding.project.position.RequiredPositionRepository;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.resume.ResumeRequest.CompUserOpenResumeDTO;
-import shop.mtcoding.project.skill.HasSkill;
-import shop.mtcoding.project.skill.HasSkillRepository;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
-import shop.mtcoding.project.skill.Skill;
 
 @DataJpaTest
 public class JobOpeningRepositoryTest {
@@ -48,12 +43,6 @@ public class JobOpeningRepositoryTest {
 
         List<CompUserOpenResumeDTO> compUserOpenResumeDTOList = new ArrayList<>();
         for (Resume resume : resumeList) {
-            // List<String> skills = new ArrayList<>();s
-            // for (HasSkill skill : resume.getHasSkillList()) {
-            // String skillName = skill.getSkill().getSkill();
-            // skills.add(skillName);
-            // }
-            // String skillFormat = String.join(" · ", skills);
 
             CompUserOpenResumeDTO compUserOpenResumeDTO = CompUserOpenResumeDTO.builder()
                     .resumeId(resume.getId())
@@ -64,15 +53,12 @@ public class JobOpeningRepositoryTest {
                     .careerYear(resume.getCareerYear())
                     .title(resume.getTitle())
                     .openCheck(resume.getOpenCheck())
-                    // .userSkillList(skillFormat)
                     .build();
 
             compUserOpenResumeDTOList.add(compUserOpenResumeDTO);
         }
 
-        System.out.println("테스트 : " + compUserOpenResumeDTOList.size());
         for (CompUserOpenResumeDTO compUserOpenResumeDTO : compUserOpenResumeDTOList) {
-            System.out.println("테스트 : " + compUserOpenResumeDTO.getTitle());
         }
     }
 }

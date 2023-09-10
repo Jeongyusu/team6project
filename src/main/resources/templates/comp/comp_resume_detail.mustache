@@ -124,7 +124,72 @@
                   });
                       // 스크랩 버튼
                 </script>
-                <button type="submit" class="btn_fill">제안하기</button>
+                <button type="button" class="btn_fill" data-bs-toggle="modal" data-bs-target="#myModal">제안하기</button>
+                
+                <!-- The Modal -->
+                <!-- The Modal -->
+                <div class="modal " id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="sug_close_button">
+                                <button type="button" data-bs-dismiss="modal">
+                                    <img src="/image/close.png" alt="close_png">
+                                </button>
+                            </div>
+                            <div class="apply_user_all">
+                                <div class="modal_list">연락정보</div>
+                                <div class="apply_user_information">
+                                    <div class="user_information_email">
+                                        <p>이메일</p>
+                                        <p>email@nate.com</p>
+                                    </div>
+                                    <div class="user_information_phone">
+                                        <p>연락처</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="apply_resume_all">
+                                <div class="apply_resume_list">
+                                    <div class="modal_list">채용 공고</div>
+                                    <div class="apply_sum">
+                                        <span>공고 총</span>
+                                        <span>개</span>
+                                    </div>
+                                </div>
+                                <form action="/user/apply" method="post">
+                                    <input type="hidden" name="selectJobOpeningId"
+                                        value="">
+                                    <ul>
+                                        <li class="apply_resume">
+                                            <div class="resume_check_button">
+                                                <input type="radio" name="selectResumeId" value="">
+                                            </div>
+                                            <div class="about_resume">
+                                                <p class="resume_name">네이버</p>
+                                                <p class="resume_created_at">
+                                                    <span>채용 공고
+                                                        <span>2023-0909 등록</span>
+                                                    </span>
+                                                    <span>
+                                                        <a href="/comp/jobOpening/{id}/updateForm"><img src="/image/write.png"
+                                                                alt="write_png"></a>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <button type="submit" class="resume_sug_button" data-bs-toggle="modal"
+                                        data-bs-target="#myModal">
+                                        제안하기
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
               </div>
             </div>
           </div>
