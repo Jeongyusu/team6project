@@ -93,13 +93,13 @@
       }
 
 
-// async function deleteReply(id){
-//         let response = await fetch(`/api/reply/${id}/delete`, {
-//             method: "delete"
+// async function deleteResume2(id){
+//         let response = await fetch(`/api/resume/${id}/delete`, {
+//             method: "POST"
 //         });
 //         let responseBody = await response.json();
 //         if(responseBody.success){
-//             location.reload();
+//           $(`#resume-${id}`).remove();
 //         }else{
 //             alert(responseBody.data);
 //         }

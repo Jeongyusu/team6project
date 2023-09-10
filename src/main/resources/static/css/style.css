@@ -1358,7 +1358,10 @@ footer li:last-child {
   position: relative;
   top: -15px;
 }
-
+.parent_btn{
+  display: flex;
+  flex-wrap: wrap;
+}
 .parent_btn>div {
   width: 20%;
   display: flex;

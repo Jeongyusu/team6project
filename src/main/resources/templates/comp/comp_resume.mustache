@@ -64,7 +64,7 @@
                       <form>
                         <button
                           type="button"
-                          class="btn"
+                          class="btn_fill"
                           onclick="deleteJob('{{ id }}')"
                         >
                           공고 삭제
@@ -92,19 +92,19 @@
 <!-- 메인 -->
 <script>
 
-function deleteResume(id) {
-    $.ajax({
-      url: `/api/comp/jobOpening/${id}/delete`,
-      method: "POST",
-      success: (response) => {
-        console.log(response);
-        if (response.success === true) {
-          $(`#jobOpening-${id}`).remove();
-        }
-      },
-    });
+// function deleteResume2(id) {
+//     $.ajax({
+//       url: `/api/comp/jobOpening/${id}/delete`,
+//       method: "POST",
+//       success: (response) => {
+//         console.log(response);
+//         if (response.success === true) {
+//           $(`#jobOpening-${id}`).remove();
+//         }
+//       },
+//     });
 
-  }
+//   }
 
   async function deleteJob(id){
        let response = await fetch(`/api/comp/jobOpening/${id}/delete`,{
