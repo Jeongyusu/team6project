@@ -92,7 +92,7 @@ public class ResumeController {
         return "user/user_resume_write";
     }
 
-    @GetMapping("/user/{id}/resume/detail")
+    @GetMapping("/comp/{id}/resume/detail")
     public String userOpenResumeDetail(@PathVariable Integer id, Model model) {
         Resume resume = resumeRepository.findById(id).get();
         model.addAttribute("resume", resume);

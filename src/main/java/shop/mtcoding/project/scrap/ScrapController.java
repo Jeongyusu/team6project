@@ -30,4 +30,20 @@ public class ScrapController {
         scrapService.채용공고스크랩삭제(1, userScrapDeleteDTO);
         return new ApiUtil<String>(true, "스크랩 삭제");
     }
+
+    // comp_이력서 스크랩
+    @PostMapping("/api/comp/resume/scrap/save")
+    public @ResponseBody ApiUtil<String> compResumeSaveScrap(
+            @RequestBody CompScrapRequest.CompScrapDTO compScrapDTO) {
+        scrapService.이력서스크랩(1, compScrapDTO);
+        return new ApiUtil<String>(true, "스크랩 성공");
+    }
+
+    // comp_이력서 스크랩 삭제
+    @DeleteMapping("/api/comp/resume/scrap/delete")
+    public @ResponseBody ApiUtil<String> compResumeDeleteScrap(
+            @RequestBody CompScrapRequest.CompScrapDeleteDTO compScrapDeleteDTO) {
+        scrapService.이력서스크랩삭제(1, compScrapDeleteDTO);
+        return new ApiUtil<String>(true, "스크랩 삭제");
+    }
 }
