@@ -62,16 +62,24 @@
               <tbody>
                 <tr class="td_border">
                   <td>{{id}}</td>
-                  <td>{{jobOpening.user.userName}}</td>
+                  <td>{{resume.user.userName}}</td>
                   <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
-                  <td>{{resume.title}}</td>
                   <td>백엔드</td>
                   <td>
+                    <input type="hidden" id="resumeId" value="{{resume.id}}">
                     <input type="hidden" id="applyState" value="{{applyState}}">
+                    <input type="hidden" id="jobOpeningId" value="{{jobOpening.id}}">
                     <input type="hidden" id="applyId" value="{{id}}">
-                    <ul id="applyStateUl-{{id}}">
+                    <ul id = "applyStateUl-{{id}}">
                       <li>{{applyState}}</li>
                     </ul>
+                  </td>
+                  <td>
+                    <select class="select" id="apply-{{id}}" onchange="checkedValue('{{id}}')">
+                      <option value="대기중">답변하기</option>
+                      <option value="합격" >합격</option>
+                      <option value="불합격">불합격</option>
+                    </select>
                   </td>
                 </tr>
               </tbody>
@@ -80,14 +88,14 @@
             <div>
               <div class="resume_btn">
                 <div class="resume_count">제안
-                  <span class="common_num">{{totalResume}}</span>
+                  <span class="common_num">{{totalSuggest}}</span>
                 </div>
               </div>
               <table class="table">
                 <thead>
                   <tr class="table-info">
                     <th class="td_width80">NUM</th>
-                    <th class="td_width80">회사명</th>
+                    <th class="td_width80">이력서</th>
                     <th class="td_width180">공고명</th>
                     <th class="td_width120">포지션</th>
                     <th class="td_width120">상태</th>
@@ -98,24 +106,14 @@
                 <tbody>
                   <tr class="td_border">
                     <td>{{id}}</td>
-                    <td>{{resume.user.userName}}</td>
+                    <td>{{jobOpening.user.userName}}</td>
                     <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
+                    <td>{{resume.title}}</td>
                     <td>백엔드</td>
                     <td>
-                      <input type="hidden" id="resumeId" value="{{resume.id}}">
-                      <input type="hidden" id="sugState" value="{{sugState}}">
-                      <input type="hidden" id="jobOpeningId" value="{{jobOpening.id}}">
-                      <input type="hidden" id="suggestId" value="{{id}}">
-                      <ul id = "sugStateUl-{{id}}">
+                      <ul>
                         <li>{{sugState}}</li>
                       </ul>
-                    </td>
-                    <td>
-                      <select class="select" id="state-{{id}}" onchange="checkedValue('{{id}}')">
-                        <option value="대기중">답변하기</option>
-                        <option value="수락" >수락</option>
-                        <option value="거절">거절</option>
-                      </select>
                     </td>
                   </tr>
                 </tbody>
@@ -130,19 +128,6 @@
 </main>
 <!-- 메인 -->
 <script>
-// let suggestId = document.querySelector(`#suggest-${id}`).value;
-// console.log("서제스트" + suggestId)
-// let applyId = document.querySelectorAll("#applyId").value;
-// sugStateInitData(suggestId);
-// applyStateInitData(applyId);
-
-// var ulItems = document.querySelectorAll("#suggestList ul li");
-// ulItems.forEach(function(item) {
-//   sugStateInitData();
-// });
-
-
-
 
   function changeUserPic(e1) {
     let f = e1.srcElement.files[0];
@@ -159,58 +144,23 @@
     reader.readAsDataURL(f); // 파일 읽기 onload()
   }
 
-  function sugStateInitData(id) {
-  let initSugState = document.querySelector("#sugState").value;
-  if(initSugState === '대기중'){
-    $(`#sugStateUl-${id}`).html('');
-    $(`#sugStateUl-${id}`).html("<li class='wait_btn'>대기중</li>");
-
-  } else if(initSugState =='수락'){ 
-    $(`#sugStateUl-${id}`).html('');
-    $(`#sugStateUl-${id}`).html("<li class='accept_btn'>수락</li>");
-
-  } else if(initsugState =='거절') {
-    $(`#sugStateUl-${id}`).html('');
-    $(`#sugStateUl-${id}`).html("<li class='refuse_btn'>거절</li>");
-
-  }
-}
-
-function applyStateInitData(id) {
-  let initApplyState = document.querySelector("#applyState").value;
-  if(initApplyState === '대기중'){
-    $(`#applyStateUl-${id}`).html('');
-    $(`#applyStateUl-${id}`).html("<li class='wait_btn'>대기중</li>");
-
-  } else if(initApplyState =='합격'){ 
-    $(`#applyStateUl-${id}`).html('');
-    $(`#applyStateUl-${id}`).html("<li class='accept_btn'>합격</li>");
-
-  } else if(initApplyState =='불합격') {
-    $(`#applyStateUl-${id}`).html('');
-    $(`#applyStateUl-${id}`).html("<li class='refuse_btn'>불합격</li>");
-
-  }
-}
-
-
 async function checkedValue(id) {
-  let sugState = document.querySelector(`#state-${id}`).value;
+  let applyState = document.querySelector(`#apply-${id}`).value;
   let resumeId = document.querySelector(`#resumeId`).value;
   let jobOpeningId = document.querySelector(`#jobOpeningId`).value;
   
-  console.log("테스트중 : 통과" + sugState);
+  console.log("테스트중 : 통과" + applyState);
   let data = {
-    sugState: sugState,
+    applyState: applyState,
     resumeId: resumeId,
     jobOpeningId: jobOpeningId
   };
 
-  console.log("테스트중1 : 통과" + sugState);
+  console.log("테스트중1 : 통과" + applyState);
   console.log("테스트중1 : 통과" + resumeId);
 
   try {
-    let response = await fetch('/api/suggest/answer', {
+    let response = await fetch('/api/apply/answer/update', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -227,14 +177,14 @@ async function checkedValue(id) {
       console.log("안녕" + responseBody.data);
 
     if(responseBody.data === '대기중'){
-      $(`#sugStateUl-${id}`).html('');
-      $(`#sugStateUl-${id}`).html("<li class='wait_btn'>대기중</li>");
-       } else if (responseBody.data === '수락') {
-      $(`#sugStateUl-${id}`).html('');
-      $(`#sugStateUl-${id}`).html("<li class='accept_btn'>수락</li>");
-       } else if (responseBody.data === '거절') {
-      $(`#sugStateUl-${id}`).html('');
-      $(`#sugStateUl-${id}`).html("<li class='refuse_btn'>거절</li>");
+      $(`#applyStateUl-${id}`).html('');
+      $(`#applyStateUl-${id}`).html("<li class='wait_btn'>대기중</li>");
+       } else if (responseBody.data === '합격') {
+      $(`#applyStateUl-${id}`).html('');
+      $(`#applyStateUl-${id}`).html("<li class='accept_btn'>합격</li>");
+       } else if (responseBody.data === '불합격') {
+      $(`#applyStateUl-${id}`).html('');
+      $(`#applyStateUl-${id}`).html("<li class='refuse_btn'>불합격</li>");
       }
       
     } else {

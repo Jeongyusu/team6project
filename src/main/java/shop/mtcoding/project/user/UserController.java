@@ -90,14 +90,20 @@ public class UserController {
         return Script.href("/user/myPageForm", "비밀번호 변경완료");
     }
 
-    ///////// 회사 비번 변경하기 완료
-    @PostMapping("/com/password/update")
-    public @ResponseBody String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
+    ///////// 회사 비번 변경페이지
+    @GetMapping("/comp/password/updateForm")
+    public String compPWUpdateForm() {
+        return "comp/comp_password_update";
+    }
+
+      ///////// 회사 비번 변경
+    @PostMapping("/comp/password/update")
+     public @ResponseBody String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
-        return Script.href("/user/myPageForm", "비밀번호 변경완료");
-    }
+        return Script.href("/comp/myPageForm", "비밀번호 변경완료");
+      }
 
     ///////// 유저 제안 수락
     @PostMapping("/user/suggest/accept")
@@ -157,10 +163,6 @@ public class UserController {
         return Script.href("/user", "로그인 완료");
     }
 
-    // @GetMapping("/compMyPageForm")
-    // public String compMyPage() {
-    // return "comp/comp_info";
-    // }
 
     @PostMapping("/comp/login")
     public @ResponseBody String compLogin(UserRequest.UserLoginDTO userLoginDTO) {

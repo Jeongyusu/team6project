@@ -1,5 +1,4 @@
 {{>layout/compheader}}
-
   <!-- 메인 -->
   <!-- 각자 페이지 main 클래스에 name 작성-->
   <!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
@@ -12,7 +11,7 @@
           <h2>공고 수정</h2>
         </div>
         <form action="/comp/jobOpening/{{jobOpening.id}}/update" method="post">
-          <input type="hidden" id="jobId" name="id" value="{{jobOpening.id}}">
+          <input type="hidden" id="jobOpeningId" name="id" value="{{jobOpening.id}}">
           <div class="save_title mb-5">
             <input type="text" placeholder="제목을 입력해주세요" name="title" value="{{jobOpening.title}}">
           </div>
@@ -43,24 +42,12 @@
                 {{/skillList}}
               </div>
             </div>
-<<<<<<< HEAD
             <div class="resume_margin">
-              <!-- 자격요건 for 문-->
               <div class="plus_info">
                 <label class="job_list mb-2" for="require">주요 업무</label>
                 <button type="button" class="plus_button" onclick="addInput01()">
                   <img src="https://img.icons8.com/android/24/plus.png" alt="plus" />
                 </button>
-=======
-            <div>
-              <div class="develop_job">
-                {{#positionList}}
-                <div>
-                  <input type="checkbox" id="{{position}}" name="positionList" value="{{position}}">
-                  <label class="skill_btns1" for="{{position}}">{{position}}</label>
-                </div>
-                {{/positionList}}
->>>>>>> dev
               </div>
               {{#taskList}}
               <input type="text" class="form-control main_job_list"  placeholder="주요 업무를 최대 3개까지 작성해주세요" name="taskList" value="{{taskContent}}">
@@ -80,12 +67,11 @@
                 <div class="plus_Input2">
                 </div>
               {{/qualList}}
-            </div> 
+            </div>
             <div class="mb-4">
               <label class="job_list mb-2" for="recruitOrder">채용 절차</label>
               <textarea name="process" class="form-control" placeholder="채용절차를 간단히 작성해주세요" id="recruitOrder" cols="30" rows="2">{{jobOpening.process}}</textarea>
             </div>
-
             <div class="mb-4">
               <label class="job_list" for="recruitOrder">경력</label>
               <br>
@@ -101,7 +87,6 @@
                 <option value="5년차 이상" {{#5years}}selected{{/5years}}>5년차 이상</option>
               </select>
             </div>
-
             <div class="mb-4">
               <label class="job_list" for="recruitOrder" id="">학력</label>
               <br>
@@ -132,7 +117,6 @@
   </main>
   <!-- 메인 -->
 <script>
-  
   let clickCount1 = 0;
   let clickCount2 = 0;
   function addInput01() {
@@ -153,7 +137,6 @@
     el.appendChild(newEl);
     clickCount1++;
   }
-
   function addInput02() {
     let maxInputCount = 2;
     if (clickCount2 >= maxInputCount) {
@@ -172,33 +155,17 @@
     el.appendChild(newEl);
     clickCount2++;
   }
-
-    let jobId = document.querySelector("#jobId").value;
-        let data = {
-          jobId : jobId
-        };
-
-        let requestOptions = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        };
-
+      let jobOpeningId = document.querySelector("#jobOpeningId").value;
       async function fetchSelectSkill() {
-        
           try {
-            let response = await fetch("/api/getCheckBoxSkill", requestOptions)
+            let response = await fetch(`/api/jobOpening/${jobOpeningId}/skillList`)
             if(response.ok) {
               let responseBody = await response.json();
               console.log(responseBody);
-              
               let checkboxes = document.querySelectorAll('input[type="checkbox"][name="skillList"]');
               checkboxes.forEach((checkbox)=>{
                 let skillValue = checkbox.value;
                 console.log(skillValue);
-
                 responseBody.forEach((skillObject)=>{
                   if(skillObject.skill.includes(skillValue)) {
                     checkbox.checked = true;
@@ -214,25 +181,18 @@
           }
       }
       fetchSelectSkill();
-
       // CheckBoxSkill
-
-      
       async function fetchSelectedPosition() {
-
         try {
-          let response = await fetch('/api/getCheckBoxPosition', requestOptions);
-          console.log("테스트" + JSON.stringify(data));
+          let response = await fetch(`/api/jobOpening/${jobOpeningId}/positionList`);
           if (response.ok) {
             let responseBody = await response.json();
             console.log("테스트1" + responseBody);
-
             var checkboxes = document.querySelectorAll('input[type="checkbox"][name="positionList"]');
             console.log(checkboxes);
             checkboxes.forEach(function (checkbox) {
               var positionValue = checkbox.value;
               console.log(positionValue);
-
               responseBody.forEach(function(positionObject){
                 if(positionObject.position.includes(positionValue)){
                   checkbox.checked = true;
@@ -246,6 +206,6 @@
           console.error('오류 발생: ' + error);
         }
         }
-        fetchSelectedPosition();   
+        fetchSelectedPosition();
 </script>
   {{>layout/footer}}

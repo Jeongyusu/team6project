@@ -66,8 +66,8 @@ public class SuggestController {
         return "redirect:/user/" + id + "/resume/detail";
     }
 
-    @PostMapping("/api/suggest/answer")
-    public @ResponseBody ApiUtil<String> selectedValue(@RequestBody SuggestRequest.SuggestStateDTO suggestStateDTO, Model model){
+    @PostMapping("/api/suggest/answer/update")
+    public @ResponseBody ApiUtil<String> AnswerSuggest(@RequestBody SuggestRequest.SuggestStateDTO suggestStateDTO, Model model){
         System.out.println("테스트중" + suggestStateDTO.getSugState());
         // User sessionUser = (User) session.getAttribute("sessionUser");
         // User user = userRepository.findById(sessionUser.getId()).get();
@@ -83,5 +83,8 @@ public class SuggestController {
         return new ApiUtil<String>(true, suggestStateDTO.getSugState());
 
     }
+
+
+    
 
 }

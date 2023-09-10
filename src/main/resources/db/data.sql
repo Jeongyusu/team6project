@@ -14,10 +14,10 @@ insert into job_opening_tb (user_id, title, process, career, career_year, edu, c
 insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '토스 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력자 모집', '2년차 이상', '4년제 이상', '부산 서면', now(), now());
 insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('5', '카카오 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력자 모집', '5년차 이상', '고등학교 졸업 이상', '부산 장산', now(), now());
 
--- insert into user_scrap_tb (created_at, user_id, job_opening_id) values(now(), '1', '1');
--- insert into user_scrap_tb (created_at, user_id, job_opening_id) values(now(), '2', '1');
--- insert into user_scrap_tb (created_at, user_id, job_opening_id) values(now(), '2', '2');
--- insert into user_scrap_tb (created_at, user_id, job_opening_id) values(now(), '2', '3');
+insert into user_scrap_tb (user_id, job_opening_id) values('1', '1');
+insert into user_scrap_tb (user_id, job_opening_id) values('1', '2');
+insert into user_scrap_tb (user_id, job_opening_id) values('1', '3');
+insert into user_scrap_tb (user_id, job_opening_id) values('2', '3');
 
 insert into skill_tb (skill) values('Java');
 insert into skill_tb (skill) values('JavaScript');
@@ -83,5 +83,6 @@ insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('
 
 insert into suggest_tb (sug_state, job_opening_id, resume_id, user_id) values ('수락', 1, 1, 1);
 insert into suggest_tb (sug_state, job_opening_id, resume_id, user_id) values ('거절', 1, 3, 1);
+
 
 

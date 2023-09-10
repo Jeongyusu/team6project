@@ -14,4 +14,13 @@ public class ApplyRequest {
         private Integer selectedResumeId;
         private Integer selectedjobOpeningId;
     }
+
+    @Getter
+    @Setter
+    public static class ApplyStateDTO {
+        private String applyState;
+        private Integer resumeId;
+        private Integer JobOpeningId;
+    }
+
 }

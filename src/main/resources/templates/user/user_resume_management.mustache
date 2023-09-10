@@ -78,7 +78,7 @@
             <div>
               <div class="resume_btn">
                 <div class="resume_count">제안
-                  <span class="common_num">{{totalResume}}</span>
+                  <span class="common_num">{{totalSuggest}}</span>
                 </div>
               </div>
               <table class="table">
@@ -128,19 +128,6 @@
 </main>
 <!-- 메인 -->
 <script>
-// let suggestId = document.querySelector(`#suggest-${id}`).value;
-// console.log("서제스트" + suggestId)
-// let applyId = document.querySelectorAll("#applyId").value;
-// sugStateInitData(suggestId);
-// applyStateInitData(applyId);
-
-// var ulItems = document.querySelectorAll("#suggestList ul li");
-// ulItems.forEach(function(item) {
-//   sugStateInitData();
-// });
-
-
-
 
   function changeUserPic(e1) {
     let f = e1.srcElement.files[0];
@@ -156,41 +143,6 @@
     }
     reader.readAsDataURL(f); // 파일 읽기 onload()
   }
-
-  function sugStateInitData(id) {
-  let initSugState = document.querySelector("#sugState").value;
-  if(initSugState === '대기중'){
-    $(`#sugStateUl-${id}`).html('');
-    $(`#sugStateUl-${id}`).html("<li class='wait_btn'>대기중</li>");
-
-  } else if(initSugState =='수락'){ 
-    $(`#sugStateUl-${id}`).html('');
-    $(`#sugStateUl-${id}`).html("<li class='accept_btn'>수락</li>");
-
-  } else if(initsugState =='거절') {
-    $(`#sugStateUl-${id}`).html('');
-    $(`#sugStateUl-${id}`).html("<li class='refuse_btn'>거절</li>");
-
-  }
-}
-
-function applyStateInitData(id) {
-  let initApplyState = document.querySelector("#applyState").value;
-  if(initApplyState === '대기중'){
-    $(`#applyStateUl-${id}`).html('');
-    $(`#applyStateUl-${id}`).html("<li class='wait_btn'>대기중</li>");
-
-  } else if(initApplyState =='합격'){ 
-    $(`#applyStateUl-${id}`).html('');
-    $(`#applyStateUl-${id}`).html("<li class='accept_btn'>합격</li>");
-
-  } else if(initApplyState =='불합격') {
-    $(`#applyStateUl-${id}`).html('');
-    $(`#applyStateUl-${id}`).html("<li class='refuse_btn'>불합격</li>");
-
-  }
-}
-
 
 async function checkedValue(id) {
   let sugState = document.querySelector(`#state-${id}`).value;
@@ -208,7 +160,7 @@ async function checkedValue(id) {
   console.log("테스트중1 : 통과" + resumeId);
 
   try {
-    let response = await fetch('/api/suggest/answer', {
+    let response = await fetch('/api/suggest/answer/update', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

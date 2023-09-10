@@ -167,6 +167,8 @@ public class ResumeController {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Resume> resumeList = resumeRepository.findByUserId(sessionUser.getId());
+        Integer totalResume = resumeList.size();
+        model.addAttribute("totalResume", totalResume);
         model.addAttribute("resumeList", resumeList);
         return "user/user_resume";
     }

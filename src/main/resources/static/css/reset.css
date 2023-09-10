@@ -113,6 +113,7 @@ body {
 ol,
 ul {
   list-style: none;
+  list-style-type: none;
 }
 a:hover {
   --bs-link-color-rgb: var(--font_01);
