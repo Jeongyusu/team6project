@@ -8,8 +8,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.DefaultMessageCodesResolver.Format;
 
 import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project._core.util.FormatDate;
 import shop.mtcoding.project._core.util.Split;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.resume.Resume;
@@ -133,12 +135,17 @@ public class ScrapService {
             // 이중 for문을 방지하기 위해, 배열을 하나의 문자열로 만들기
             String skillListString = String.join(" · ", skillList);
 
+            // D-day 마감일 만들기
+            String DdayDeadLine = FormatDate.DdayFormatDate(userScrap.getJobOpening().getDeadLine());
+
             ScrapJobOpeningDTO scrapJobOpeningDTO = ScrapJobOpeningDTO.builder()
                     .jobOpeningId(userScrap.getJobOpening().getId())
                     .title(userScrap.getJobOpening().getTitle())
                     .compName(userScrap.getUser().getUserName())
                     .edu(userScrap.getJobOpening().getEdu())
                     .skillName(skillListString)
+                    .compPicUrl(userScrap.getJobOpening().getUser().getCompPicUrl())
+                    .dDayDeadLine(DdayDeadLine)
                     .build();
 
             scrapJobOpeningDTOList.add(scrapJobOpeningDTO);
