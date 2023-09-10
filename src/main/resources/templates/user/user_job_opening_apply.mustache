@@ -30,11 +30,13 @@
                     <div class="skill">
                         <h3>기술스택</h3>
                         <ul>
+                            {{#jobOpeningDetailDTO.requiredSkillList}}
                             <li class="comp_skill com_skill">
                                 {{#jobOpeningDetailDTO.requiredSkillList}}
                                 <span class="skill_box">{{skillName}}</spa>n
                                     {{/jobOpeningDetailDTO.requiredSkillList}}
                             </li>
+                            {{/jobOpeningDetailDTO.requiredSkillList}}
                         </ul>
                     </div>
 

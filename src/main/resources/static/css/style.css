@@ -38,9 +38,11 @@ main {
 main > .container {
   max-width: 1080px;
 }
+
 #mainJob {
   margin-bottom: 4px;
 }
+
 .date {
   text-align: right;
   color: var(--font_03);
@@ -161,7 +163,9 @@ main > .container {
   align-items: center;
 }
 
-.double_btn form button {
+.double_btn form button,
+.double_btn form a {
+  display: inline-block;
   padding: 10px;
   border-radius: 5px;
   font-size: 14px;
@@ -317,6 +321,7 @@ main > .container {
   max-width: 200px;
   width: 100%;
 }
+
 .main_page {
   margin: 5px 0;
 }
@@ -577,6 +582,7 @@ footer li:last-child {
 .resume_item {
   display: flex;
 }
+
 .resume_item a {
   display: inline-block;
   background-color: var(--def_wh);
@@ -784,10 +790,12 @@ footer li:last-child {
   line-height: 1.2;
   font-size: 12px;
 }
+
 .user_img,
 .user_cont {
   flex: 1;
 }
+
 .user_box {
   display: flex;
   align-items: center;
@@ -1246,16 +1254,19 @@ footer li:last-child {
 .cp_explan > div {
   margin: 40px 0 30px 0;
 }
+
 .comp_pic_bg {
   display: flex;
   justify-content: center;
   position: relative;
 }
+
 .comp_pic_bg input {
   position: absolute;
   bottom: -46px;
   left: 43%;
 }
+
 .comp_pic {
   display: flex;
   justify-content: center;
@@ -1267,11 +1278,12 @@ footer li:last-child {
   height: 200px;
   position: relative;
 }
-.comp_pic > input {
+
+.comp_pic>input {
   height: 100%;
 }
 
-.comp_pic > form > button > img {
+.comp_pic>form>button>img {
   width: 180px;
 }
 
@@ -1346,14 +1358,11 @@ footer li:last-child {
   position: relative;
   top: -15px;
 }
-
-.parent_btn {
+.parent_btn{
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
 }
-
-.parent_btn > div {
+.parent_btn>div {
   width: 20%;
   display: flex;
   align-items: center;
@@ -1385,16 +1394,19 @@ footer li:last-child {
   justify-content: space-between;
   align-items: center;
 }
+
 .main_job_list {
   margin-bottom: 4px;
 }
-.plus_Input1 > input {
+
+.plus_Input1>input {
   margin-bottom: 4px;
 }
 
-.plus_Input2 > input {
+.plus_Input2>input {
   margin-bottom: 4px;
 }
+
 .plus_button {
   border-color: transparent;
   background-color: transparent;
@@ -1693,6 +1705,7 @@ footer li:last-child {
   width: 100%;
   justify-content: center;
 }
+
 .resume_details .scrap_btn button {
   padding: 10px;
 }
@@ -1725,7 +1738,7 @@ footer li:last-child {
   position: relative;
 }
 
-.icon_div > img {
+.icon_div>img {
   position: absolute;
   top: 11px;
   left: 12px;
@@ -1737,7 +1750,7 @@ footer li:last-child {
   margin-bottom: 30px;
 }
 
-.resume_margin > span {
+.resume_margin>span {
   display: flex;
 }
 
@@ -1745,14 +1758,14 @@ footer li:last-child {
   margin-top: 10px;
 }
 
-.user_position > span {
+.user_position>span {
   border-radius: 30px;
   margin-right: 5px;
   display: inline-block;
   padding: 6px 20px;
 }
 
-.users_position > .position_box {
+.users_position>.position_box {
   background-color: var(--def_wh);
   border: 1px solid var(--font_03);
   color: var(--font_03);

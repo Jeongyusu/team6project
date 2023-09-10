@@ -2,344 +2,123 @@
 <!-- 메인 -->
 <!-- 각자 페이지 main 클래스에 name 작성-->
 <!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
-<main class="resume_management common_bg">
+<main class="mypage common_bg">
   <div class="container">
     <!-- container 건들지 말기 -->
     <!-- 여기서부터 시작 -->
     <div class="main_tit">
-      <h2>지원 현황</h2>
+      <h2>마이페이지</h2>
     </div>
     <div class="row">
       <div class="col-sm-3">
         <div class="mypage_left">
           <ul>
             <li>
-              <form action="#">
-                <button type="submit">
-                  <img src="/image/user_img/def_img.png" alt="기본 이미지">
-                </button>
-              </form>
+              <div class="main_pic">
+                <img id="preview" src="/images/basic.jpg" alt="기본 이미지">
+                <input type="hidden" onchange="changeUserPic(event)" name="userPic">
+              </div>
+
             </li>
             <li>
-              <h3>남은혜</h3>
+              {{#sessionUser}}
+              <h3>{{userName}}</h3>
+              {{/sessionUser}}
             </li>
           </ul>
           <ul class="mypage_menu tab_menu">
-            <li><a href="#" data-tab="resume">이력서</a></li>
-            <li><a href="#" class="active" data-tab="applications">지원/제안</a></li>
-            <li><a href="#" data-tab="scrap">스크랩</a></li>
-            <li><a href="#" data-tab="user_update">정보 수정</a></li>
+            <li><a href="/user/resume">이력서</a></li>
+            <li><a href="/user/applyAndSuggest">지원/제안</a></li>
+            <li><a href="/user/scrap">스크랩</a></li>
+            <li><a href="/user/info/updateForm">정보 수정</a></li>
           </ul>
           <ul class="mypage_menu">
-            <li><a href="#">로그아웃</a></li>
+            <li><a href="/user/logout">로그아웃</a></li>
           </ul>
         </div>
       </div>
       <div class="col-sm-9">
-        <div class="mypage_right tab-content mypage_list_item">
-          <div class="mypage_list">
-            <div class="resume_count">이력서
-              <span class="common_num">2</span>
-            </div>
-            <ul class="com_cont">
-              <li class="resume_item">
-                <ul class="resume_cont">
-                  <li class="com_tit">
-                    <h4>남은혜 이력서_230825</43>
-                  </li>
-                  <li class="com_txt">
-                    고졸 신입
-                  </li>
-                  <li class="date">
-                    2023-08-27
-                  </li>
-                </ul>
-                <ul class="resume_cont">
-                  <li class="com_tit">
-                    <h4>남은혜 이력서_230825</h4>
-                  </li>
-                  <li class="com_txt">
-                    고졸 신입
-                  </li>
-                  <li class="date">
-                    2023-08-27
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div class="mypage_list">
-            <div class="scrp_count">스크랩
-              <span class="common_num">2</span>
-            </div>
-            <ul class="com_cont com_box">
-              <li class="comp_item">
-                <ul class="comp_cont">
-                  <li class="comp_img">
-                    <img src="/image/company_img/comp_img01.png" alt="기업01">
-                    <span class="comp_dday">D - 34</span>
-                  </li>
-                  <li class="com_name comp_scrap">
-                    모트렉스
-                    <div class="apply_scrap">
-                      <button class="scrap_button">
-                        <img src="/image/empty_star.png" alt="empty_star.png">
-                      </button>
-                    </div>
-                  </li>
-                  <li class="com_tit">
-                    <h4>웹개발(백엔드,프론트엔드)</43>
-                  </li>
-                  <li class="com_txt">
-                    CSS3·jQuery·Linux·JavaScript
-                  </li>
-                </ul>
-              </li>
-              <li class="comp_item">
-                <ul class="comp_cont">
-                  <li class="comp_img">
-                    <img src="/image/company_img/comp_img01.png" alt="기업01">
-                    <span class="comp_dday">D - 7</span>
-                  </li>
-                  <li class="com_name comp_scrap">
-                    모트렉스
-                    <div class="apply_scrap">
-                      <button class="scrap_button">
-                        <img src="/image/empty_star.png" alt="empty_star.png">
-                      </button>
-                  </li>
-                  <li class="com_tit">
-                    <h4>웹개발(백엔드,프론트엔드)</43>
-                  </li>
-                  <li class="com_txt">
-                    CSS3·jQuery·Linux·JavaScript
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div class="mypage_list">
-            <div class="rec_notice">추천공고</div>
-            <ul class="com_cont com_box">
-              <li class="comp_item">
-                <ul class="comp_cont">
-                  <li class="comp_img">
-                    <img src="/image/company_img/comp_img01.png" alt="기업01">
-                  </li>
-                  <li class="com_name">
-                    모트렉스
-                  </li>
-                  <li class="com_tit">
-                    <h4>웹개발(백엔드,프론트엔드)</43>
-                  </li>
-                  <li class="com_txt">
-                    CSS3·jQuery·Linux·JavaScript
-                  </li>
-                  <li class="com_etc">
-                    <span class="com_adr">서울 영등포구</span>
-                    <span class="com_car">경력 5-15년</span>
-                  </li>
-                </ul>
-              </li>
-              <li class="comp_item">
-                <ul class="comp_cont">
-                  <li class="comp_img">
-                    <img src="/image/company_img/comp_img01.png" alt="기업01">
-                  </li>
-                  <li class="com_name">
-                    모트렉스
-                  </li>
-                  <li class="com_tit">
-                    <h4>웹개발(백엔드,프론트엔드)</43>
-                  </li>
-                  <li class="com_txt">
-                    CSS3·jQuery·Linux·JavaScript
-                  </li>
-                  <li class="com_etc">
-                    <span class="com_adr">서울 영등포구</span>
-                    <span class="com_car">경력 5-15년</span>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="mypage_right tab-content mypage_list_item" id="resume">
-          <div class="mypage_list">
-            <div class="resume_btn">
-              <div class="resume_count">전체
-                <span class="common_num">3</span>
-              </div>
-              <a href="user_resume_write.html" class="btn btn-primary" type="button">이력서 작성</a>
-            </div>
-            <ul class="com_cont">
-              <li class="resume_inner">
-                <ul class="resume_cont">
-                  <li class="com_tit com_btn">
-                    <h4>끊임없이 개선하려는 개발자</h4>
-                    <div class="double_btn">
-                      <form action="user_resume_update.html">
-                        <button type="submit" class="btn_empty">이력서 수정</button>
-                      </form>
-                      <form action="#">
-                        <button type="submit" class="btn_fill">이력서 삭제</button>
-                      </form>
-                    </div>
-                  </li>
-                  <li class="com_txt">
-                    고졸 신입
-                  </li>
-                  <li class="com_skill user_skill">
-                    <span class="skill_box">HTML/CSS</span>
-                    <span class="skill_box">JavaScript</span>
-                    <span class="skill_box">MySQL</span>
-                    <span class="skill_box">Spring</span>
-                    <span class="skill_box">JAVA</span>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="mypage_right tab-content" id="applications">
+        <div class="mypage_right tab-content mypage_list_item" id="applications">
           <div class="resume_btn">
             <div class="resume_count">지원
-              <span class="common_num">1</span>
+              <span class="common_num">{{totalApply}}</span>
             </div>
           </div>
           <div>
             <table class="table">
               <thead>
                 <tr class="table-info">
-                  <th class="td_width80">NO.1</th>
-                  <th class="td_width120">회사명</th>
+                  <th class="td_width80">NUM</th>
+                  <th class="td_width80">회사명</th>
                   <th class="td_width160">공고명</th>
                   <th class="td_width160">이력서</th>
                   <th class="td_width120">포지션</th>
                   <th class="td_width120">상태</th>
                 </tr>
               </thead>
+              {{#applyList}}
               <tbody>
                 <tr class="td_border">
-                  <td>1</td>
-                  <td>유수컴퍼니</td>
-                  <td><a href="comp_job_opening_detail.html">백엔드 개발자 채용</a></td>
-                  <td>열심히하는개발자</td>
+                  <td>{{id}}</td>
+                  <td>{{jobOpening.user.userName}}</td>
+                  <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
+                  <td>{{resume.title}}</td>
                   <td>백엔드</td>
                   <td>
-                    <ul>
-                      <li class="wait_btn">대기중</li>
-                      <li class="accept_btn">합격</li>
-                      <li class="refuse_btn">불합격</li>
+                    <input type="hidden" id="applyState" value="{{applyState}}">
+                    <input type="hidden" id="applyId" value="{{id}}">
+                    <ul id="applyStateUl-{{id}}">
+                      <li>{{applyState}}</li>
                     </ul>
                   </td>
                 </tr>
               </tbody>
+              {{/applyList}}
             </table>
             <div>
               <div class="resume_btn">
                 <div class="resume_count">제안
-                  <span class="common_num">1</span>
+                  <span class="common_num">{{totalSuggest}}</span>
                 </div>
               </div>
               <table class="table">
                 <thead>
                   <tr class="table-info">
-                    <th class="td_width80">NO.1</th>
-                    <th class="td_width120">회사명</th>
+                    <th class="td_width80">NUM</th>
+                    <th class="td_width80">회사명</th>
                     <th class="td_width180">공고명</th>
                     <th class="td_width120">포지션</th>
                     <th class="td_width120">상태</th>
                     <th class="td_width80">응답</th>
                   </tr>
                 </thead>
+                {{#suggestList}}
                 <tbody>
                   <tr class="td_border">
-                    <td>1</td>
-                    <td>유수컴퍼니</td>
-                    <td><a href="comp_job_opening_detail.html">백엔드 개발자 채용</a></td>
+                    <td>{{id}}</td>
+                    <td>{{resume.user.userName}}</td>
+                    <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
                     <td>백엔드</td>
                     <td>
-                      <ul>
-                        <li class="wait_btn">대기중</li>
-                        <li class="accept_btn">수락</li>
-                        <li class="refuse_btn">거절</li>
+                      <input type="hidden" id="resumeId" value="{{resume.id}}">
+                      <input type="hidden" id="sugState" value="{{sugState}}">
+                      <input type="hidden" id="jobOpeningId" value="{{jobOpening.id}}">
+                      <input type="hidden" id="suggestId" value="{{id}}">
+                      <ul id = "sugStateUl-{{id}}">
+                        <li>{{sugState}}</li>
                       </ul>
                     </td>
                     <td>
-                      <select class="select">
-                        <option value="option1">답변하기</option>
-                        <option value="option2">수락</option>
-                        <option value="option3">거절</option>
+                      <select class="select" id="state-{{id}}" onchange="checkedValue('{{id}}')">
+                        <option value="대기중">답변하기</option>
+                        <option value="수락" >수락</option>
+                        <option value="거절">거절</option>
                       </select>
                     </td>
                   </tr>
                 </tbody>
+                {{/suggestList}}
               </table>
-            </div>
-          </div>
-        </div>
-        <div class="mypage_right tab-content mypage_list_item" id="scrap">
-          <div class="mypage_list">
-            <div class="resume_count">전체
-              <span class="common_num">3</span>
-            </div>
-            <ul class="com_cont">
-              <li class="resume_inner">
-                <ul class="resume_cont">
-                  <li class="com_tit com_btn">
-                    <div class="apply_scrap">
-                      <form action="#">
-                        <button type="button" id="scrap_button" class="btn_empty scrap_icon scrap_button">
-                          <img id="scrap_icon" src="/image/full_star.png" alt="empty_star.png">
-                        </button>
-                      </form>
-                      <a href="user_job_opening_apply.html">
-                        <h4>백엔드 개발자 채용</h4>
-                      </a>
-                    </div>
-                  </li>
-                  <li class="com_txt">유수컴퍼니</li>
-                  <li class="com_skill comp_skill">
-                    <span class="skill_box">HTML/CSS</span>
-                    <span class="skill_box">JavaScript</span>
-                    <span class="skill_box">MySQL</span>
-                    <span class="skill_box">Spring</span>
-                    <span class="skill_box">JAVA</span>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="mypage_right tab-content mypage_list_item" id="user_update">
-          <div class="mypage_list udback">
-            <div class="update_box">
-              <div class="udpassword ">
-
-                <form action="#" class="pw_update">
-                  <div class="">
-                    <label for="nowPassword" class="form-label">현재 비밀번호</label>
-                    <input type="password" class="form-control" id="nowPassword" placeholder="비밀번호를 입력해 주세요."
-                      name="nowPassword">
-                  </div>
-                  <div class="">
-                    <label for="newPassword" class="form-label">새 비밀번호</label>
-                    <input type="password" class="form-control" id="newPassword" placeholder="비밀번호를 입력해 주세요."
-                      name="newPassword">
-                  </div>
-                  <div class="">
-                    <label for="newPasswordConfirm" class="form-label">새 비밀번호 확인</label>
-                    <input type="password" class="form-control" id="newPasswordConfirm" placeholder="비밀번호를 입력해 주세요."
-                      name="newPasswordConfirm">
-                  </div>
-                  <div style="display: flex; justify-content: center;">
-                    <button type="submit" class="btn btn-primary">확인</button>
-                  </div>
-
-                </form>
-
-              </div>
             </div>
           </div>
         </div>
@@ -348,5 +127,80 @@
   </div>
 </main>
 <!-- 메인 -->
+<script>
+
+  function changeUserPic(e1) {
+    let f = e1.srcElement.files[0];
+    console.log(f.type);
+    if (!f.type.match("image.*")) {
+      alert("이미지를 등록해주세요");
+      return;
+    }
+    let reader = new FileReader();
+    reader.onload = function (e2) { // 파일이 다 읽어지면 콜백됨
+      let previewEl = document.querySelector("#preview");
+      previewEl.setAttribute("src", e2.target.result);
+    }
+    reader.readAsDataURL(f); // 파일 읽기 onload()
+  }
+
+async function checkedValue(id) {
+  let sugState = document.querySelector(`#state-${id}`).value;
+  let resumeId = document.querySelector(`#resumeId`).value;
+  let jobOpeningId = document.querySelector(`#jobOpeningId`).value;
+  
+  console.log("테스트중 : 통과" + sugState);
+  let data = {
+    sugState: sugState,
+    resumeId: resumeId,
+    jobOpeningId: jobOpeningId
+  };
+
+  console.log("테스트중1 : 통과" + sugState);
+  console.log("테스트중1 : 통과" + resumeId);
+
+  try {
+    let response = await fetch('/api/suggest/answer/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    let responseBody = await response.json();
+
+    console.log("테스트중2" + responseBody.success);
+
+    if (responseBody.success) {
+      console.log("안녕" + responseBody);
+      console.log("안녕" + responseBody.data);
+
+    if(responseBody.data === '대기중'){
+      $(`#sugStateUl-${id}`).html('');
+      $(`#sugStateUl-${id}`).html("<li class='wait_btn'>대기중</li>");
+       } else if (responseBody.data === '수락') {
+      $(`#sugStateUl-${id}`).html('');
+      $(`#sugStateUl-${id}`).html("<li class='accept_btn'>수락</li>");
+       } else if (responseBody.data === '거절') {
+      $(`#sugStateUl-${id}`).html('');
+      $(`#sugStateUl-${id}`).html("<li class='refuse_btn'>거절</li>");
+      }
+      
+    } else {
+      alert(responseBody.data);
+    }
+  } catch (error) {
+    console.error('POST 요청 중 에러 발생:', error);
+  }
+}
+
+
+
+
+
+
+ 
+</script>
 
 {{>layout/footer}}

@@ -1,0 +1,204 @@
+{{>layout/compheader}}
+
+<!-- 메인 -->
+<!-- 각자 페이지 main 클래스에 name 작성-->
+<!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
+<main class="comp_info common_bg">
+  <div class="container">
+    <!-- container 건들지 말기 -->
+    <!-- 여기서부터 시작 -->
+    <div class="main_tit">
+      <h2>회사 정보</h2>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="mypage_left">
+          <ul>
+            <li>
+              <div class="comp_pic_bg">
+                <div class="comp_pic">
+                  <img id="preview" src="" />
+                </div>
+              </div>
+            </li>
+            <li>
+              {{#sessionUser}}
+              <h3>{{ userName }}</h3>
+              {{/sessionUser}}
+            </li>
+          </ul>
+          <ul class="mypage_menu tab_menu">
+            <li><a href="/comp/myPageForm">회사 정보 수정</a></li>
+            <li><a href="/comp/jobOpening/compResum">채용 공고</a></li>
+            <li><a href="/comp/applyAndSuggest">지원/제안</a></li>
+            <li><a href="/comp/scrap">스크랩</a></li>
+            <li><a href="/comp/password/update">비밀번호 변경</a></li>
+          </ul>
+          <ul class="mypage_menu">
+            <li><a href="#">로그아웃</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-9">
+        <div class="mypage_right tab-content mypage_list_item" id="applications">
+          <div class="resume_btn">
+            <div class="resume_count">지원
+              <span class="common_num">{{totalApply}}</span>
+            </div>
+          </div>
+          <div>
+            <table class="table">
+              <thead>
+                <tr class="table-info">
+                  <th class="td_width80">NUM</th>
+                  <th class="td_width80">회사명</th>
+                  <th class="td_width160">공고명</th>
+                  <th class="td_width160">이력서</th>
+                  <th class="td_width120">포지션</th>
+                  <th class="td_width120">상태</th>
+                </tr>
+              </thead>
+              {{#applyList}}
+              <tbody>
+                <tr class="td_border">
+                  <td>{{id}}</td>
+                  <td>{{resume.user.userName}}</td>
+                  <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
+                  <td>백엔드</td>
+                  <td>
+                    <input type="hidden" id="resumeId" value="{{resume.id}}">
+                    <input type="hidden" id="applyState" value="{{applyState}}">
+                    <input type="hidden" id="jobOpeningId" value="{{jobOpening.id}}">
+                    <input type="hidden" id="applyId" value="{{id}}">
+                    <ul id = "applyStateUl-{{id}}">
+                      <li>{{applyState}}</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <select class="select" id="apply-{{id}}" onchange="checkedValue('{{id}}')">
+                      <option value="대기중">답변하기</option>
+                      <option value="합격" >합격</option>
+                      <option value="불합격">불합격</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+              {{/applyList}}
+            </table>
+            <div>
+              <div class="resume_btn">
+                <div class="resume_count">제안
+                  <span class="common_num">{{totalSuggest}}</span>
+                </div>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr class="table-info">
+                    <th class="td_width80">NUM</th>
+                    <th class="td_width80">이력서</th>
+                    <th class="td_width180">공고명</th>
+                    <th class="td_width120">포지션</th>
+                    <th class="td_width120">상태</th>
+                    <th class="td_width80">응답</th>
+                  </tr>
+                </thead>
+                {{#suggestList}}
+                <tbody>
+                  <tr class="td_border">
+                    <td>{{id}}</td>
+                    <td>{{jobOpening.user.userName}}</td>
+                    <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
+                    <td>{{resume.title}}</td>
+                    <td>백엔드</td>
+                    <td>
+                      <ul>
+                        <li>{{sugState}}</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+                {{/suggestList}}
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- 메인 -->
+<script>
+
+  function changeUserPic(e1) {
+    let f = e1.srcElement.files[0];
+    console.log(f.type);
+    if (!f.type.match("image.*")) {
+      alert("이미지를 등록해주세요");
+      return;
+    }
+    let reader = new FileReader();
+    reader.onload = function (e2) { // 파일이 다 읽어지면 콜백됨
+      let previewEl = document.querySelector("#preview");
+      previewEl.setAttribute("src", e2.target.result);
+    }
+    reader.readAsDataURL(f); // 파일 읽기 onload()
+  }
+
+async function checkedValue(id) {
+  let applyState = document.querySelector(`#apply-${id}`).value;
+  let resumeId = document.querySelector(`#resumeId`).value;
+  let jobOpeningId = document.querySelector(`#jobOpeningId`).value;
+  
+  console.log("테스트중 : 통과" + applyState);
+  let data = {
+    applyState: applyState,
+    resumeId: resumeId,
+    jobOpeningId: jobOpeningId
+  };
+
+  console.log("테스트중1 : 통과" + applyState);
+  console.log("테스트중1 : 통과" + resumeId);
+
+  try {
+    let response = await fetch('/api/apply/answer/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    let responseBody = await response.json();
+
+    console.log("테스트중2" + responseBody.success);
+
+    if (responseBody.success) {
+      console.log("안녕" + responseBody);
+      console.log("안녕" + responseBody.data);
+
+    if(responseBody.data === '대기중'){
+      $(`#applyStateUl-${id}`).html('');
+      $(`#applyStateUl-${id}`).html("<li class='wait_btn'>대기중</li>");
+       } else if (responseBody.data === '합격') {
+      $(`#applyStateUl-${id}`).html('');
+      $(`#applyStateUl-${id}`).html("<li class='accept_btn'>합격</li>");
+       } else if (responseBody.data === '불합격') {
+      $(`#applyStateUl-${id}`).html('');
+      $(`#applyStateUl-${id}`).html("<li class='refuse_btn'>불합격</li>");
+      }
+      
+    } else {
+      alert(responseBody.data);
+    }
+  } catch (error) {
+    console.error('POST 요청 중 에러 발생:', error);
+  }
+}
+
+
+
+
+
+
+ 
+</script>

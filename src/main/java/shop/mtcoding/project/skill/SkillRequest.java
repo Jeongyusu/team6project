@@ -23,7 +23,4 @@ public class SkillRequest {
         private String skill;
     }
 
-
 }
-
-

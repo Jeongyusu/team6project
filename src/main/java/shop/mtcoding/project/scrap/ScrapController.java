@@ -56,4 +56,5 @@ public class ScrapController {
         scrapService.이력서스크랩삭제(sessionUser.getId(), compScrapDeleteDTO);
         return new ApiUtil<String>(true, "스크랩 삭제");
     }
+
 }

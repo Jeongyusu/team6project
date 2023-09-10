@@ -1,5 +1,4 @@
 {{>layout/compheader}}
-
 <!-- 메인 -->
 <!-- 각자 페이지 main 클래스에 name 작성-->
 <!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
@@ -15,11 +14,7 @@
         <div class="mypage_left">
           <ul>
             <li>
-              <div class="comp_pic_bg">
-                <div class="comp_pic">
-                  <img id="preview" src="" />
-                </div>
-              </div>
+              <div class="comp_pic_bg"></div>
             </li>
             <li>
               {{#sessionUser}}
@@ -30,9 +25,9 @@
           <ul class="mypage_menu tab_menu">
             <li><a href="/comp/myPageForm">회사 정보 수정</a></li>
             <li><a href="/comp/jobOpening/compResume">채용 공고</a></li>
-            <li><a href="#">지원/제안</a></li>
-            <li><a href="#">스크랩</a></li>
-            <li><a href="#">비밀번호 변경</a></li>
+            <li><a href="/comp/applyAndSuggest">지원/제안</a></li>
+            <li><a href="/comp/scrap">스크랩</a></li>
+            <li><a href="/comp/password/update">비밀번호 변경</a></li>
           </ul>
           <ul class="mypage_menu">
             <li><a href="#">로그아웃</a></li>
@@ -54,9 +49,8 @@
                 >공고 작성</a
               >
             </div>
-
             {{#jobOpeningList}}
-            <ul class="com_cont" id="jobOpening-{{ id }}">
+            <ul class="com_cont">
               <li class="resume_inner">
                 <ul class="resume_cont">
                   <li class="com_tit com_btn">
@@ -71,7 +65,7 @@
                         <button
                           type="button"
                           class="btn_fill"
-                          onclick="deleteResume('{{ id }}')"
+                          onclick="deleteJob('{{ id }}')"
                         >
                           공고 삭제
                         </button>
@@ -97,31 +91,31 @@
 </main>
 <!-- 메인 -->
 <script>
-  // async function deleteJob(id) {
-  //   let response = await fetch(`/api/comp/jobOpening/${id}/delete`, {
-  //     method: "POST",
-  //   });
-  //   console.log("테스트" + response);
-  //   let responseBody = await response.json(); // json -> js object
-  //   console.log("테스트" + responseBody);
-  //   if (responseBody.success) {
-  //     location.reload();
-  //   } else {
-  //     alert(responseBody.data);
-  //   }
-  // }
 
-  function deleteResume(id) {
-    $.ajax({
-      url: `/api/comp/jobOpening/${id}/delete`,
-      method: "POST",
-      success: (response) => {
-        console.log(response);
-        if (response.success === true) {
-          $(`#jobOpening-${id}`).remove();
-        }
-      },
-    });
-  }
+// function deleteResume2(id) {
+//     $.ajax({
+//       url: `/api/comp/jobOpening/${id}/delete`,
+//       method: "POST",
+//       success: (response) => {
+//         console.log(response);
+//         if (response.success === true) {
+//           $(`#jobOpening-${id}`).remove();
+//         }
+//       },
+//     });
+
+//   }
+
+  async function deleteJob(id){
+       let response = await fetch(`/api/comp/jobOpening/${id}/delete`,{
+            method : "POST"
+       });
+       let responseBody = await response.json(); // json -> js object
+       if(responseBody.success) {
+            location.reload();
+       } else {
+            alert(responseBody.data);
+       }
+    }
 </script>
 {{>layout/footer}}

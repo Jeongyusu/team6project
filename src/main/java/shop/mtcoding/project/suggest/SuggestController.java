@@ -1,7 +1,5 @@
 package shop.mtcoding.project.suggest;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.suggest.SuggestRequest.SuggestSaveDTO;
 import shop.mtcoding.project.user.User;
+import shop.mtcoding.project.user.UserRepository;
 
 @Controller
 public class SuggestController {
@@ -28,22 +29,18 @@ public class SuggestController {
     @Autowired
     private ResumeRepository resumeRepository;
 
-    @GetMapping("/openResumeList")
-    public String OpenResumeList(Model model) {
-        List<Resume> resumeList = resumeRepository.findAll();
-        model.addAttribute("resumeList", resumeList);
+    @Autowired
+    private UserRepository userRepository;
 
-        return "comp/comp_user_open_resume";
+    @GetMapping("/user/{id}/resume/detail")
+    public String userOpenResumeDetail(@PathVariable Integer id, Model model) {
+        Resume resume = resumeRepository.findById(id).get();
+        model.addAttribute("resume", resume);
+
+        return "user/user_resume_detail";
     }
-    // @GetMapping("/openResumeList")
-    // public @ResponseBody List<Resume> OpenResumeList(Model model) {
-    // List<Resume> resumeList = resumeRepository.findAll();
-    // model.addAttribute("resumeList", resumeList);
 
-    // return resumeList;
-    // }
-
-    @PostMapping("/userSuggest")
+    @PostMapping("/user/suggest")
     public String UserSuggest(SuggestSaveDTO suggestSaveDTO, Model model) {
         suggestService.제안(suggestSaveDTO);
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -52,13 +49,16 @@ public class SuggestController {
         return "redirect:/user/" + id + "/resume/detail";
     }
 
-    // @GetMapping("/userSuggest")
-    // public @ResponseBody List<Resume> userSuggest(Model model) {
-    // List<Resume> resumeList = resumeRepository.findAll();
-    // model.addAttribute("resumeList", resumeList);
-    // User sessionUser = (User) session.getAttribute("sessionUser");
-    // model.addAttribute("sessionUser", sessionUser);
-    // return resumeList;
-    // }
+    @PostMapping("/api/suggest/answer/update")
+    public @ResponseBody ApiUtil<String> AnswerSuggest(@RequestBody SuggestRequest.SuggestStateDTO suggestStateDTO, Model model){
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userRepository.findById(sessionUser.getId()).get();
+        suggestService.제안응답(suggestStateDTO, user.getId());
+        return new ApiUtil<String>(true, suggestStateDTO.getSugState());
+
+    }
+
+
+    
 
 }

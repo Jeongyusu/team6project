@@ -40,6 +40,4 @@ public class WishPosition {
         this.position = position;
     }
 
-
 }
-

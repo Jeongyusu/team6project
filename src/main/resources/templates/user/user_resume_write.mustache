@@ -13,48 +13,76 @@
       <form action="/user/resume/save" method="post" enctype="multipart/form-data">
         <div class="save_title mb-5">
           <input type="text" placeholder="제목을 입력해주세요" name="title" value="">
-          <div>
-            <div class="main_back container">
-              <div class="resume_user_info">
-                <div class="resume_user_pic">
-                  <button type="submit" class="main_pic">
-                    <img id="preview" src="/image/user_img/blue_basic_profile.png" alt="기본 이미지" onclick="return false;">
-                    <input type="file" onchange="changeUserPic(event)" name="resumePic">
-                  </button>
-                </div>
-                <div class="resume_user_infomation">
+        </div>
+
+        <div>
+          <div class="main_back container">
+            <div class="resume_user_info">
+              <div class="resume_user_pic">
+                <button type="submit" class="main_pic">
+                  <img id="preview" src="/image/user_img/blue_basic_profile.png" alt="기본 이미지" onclick="return false;">
+                  <input type="file" onchange="changeUserPic(event)" name="resumePic">
+                </button>
+              </div>
+              <div class="resume_user_infomation">
+                <div class="resume_user_display">
                   <div class="resume_user_display">
-                    <div class="resume_user_display">
-                      <input type="text" class="form-control" placeholder="이름" name="userName" value="">
-                    </div>
-                    <div class="resume_public">
-                      <input type="checkbox" class="public_checkbox" name="openCheck" value="1">공개
-                    </div>
+                    <input type="text" class="form-control" placeholder="이름" name="userName" value="">
                   </div>
-                  <div>
-                    <input type="email" class="form-control" placeholder="이메일" name="userEmailId" value="">
-                  </div>
-                  <div class="resume_user_display">
-                    <div class="col-sm-5">
-                      <input type="date" class="data_form form-control" placeholder="생년월일" name="birth" value="">
-                    </div>
-                    <div class="col-sm-7">
-                      <input type="text" class="form-control" placeholder="휴대폰번호" name="tel" value="">
-                    </div>
-                  </div>
-                  <div>
-                    <input type="text" class="form-control" placeholder="주소" name="address" value="">
+                  <div class="resume_public">
+                    <input type="checkbox" class="public_checkbox" name="openCheck" value="1">공개
                   </div>
                 </div>
-              </div>
-              <div class="mb-1">
-                <label class="job_list mb-2">간단한 소개</label>
-                <textarea name="subIntro" class="form-control" placeholder=" 간결하게 요점만 요약해서 3-5줄내로 읽기 쉬운 내용으로 작성해보세요"
-                  cols=" 30" rows="2"></textarea>
-              </div>
-              <div class="mb-1">
                 <div>
-                  <label class="job_list mt-4 mb-2" for="jobSkill">개발 직무</label>
+                  <input type="email" class="form-control" placeholder="이메일" name="userEmailId" value="">
+                </div>
+                <div class="resume_user_display">
+                  <div class="col-sm-5">
+                    <input type="date" class="data_form form-control" placeholder="생년월일" name="birth" value="">
+                  </div>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control" placeholder="휴대폰번호" name="tel" value="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-1">
+              <label class="job_list mb-2">간단한 소개</label>
+              <textarea name="subIntro" class="form-control" placeholder=" 간결하게 요점만 요약해서 3-5줄내로 읽기 쉬운 내용으로 작성해보세요"
+                cols=" 30" rows="2"></textarea>
+            </div>
+
+            <div class="mb-1">
+              <div>
+                <label class="job_list mt-4 mb-2" for="jobSkill">개발 직무</label>
+              </div>
+              <div>
+                <div class="develop_job">
+                  <div>
+                    <input type="checkbox" id="backEnd" name="positionList" value="서버 백엔드 개발자">
+                    <label class="skill_btns1" for="backEnd">서버 백엔드 개발자</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="frontEnd" name="positionList" value="프론트엔드 개발자">
+                    <label class="skill_btns1" for="frontEnd">프론트 엔드 개발자</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="pullStack" name="positionList" value="웹 풀스택 개발자">
+                    <label class="skill_btns1" for="pullStack">웹 풀스택 개발자</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="iosDevelop" name="positionList" value="IOS 개발자">
+                    <label class="skill_btns1" for="iosDevelop">IOS 개발자</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="crossPlat" name="positionList" value="크로스 플랫폼 앱 개발자">
+                    <label class="skill_btns1" for="crossPlat">크로스 플랫폼 앱 개발자</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="andDevelop" name="positionList" value="안드로이드 개발자">
+                    <label class="skill_btns1" for="andDevelop">안드로이드 개발자</label>
+                  </div>
                 </div>
                 <div>
                   <div class="develop_job">

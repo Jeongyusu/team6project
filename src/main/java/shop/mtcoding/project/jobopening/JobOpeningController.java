@@ -9,13 +9,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project._core.util.ApiUtil;
-import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.apply.ApplyRepository;
 import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 import shop.mtcoding.project.position.Position;
@@ -25,14 +25,12 @@ import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.position.RequiredPositionRepository;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.qualified.QualifiedRepository;
-import shop.mtcoding.project.scrap.CompScrapResponse.ScrapResumeDTO;
 import shop.mtcoding.project.scrap.ScrapService;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.Skill;
 import shop.mtcoding.project.skill.SkillResponse.RequiredSkillResponseDTO;
 import shop.mtcoding.project.skill.SkillService;
-import shop.mtcoding.project.suggest.Suggest;
 import shop.mtcoding.project.suggest.SuggestQueryRepository;
 import shop.mtcoding.project.suggest.SuggestRepository;
 import shop.mtcoding.project.task.Task;
@@ -242,30 +240,7 @@ public class JobOpeningController {
         return requiredPositionResponseDTOList;
     }
 
-    @GetMapping("/comp/myPageForm")
-    public String jobOpeningList(Model model) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        // 회사 공고글 전체보기
-        List<JobOpening> JobOpeningList = jobOpeningRepository.findByUserId(sessionUser.getId());
-        int totalJobOpening = JobOpeningList.size();
-        model.addAttribute("totalJobOpening", totalJobOpening);
-        // 회사 지원자 전제보기
-        List<Apply> compApplyList = applyRepository.findByResumeUserInfo(sessionUser.getId());
-        int totalApplyList = compApplyList.size();
-        model.addAttribute("totalApplyList", totalApplyList);
-        model.addAttribute("compApplyList", compApplyList);
-        // 회사 제안자 전체보기
-        List<Suggest> jobOpeningInfo2 = suggestRepository.findBySuggestCompId(sessionUser.getId());
-        int totalSuggest = jobOpeningInfo2.size();
-        model.addAttribute("totalSuggest", totalSuggest);
-        model.addAttribute("jobOpeningInfo2", jobOpeningInfo2);
 
-        List<ScrapResumeDTO> scrapResumeDTOList = scrapService.이력서스크랩조회(sessionUser.getId());
-        Integer scrapResumeSum = scrapResumeDTOList.size();
-        model.addAttribute("scrapResumeDTOList", scrapResumeDTOList);
-        model.addAttribute("scrapResumeSum", scrapResumeSum);
-
-        return "comp/comp_info";
-    }
+    
 
 }

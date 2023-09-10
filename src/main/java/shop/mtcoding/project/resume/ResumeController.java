@@ -2,27 +2,20 @@ package shop.mtcoding.project.resume;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
-import shop.mtcoding.project.apply.Apply;
-import shop.mtcoding.project.apply.ApplyRepository;
-import shop.mtcoding.project.jobopening.JobOpening;
-import shop.mtcoding.project.jobopening.JobOpeningRepository;
 import shop.mtcoding.project.position.PositionResponse.WishPositionResponseDTO;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.position.WishPositionRepository;
@@ -30,41 +23,26 @@ import shop.mtcoding.project.resume.ResumeRequest.CompUserOpenResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
 import shop.mtcoding.project.scrap.ScrapService;
-import shop.mtcoding.project.scrap.UserScrapResponse.ScrapJobOpeningDTO;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.skill.HasSkillRepository;
-import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.SkillRepository;
 import shop.mtcoding.project.skill.SkillResponse.HasSkillResponseDTO;
-import shop.mtcoding.project.suggest.Suggest;
-import shop.mtcoding.project.suggest.SuggestQueryRepository;
-import shop.mtcoding.project.suggest.SuggestRepository;
 import shop.mtcoding.project.user.User;
 
 @Controller
 public class ResumeController {
-    @Autowired
-    private SuggestQueryRepository suggestQueryRepository;
-    @Autowired
-    private SuggestRepository suggestRepository;
-    @Autowired
-    private JobOpeningRepository jobOpeningRepository;
-    @Autowired
-    private ApplyRepository applyRepository;
-    @Autowired
-    private ResumeRepository resumeRepository;
 
     @Autowired
-    private RequiredSkillRepository requiredSkillRepository;
+    ResumeService resumeService;
 
     @Autowired
-    private ResumeService resumeService;
+    HasSkillRepository hasSkillRepository;
 
     @Autowired
-    private HasSkillRepository hasSkillRepository;
+    WishPositionRepository wishPositionRepository;
 
     @Autowired
-    private WishPositionRepository wishPositionRepository;
+    ResumeRepository resumeRepository;
 
     @Autowired
     private SkillRepository skillRepository;
@@ -92,10 +70,11 @@ public class ResumeController {
     }
 
     @PostMapping("/user/resume/save")
-    public String saveResume(UserSaveResumeDTO userSaveResumeDTO) {
+    public String saveResume(UserSaveResumeDTO UserSaveResumeDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        resumeService.이력서작성(userSaveResumeDTO, sessionUser.getId());
-        return "redirect:/userMyPageForm";
+        resumeService.이력서작성(UserSaveResumeDTO, sessionUser.getId());
+        return "redirect:/user/resume";
+
     }
 
     @GetMapping("/user/resume/{id}/updateForm")
@@ -137,50 +116,50 @@ public class ResumeController {
         return Script.back("수정완료");
     }
 
-    @GetMapping("/user/myPageForm")
-    public String resumeList(Model model) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+    // @GetMapping("/user/myPageForm")
+    // public String resumeList(Model model) {
+    //     User sessionUser = (User) session.getAttribute("sessionUser");
 
-        List<Apply> applyList = applyRepository.findAll();
-        model.addAttribute("applyList", applyList);
-        List<Apply> applyList2 = applyRepository.findByResumeUserId(sessionUser.getId());
+    //     List<Apply> applyList = applyRepository.findAll();
+    //     model.addAttribute("applyList", applyList);
+    //     List<Apply> applyList2 = applyRepository.findByResumeUserId(sessionUser.getId());
 
-        int totalApply = applyList2.size();
-        List<JobOpening> jobOpeningInfo = suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
+    //     int totalApply = applyList2.size();
+    //     List<JobOpening> jobOpeningInfo = suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
 
-        model.addAttribute("jobOpeningInfo", jobOpeningInfo);
-        model.addAttribute("totalApply", totalApply);
-        model.addAttribute("applyList2", applyList2);
+    //     model.addAttribute("jobOpeningInfo", jobOpeningInfo);
+    //     model.addAttribute("totalApply", totalApply);
+    //     model.addAttribute("applyList2", applyList2);
 
-        List<Suggest> suggestList = suggestRepository.findAll();
-        model.addAttribute("suggestList", suggestList);
+    //     List<Suggest> suggestList = suggestRepository.findAll();
+    //     model.addAttribute("suggestList", suggestList);
 
-        List<Suggest> suggestList2 = suggestRepository.findBySuggestUserId(sessionUser.getId());
-        int totalSuggestList = suggestList2.size();
+    //     List<Suggest> suggestList2 = suggestRepository.findBySuggestUserId(sessionUser.getId());
+    //     int totalSuggestList = suggestList2.size();
 
-        model.addAttribute("totalSuggestList", totalSuggestList);
-        model.addAttribute("suggestList2", suggestList2);
+    //     model.addAttribute("totalSuggestList", totalSuggestList);
+    //     model.addAttribute("suggestList2", suggestList2);
 
-        List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
-        model.addAttribute("jobOpeningList", jobOpeningList);
+    //     List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
+    //     model.addAttribute("jobOpeningList", jobOpeningList);
 
-        List<Resume> resumeList = resumeRepository.findAll();
-        model.addAttribute("resumeList", resumeList);
+    //     List<Resume> resumeList = resumeRepository.findAll();
+    //     model.addAttribute("resumeList", resumeList);
 
-        List<Resume> resumeList2 = resumeRepository.findByUserId(sessionUser.getId());
-        int totalResume = resumeList2.size();
-        model.addAttribute("totalResume", totalResume);
-        model.addAttribute("resumeList", resumeList2);
+    //     List<Resume> resumeList2 = resumeRepository.findByUserId(sessionUser.getId());
+    //     int totalResume = resumeList2.size();
+    //     model.addAttribute("totalResume", totalResume);
+    //     model.addAttribute("resumeList", resumeList2);
 
-        List<ScrapJobOpeningDTO> scrapJobOpeningDTOList = scrapService.채용공고스크랩조회(sessionUser.getId());
-        Integer scrapJobOpeningSum = scrapJobOpeningDTOList.size();
-        model.addAttribute("scrapJobOpeningDTOList", scrapJobOpeningDTOList);
-        model.addAttribute("scrapJobOpeningSum", scrapJobOpeningSum);
-        return "user/user_mypage";
-    }
+    //     List<ScrapJobOpeningDTO> scrapJobOpeningDTOList = scrapService.채용공고스크랩조회(sessionUser.getId());
+    //     Integer scrapJobOpeningSum = scrapJobOpeningDTOList.size();
+    //     model.addAttribute("scrapJobOpeningDTOList", scrapJobOpeningDTOList);
+    //     model.addAttribute("scrapJobOpeningSum", scrapJobOpeningSum);
+    //     return "user/user_mypage";
+    // }
 
     @GetMapping("/api/resume/{resumeId}/skillList")
-    public @ResponseBody List<HasSkillResponseDTO> getSkillList(@PathVariable Integer resumeId) {
+    public @ResponseBody List<HasSkillResponseDTO> checkboxSkillList(@PathVariable Integer resumeId) {
         List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(resumeId);
         List<HasSkillResponseDTO> hasSkillResponseDTOList = new ArrayList<>();
         for (HasSkill skillList : hasSkillList) {
@@ -193,9 +172,8 @@ public class ResumeController {
         return hasSkillResponseDTOList;
     }
 
-    @PostMapping("/api/getPositionList")
-    public @ResponseBody List<WishPositionResponseDTO> getPositionList(@RequestBody Map<String, Integer> requestBody) {
-        Integer resumeId = requestBody.get("resumeId");
+    @GetMapping("/api/resume/{resumeId}/positionList")
+    public @ResponseBody List<WishPositionResponseDTO> checkboxPositionList(@PathVariable Integer resumeId) {
         List<WishPosition> wishPositionList = wishPositionRepository.wishPositionofResume(resumeId);
         List<WishPositionResponseDTO> wishPositionResponseDTOList = new ArrayList<>();
         for (WishPosition positionList : wishPositionList) {
@@ -226,7 +204,7 @@ public class ResumeController {
 
     }
 
-    @DeleteMapping("/api/resume/{id}")
+    @PostMapping("/api/resume/{id}/delete")
     public @ResponseBody ApiUtil<String> deleteResume(@PathVariable Integer id) {
         System.out.println("test : 삭제 요청됨 : id : " + id);
         // 1.인증체크
@@ -247,6 +225,8 @@ public class ResumeController {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Resume> resumeList = resumeRepository.findByUserId(sessionUser.getId());
+        Integer totalResume = resumeList.size();
+        model.addAttribute("totalResume", totalResume);
         model.addAttribute("resumeList", resumeList);
         return "user/user_resume";
     }
