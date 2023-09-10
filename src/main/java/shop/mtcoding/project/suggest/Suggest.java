@@ -34,7 +34,7 @@ public class Suggest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String sugState;
+    private String sugState = "대기중";
 
     @CreationTimestamp
     private Timestamp createdAt;

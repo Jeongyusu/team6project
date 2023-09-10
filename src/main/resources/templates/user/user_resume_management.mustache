@@ -66,7 +66,9 @@
                   <td>백엔드</td>
                   <td>
                     <input type="hidden" id="applyState" value="{{applyState}}">
-                    <ul id="applyStateUl-">
+                    <input type="hidden" id="applyId" value="{{id}}">
+                    <ul id="applyStateUl-{{id}}">
+                      <li>{{applyState}}</li>
                     </ul>
                   </td>
                 </tr>
@@ -101,11 +103,11 @@
                       <input type="hidden" id="resumeId" value="{{resume.id}}">
                       <input type="hidden" id="sugState" value="{{sugState}}">
                       <input type="hidden" id="jobOpeningId" value="{{jobOpening.id}}">
-                      <ul id = "sugStateUl">
+                      <ul id = "sugStateUl-{{id}}">
                       </ul>
                     </td>
                     <td>
-                      <select class="select" id="state" onchange="checkedValue()">
+                      <select class="select" id="state-{{id}}" onchange="checkedValue('{{id}}')">
                         <option value="대기중">답변하기</option>
                         <option value="수락" >수락</option>
                         <option value="거절">거절</option>
@@ -125,9 +127,14 @@
 <!-- 메인 -->
 <script>
 
-sugStateInitData();
-ApplyStateInitData();
+let applyId = document.querySelectorAll("#applyId").value;
+// sugStateInitData();
+applyStateInitData(applyId);
 
+// var ulItems = document.querySelectorAll("#suggestList ul li");
+// ulItems.forEach(function(item) {
+//   sugStateInitData();
+// });
 
 
 
@@ -164,26 +171,26 @@ ApplyStateInitData();
   }
 }
 
-function ApplyStateInitData() {
+function applyStateInitData(id) {
   let initApplyState = document.querySelector("#applyState").value;
   if(initApplyState === '대기중'){
-    $("#applyStateUl").html('');
-    $("#applyStateUl").html("<li class='wait_btn'>대기중</li>");
+    $(`#applyStateUl-${id}`).html('');
+    $(`#applyStateUl-${id}`).html("<li class='wait_btn'>대기중</li>");
 
   } else if(initApplyState =='합격'){ 
-    $("#applyStateUl").html('');
-    $("#applyStateUl").html("<li class='accept_btn'>합격</li>");
+    $(`#applyStateUl-${id}`).html('');
+    $(`#applyStateUl-${id}`).html("<li class='accept_btn'>합격</li>");
 
   } else if(initApplyState =='불합격') {
-    $("#applyStateUl").html('');
-    $("#applyStateUl").html("<li class='refuse_btn'>불합격</li>");
+    $(`#applyStateUl-${id}`).html('');
+    $(`#applyStateUl-${id}`).html("<li class='refuse_btn'>불합격</li>");
 
   }
 }
 
 
-async function checkedValue() {
-  let sugState = document.querySelector("#state").value;
+async function checkedValue(id) {
+  let sugState = document.querySelector(`#state-${id}`).value;
   let resumeId = document.querySelector("#resumeId").value;
   let jobOpeningId = document.querySelector("#jobOpeningId").value;
   
@@ -215,14 +222,14 @@ async function checkedValue() {
       console.log("안녕" + responseBody.data);
 
     if(responseBody.data === '대기중'){
-      $("#sugStateUl").html('');
-      $("#sugStateUl").html("<li class='wait_btn'>대기중</li>");
+      $(`#sugStateUl-${id}`).html('');
+      $(`#sugStateUl-${id}`).html("<li class='wait_btn'>대기중</li>");
        } else if (responseBody.data === '수락') {
-      $("#sugStateUl").html('');
-      $("#sugStateUl").html("<li class='accept_btn'>수락</li>");
+      $(`#sugStateUl-${id}`).html('');
+      $(`#sugStateUl-${id}`).html("<li class='accept_btn'>수락</li>");
        } else if (responseBody.data === '거절') {
-      $("#sugStateUl").html('');
-      $("#sugStateUl").html("<li class='refuse_btn'>거절</li>");
+      $(`#sugStateUl-${id}`).html('');
+      $(`#sugStateUl-${id}`).html("<li class='refuse_btn'>거절</li>");
       }
       
     } else {
