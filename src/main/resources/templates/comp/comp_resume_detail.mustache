@@ -103,27 +103,14 @@
                 {{mainIntro}}
               </div>
               <div class="double_btn scrap_btn">
-                <button type="button" id="scrap_button" class="btn_empty scrap_icon scrap_button">
+                <button type="button" id="scrap_button" onclick="toggleScrap()" class="btn_empty scrap_icon scrap_button">
+                  <input type="hidden" id="resumeId" name="resumeId"
+                  value="{{resume.id}}">
                   <img id="scrap_icon" src="/image/empty_star.png" alt="empty_star.png">
                   <span>
                     스크랩
                   </span>
                 </button>
-                <script>
-                  let scrapButton = document.querySelector("#scrap_button");
-                  let scrapIcon = document.querySelector("#scrap_icon");
-                  let isScrapped = false;
-
-                  scrapButton.addEventListener("click", function () {
-                    if (isScrapped) {
-                      scrapIcon.src = "/image/empty_star.png";
-                    } else {
-                      scrapIcon.src = "/image/full_star.png";
-                    }
-                    isScrapped = !isScrapped;
-                  });
-                      // 스크랩 버튼
-                </script>
                 <button type="button" class="btn_fill" data-bs-toggle="modal" data-bs-target="#myModal">제안하기</button>
                 
                 <!-- The Modal -->
@@ -189,7 +176,90 @@
                         </div>
                     </div>
                 </div>
+                <script>
+                  let scrapButton = document.querySelector("#scrap_button");
+                  let scrapIcon = document.querySelector("#scrap_icon");
+                  let isScrapped = false;
 
+                  scrapButton.addEventListener("click", function () {
+                    if (isScrapped) {
+                      scrapIcon.src = "/image/empty_star.png";
+                    } else {
+                      scrapIcon.src = "/image/full_star.png";
+                    }
+                    isScrapped = !isScrapped;
+                  });
+                      // 스크랩 버튼
+
+                  async function toggleScrap() {
+                      let resumeId = document.querySelector("#resumeId").value;
+                      let scrapIcon = document.querySelector("#scrap_icon");
+
+                      // 스크랩 상태에 따라 메소드 호출
+                      if (scrapState === 0) {
+                          await saveScrap(resumeId);
+                          scrapState = 1;
+                      } else {
+                          await deleteScrap(resumeId);
+                          scrapState = 0;
+                      }
+
+                      // 아이콘 업데이트
+                      updateScrapIcon();
+                  }
+
+                  async function saveScrap(resumeId) {
+                      // 저장 메소드 호출
+                      let response = await fetch("/api/comp/resume/scrap/save", {
+                          method: "post",
+                          headers: {
+                              "Content-Type": "application/json"
+                          },
+                          body: JSON.stringify({ resumeId })
+                      });
+
+                      let responseBody = await response.json();
+                      console.log(responseBody);
+
+                      if (responseBody.success) {
+                        alert("스크랩 성공");
+                        location.reload();
+                      } else {
+                          alert(responseBody.data);
+                      }
+                  }
+
+                  async function deleteScrap(resumeId) {
+                      // 삭제 메소드 호출
+                      let response = await fetch("/api/comp/resume/scrap/delete", {
+                          method: "delete",
+                          headers: {
+                              "Content-Type": "application/json"
+                          },
+                          body: JSON.stringify({ resumeId })
+                      });
+
+                      let responseBody = await response.json();
+                      console.log(responseBody);
+
+                      if (responseBody.success) {
+                        alert("스크랩 삭제");
+                        location.reload();
+                      } else {
+                          alert(responseBody.data);
+                      }
+                  }
+
+                  function updateScrapIcon() {
+                      let scrapIcon = document.querySelector("#scrap_icon");
+                      if (scrapState === 1) {
+                          scrapIcon.src = "/image/full_star.png";
+                      } else {
+                          scrapIcon.src = "/image/empty_star.png";
+                      }
+                  }
+                </script>
+                <button type="submit" class="btn_fill">제안하기</button>
               </div>
             </div>
           </div>
@@ -197,7 +267,6 @@
         {{/resume}}
       </div>
     </form>
-
   </div>
 </main>
 {{>layout/footer}}

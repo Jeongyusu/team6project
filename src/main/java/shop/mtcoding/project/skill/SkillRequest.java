@@ -22,4 +22,8 @@ public class SkillRequest {
         private Integer skillId;
         private String skill;
     }
+
+
 }
+
+

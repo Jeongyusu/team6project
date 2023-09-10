@@ -1,5 +1,6 @@
 package shop.mtcoding.project.scrap;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +17,9 @@ public interface UserScrapRepository extends JpaRepository<UserScrap, Integer> {
     @Modifying
     @Query("delete from UserScrap u where u.jobOpening.id = :jobOpeningId and u.user.id = :userId")
     void mdeleteByJobOpeningId(@Param("jobOpeningId") Integer jobOpeningId, @Param("userId") Integer userId);
+
+    // 개인 -> 스크랩조회
+    @Query("select DISTINCT u from UserScrap u where u.user.id = :userId")
+    List<UserScrap> findByUserIdFromUser(@Param("userId") Integer userId);
 
 }

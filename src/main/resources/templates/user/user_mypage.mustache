@@ -42,7 +42,7 @@
           <div class="mypage_list">
             <div class="resume_count">이력서
 
-              <span class="common_num"></span>
+              <span class="common_num">{{totalResume}}</span>
 
             </div>
 
@@ -73,56 +73,38 @@
             </div>
             <ul class="com_cont com_box">
               <li class="comp_item">
+                {{#scrapJobOpeningDTOList}}
                 <ul class="comp_cont">
                   <li class="comp_img">
-                    <a href="user_job_opening_apply.html">
-                      <img src="/image/company_img/comp_img01.png" alt="기업01">
-                      <span class="comp_dday">D - 7</span>
+                    <a href="/user/jobOpening/{{jobOpeningId}}">
+                      <img src="/image/company_img/{{compPicUrl}}" alt="기업01">
+                      <span class="comp_dday">{{dDayDeadLine}}</span>
                     </a>
                   </li>
                   <li class="com_name comp_scrap">
-                    모트렉스
+                    {{compName}}
                     <div class="apply_scrap">
-                      <form action="#">
-                        <button type="button" id="scrap_button" class="btn_empty scrap_icon scrap_button">
-                          <img id="scrap_icon" src="/image/full_star.png" alt="empty_star.png">
-                        </button>
+                      <form>
+                        <button type="button" onclick="deleteScrap('{{jobOpeningId}}')" id="scrap_button{{jobOpeningId}}" class="btn_empty scrap_icon scrap_button">
+                          <input type="hidden" id="jobOpeningId{{jobOpeningId}}" name="jobOpeningId"
+                    value="{{jobOpeningId}}">
+                            <img
+                              id="scrap_icon"
+                              src="/image/full_star.png"
+                              alt="full_star.png"
+                            />
+                          </button>
                       </form>
                     </div>
                   </li>
                   <li class="com_tit">
-                    <h4>웹개발(백엔드,프론트엔드)</43>
+                    <h4>{{title}}</h4>
                   </li>
                   <li class="com_txt">
-                    CSS3·jQuery·Linux·JavaScript
+                    {{skillName}}
                   </li>
                 </ul>
-              </li>
-              <li class="comp_item">
-                <ul class="comp_cont">
-                  <li class="comp_img">
-                    <a href="user_job_opening_apply.html">
-                      <img src="/image/company_img/comp_img01.png" alt="기업01">
-                      <span class="comp_dday">D - 7</span>
-                    </a>
-                  </li>
-                  <li class="com_name comp_scrap">
-                    모트렉스
-                    <div class="apply_scrap">
-                      <form action="#">
-                        <button type="button" id="scrap_button" class="btn_empty scrap_icon scrap_button">
-                          <img id="scrap_icon" src="/image/full_star.png" alt="empty_star.png">
-                        </button>
-                      </form>
-                    </div>
-                  </li>
-                  <li class="com_tit">
-                    <h4>웹개발(백엔드,프론트엔드)</43>
-                  </li>
-                  <li class="com_txt">
-                    CSS3·jQuery·Linux·JavaScript
-                  </li>
-                </ul>
+                {{/scrapJobOpeningDTOList}}
               </li>
             </ul>
           </div>
@@ -180,7 +162,7 @@
           <div class="mypage_list">
             <div class="resume_btn">
               <div class="resume_count">전체
-                <span class="common_num">3</span>
+                <span class="common_num">{{totalResume}}</span>
               </div>
               <a href="/user/resume/saveForm" class="btn btn-primary">이력서 작성</a>
             </div>
@@ -300,33 +282,35 @@
         <div class="mypage_right tab-content mypage_list_item" id="scrap">
           <div class="mypage_list">
             <div class="resume_count">전체
-              <span class="common_num">3</span>
+              <span class="common_num">{{scrapJobOpeningSum}}</span>
             </div>
             <ul class="com_cont">
+              {{#scrapJobOpeningDTOList}}
               <li class="resume_inner">
                 <ul class="resume_cont">
                   <li class="com_tit com_btn">
                     <div class="apply_scrap">
-                      <form action="#">
-                        <button type="button" id="scrap_button" class="btn_empty scrap_icon scrap_button">
-                          <img id="scrap_icon" src="/image/full_star.png" alt="empty_star.png">
+                      <button type="button" onclick="deleteScrap('{{jobOpeningId}}')" id="scrap_button{{jobOpeningId}}" class="btn_empty scrap_icon scrap_button">
+                        <input type="hidden" id="jobOpeningId{{jobOpeningId}}" name="jobOpeningId"
+                  value="{{jobOpeningId}}">
+                          <img
+                            id="scrap_icon"
+                            src="/image/full_star.png"
+                            alt="full_star.png"
+                          />
                         </button>
-                      </form>
-                      <a href="user_job_opening_apply.html">
-                        <h4>백엔드 개발자 채용</h4>
+                      <a href="/user/jobOpening/{{jobOpeningId}}">
+                        <h4>{{title}}</h4>
                       </a>
                     </div>
                   </li>
-                  <li class="com_txt">고졸 신입</li>
+                  <li class="com_txt">{{edu}}</li>
                   <li class="com_skill comp_skill">
-                    <span class="skill_box">HTML/CSS</span>
-                    <span class="skill_box">JavaScript</span>
-                    <span class="skill_box">MySQL</span>
-                    <span class="skill_box">Spring</span>
-                    <span class="skill_box">JAVA</span>
+                    <span class="skill_box">{{skillName}}</span>
                   </li>
                 </ul>
               </li>
+              {{/scrapJobOpeningDTOList}}
             </ul>
           </div>
         </div>
@@ -379,6 +363,27 @@
     }
     reader.readAsDataURL(f); // 파일 읽기 onload()
   }
+
+  async function deleteScrap(jobOpeningId) {
+    // 삭제 메소드 호출
+    let response = await fetch("/api/user/jobOpening/scrap/delete", {
+        method: "delete",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ jobOpeningId })
+    });
+
+    let responseBody = await response.json();
+    console.log(responseBody);
+
+    if (responseBody.success) {
+      alert("스크랩 삭제");
+      location.reload();
+    } else {
+        alert(responseBody.data);
+    }
+}
 </script>
 
 {{>layout/footer}}

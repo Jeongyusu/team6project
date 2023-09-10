@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,9 @@ import shop.mtcoding.project.jobopening.JobOpeningService;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
+import shop.mtcoding.project.scrap.ScrapService;
+import shop.mtcoding.project.scrap.CompScrapResponse.ScrapResumeDTO;
+import shop.mtcoding.project.scrap.UserScrapResponse.ScrapJobOpeningDTO;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.suggest.Suggest;
 import shop.mtcoding.project.suggest.SuggestQueryRepository;
@@ -54,6 +58,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ScrapService scrapService;
 
     @Autowired
     private HttpSession session;
@@ -115,13 +122,19 @@ public class UserController {
         return Script.href("/user/myPageForm", "비밀번호 변경완료");
     }
 
+    ///////// 유저 제안 수락
+    @PostMapping("/user/suggest/accept")
+    public @ResponseBody String userSuggestAccept() {
+        return null;
+    }
+
     @GetMapping("/user/resume/wirteForm")
     public String UserResumeWrite() {
         return "user/user_resume_write";
     }
 
     @PostMapping("/user/picUpdate")
-    public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO) {
+    public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO, Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.유저사진수정(userPicUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
@@ -153,6 +166,7 @@ public class UserController {
 
         // model.addAttribute("hasSkillList", hasSkillList);
         // model.addAttribute("wishPositionList", wishPositionList);
+
         return "user/user_mypage";
     }
 
@@ -176,7 +190,6 @@ public class UserController {
     // }
 
     @PostMapping("/comp/login")
-
     public @ResponseBody String compLogin(UserRequest.UserLoginDTO userLoginDTO) {
         User sessionUser = userService.유저로그인(userLoginDTO);
         session.setAttribute("sessionUser", sessionUser);

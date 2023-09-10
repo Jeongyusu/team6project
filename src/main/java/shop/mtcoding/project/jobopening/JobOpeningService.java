@@ -166,7 +166,6 @@ public class JobOpeningService {
                         .build();
                 requiredPositionRepository.save(requiredPosition);
             }
-            // 내가 선택한 체크박스 포지션 수정
 
             List<String> skillList = jobOpeningUpdateDTO.getSkillList();
             for (String skillName : skillList) {
@@ -177,7 +176,6 @@ public class JobOpeningService {
                         .build();
                 requiredSkillRepository.save(requiredSkill);
             }
-            // 내가 선택한 체크박스 스킬 수정
 
             qualifiedRepository.deleteByJobOpeningId(id);
             List<String> qualList = jobOpeningUpdateDTO.getQualList();
@@ -189,7 +187,6 @@ public class JobOpeningService {
                         .build();
                 qualifiedRepository.save(requiredQualified);
             }
-            // 자격요건 수정
 
             taskRepository.deleteByJobOpeningId(id);
             List<String> taskList = jobOpeningUpdateDTO.getTaskList();
@@ -201,7 +198,6 @@ public class JobOpeningService {
                         .build();
                 taskRepository.save(requiredTask);
             }
-            // 주요 업무 수정
 
         } else {
             throw new MyException(id + "를 찾을 수 없습니다");
@@ -262,5 +258,4 @@ public class JobOpeningService {
         }
         return jobOpeningMainDTOList;
     }
-
 }

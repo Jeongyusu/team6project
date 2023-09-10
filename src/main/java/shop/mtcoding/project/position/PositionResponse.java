@@ -35,4 +35,5 @@ public class PositionResponse {
             this.position = position;
         }
     }
+
 }

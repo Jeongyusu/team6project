@@ -19,7 +19,6 @@ public class UserRequest {
     @Getter
     @Setter
     public static class UserJoinDTO {
-
         private String userEmailId;
         private String userName;
         private String userPassword;
