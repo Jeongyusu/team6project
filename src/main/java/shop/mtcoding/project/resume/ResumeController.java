@@ -1,10 +1,5 @@
 package shop.mtcoding.project.resume;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,47 +9,36 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import shop.mtcoding.project.apply.Apply;
-import shop.mtcoding.project.apply.ApplyRepository;
-import shop.mtcoding.project.jobopening.JobOpening;
-import shop.mtcoding.project.jobopening.JobOpeningRepository;
-import shop.mtcoding.project.resume.ResumeRequest.CompUserOpenResumeDTO;
-import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
-import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
-import shop.mtcoding.project.scrap.ScrapService;
-import shop.mtcoding.project.scrap.UserScrapResponse.ScrapJobOpeningDTO;
-import shop.mtcoding.project.skill.RequiredSkill;
-import shop.mtcoding.project.skill.RequiredSkillRepository;
-import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
-import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
-import shop.mtcoding.project.skill.SkillRequest.MySkill;
-import shop.mtcoding.project.suggest.Suggest;
-import shop.mtcoding.project.suggest.SuggestQueryRepository;
-import shop.mtcoding.project.suggest.SuggestRepository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import shop.mtcoding.project._core.error.ex.MyApiException;
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
+import shop.mtcoding.project.apply.Apply;
+import shop.mtcoding.project.apply.ApplyRepository;
+import shop.mtcoding.project.jobopening.JobOpening;
+import shop.mtcoding.project.jobopening.JobOpeningRepository;
 import shop.mtcoding.project.position.PositionResponse.WishPositionResponseDTO;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.position.WishPositionRepository;
+import shop.mtcoding.project.resume.ResumeRequest.CompUserOpenResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserSaveResumeDTO;
 import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
+import shop.mtcoding.project.scrap.ScrapService;
+import shop.mtcoding.project.scrap.UserScrapResponse.ScrapJobOpeningDTO;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.skill.HasSkillRepository;
+import shop.mtcoding.project.skill.RequiredSkillRepository;
+import shop.mtcoding.project.skill.SkillRepository;
 import shop.mtcoding.project.skill.SkillResponse.HasSkillResponseDTO;
+import shop.mtcoding.project.suggest.Suggest;
+import shop.mtcoding.project.suggest.SuggestQueryRepository;
+import shop.mtcoding.project.suggest.SuggestRepository;
 import shop.mtcoding.project.user.User;
 
 @Controller
@@ -83,6 +67,9 @@ public class ResumeController {
     private WishPositionRepository wishPositionRepository;
 
     @Autowired
+    private SkillRepository skillRepository;
+
+    @Autowired
     private ScrapService scrapService;
 
     @Autowired
@@ -102,27 +89,6 @@ public class ResumeController {
         Resume resume = resumeRepository.findById(id).get();
         model.addAttribute("resume", resume);
         return "comp/comp_resume_detail";
-    }
-
-    @GetMapping("/comp/userOpenResumeForm")
-    public String compOpenResumForm(Integer id, Model model) {
-        List<Resume> resumeList = resumeRepository.findAll();
-        model.addAttribute("resumeList", resumeList);
-
-        List<RequiredSkill> compUserResumeList = requiredSkillRepository.mfindByAllJoinSkillAndJobOpening();
-
-        Set<String> uniqueSkillList = new HashSet<>();
-
-        for (RequiredSkill requiredSkill : compUserResumeList) {
-            String skillName = requiredSkill.getSkill().getSkill();
-            uniqueSkillList.add(skillName);
-        }
-        model.addAttribute("uniqueSkillList", uniqueSkillList);
-
-        List<CompUserOpenResumeDTO> compUserOpenResumeDTO = resumeService.공개이력서목록(id);
-        model.addAttribute("compUserOpenResumeDTO", compUserOpenResumeDTO);
-
-        return "comp/comp_user_open_resume";
     }
 
     @PostMapping("/user/resume/save")
@@ -188,8 +154,10 @@ public class ResumeController {
 
         List<Suggest> suggestList = suggestRepository.findAll();
         model.addAttribute("suggestList", suggestList);
+
         List<Suggest> suggestList2 = suggestRepository.findBySuggestUserId(sessionUser.getId());
         int totalSuggestList = suggestList2.size();
+
         model.addAttribute("totalSuggestList", totalSuggestList);
         model.addAttribute("suggestList2", suggestList2);
 
@@ -198,6 +166,7 @@ public class ResumeController {
 
         List<Resume> resumeList = resumeRepository.findAll();
         model.addAttribute("resumeList", resumeList);
+
         List<Resume> resumeList2 = resumeRepository.findByUserId(sessionUser.getId());
         int totalResume = resumeList2.size();
         model.addAttribute("totalResume", totalResume);
@@ -208,7 +177,6 @@ public class ResumeController {
         model.addAttribute("scrapJobOpeningDTOList", scrapJobOpeningDTOList);
         model.addAttribute("scrapJobOpeningSum", scrapJobOpeningSum);
         return "user/user_mypage";
-
     }
 
     @GetMapping("/api/resume/{resumeId}/skillList")
@@ -236,7 +204,6 @@ public class ResumeController {
                     .build();
             wishPositionResponseDTOList.add(dtos);
         }
-        System.out.println("테스트" + wishPositionResponseDTOList.get(0).getPosition());
         return wishPositionResponseDTOList;
     }
 
@@ -282,6 +249,20 @@ public class ResumeController {
         List<Resume> resumeList = resumeRepository.findByUserId(sessionUser.getId());
         model.addAttribute("resumeList", resumeList);
         return "user/user_resume";
+    }
+
+    @GetMapping("/api/openResum/condition")
+    public @ResponseBody List<CompUserOpenResumeDTO> career(
+            @RequestParam(name = "career", required = false) String career,
+            @RequestParam(name = "careerYear", required = false) String careerYear,
+            @RequestParam(name = "address", required = false) String address) {
+        List<CompUserOpenResumeDTO> compUserOpenResumeDTO = resumeService.조건선택(career, careerYear, address);
+        return compUserOpenResumeDTO;
+    }
+
+    @GetMapping("/user/OpenResumeForm")
+    public String compOpenResumForm() {
+        return "comp/comp_user_open_resume";
     }
 
 }

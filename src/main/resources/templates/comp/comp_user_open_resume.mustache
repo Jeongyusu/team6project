@@ -7,56 +7,123 @@
   <div class="container">
     <!-- container 건들지 말기 -->
     <!-- 여기서부터 시작 -->
-    <div class="position_box">
-      <ul class="position_menu">
-        <li class="position_skill com_skill position_active">
-          {{#uniqueSkillList}}
-          <span class="skill_box">{{.}}</span>
-          {{/uniqueSkillList}}
-        </li>
-      </ul>
+    <div class="position_select condition_select">
+     <div class="select_edu">
+        <select class="select" id="career">
+          <option disabled selected>경력</option>
+          <option value="경력">경력</option>
+          <option value="신입">신입</option>
+        </select>
+
+        <select class="select" id="careerYear">
+          <option disabled selected>기간</option>
+          <option value="1년차">1년차</option>
+          <option value="2년차">2년차</option>
+          <option value="3년차">3년차</option>
+          <option value="4년차">4년차</option>
+          <option value="5년차">5년차</option>
+        </select>
     </div>
-    <div class="position_select">
-      <select class="select select_edu">
-        <option disabled selected>경력</option>
-        <option>java</option>
-        <option>javaScript</option>
-      </select>
-      <select class="select select_adr">
+
+      <select class="select select_adr" id="address">
         <option disabled selected>지역</option>
-        <option>java</option>
-        <option>javaScript</option>
+        <option value="전국">전국</option>
+        <option value="서울">서울</option>
+        <option value="경기">경기</option>
+        <option value="인천">인천</option>
+        <option value="부산">부산</option>
+        <option value="대구">대구</option>
+        <option value="광주">광주</option>
+        <option value="대전">대전</option>
+        <option value="울산">울산</option>
+        <option value="세종">세종</option>
+        <option value="충북">충북</option>
+        <option value="충남">충남</option>
+        <option value="전북">전북</option>
+        <option value="전남">전남</option>
+        <option value="경북">경북</option>
+        <option value="경남">경남</option>
+        <option value="제주">제주</option>
       </select>
     </div>
-    {{#resumeList}}
-    <div class="main_box">
-      {{#compUserOpenResumeDTO}}
-      <a href="/user/{{ resumeId }}/resume/detail">
-        <ul class="user_cont user_box">
-          <li class="user_img">
-            <img src="/image/user_img/{{ resumePic }}" alt="이력서 사진" />
-          </li>
-          <li class="user_cont">
-            <div class="com_tit">
-              <h3>
-                {{ userName }}
-              </h3>
-            </div>
-            <div class="com_tit">
-              <h4>
-                {{ title }}
-              </h4>
-            </div>
-            <div class="com_txt">{{ career }}</div>
-            <div class="com_txt">{{ address }}</div>
-            <div class="com_skill open_resume_skill">
-              <span class="skill_box">{{ userSkillList }}</span>
-            </div>
-          </li>
-        </ul>
-      </a>
-      {{/compUserOpenResumeDTO}}
+    <div class="main_box" id="resume_box">
     </div>
   </div>
 </main>
+ <script>
+
+        let career = "";
+        let address = "";
+
+        // 페이지 로드 시 초기 데이터 가져오기
+        render(career, address);
+
+        // 1. 셀렉트 박스 변경될 때 마다, 화면 갱신
+        $("#career, #address").change(() => {
+            let career = $("#career").val();
+            let address = $("#address").val();
+            render(career, address);
+        });
+
+        // 2. 통신해서 화면 다시 그리기
+        async function render(career, address){
+            $("#resume_box").html('');
+            let responseBody = await download(career, address);
+            console.log(career, address);
+            responseBody.forEach((resumeItem)=>{
+                $("#resume_box").append(resumeBox(resumeItem));
+            });
+        }
+
+        // 3. 컴퍼넌트 (디자인 결합)
+        function resumeBox(resumeItem){
+            return `
+                <a href="/user/${resumeItem.resumeId}/resume/detail">
+                  <ul class="user_cont user_box">
+                    <li class="user_img">
+                      <img src="/image/user_img/${resumeItem.resumePic}" alt="이력서 사진" />
+                    </li>
+                    <li class="user_cont">
+                      <div class="com_tit">
+                        <h3>
+                          ${resumeItem.userName}
+                        </h3>
+                      </div>
+                      <div class="com_tit">
+                        <h4>
+                          ${resumeItem.title}
+                        </h4>
+                      </div>
+                      <div class="com_txt">${resumeItem.career}</div>
+                      <div class="com_txt">${resumeItem.address}</div>
+                      <div class="com_skill open_resume_skill">
+                        <span class="skill_box">${resumeItem.userSkillList}</span>
+                      </div>
+                    </li>
+                  </ul>
+                </a>`;
+        }
+
+            // 4. 통신코드
+    async function download(career, address){
+        let response = await fetch(`/api/openResum/condition?career=${career}&address=${address}`);
+        let responseBody = await response.json();
+        console.log(responseBody)
+        return responseBody;
+    }
+
+    document.getElementById("career").addEventListener("change", function () {
+        var careerSelect = document.getElementById("career");
+        var careerYearSelect = document.getElementById("careerYear");
+
+        if (careerSelect.value === "신입") {
+            careerYearSelect.disabled = true;
+            careerYearSelect.selectedIndex = 0; // 선택된 옵션을 초기화
+        } else {
+            careerYearSelect.disabled = false;
+        }
+    });
+
+    </script>
+
 {{>layout/footer}}

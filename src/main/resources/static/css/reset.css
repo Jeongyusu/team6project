@@ -337,6 +337,23 @@ input[type="checkbox"] {
   outline: none;
 }
 
+.resume_sug_button {
+  padding: 14px;
+  border: 1px solid;
+  width: 100% !important;
+  font-size: 16px;
+  color: var(--back_01);
+  background-color: var(--point_03);
+  outline: none;
+  border-radius: 0 !important;
+}
+.sug_close_button {
+  display: inline;
+  text-align: right;
+}
+.resume_details .double_btn .sug_close_button button {
+  width: 40px !important;
+}
 .apply_company_company {
   padding: 14px;
   border: 1px solid;

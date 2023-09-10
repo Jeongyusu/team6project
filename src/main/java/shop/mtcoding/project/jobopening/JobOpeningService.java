@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.bytebuddy.agent.builder.AgentBuilder.InitializationStrategy.SelfInjection.Split;
 import shop.mtcoding.project._core.error.ex.MyException;
+import shop.mtcoding.project._core.util.Split;
 import shop.mtcoding.project.jobopening.JobOpeningRequest.JobOpeningUpdateDTO;
 import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 import shop.mtcoding.project.position.Position;
@@ -175,7 +175,6 @@ public class JobOpeningService {
                         .skill(skill)
                         .build();
                 requiredSkillRepository.save(requiredSkill);
-
             }
 
             qualifiedRepository.deleteByJobOpeningId(id);
@@ -207,6 +206,7 @@ public class JobOpeningService {
 
     @Transactional
     public void 공고삭제(Integer id) {
+
         List<RequiredSkill> requiredSkillList = requiredSkillRepository.findByJobOpeningId(id);
         for (RequiredSkill requiredSkill : requiredSkillList) {
             requiredSkill.setJobOpening(null);
@@ -243,7 +243,7 @@ public class JobOpeningService {
 
             // 주소 포맷
             String Address = jobOpening.getCompAddress();
-            String compAddressFormat = shop.mtcoding.project._core.util.Split.AddressSplit(Address);
+            String compAddressFormat = Split.AddressSplit(Address);
 
             JobOpeningMainDTO jobOpeningMainDTO = JobOpeningMainDTO.builder()
                     .jobOpeningId(jobOpening.getId())
@@ -258,5 +258,4 @@ public class JobOpeningService {
         }
         return jobOpeningMainDTOList;
     }
-
 }
