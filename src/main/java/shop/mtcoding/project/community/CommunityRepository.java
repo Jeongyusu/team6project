@@ -10,11 +10,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface CommunityRepository extends JpaRepository<Community, Integer> {
 
-    // 검색 후 글 목록보기
+    // board 제목/내용 검색 & 목록
     @Query("select c from Community as c where title like %:keyword% or content like %:keyword%")
     Page<Community> mfindBySearchAll(@Param("id") Pageable pageable, @Param("keyword") String keyword);
 
-    // 글 상세보기
+    // board 상세
     @Query("select c from Community as c left join fetch c.replyList as r left join fetch r.user as ru where c.id = :id")
     Optional<Community> mfindByIdJoinReplyAndBoard(@Param("id") Integer id);
 }

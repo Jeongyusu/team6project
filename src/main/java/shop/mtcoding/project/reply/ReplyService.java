@@ -17,12 +17,13 @@ public class ReplyService {
     @Autowired
     private ReplyRepository replyRepository;
 
+    //// 댓글 등록
     @Transactional
     public void 댓글작성(Integer sessionId, ReplyRequest.ReplySaveDTO replySaveDTO) {
 
         // 공백 또는 null 방지
         if (replySaveDTO.getComment() == null || replySaveDTO.getComment().isEmpty()) {
-            throw new MyException("내용을 전부 입력해주세요");
+            throw new MyException("내용을 입력해주세요");
         }
 
         Reply reply = Reply.builder()
@@ -34,21 +35,21 @@ public class ReplyService {
         replyRepository.save(reply);
     }
 
+    //// 댓글 삭제
     @Transactional
-    public void 댓글삭제(Integer sessionId, Integer id) {
-        Optional<Reply> replyOP = replyRepository.findById(id);
-        if (replyOP.isPresent()) {
-            Reply reply = replyOP.get();
-
-            // 권한 인증
-            if (sessionId != reply.getUser().getId()) {
-                throw new MyException("댓글 삭제의 권한이 없습니다.");
-            }
-
-            replyRepository.deleteById(id);
-        } else {
+    public void 댓글삭제(Integer sessionId, Integer replyId) {
+        Optional<Reply> replyOP = replyRepository.findById(replyId);
+        if (!replyOP.isPresent()) {
             throw new MyException("해당 댓글을 찾을 수 없습니다.");
         }
+        Reply reply = replyOP.get();
+
+        // 권한 인증
+        if (sessionId != reply.getUser().getId()) {
+            throw new MyException("댓글 삭제의 권한이 없습니다.");
+        }
+
+        replyRepository.deleteById(replyId);
     }
 
 }

@@ -10,7 +10,7 @@ import shop.mtcoding.project.reply.ReplyResponse.ReplyDetailDTO;
 
 public class CommunityResponse {
 
-    // 게시글 목록보기 - 날짜포맷
+    // board 목록 DTO - 날짜포맷
     @NoArgsConstructor
     @Getter
     @Setter
@@ -33,7 +33,7 @@ public class CommunityResponse {
         }
     }
 
-    // 게시글 상세보기 - 날짜포맷
+    // board 상세 DTO - 날짜포맷
     @NoArgsConstructor
     @Setter
     @Getter
@@ -46,18 +46,18 @@ public class CommunityResponse {
         private String boardFormatDate;
 
         private List<ReplyDetailDTO> replyList;
-        private boolean replyOwner;
+        private boolean boardOwner;
 
         @Builder
         public BoardDetailDTO(Integer boardId, String title, String content, String boardUserName,
-                String boardFormatDate, List<ReplyDetailDTO> replyList, boolean replyOwner) {
+                String boardFormatDate, List<ReplyDetailDTO> replyList, boolean boardOwner) {
             this.boardId = boardId;
             this.title = title;
             this.content = content;
             this.boardUserName = boardUserName;
             this.boardFormatDate = boardFormatDate;
             this.replyList = replyList;
-            this.replyOwner = replyOwner;
+            this.boardOwner = boardOwner;
         }
     }
 

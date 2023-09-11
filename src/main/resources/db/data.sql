@@ -86,5 +86,14 @@ insert into wish_position_tb (position_id, resume_id) values ('6', '1');
 insert into suggest_tb (sug_state, job_opening_id, resume_id, user_id) values ('수락', 1, 1, 1);
 insert into suggest_tb (sug_state, job_opening_id, resume_id, user_id) values ('거절', 1, 3, 1);
 
+insert into community_tb (title, content, created_at, user_id) values('제목1', '내용1', now(), '1');
+insert into community_tb (title, content, created_at, user_id) values('제목2', '내용2', now(), '2');
+insert into community_tb (title, content, created_at, user_id) values('제목3', '내용3', now(), '3');
+insert into community_tb (title, content, created_at, user_id) values('제목4', '내용4', now(), '4');
+insert into community_tb (title, content, created_at, user_id) values('제목5', '내용5', now(), '5');
+insert into community_tb (title, content, created_at, user_id) values('제목6', '내용6', now(), '6');
 
-
+insert into reply_tb (comment, created_at, user_id, community_id) values('댓글1-1', now(), '1', '1');
+insert into reply_tb (comment, created_at, user_id, community_id) values('댓글1-2', now(), '1', '1');
+insert into reply_tb (comment, created_at, user_id, community_id) values('댓글2-1', now(), '2', '2');
+insert into reply_tb (comment, created_at, user_id, community_id) values('댓글3-1', now(), '3', '3');
