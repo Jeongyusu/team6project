@@ -79,12 +79,12 @@ insert into wish_position_tb (position_id, resume_id) values ('6', '1');
 -- insert into qualified_tb (qualified_content, job_opening_id) values('Python 기반 개발 경험', '2');
 -- insert into qualified_tb (qualified_content, job_opening_id) values('CI CD 툴을 활용한 빌드,테스트,배포 자동화 경험', '3');
 
--- insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('합격', 1, 1, 1);
--- insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('불합격', 2, 2, 1);
--- insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('합격', 3, 1, 1);
+insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('합격', 1, 1, 1);
+insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('불합격', 2, 2, 1);
+insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('합격', 3, 1, 1);
 
--- insert into suggest_tb (sug_state, job_opening_id, resume_id, user_id) values ('수락', 1, 1, 1);
--- insert into suggest_tb (sug_state, job_opening_id, resume_id, user_id) values ('거절', 1, 3, 1);
+insert into suggest_tb (sug_state, job_opening_id, resume_id, user_id) values ('수락', 1, 1, 1);
+insert into suggest_tb (sug_state, job_opening_id, resume_id, user_id) values ('거절', 1, 3, 1);
 
 
 
