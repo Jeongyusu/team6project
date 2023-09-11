@@ -80,14 +80,20 @@ public class Resume {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<JobOpening> jobOpeningList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HasSkill> hasSkillList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<WishPosition> wishPositionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Apply> applyList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Suggest> suggestList = new ArrayList<>();
 
     @Builder
     public Resume(Integer id, String userName, String userEmailId, String title, LocalDate birth, String tel,
