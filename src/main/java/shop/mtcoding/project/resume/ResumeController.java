@@ -82,10 +82,10 @@ public class ResumeController {
     }
 
     @PostMapping("/user/resume/save")
-    public String saveResume(UserSaveResumeDTO UserSaveResumeDTO) {
+    public @ResponseBody String saveResume(UserSaveResumeDTO UserSaveResumeDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         resumeService.이력서작성(UserSaveResumeDTO, sessionUser.getId());
-        return "redirect:/user/resume";
+        return Script.href("/user/resume", "작성 완료");
 
     }
 

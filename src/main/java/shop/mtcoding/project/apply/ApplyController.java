@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project._core.util.ApiUtil;
+import shop.mtcoding.project._core.util.Script;
 import shop.mtcoding.project.apply.ApplyRequest.ApplySaveDTO;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.jobopening.JobOpeningRepository;
@@ -72,7 +73,7 @@ public class ApplyController {
     }
 
     @PostMapping("/user/apply")
-    public String UserApply(ApplySaveDTO applySaveDTO) {
+    public @ResponseBody String UserApply(ApplySaveDTO applySaveDTO) {
         System.out.println("실험중" + applySaveDTO.getSelectResumeId());
         System.out.println("실험중" + applySaveDTO.getSelectJobOpeningId());
 
@@ -80,7 +81,7 @@ public class ApplyController {
         User user = userRepository.findById(sessionUser.getId()).get();
         applyService.지원(applySaveDTO, user.getId());
         Integer id = applySaveDTO.getSelectJobOpeningId();
-        return "redirect:/user/jobOpening/" + id + "/applyForm";
+        return Script.href("/user/jobOpening/"+id, "지원 완료");
     }
 
     @GetMapping("/user/applyAndSuggest")
