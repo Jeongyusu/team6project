@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
+import shop.mtcoding.project.jobopening.JobOpening;
+import shop.mtcoding.project.jobopening.JobOpeningRepository;
 import shop.mtcoding.project.position.PositionResponse.WishPositionResponseDTO;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.position.WishPositionRepository;
@@ -28,6 +30,7 @@ import shop.mtcoding.project.skill.HasSkillRepository;
 import shop.mtcoding.project.skill.SkillRepository;
 import shop.mtcoding.project.skill.SkillResponse.HasSkillResponseDTO;
 import shop.mtcoding.project.user.User;
+import shop.mtcoding.project.user.UserRepository;
 
 @Controller
 public class ResumeController {
@@ -53,6 +56,12 @@ public class ResumeController {
     @Autowired
     private HttpSession session;
 
+    @Autowired
+    private JobOpeningRepository jobOpeningRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/user/resume/saveForm")
     public String resumeSaveForm() {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -66,6 +75,10 @@ public class ResumeController {
     public String userOpenResumeDetail(@PathVariable Integer id, Model model) {
         Resume resume = resumeRepository.findById(id).get();
         model.addAttribute("resume", resume);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userRepository.findById(sessionUser.getId()).get();
+        List<JobOpening> jobOpeningList = jobOpeningRepository.findByUserId(user.getId());
+        model.addAttribute("jobOpeningList", jobOpeningList);
         return "comp/comp_resume_detail";
     }
 
