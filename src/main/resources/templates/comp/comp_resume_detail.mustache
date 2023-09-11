@@ -6,7 +6,7 @@
   <div class="container">
     <!-- container 건들지 말기 -->
     <!-- 여기서부터 시작 -->
-    <form action="/user/suggest" method="post">
+    <form action="/user/green">
       <div class="main_total">
         <div class="main_tit">
           <h2>이력서</h2>
@@ -136,7 +136,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="apply_resume_all">
                                 <div class="apply_resume_list">
                                     <div class="modal_list">채용 공고</div>
@@ -145,35 +144,48 @@
                                         <span>개</span>
                                     </div>
                                 </div>
-                                <form action="/user/apply" method="post">
-                                    <input type="hidden" name="JobOpeningId"
-                                        value="">
-                                    {{#jobOpeningList}}
-                                    <ul>
-                                        <li class="apply_resume">
-                                            <div class="resume_check_button">
-                                                <input type="radio" name="ResumeId" value="">
-                                            </div>
-                                            <div class="about_resume">
-                                                <p class="resume_name">{{title}}</p>
-                                                <p class="resume_created_at">
-                                                    <span>
-                                                    </span>
-                                                    <span>
-                                                        <a href="/comp/jobOpening/{id}/updateForm"><img src="/image/write.png"
-                                                                alt="write_png"></a>
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    {{/jobOpeningList}}
-                                    <button type="button" class="resume_sug_button" data-bs-toggle="modal"
-                                        data-bs-target="#myModal" onclick="">
-                                        제안하기
-                                    </button>
-                                </form>
-                            </div>
+                                <ul>
+                                  <li class="apply_resume">
+                                      <div class="resume_check_button">
+                                          <input type="radio" name="selectedResumeId" value="true" checked="">
+                                      </div>
+                                      <div class="about_resume">
+                                          <p class="resume_name">toss</p>
+                                          <p class="resume_created_at">
+                                              <span>2023.08.25
+                                                  <span>등록</span>
+                                              </span>
+                                              <span>
+                                                  <a href="user_resume_update.html"><img src="/image/write.png" alt="write_png"></a>
+                                              </span>
+                                          </p>
+                                      </div>
+                                  </li>
+                                  <li class="apply_resume">
+                                      <div class="resume_check_button">
+                                          <input type="radio" name="selectedResumeId" value="true" checked="">
+                                      </div>
+                                      <div class="about_resume">
+                                          <p class="resume_name">toss</p>
+                                          <p class="resume_created_at">
+                                              <span>2023.08.25
+                                                  <span>등록</span>
+                                              </span>
+                                              <span>
+                                                  <a href="user_resume_update.html"><img src="/image/write.png" alt="write_png"></a>
+                                              </span>
+                                          </p>
+                                      </div>
+                                  </li>
+                                </ul>
+                                <button
+                                type="submit"
+                                class="resume_apply_button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#myModal"
+                              >
+                                제안하기
+                              </button>         
                         </div>
                     </div>
                 </div>

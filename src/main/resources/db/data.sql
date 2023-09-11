@@ -139,7 +139,7 @@ insert into qualified_tb (qualified_content, job_opening_id) values('CI CD íˆ´ì
 
 insert into comp_scrap_tb (user_id, resume_id) values ('4', '1');
 insert into comp_scrap_tb (user_id, resume_id) values ('4', '2');
-insert into comp_scrap_tb (user_id, resume_id) values ('4', '3');
+
 
 insert into user_scrap_tb (user_id, job_opening_id) values ('1', '1');
 insert into user_scrap_tb (user_id, job_opening_id) values ('1', '2');

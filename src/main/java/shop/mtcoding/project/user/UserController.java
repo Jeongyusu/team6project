@@ -213,4 +213,10 @@ public class UserController {
         session.setAttribute("sessionUser", user);
         return "comp/comp_info_update";
     }
+
+    @GetMapping("/user/green")
+    public @ResponseBody String green(Integer resumeId){
+
+        return Script.href("/comp/resume/" + resumeId, "제안 완료");
+    }
 }
