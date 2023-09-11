@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,9 +22,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.skill.HasSkill;
+import shop.mtcoding.project.suggest.Suggest;
 import shop.mtcoding.project.user.User;
 
 @NoArgsConstructor

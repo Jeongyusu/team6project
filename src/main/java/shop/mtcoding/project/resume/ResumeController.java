@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -118,44 +119,49 @@ public class ResumeController {
 
     // @GetMapping("/user/myPageForm")
     // public String resumeList(Model model) {
-    //     User sessionUser = (User) session.getAttribute("sessionUser");
+    // User sessionUser = (User) session.getAttribute("sessionUser");
 
-    //     List<Apply> applyList = applyRepository.findAll();
-    //     model.addAttribute("applyList", applyList);
-    //     List<Apply> applyList2 = applyRepository.findByResumeUserId(sessionUser.getId());
+    // List<Apply> applyList = applyRepository.findAll();
+    // model.addAttribute("applyList", applyList);
+    // List<Apply> applyList2 =
+    // applyRepository.findByResumeUserId(sessionUser.getId());
 
-    //     int totalApply = applyList2.size();
-    //     List<JobOpening> jobOpeningInfo = suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
+    // int totalApply = applyList2.size();
+    // List<JobOpening> jobOpeningInfo =
+    // suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
 
-    //     model.addAttribute("jobOpeningInfo", jobOpeningInfo);
-    //     model.addAttribute("totalApply", totalApply);
-    //     model.addAttribute("applyList2", applyList2);
+    // model.addAttribute("jobOpeningInfo", jobOpeningInfo);
+    // model.addAttribute("totalApply", totalApply);
+    // model.addAttribute("applyList2", applyList2);
 
-    //     List<Suggest> suggestList = suggestRepository.findAll();
-    //     model.addAttribute("suggestList", suggestList);
+    // List<Suggest> suggestList = suggestRepository.findAll();
+    // model.addAttribute("suggestList", suggestList);
 
-    //     List<Suggest> suggestList2 = suggestRepository.findBySuggestUserId(sessionUser.getId());
-    //     int totalSuggestList = suggestList2.size();
+    // List<Suggest> suggestList2 =
+    // suggestRepository.findBySuggestUserId(sessionUser.getId());
+    // int totalSuggestList = suggestList2.size();
 
-    //     model.addAttribute("totalSuggestList", totalSuggestList);
-    //     model.addAttribute("suggestList2", suggestList2);
+    // model.addAttribute("totalSuggestList", totalSuggestList);
+    // model.addAttribute("suggestList2", suggestList2);
 
-    //     List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
-    //     model.addAttribute("jobOpeningList", jobOpeningList);
+    // List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
+    // model.addAttribute("jobOpeningList", jobOpeningList);
 
-    //     List<Resume> resumeList = resumeRepository.findAll();
-    //     model.addAttribute("resumeList", resumeList);
+    // List<Resume> resumeList = resumeRepository.findAll();
+    // model.addAttribute("resumeList", resumeList);
 
-    //     List<Resume> resumeList2 = resumeRepository.findByUserId(sessionUser.getId());
-    //     int totalResume = resumeList2.size();
-    //     model.addAttribute("totalResume", totalResume);
-    //     model.addAttribute("resumeList", resumeList2);
+    // List<Resume> resumeList2 =
+    // resumeRepository.findByUserId(sessionUser.getId());
+    // int totalResume = resumeList2.size();
+    // model.addAttribute("totalResume", totalResume);
+    // model.addAttribute("resumeList", resumeList2);
 
-    //     List<ScrapJobOpeningDTO> scrapJobOpeningDTOList = scrapService.채용공고스크랩조회(sessionUser.getId());
-    //     Integer scrapJobOpeningSum = scrapJobOpeningDTOList.size();
-    //     model.addAttribute("scrapJobOpeningDTOList", scrapJobOpeningDTOList);
-    //     model.addAttribute("scrapJobOpeningSum", scrapJobOpeningSum);
-    //     return "user/user_mypage";
+    // List<ScrapJobOpeningDTO> scrapJobOpeningDTOList =
+    // scrapService.채용공고스크랩조회(sessionUser.getId());
+    // Integer scrapJobOpeningSum = scrapJobOpeningDTOList.size();
+    // model.addAttribute("scrapJobOpeningDTOList", scrapJobOpeningDTOList);
+    // model.addAttribute("scrapJobOpeningSum", scrapJobOpeningSum);
+    // return "user/user_mypage";
     // }
 
     @GetMapping("/api/resume/{resumeId}/skillList")
@@ -206,7 +212,7 @@ public class ResumeController {
 
     @PostMapping("/api/resume/{id}/delete")
     public @ResponseBody ApiUtil<String> deleteResume(@PathVariable Integer id) {
-        System.out.println("test : 삭제 요청됨 : id : " + id);
+        System.out.println("test : 삭제 요청됨 : id : " + id + "통과");
         // 1.인증체크
         // User sessionUser = (User) session.getAttribute("sessionUser");
         // if (sessionUser == null) {
@@ -216,6 +222,7 @@ public class ResumeController {
         // 2.핵심로직
         resumeService.삭제(id);
         // 3.응답
+        System.out.println("test : 삭제 요청됨2 : id : " + id + "통과");
         return new ApiUtil<String>(true, "이력서 삭제 완료");
 
     }

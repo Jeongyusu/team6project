@@ -2,6 +2,7 @@ package shop.mtcoding.project.suggest;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,8 +26,8 @@ import shop.mtcoding.project.user.User;
 @Getter
 @Setter
 @Table(name = "suggest_tb", uniqueConstraints = {
-           @UniqueConstraint(columnNames = {"resume_id", "job_opening_id"})
-       })
+        @UniqueConstraint(columnNames = { "resume_id", "job_opening_id" })
+})
 @Entity
 public class Suggest {
 
@@ -39,13 +40,13 @@ public class Suggest {
     @CreationTimestamp
     private Timestamp createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Resume resume;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private JobOpening jobOpening;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
 
     @Builder
@@ -57,7 +58,5 @@ public class Suggest {
         this.jobOpening = jobOpening;
         this.user = user;
     }
-
-    
 
 }
