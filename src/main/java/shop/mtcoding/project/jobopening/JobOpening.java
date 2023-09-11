@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -75,6 +77,7 @@ public class JobOpening {
     @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY)
     private List<UserScrap> userScrapList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RequiredSkill> requiredSkillList = new ArrayList<>();
 
@@ -109,7 +112,5 @@ public class JobOpening {
         this.taskList = taskList;
         this.qualifiedList = qualifiedList;
     }
-
-    
 
 }

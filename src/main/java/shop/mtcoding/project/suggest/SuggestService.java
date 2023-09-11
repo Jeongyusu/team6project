@@ -26,15 +26,15 @@ public class SuggestService {
     @Transactional
     public void 제안응답(SuggestRequest.SuggestStateDTO suggestStateDTO, Integer userId) {
 
-        Suggest suggest = suggestRepository.findByResumeIdAndJobOpeningId(suggestStateDTO.getResumeId(), suggestStateDTO.getJobOpeningId());
+        Suggest suggest = suggestRepository.findByResumeIdAndJobOpeningId(suggestStateDTO.getResumeId(),
+                suggestStateDTO.getJobOpeningId());
         suggest.setUser(User.builder().id(userId).build());
         suggest.setResume(Resume.builder().id(suggestStateDTO.getResumeId()).build());
-        suggest.setJobOpening(JobOpening.builder().id(suggestStateDTO.getJobOpeningId()).build());;
+        suggest.setJobOpening(JobOpening.builder().id(suggestStateDTO.getJobOpeningId()).build());
+        ;
         suggest.setSugState(suggestStateDTO.getSugState());
         suggestRepository.save(suggest);
 
     }
-
-
 
 }

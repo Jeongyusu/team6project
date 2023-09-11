@@ -53,9 +53,9 @@
                   <th class="td_width80">NUM</th>
                   <th class="td_width80">회사명</th>
                   <th class="td_width160">공고명</th>
-                  <th class="td_width160">이력서</th>
-                  <th class="td_width120">포지션</th>
+                  <th class="td_width160">이력서 명</th>
                   <th class="td_width120">상태</th>
+                  <th class="td_width120">응답</th>
                 </tr>
               </thead>
               {{#applyList}}
@@ -63,13 +63,12 @@
                 <tr class="td_border">
                   <td>{{id}}</td>
                   <td>{{resume.user.userName}}</td>
-                  <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
-                  <td>백엔드</td>
+                  <td><a href="/comp/jobOpening/{{jobOpening.id}}">{{jobOpening.title}}</a></td>
+                  <td><a href="/user/resume/{{resume.id}}">{{resume.title}}</td>
                   <td>
-                    <input type="hidden" id="resumeId" value="{{resume.id}}">
-                    <input type="hidden" id="applyState" value="{{applyState}}">
-                    <input type="hidden" id="jobOpeningId" value="{{jobOpening.id}}">
-                    <input type="hidden" id="applyId" value="{{id}}">
+                    <input type="hidden" id="resume-{{id}}" value="{{resume.id}}">
+                    <input type="hidden" id="applyState-{{id}}" value="{{applyState}}">
+                    <input type="hidden" id="jobOpening-{{id}}" value="{{jobOpening.id}}">
                     <ul id = "applyStateUl-{{id}}">
                       <li>{{applyState}}</li>
                     </ul>
@@ -97,9 +96,7 @@
                     <th class="td_width80">NUM</th>
                     <th class="td_width80">이력서</th>
                     <th class="td_width180">공고명</th>
-                    <th class="td_width120">포지션</th>
                     <th class="td_width120">상태</th>
-                    <th class="td_width80">응답</th>
                   </tr>
                 </thead>
                 {{#suggestList}}
@@ -107,14 +104,8 @@
                   <tr class="td_border">
                     <td>{{id}}</td>
                     <td>{{jobOpening.user.userName}}</td>
-                    <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
-                    <td>{{resume.title}}</td>
-                    <td>백엔드</td>
-                    <td>
-                      <ul>
-                        <li>{{sugState}}</li>
-                      </ul>
-                    </td>
+                    <td><a href="/comp/jobOpening/{{jobOpening.id}}">{{jobOpening.title}}</a></td>
+                    <td>{{sugState}}</td>
                   </tr>
                 </tbody>
                 {{/suggestList}}
@@ -146,8 +137,8 @@
 
 async function checkedValue(id) {
   let applyState = document.querySelector(`#apply-${id}`).value;
-  let resumeId = document.querySelector(`#resumeId`).value;
-  let jobOpeningId = document.querySelector(`#jobOpeningId`).value;
+  let resumeId = document.querySelector(`#resume-${id}`).value;
+  let jobOpeningId = document.querySelector(`#jobOpening-${id}`).value;
   
   console.log("테스트중 : 통과" + applyState);
   let data = {

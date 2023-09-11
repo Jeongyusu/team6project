@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningRequiredPositionDTO;
+
 public interface JobOpeningRepository extends JpaRepository<JobOpening, Integer> {
 
     // 공고 상세보기
@@ -23,5 +25,8 @@ public interface JobOpeningRepository extends JpaRepository<JobOpening, Integer>
 
     @Query("select jo from JobOpening jo where jo.user.id = :userId")
     public List<JobOpening> findByUserId(@Param("userId") Integer userId);
+
+    @Query("select j from JobOpening j left join fetch j.requiredPositionList jr left join fetch jr.position")
+    public List<JobOpening> findByPositionInRequiredPositionInJobOpeing();
 
 }

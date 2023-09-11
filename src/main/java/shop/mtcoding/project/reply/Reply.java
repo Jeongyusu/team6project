@@ -31,7 +31,7 @@ public class Reply {
     @Id
     private Integer id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 300)
     private String comment;
 
     @CreationTimestamp

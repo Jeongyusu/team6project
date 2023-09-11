@@ -1,5 +1,8 @@
 package shop.mtcoding.project.jobopening;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,5 +35,12 @@ public class JobOpeningResponse {
             this.careerYear = careerYear;
             this.skill = skill;
         }
+    }
+
+    @Getter
+    @Setter
+    public static class JobOpeningRequiredPositionDTO {
+        Integer id;
+        List<String> positionList = new ArrayList<>();
     }
 }

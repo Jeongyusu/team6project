@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -114,7 +113,7 @@ public class ResumeController {
     @PostMapping("/user/resume/{id}/update")
     public @ResponseBody String updateResume(@PathVariable Integer id, UserUpdateResumeDTO userUpdateResumeDTO) {
         resumeService.이력서수정(userUpdateResumeDTO, id);
-        return Script.back("수정완료");
+        return Script.href("/user/resume", "수정완료");
     }
 
     // @GetMapping("/user/myPageForm")

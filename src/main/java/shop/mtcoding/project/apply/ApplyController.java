@@ -17,12 +17,12 @@ import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project.apply.ApplyRequest.ApplySaveDTO;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.jobopening.JobOpeningRepository;
+import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningRequiredPositionDTO;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.suggest.Suggest;
 import shop.mtcoding.project.suggest.SuggestQueryRepository;
 import shop.mtcoding.project.suggest.SuggestRepository;
-import shop.mtcoding.project.suggest.SuggestRequest;
 import shop.mtcoding.project.user.User;
 import shop.mtcoding.project.user.UserRepository;
 
@@ -72,7 +72,6 @@ public class ApplyController {
         return "user/user_job_opening_apply";
     }
 
-
     @PostMapping("/user/Apply")
     public String UserApply(ApplySaveDTO applySaveDTO) {
         applyService.지원(applySaveDTO);
@@ -112,7 +111,8 @@ public class ApplyController {
     }
 
     @PostMapping("/api/apply/answer/update")
-    public @ResponseBody ApiUtil<String> AnswerApply(@RequestBody ApplyRequest.ApplyStateDTO applyStateDTO, Model model){
+    public @ResponseBody ApiUtil<String> AnswerApply(@RequestBody ApplyRequest.ApplyStateDTO applyStateDTO,
+            Model model) {
         System.out.println("테스트중" + applyStateDTO.getApplyState());
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userRepository.findById(sessionUser.getId()).get();
@@ -122,5 +122,24 @@ public class ApplyController {
 
     }
 
+    // @GetMapping("/comp/applyAndSuggest")
+    // public @ResponseBody List<Suggest> compApplyAndSuggest(Model model) {
+    // User sessionUser = (User) session.getAttribute("sessionUser");
+    // User user = userRepository.findById(sessionUser.getId()).get();
+    // List<Apply> applyList =
+    // applyRepository.findByUserIdofJobOpening(user.getId());
+    // int totalApply = applyList.size();
+    // List<Suggest> suggestList =
+    // suggestRepository.findByUserIdofJobOpeningInSuggest(user.getId());
+    // int totalSuggest = suggestList.size();
+    // List<JobOpening> jobOpeningList = jobOpeningRepository
+    // .findByPositionInRequiredPositionInJobOpeing();
+    // model.addAttribute("suggestList", suggestList);
+    // model.addAttribute("totalApply", totalApply);
+    // model.addAttribute("applyList", applyList);
+    // model.addAttribute("totalSuggest", totalSuggest);
+    // model.addAttribute("jobOpeningList", jobOpeningList);
+    // return suggestList;
+    // }
 
 }

@@ -19,7 +19,7 @@ public class CommunityController {
     private CommunityService communityService;
 
     // comp_ 커뮤니티 홈 화면
-    @GetMapping("comp/community")
+    @GetMapping("/comp/community")
     public String compCommunity(@RequestParam(defaultValue = "0") Integer page, String keyword, Model model) {
         Page<BoardListDTO> boardListDTO = null;
         if (keyword == null || keyword.trim().isEmpty()) {
@@ -34,7 +34,7 @@ public class CommunityController {
     }
 
     // user_ 커뮤니티 홈 화면
-    @GetMapping("user/community")
+    @GetMapping("/user/community")
     public String userCommunity(@RequestParam(defaultValue = "0") Integer page, String keyword, Model model) {
         Page<BoardListDTO> boardListDTO = null;
         if (keyword == null || keyword.trim().isEmpty()) {
