@@ -7,204 +7,34 @@
   <div class="container">
     <!-- container 건들지 말기 -->
     <!-- 여기서부터 시작 -->
-    <div class="position_select condition_select">
-      <div class="select_edu">
-        <select class="select" id="career">
-          <option disabled selected>경력</option>
-          <option value="경력">경력</option>
-          <option value="신입">신입</option>
-        </select>
-
-        <select class="select" id="careerYear">
-          <option disabled selected>기간</option>
-          <option value="1년차">1년차</option>
-          <option value="2년차">2년차</option>
-          <option value="년차">년차</option>
-          <option value="4년차">4년차</option>
-          <option value="5년차">5년차</option>
-        </select>
-      </div>
-
-      <select class="select select_adr" id="address">
-        <option disabled selected>지역</option>
-        <option value="전국">전국</option>
-        <option value="서울">서울</option>
-        <option value="경기">경기</option>
-        <option value="인천">인천</option>
-        <option value="부산">부산</option>
-        <option value="대구">대구</option>
-        <option value="광주">광주</option>
-        <option value="대전">대전</option>
-        <option value="울산">울산</option>
-        <option value="세종">세종</option>
-        <option value="충북">충북</option>
-        <option value="충남">충남</option>
-        <option value="전북">전북</option>
-        <option value="전남">전남</option>
-        <option value="경북">경북</option>
-        <option value="경남">경남</option>
-        <option value="제주">제주</option>
-      </select>
+    <div class="main_box">
+      {{#compUserOpenResumeDTO}}
+      <a href="/user/{{ resumeId }}/resume/detail">
+        <ul class="user_cont user_box">
+          <li class="user_img">
+            <img src="/image/user_img/{{ resumePic }}" alt="이력서 사진" />
+          </li>
+          <li class="user_cont">
+            <div class="com_tit">
+              <h3>
+                {{ userName }}
+              </h3>
+            </div>
+            <div class="com_tit">
+              <h4>
+                {{ title }}
+              </h4>
+            </div>
+            <div class="com_txt">{{ career }}</div>
+            <div class="com_txt">{{ address }}</div>
+            <div class="com_skill open_resume_skill">
+              <span class="skill_box">{{ userSkillList }}</span>
+            </div>
+          </li>
+        </ul>
+      </a>
+      {{/compUserOpenResumeDTO}}
     </div>
-    <div class="main_box" id="resume_box"></div>
   </div>
 </main>
-<script>
-  let career = "";
-  let careerYear = "";
-  let address = "";
-
-  // 페이지 로드 시 초기 데이터 가져오기
-  render(career, careerYear, address);
-
-  // 경력&지역별 함수 1
-  $("#career, #careerYear, #address").change(async function () {
-    let careerValue = $("#career").val(); // $(this)를 사용하여 현재 선택한 요소를 참조
-    let addressValue = $("#address").val();
-    let careerYearValue = $("#careerYear").val();
-
-    console.log(careerValue);
-    console.log(addressValue);
-    console.log(careerYearValue);
-
-    // 전국과 중복값 추출 조건
-    if (
-      careerValue !== null &&
-      careerYearValue === null &&
-      addressValue !== "전국"
-    ) {
-      await render(careerValue, null, addressValue);
-    } else if (
-      careerValue !== null &&
-      careerYearValue === null &&
-      addressValue === "전국"
-    ) {
-      await render(careerValue, null, " ");
-    } else if (
-      careerValue !== null &&
-      careerYearValue === null &&
-      addressValue !== null &&
-      addressValue !== "전국"
-    ) {
-      await render(careerValue, null, addressValue);
-    } else if (
-      careerValue !== null &&
-      careerYearValue === null &&
-      addressValue === null
-    ) {
-      await render(careerValue, null, null);
-    } else if (
-      careerValue === null &&
-      careerYearValue !== null &&
-      addressValue !== "전국"
-    ) {
-      await render(null, careerYearValue, addressValue);
-    } else if (
-      careerValue === null &&
-      careerYearValue !== null &&
-      addressValue !== null
-    ) {
-      await render(null, careerYearValue, " ");
-    } else if (
-      careerYearValue === null &&
-      careerYearValue !== null &&
-      addressValue === "전국"
-    ) {
-      await render(null, careerYearValue, " ");
-    } else if (
-      careerValue === null &&
-      careerYearValue !== null &&
-      addressValue === null
-    ) {
-      await render(null, careerYearValue, null);
-    } else if (
-      careerValue === null &&
-      careerYearValue === null &&
-      addressValue === "전국"
-    ) {
-      await render(null, null, " ");
-    } else if (
-      careerValue == null &&
-      careerYearValue === null &&
-      addressValue !== "전국"
-    ) {
-      await render(null, null, addressValue);
-    }
-  });
-  // 2. 통신해서 화면 다시 그리기
-  async function render(career, careerYear, address) {
-    $("#resume_box").html("");
-    let responseBody = await download(career, careerYear, address);
-    console.log(career, address);
-    responseBody.forEach((resumeItem) => {
-      $("#resume_box").append(resumeBox(resumeItem));
-    });
-  }
-
-  // . 컴퍼넌트 (디자인 결합)
-  function resumeBox(resumeItem) {
-    return `
-            <a href="/user/${resumeItem.resumeId}/resume/detail">
-              <ul class="user_cont user_box">
-                <li class="user_img">
-                  <img src="/image/user_img/${resumeItem.resumePic}" alt="이력서 사진" />
-                </li>
-                <li class="user_cont">
-                  <div class="com_tit">
-                    <h>
-                      ${resumeItem.userName}
-                    </h>
-                  </div>
-                  <div class="com_tit">
-                    <h4>
-                      ${resumeItem.title}
-                    </h4>
-                  </div>
-                  <div class="com_txt">${resumeItem.career} <span class="com_year">${resumeItem.carrerYear}</span></div>
-                  <div class="com_txt">${resumeItem.address}</div>
-                  <div class="com_skill open_resume_skill">
-                    <span class="skill_box">${resumeItem.userSkillList}</span>
-                  </div>
-                </li>
-              </ul>
-            </a>`;
-  }
-
-  // 경력&지역별 채용공고 통신코드
-  async function download(career, careerYear, address) {
-    let url = `/api/jobOpening/select/cl`;
-    if (career != null && careerYear == null && address == null) {
-      url += `?career=${career}`;
-    } else if (career == null && careerYear != null && address == null) {
-      url += `?careerYear=${careerYear}`;
-    } else if (career == null && careerYear == null && address != null) {
-      url += `?address=${address}`;
-    } else if (career != null && careerYear != null && address == null) {
-      url += `?career=${career}&careerYear=${careerYear}`;
-    } else if (career != null && careerYear == null && address != null) {
-      url += `?career=${career}&address=${address}`;
-    } else if (career == null && careerYear != null && address != null) {
-      url += `?careerYear=${careerYear}&address=${address}`;
-    } else if (career != null && (careerYear != null) & (address != null)) {
-      url += `?career=${career}&careerYear=${careerYear}&address=${address}`;
-    } else if (career != null && (careerYear != null) & (address != null)) {
-    }
-    let response = await fetch(url);
-    console.log(response);
-    let responseBody = await response.json();
-    return responseBody;
-  }
-  document.getElementById("career").addEventListener("change", function () {
-    var careerSelect = document.getElementById("career");
-    var careerYearSelect = document.getElementById("careerYear");
-
-    if (careerSelect.value === "신입") {
-      careerYearSelect.disabled = true;
-      careerYearSelect.selectedIndex = 0; // 선택된 옵션을 초기화
-    } else {
-      careerYearSelect.disabled = false;
-    }
-  });
-</script>
-
 {{>layout/footer}}

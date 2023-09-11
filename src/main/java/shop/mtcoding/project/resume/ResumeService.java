@@ -30,6 +30,7 @@ import shop.mtcoding.project.resume.ResumeResponse.ApplyResumeInJobOpeningDTO;
 import shop.mtcoding.project.resume.ResumeResponse.ResumeInJobOpeningDTO;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.skill.HasSkillRepository;
+import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.Skill;
 import shop.mtcoding.project.skill.SkillRepository;
@@ -58,9 +59,6 @@ public class ResumeService {
 
     @Autowired
     private RequiredSkillRepository requiredSkillRepository;
-
-    @Autowired
-    private ResumeQueryRepository resumeQueryRepository;
 
     @Transactional
     public void 이력서작성(ResumeRequest.UserSaveResumeDTO userSaveResumeDTO, int sessionUserId) {
@@ -260,31 +258,64 @@ public class ResumeService {
 
     }
 
-    public List<CompUserOpenResumeDTO> 조건선택(String career, String careerYear, String address) {
+    // public List<CompUserOpenResumeDTO> 조건선택(String career, String careerYear,
+    // String address) {
 
-        List<Resume> resumeList = resumeRepository.findByOpenAndCareerAndOpenAddress(career, careerYear, address);
-        // List<Resume> resumeCareerAndAdress = null;
+    // List<Resume> resumeList =
+    // resumeRepository.findByOpenAndCareerAndOpenAddress(career, careerYear,
+    // address);
+    // // List<Resume> resumeCareerAndAdress = null;
 
-        // if (career == null && careerYear == null && address != null) {
-        // resumeCareerAndAdress =
-        // resumeQueryRepository.mFindBySelectedCareerOrCareerYearOrAddress(null, null,
-        // address);
-        // } else if (career == null && careerYear != null && address == null) {
-        // resumeCareerAndAdress =
-        // resumeQueryRepository.mFindBySelectedCareerOrCareerYearOrAddress(null,
-        // careerYear, null);
-        // } else if (career != null && careerYear == null && address == null) {
-        // resumeCareerAndAdress =
-        // resumeQueryRepository.mFindBySelectedCareerOrCareerYearOrAddress(career,
-        // null,
-        // null);
-        // } else if ((career == null || careerYear == null) && (address != null ||
-        // address == " ")) {
-        // resumeCareerAndAdress =
-        // resumeQueryRepository.mFindBySelectedCareerOrCareerYearAndAddress(career,
-        // careerYear,
-        // address);
-        // }
+    // // if (career == null && careerYear == null && address != null) {
+    // // resumeCareerAndAdress =
+    // // resumeQueryRepository.mFindBySelectedCareerOrCareerYearOrAddress(null,
+    // null,
+    // // address);
+    // // } else if (career == null && careerYear != null && address == null) {
+    // // resumeCareerAndAdress =
+    // // resumeQueryRepository.mFindBySelectedCareerOrCareerYearOrAddress(null,
+    // // careerYear, null);
+    // // } else if (career != null && careerYear == null && address == null) {
+    // // resumeCareerAndAdress =
+    // // resumeQueryRepository.mFindBySelectedCareerOrCareerYearOrAddress(career,
+    // // null,
+    // // null);
+    // // } else if ((career == null || careerYear == null) && (address != null ||
+    // // address == " ")) {
+    // // resumeCareerAndAdress =
+    // // resumeQueryRepository.mFindBySelectedCareerOrCareerYearAndAddress(career,
+    // // careerYear,
+    // // address);
+    // // }
+    // List<CompUserOpenResumeDTO> compUserOpenResumeDTOList = new ArrayList<>();
+    // for (Resume resume : resumeList) {
+    // List<String> skills = new ArrayList<>();
+    // for (HasSkill skill : resume.getHasSkillList()) {
+    // String skillName = skill.getSkill().getSkill();
+    // skills.add(skillName);
+    // }
+    // String skillFormat = String.join(" · ", skills);
+
+    // CompUserOpenResumeDTO compUserOpenResumeDTO = CompUserOpenResumeDTO.builder()
+    // .resumeId(resume.getId())
+    // .userName(resume.getUserName())
+    // .resumePic(resume.getResumePicUrl())
+    // .address(resume.getAddress())
+    // .career(resume.getCareer())
+    // .careerYear(resume.getCareerYear())
+    // .title(resume.getTitle())
+    // .openCheck(resume.getOpenCheck())
+    // .userSkillList(skillFormat)
+    // .build();
+
+    // compUserOpenResumeDTOList.add(compUserOpenResumeDTO);
+    // }
+    // return compUserOpenResumeDTOList;
+    // }
+
+    public List<CompUserOpenResumeDTO> 공개이력서목록() {
+        List<Resume> resumeList = resumeRepository.findByCheckUserId();
+
         List<CompUserOpenResumeDTO> compUserOpenResumeDTOList = new ArrayList<>();
         for (Resume resume : resumeList) {
             List<String> skills = new ArrayList<>();

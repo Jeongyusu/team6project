@@ -21,7 +21,7 @@
               </form>
             </li>
             <li>
-              <h3>{{sessionUser.userName}}</h3>
+              <h3>{{ sessionUser.userName }}</h3>
             </li>
           </ul>
           <ul class="mypage_menu tab_menu">
@@ -40,24 +40,45 @@
         <div class="mypage_right tab-content mypage_list_item" id="comp_info">
           <div class="comp_back">
             <div class="basic">
-              <form action="/comp/info/update" method="post" enctype="multipart/form-data" class="cp_explan">
+              <form
+                action="/comp/info/update"
+                method="post"
+                enctype="multipart/form-data"
+                class="cp_explan"
+              >
                 <div class="comp_pic_bg">
                   <div class="comp_pic">
-                    <img id="preview" src="">
+                    <img id="preview" src="" />
                   </div>
-                  <input type="file" onchange="changeCompPic(event)" name="compPic">
+                  <input
+                    type="file"
+                    onchange="changeCompPic(event)"
+                    name="compPic"
+                  />
                 </div>
                 {{#sessionUser}}
                 <div>
                   <label for="compDate" class="form-label">연력</label>
-                  <input type="date" class="form-control" id="compDate" name="compDate" value="{{compHistory}}">
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="compDate"
+                    name="compDate"
+                    value="{{ compHistory }}"
+                  />
                 </div>
                 <div>
                   <label for="compExplan" class="form-label">회사 소개</label>
-                  <input type="text" class="form-control" id="compExplan" name="compExplan" value="{{compIntro}}">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="compExplan"
+                    name="compExplan"
+                    value="{{ compIntro }}"
+                  />
                 </div>
                 {{/sessionUser}}
-                <div style="display: flex; justify-content: center;">
+                <div style="display: flex; justify-content: center">
                   <button type="submit" class="btn btn-primary">확인</button>
                 </div>
               </form>
@@ -76,10 +97,11 @@
         return;
       }
       let reader = new FileReader();
-      reader.onload = function (e2) { // 파일이 다 읽어지면 콜백됨
+      reader.onload = function (e2) {
+        // 파일이 다 읽어지면 콜백됨
         let previewEl = document.querySelector("#preview");
         previewEl.setAttribute("src", e2.target.result);
-      }
+      };
       reader.readAsDataURL(f); // 파일 읽기 onload()
     }
   </script>

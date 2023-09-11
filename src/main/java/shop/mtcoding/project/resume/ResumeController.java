@@ -1,6 +1,7 @@
 package shop.mtcoding.project.resume;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,7 @@ import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
 import shop.mtcoding.project.scrap.ScrapService;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.skill.HasSkillRepository;
+import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.SkillRepository;
 import shop.mtcoding.project.skill.SkillResponse.HasSkillResponseDTO;
 import shop.mtcoding.project.user.User;
@@ -189,17 +191,22 @@ public class ResumeController {
         return "user/user_resume";
     }
 
-    @GetMapping("/api/openResum/condition")
-    public @ResponseBody List<CompUserOpenResumeDTO> career(
-            @RequestParam(name = "career", required = false) String career,
-            @RequestParam(name = "careerYear", required = false) String careerYear,
-            @RequestParam(name = "address", required = false) String address) {
-        List<CompUserOpenResumeDTO> compUserOpenResumeDTO = resumeService.조건선택(career, careerYear, address);
-        return compUserOpenResumeDTO;
-    }
+    // @GetMapping("/api/openResum/condition")
+    // public @ResponseBody List<CompUserOpenResumeDTO> career(
+    // @RequestParam(name = "career", required = false) String career,
+    // @RequestParam(name = "careerYear", required = false) String careerYear,
+    // @RequestParam(name = "address", required = false) String address) {
+    // List<CompUserOpenResumeDTO> compUserOpenResumeDTO =
+    // resumeService.조건선택(career, careerYear, address);
+    // return compUserOpenResumeDTO;
+    // }
 
-    @GetMapping("/user/OpenResumeForm")
-    public String compOpenResumForm() {
+    @GetMapping("/comp/userOpenResumeForm")
+    public String compOpenResumForm(Model model) {
+
+        List<CompUserOpenResumeDTO> compUserOpenResumeDTO = resumeService.공개이력서목록();
+        model.addAttribute("compUserOpenResumeDTO", compUserOpenResumeDTO);
+
         return "comp/comp_user_open_resume";
     }
 

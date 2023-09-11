@@ -240,10 +240,4 @@ public class JobOpeningController {
         return requiredPositionResponseDTOList;
     }
 
-<<<<<<< HEAD
-=======
-
-    
-
->>>>>>> dev
 }
