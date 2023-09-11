@@ -142,4 +142,3 @@ insert into user_scrap_tb (user_id, job_opening_id) values ('1', '2');
 insert into user_scrap_tb (user_id, job_opening_id) values ('1', '3');
 
 insert into reply_tb (comment, created_at, user_id, community_id) values('댓글3-1', now(), '3', '3');
-

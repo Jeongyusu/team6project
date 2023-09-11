@@ -56,7 +56,10 @@ main>.container {
 .com_cont {
   margin: 12px 0;
 }
-
+.com_year {
+  display: inline-block;
+  padding-left: 5px;
+}
 .com_tit h3 {
   font-weight: 500;
   padding-bottom: 4px;
@@ -1296,12 +1299,11 @@ footer li:last-child {
 .comp_pic {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
   background: url(../image/user_img/def_img.png) no-repeat;
   background-size: cover;
   background-position: center center;
-  width: 180px;
-  height: 200px;
+  width: 130px;
+  height: 139px;
   position: relative;
 }
 

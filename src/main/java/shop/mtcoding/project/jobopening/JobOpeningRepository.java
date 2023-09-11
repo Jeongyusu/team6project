@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import shop.mtcoding.project.resume.Resume;
+
 public interface JobOpeningRepository extends JpaRepository<JobOpening, Integer> {
 
     // 공고 상세보기
@@ -23,5 +25,9 @@ public interface JobOpeningRepository extends JpaRepository<JobOpening, Integer>
 
     @Query("select jo from JobOpening jo where jo.user.id = :userId")
     public List<JobOpening> findByUserId(@Param("userId") Integer userId);
+
+    @Query("SELECT r FROM Resume r WHERE r.openCheck = '1' AND (r.career LIKE %:career% OR r.careerYear IS NULL OR r.careerYear = :careerYear) OR r.address LIKE %:address%")
+    List<Resume> findByOpenAndCareerAndOpenAddress(@Param("career") String career,
+            @Param("careerYear") String careerYear, @Param("address") String address);
 
 }

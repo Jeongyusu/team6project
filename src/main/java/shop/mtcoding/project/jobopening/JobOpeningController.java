@@ -247,6 +247,7 @@ public class JobOpeningController {
         return requiredPositionResponseDTOList;
     }
 
+
     //// comp_ 채용공고 상세 화면
     @GetMapping("/comp/jobOpening/{id}")
     public String compJobOpeningDetailForm(@PathVariable Integer id, Model model) {
