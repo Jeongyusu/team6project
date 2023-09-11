@@ -199,11 +199,6 @@ public class UserController {
         return "redirect:/comp/mainForm";
     }
 
-    @GetMapping("/user/scrap")
-    public String userScrap() {
-        return "user/user_scrap";
-    }
-
     //////// 회사정보 수정페이지
     @GetMapping("/comp/info/updateForm")
     public String compInfoUpdateForm() {
