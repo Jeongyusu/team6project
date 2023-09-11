@@ -12,9 +12,9 @@ insert into user_tb (comp_email_id, user_name, user_password, comp_pic_url, comp
 -- insert into comp_scrap_tb (created_at) values(now());
 -- insert into comp_scrap_tb (created_at) values(now());
 
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '네이버 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력자 모집', '1년차 이상', '2년제 이상', '부산 광안리', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('5', '토스 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력자 모집', '2년차 이상', '4년제 이상', '부산 서면', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('5', '카카오 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력자 모집', '5년차 이상', '고등학교 졸업 이상', '부산 장산', now(), now());
+insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '네이버 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '2년제 이상', '부산 광안리', now(), now());
+insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('5', '토스 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '2년차', '4년제 이상', '부산 서면', now(), now());
+insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('5', '카카오 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '5년차', '고등학교 졸업 이상', '부산 장산', now(), now());
 
 insert into user_scrap_tb (user_id, job_opening_id) values('1', '1');
 insert into user_scrap_tb (user_id, job_opening_id) values('1', '2');
