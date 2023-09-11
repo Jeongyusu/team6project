@@ -16,7 +16,7 @@
             <li>
               <form action="#">
                 <button type="submit">
-                  <img src="/image/user_img/def_img.png" alt="기본 이미지" />
+                  <img src="/images/{{sessionUser.compPicUrl}}" alt=" 기본 이미지" />
                 </button>
               </form>
             </li>
@@ -41,13 +41,13 @@
           <div class="comp_back">
             <div class="basic">
               <form action="/comp/info/update" method="post" enctype="multipart/form-data" class="cp_explan">
+                {{#sessionUser}}
                 <div class="comp_pic_bg">
                   <div class="comp_pic">
                     <img id="preview" src="/images/{{#compPicUrl}}{{compPicUrl}}{{/compPicUrl}}">
                   </div>
                   <input type="file" onchange="changeCompPic(event)" name="compPic">
                 </div>
-                {{#sessionUser}}
                 <div>
                   <label for="compDate" class="form-label">연력</label>
                   <input type="date" class="form-control" id="compDate" name="compDate" value="{{compHistory}}">

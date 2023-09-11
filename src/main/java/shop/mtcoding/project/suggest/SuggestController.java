@@ -42,23 +42,22 @@ public class SuggestController {
 
     @PostMapping("/user/suggest")
     public String UserSuggest(SuggestSaveDTO suggestSaveDTO, Model model) {
-        suggestService.제안(suggestSaveDTO);
         User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userRepository.findById(sessionUser.getId()).get();
+        suggestService.제안(suggestSaveDTO, user.getId());
         model.addAttribute("sessionUser", sessionUser);
-        Integer id = suggestSaveDTO.getSelectedResumeId();
+        Integer id = suggestSaveDTO.getResumeId();
         return "redirect:/user/" + id + "/resume/detail";
     }
 
     @PostMapping("/api/suggest/answer/update")
-    public @ResponseBody ApiUtil<String> AnswerSuggest(@RequestBody SuggestRequest.SuggestStateDTO suggestStateDTO, Model model){
+    public @ResponseBody ApiUtil<String> AnswerSuggest(@RequestBody SuggestRequest.SuggestStateDTO suggestStateDTO,
+            Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userRepository.findById(sessionUser.getId()).get();
         suggestService.제안응답(suggestStateDTO, user.getId());
         return new ApiUtil<String>(true, suggestStateDTO.getSugState());
 
     }
-
-
-    
 
 }

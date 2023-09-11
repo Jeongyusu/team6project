@@ -62,7 +62,7 @@ public class ResumeController {
         return "user/user_resume_write";
     }
 
-    @GetMapping("/comp/{id}/resume/detail")
+    @GetMapping("/comp/resume/{id}")
     public String userOpenResumeDetail(@PathVariable Integer id, Model model) {
         Resume resume = resumeRepository.findById(id).get();
         model.addAttribute("resume", resume);
@@ -188,11 +188,6 @@ public class ResumeController {
             wishPositionResponseDTOList.add(dtos);
         }
         return wishPositionResponseDTOList;
-    }
-
-    @GetMapping("/comp/resume/{id}")
-    public String compResumeDetail() {
-        return "user/user_resume_detail";
     }
 
     @GetMapping("/user/resume/{id}")

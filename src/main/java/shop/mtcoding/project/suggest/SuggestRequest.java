@@ -8,8 +8,8 @@ public class SuggestRequest {
     @Getter
     @Setter
     public static class SuggestSaveDTO {
-        private Integer selectedResumeId;
-        private Integer selectedUserId;
+        private Integer ResumeId;
+        private Integer jobOpeningId;
     }
 
     @Getter

@@ -74,7 +74,9 @@ public class ApplyController {
 
     @PostMapping("/user/Apply")
     public String UserApply(ApplySaveDTO applySaveDTO) {
-        applyService.지원(applySaveDTO);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userRepository.findById(sessionUser.getId()).get();
+        applyService.지원(applySaveDTO, user.getId());
         Integer id = applySaveDTO.getSelectedjobOpeningId();
         return "redirect:/user/jobOpening/" + id + "/applyForm";
     }
