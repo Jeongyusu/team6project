@@ -26,6 +26,7 @@ import lombok.Setter;
 import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.qualified.Qualified;
+import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.scrap.UserScrap;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.suggest.Suggest;
@@ -70,6 +71,9 @@ public class JobOpening {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Resume resume;
+
     @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY)
     private List<UserScrap> userScrapList = new ArrayList<>();
 
@@ -93,7 +97,7 @@ public class JobOpening {
 
     @Builder
     public JobOpening(Integer id, String title, String process, String career, String careerYear, String edu,
-            String compAddress, LocalDate deadLine, Timestamp createdAt, User user) {
+            String compAddress, LocalDate deadLine, Timestamp createdAt, User user, Resume resume) {
         this.id = id;
         this.title = title;
         this.process = process;
@@ -104,6 +108,7 @@ public class JobOpening {
         this.deadLine = deadLine;
         this.createdAt = createdAt;
         this.user = user;
+        this.resume = resume;
     }
 
 }

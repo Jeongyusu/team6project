@@ -14,13 +14,7 @@ import org.springframework.stereotype.Service;
 
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.vo.MyPath;
-import shop.mtcoding.project._core.util.Script;
-import shop.mtcoding.project._core.vo.MyPath;
-import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
-import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserPicUpdateDTO;
-import shop.mtcoding.project.user.UserRequest.UserUpdateDTO;
 
 @Service
 public class UserService {
@@ -48,6 +42,12 @@ public class UserService {
             if (userjoinDTO.getUserName() == null || userjoinDTO.getUserName().isEmpty()) {
                 throw new MyException("이름에 값이 없거나 공백문자가 있습니다.");
             }
+
+            user = userRepository.findByUserEmailId(userjoinDTO.getUserEmailId());
+            if (user != null) {
+                throw new MyException("이미 존재하는 아이디 입니다.");
+            }
+
             user = User.builder().userEmailId(userjoinDTO.getUserEmailId()).userName(userjoinDTO.getUserName())
                     .userPassword(userjoinDTO.getUserPassword()).gubun(userjoinDTO.getGubun()).build();
         }
@@ -62,6 +62,11 @@ public class UserService {
             if (userjoinDTO.getUserName() == null || userjoinDTO.getUserName().isEmpty()) {
                 throw new MyException("회사 이름에 값이 없거나 공백문자가 있습니다.");
             }
+
+            if (user != null) {
+                throw new MyException("이미 존재하는 아이디 입니다.");
+            }
+
             user = User.builder().compEmailId(userjoinDTO.getCompEmailId()).userName(userjoinDTO.getUserName())
                     .userPassword(userjoinDTO.getUserPassword()).gubun(userjoinDTO.getGubun()).build();
         }
@@ -71,10 +76,10 @@ public class UserService {
 
     public User 유저로그인(UserRequest.UserLoginDTO userloginDTO) {
 
-        User user;
-        if (userloginDTO.getCompEmailId() == null) {
+        User user = null;
+        if (userloginDTO.getGubun() == 1) {
             user = userRepository.findByUserEmailId(userloginDTO.getUserEmailId());
-        } else {
+        } else if(userloginDTO.getGubun() == 2){
             user = userRepository.findByCompEmailId(userloginDTO.getCompEmailId());
         }
 
@@ -91,12 +96,9 @@ public class UserService {
     }
 
     public User 회원정보수정(UserRequest.UserUpdateDTO userUpdateDTO, Integer id) {
-
-        // 1.조회
+     
         User user = userRepository.findById(id).get();
-        // 2.변경
-        System.out.println("비번" + userUpdateDTO.getNowPassword());
-        System.out.println("비번" + user.getUserPassword());
+       
         if (!user.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
             throw new MyException("현재 비밀번호가 틀렸습니다.");
         }

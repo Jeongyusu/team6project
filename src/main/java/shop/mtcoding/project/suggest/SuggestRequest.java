@@ -12,4 +12,12 @@ public class SuggestRequest {
         private Integer selectedUserId;
     }
 
+    @Getter
+    @Setter
+    public static class SuggestStateDTO {
+        private String sugState;
+        private Integer resumeId;
+        private Integer JobOpeningId;
+    }
+
 }

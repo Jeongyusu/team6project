@@ -22,9 +22,9 @@
                     </li>
                   </ul>
                   <ul class="mypage_menu">
-                    <li><a href="#">이력서</a></li>
-                    <li><a href="#">지원/제안</a></li>
-                    <li><a href="#">스크랩</a></li>
+                    <li><a href="/user/resume">이력서</a></li>
+                    <li><a href="/user/applyAndSuggest">지원/제안</a></li>
+                    <li><a href="/user/scrap">스크랩</a></li>
                   </ul>
                   <ul class="mypage_menu">
                     <li><a href="#">정보 수정</a></li>
@@ -39,17 +39,17 @@
                       <div class="resume_count">전체
                           <span class="common_num">3</span>
                       </div>
-                      <a href="#" class="btn btn-primary" type="button">이력서 작성</a>
+                      <a href="/user/resume/saveForm" class="btn btn-primary" type="button">이력서 작성</a>
                     </div>
                     <ul class="com_cont">
-                      <li class="resume_box">
-                        {{#resumeList}}
+                      {{#resumeList}}
+                      <li class="resume_inner mb-2">
                         <ul class="resume_cont" id="resume-{{id}}">
                           <li class="com_tit com_btn">
                             <h4>{{title}}</h4>
                             <div class="double_btn">
                               <form>
-                                <button type="button" class="btn_empty">이력서 수정</button>
+                                <a href="/user/resume/{{id}}/updateForm" class="btn_empty" >이력서 수정</a>
                               </form>
                               <form>
                                 <button type="button" class="btn_fill" onclick="deleteResume('{{id}}')">이력서 삭제</button>
@@ -81,8 +81,8 @@
    
        function deleteResume(id){
           $.ajax({
-            url: `/api/resume/${id}`,
-            method: 'delete',
+            url: `/api/resume/${id}/delete`,
+            method: 'POST',
             success: (response) => {
               console.log(response);
               if(response.success === true){
@@ -93,13 +93,13 @@
       }
 
 
-// async function deleteReply(id){
-//         let response = await fetch(`/api/reply/${id}/delete`, {
-//             method: "delete"
+// async function deleteResume2(id){
+//         let response = await fetch(`/api/resume/${id}/delete`, {
+//             method: "POST"
 //         });
 //         let responseBody = await response.json();
 //         if(responseBody.success){
-//             location.reload();
+//           $(`#resume-${id}`).remove();
 //         }else{
 //             alert(responseBody.data);
 //         }

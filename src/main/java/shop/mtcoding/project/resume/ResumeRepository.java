@@ -14,6 +14,8 @@ public interface ResumeRepository extends JpaRepository<Resume, Integer> {
     @Query("SELECT DISTINCT r FROM Resume r JOIN r.hasSkillList hs WHERE hs.skill.id = :skillId1 OR hs.skill.id = :skillId2")
     public List<Resume> findByHasSkillIds(@Param("skillId1") Integer skillId1, @Param("skillId2") Integer skillId2);
 
+    @Query("SELECT DISTINCT r FROM Resume r LEFT JOIN FETCH r.jobOpeningList j WHERE j.user.id = :userId")
+    public List<Resume> findByUserIdofJobOpeningList(@Param("userId") Integer userId);
     // 그 스킬 안에 있는 공개체크된 이력서만 가지고 온다
     @Query("SELECT r FROM Resume r WHERE r.openCheck = '1'")
     public List<Resume> findByCheckUserId();

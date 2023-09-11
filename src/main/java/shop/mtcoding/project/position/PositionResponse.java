@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class PositionResponse {
-
     @Getter
     @Setter
     @Builder

@@ -1,5 +1,6 @@
 package shop.mtcoding.project.apply;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -7,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +21,9 @@ import shop.mtcoding.project.jobopening.JobOpening;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "apply_tb")
+@Table(name = "apply_tb", uniqueConstraints = {
+           @UniqueConstraint(columnNames = {"resume_id", "job_opening_id"})
+       })
 @Entity
 public class Apply {
 
@@ -29,13 +33,13 @@ public class Apply {
 
     private String applyState = "대기중";
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private JobOpening jobOpening;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Resume resume;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
 
     @Builder
@@ -46,5 +50,7 @@ public class Apply {
         this.resume = resume;
         this.user = user;
     }
+
+    
 
 }

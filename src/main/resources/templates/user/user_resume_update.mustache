@@ -99,7 +99,7 @@
 
             <div class="mb-4">
               <label class="job_list mt-4 mb-2" for="jobSkill">기술 스택(업무 툴/스킬)</label>
-              <div class="parent_btn1">
+              <div class="parent_btn">
                 <div>
                   <input type="checkbox" id="Java" name="skillList" value="Java">
                   <label class="skill_btns1" for="Java">Java</label>
@@ -120,9 +120,6 @@
                   <input type="checkbox" id="JQuery" name="skillList" value="JQuery">
                   <label class="skill_btns1" for="JQuery">JQuery</label>
                 </div>
-              </div>
-
-              <div class="parent_btn2">
                 <div>
                   <input type="checkbox" id="MySQL" name="skillList" value="MySQL">
                   <label class="skill_btns1" for="MySQL">MySQL</label>
@@ -214,21 +211,6 @@ function changeUserPic(e1) {
 
 let resumeId = document.querySelector("#resumeId").value;
 
-let data = {
-  resumeId: resumeId
-};
-
-
-let requestOptions = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-};
-
-
-
  async function fetchSelectedSkills() {
  
   try {
@@ -260,12 +242,41 @@ let requestOptions = {
 
   fetchSelectedSkills();
 
+ async function fetchSelectedSkills() {
+ 
+  try {
+    let response = await fetch(`/api/resume/${resumeId}/skillList`);
+    if (response.ok) {
+      let responseBody = await response.json();
+      console.log("테스트1" + responseBody);
+
+      var checkboxes = document.querySelectorAll('input[type="checkbox"][name="skillList"]');
+      console.log(checkboxes);
+      checkboxes.forEach(function (checkbox) {
+        var skillValue = checkbox.value;
+        console.log(skillValue);
+
+        responseBody.forEach(function(skillObject){
+          if(skillObject.skill.includes(skillValue)){
+            checkbox.checked = true;
+          }
+        });
+      });
+    } else {
+      console.error('POST 요청이 실패했습니다.');
+    }
+  } catch (error) {
+    console.error('오류 발생: ' + error);
+  }
+}
+
+  fetchSelectedSkills();
+
 
   async function fetchSelectedPositions() {
 
   try {
-    let response = await fetch('/api/getPositionList', requestOptions);
-    console.log("테스트" + JSON.stringify(data));
+    let response = await fetch(`/api/resume/${resumeId}/positionList`);
     if (response.ok) {
       let responseBody = await response.json();
       console.log("테스트1" + responseBody);

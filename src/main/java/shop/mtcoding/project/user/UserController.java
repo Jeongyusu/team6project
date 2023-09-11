@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,17 +19,12 @@ import shop.mtcoding.project.apply.ApplyRepository;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.jobopening.JobOpeningRepository;
 import shop.mtcoding.project.jobopening.JobOpeningService;
-import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.scrap.ScrapService;
-import shop.mtcoding.project.scrap.CompScrapResponse.ScrapResumeDTO;
-import shop.mtcoding.project.scrap.UserScrapResponse.ScrapJobOpeningDTO;
-import shop.mtcoding.project.skill.HasSkill;
-import shop.mtcoding.project.suggest.Suggest;
 import shop.mtcoding.project.suggest.SuggestQueryRepository;
 import shop.mtcoding.project.suggest.SuggestRepository;
-import shop.mtcoding.project.user.UserRequest.UserJoinDTO;
+import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
 
 @Controller
 public class UserController {
@@ -40,12 +34,6 @@ public class UserController {
 
     @Autowired
     private SuggestRepository suggestRepository;
-
-    @Autowired
-    private SuggestQueryRepository suggestQueryRepository;
-
-    @Autowired
-    private ApplyRepository applyRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -64,6 +52,12 @@ public class UserController {
 
     @Autowired
     private HttpSession session;
+
+    @Autowired
+    private ApplyRepository applyRepository;
+
+    @Autowired
+    SuggestQueryRepository suggestQueryRepository;
 
     ///////// 구직자홈
     @GetMapping("/user")
@@ -113,25 +107,21 @@ public class UserController {
         return Script.href("/user/myPageForm", "비밀번호 변경완료");
     }
 
-    ///////// 회사 비번 변경하기 완료
-    @PostMapping("/com/password/update")
-    public @ResponseBody String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
+    ///////// 회사 비번 변경페이지
+    @GetMapping("/comp/password/updateForm")
+    public String compPWUpdateForm() {
+        return "comp/comp_password_update";
+    }
+
+      ///////// 회사 비번 변경
+    @PostMapping("/comp/password/update")
+     public @ResponseBody String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
-        return Script.href("/user/myPageForm", "비밀번호 변경완료");
-    }
+        return Script.href("/comp/myPageForm", "비밀번호 변경완료");
+      }
 
-    ///////// 유저 제안 수락
-    @PostMapping("/user/suggest/accept")
-    public @ResponseBody String userSuggestAccept() {
-        return null;
-    }
-
-    @GetMapping("/user/resume/wirteForm")
-    public String UserResumeWrite() {
-        return "user/user_resume_write";
-    }
 
     @PostMapping("/user/picUpdate")
     public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO, Model model) {
@@ -154,27 +144,28 @@ public class UserController {
 
     //////// 구직자///////
 
-    @GetMapping("/user/MyPageForm")
+    @GetMapping("/user/myPageForm")
     public String userMyPageForm(Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         List<Resume> resumeList = resumeRepository.findByUserId(sessionUser.getId());
         model.addAttribute("resumeList", resumeList);
-
-        // List<WishPosition> wishPositionList =
-        // wishPositionRepository.positionFindByResumeId(id);
-        // List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(id);
-
-        // model.addAttribute("hasSkillList", hasSkillList);
-        // model.addAttribute("wishPositionList", wishPositionList);
-
+        int totalResume = resumeList.size();
+        model.addAttribute("totalResume", totalResume);
+        List<Apply> applyList2 = applyRepository.findByUserId(sessionUser.getId());
+        int totalApply = applyList2.size();
+        List<JobOpening> jobOpeningInfo = suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
+        model.addAttribute("jobOpeningInfo", jobOpeningInfo);
+        model.addAttribute("totalApply", totalApply);
+        model.addAttribute("applyList2", applyList2);
         return "user/user_mypage";
+
     }
 
     @GetMapping("/comp/myPageForm")
-    public String jobOpeningList(Model model) {
-
-        return "/comp/comp_info";
+    public String compMyPageForm() {
+        return "comp/comp_info_update";
     }
+
 
     @PostMapping("/user/login")
     public @ResponseBody String userLogin(UserRequest.UserLoginDTO userLoginDTO) {
@@ -184,10 +175,6 @@ public class UserController {
         return Script.href("/user", "로그인 완료");
     }
 
-    // @GetMapping("/compMyPageForm")
-    // public String compMyPage() {
-    // return "comp/comp_info";
-    // }
 
     @PostMapping("/comp/login")
     public @ResponseBody String compLogin(UserRequest.UserLoginDTO userLoginDTO) {
@@ -200,10 +187,8 @@ public class UserController {
     public @ResponseBody ApiUtil<String> check(String userEmailId) {
         User user = userRepository.findByUserEmailId(userEmailId);
         if (user != null) {
-            // return new ApiUtil<String>(false, "유저네임을 사용할 수 없습니다.");
             throw new MyApiException("EmailID를 사용할 수 없습니다");
         }
-
         return new ApiUtil<String>(true, "EmailID를 사용할 수 있습니다.");
 
     }
@@ -220,12 +205,27 @@ public class UserController {
         return "redirect:/comp";
     }
 
-    @PostMapping("/compinfo/update")
-    public String compInfoUpdate(UserRequest.CompInfoUpdateDTO compInfoUpdateDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+    @GetMapping("/user/info/updateForm")
+    public String userInfoUpdateForm(){
+        return "user/user_update";
+    }
 
+    @GetMapping("/user/scrap")
+    public String userScrap(){
+        return "user/user_scrap";
+    }
+
+    //////// 회사정보 수정페이지
+    @GetMapping("/comp/info/updateForm")
+    public String compInfoUpdateForm() {
+        return "comp/comp_info_update";
+    }
+    /////// 회사정보 수정
+    @PostMapping("/comp/info/update")
+    public String compInfoUpdate(CompInfoUpdateDTO compInfoUpdateDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.회사정보수정(compInfoUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
-        return "comp/comp_info";
+        return "comp/comp_info_update";
     }
 }
