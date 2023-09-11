@@ -7,6 +7,9 @@
         <!-- container 건들지 말기 -->
 
         <!-- 게시글내용 -->
+        <div class="back double_btn">
+            <button type="submit" class="btn_fill" onclick="historyBack()">뒤로가기</button>
+        </div>
         <div class="pt-1 d-flex justify-content-start">
             <div class="card card_board_detail form-control">
                 <div class="card_board">
@@ -47,14 +50,14 @@
                 <!-- 댓글 입력 -->
                 <hr />
                 <div class="user_reply_write">
-                    <form action="/user/community/reply/save" method="post">
-                        <input type="hidden" name="boardId" value="{{boardDetailDTO.boardId}}">
+                    <form>
+                        <input type="hidden" id="boardId" value="{{boardDetailDTO.boardId}}">
                         <div>
-                            <textarea name="comment" id="" placeholder="댓글을 작성해주세요." required
-                                maxlength="100"></textarea>
+                            <textarea name="comment" id="comment" placeholder="댓글을 작성해주세요." required
+                                maxlength="300"></textarea>
                         </div>
                         <div class="reply_write_button">
-                            <button type="submit" class="btn btn-secondary">등록하기</button>
+                            <button type="button" class="btn btn-secondary" onclick="saveReply()">등록하기</button>
                         </div>
                     </form>
                 </div>
@@ -76,7 +79,8 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><img
                                     width="30px" src="/image/com_img/list.png" alt="list_png"></a>
                             <ul class="nav-item-menu dropdown-menu">
-                                <form action="/user/community/reply/{{replyId}}/delete" method="post">
+                                <form action="/user/community/{{replyId}}/reply/delete" method="post">
+                                    <input type="hidden" name="boardId" value="{{boardDetailDTO.boardId}}">
                                     <li><button type="submit" class="dropdown-item">삭제하기</button></li>
                                 </form>
                             </ul>
@@ -88,5 +92,38 @@
         </div>
     </div>
 </main>
+<script>
+    function historyBack() {
+        history.go(-1);
+    }
+
+    async function saveReply() {
+        // 사용자가 작성한 댓글 데이터를 받아오기
+        let requestBody = {
+            boardId: document.querySelector("#boardId").value,
+            comment: document.querySelector("#comment").value
+        };
+
+        let response = await fetch("/api/user/community/reply/save", {
+            method: "post",
+            headers: {
+                "content-type": "application/json" // MIME
+            },
+            body: JSON.stringify(requestBody)
+        }); //3 -> Controller
+
+        // 서버로 받은 응답
+        let responseBody = await response.json();
+        console.log(responseBody)
+
+        // return 값 확인 -> 출력
+        if (responseBody.success) {
+            alert(responseBody.data);
+            location.reload(); // ssr - 새로고침
+            console.log("등록완료");
+        } else {
+        }
+    }
+</script>
 <!--메인-->
 {{>layout/footer}}
