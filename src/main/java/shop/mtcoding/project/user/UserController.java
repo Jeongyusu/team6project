@@ -60,18 +60,6 @@ public class UserController {
     @Autowired
     SuggestQueryRepository suggestQueryRepository;
 
-    ///////// 구직자홈
-    @GetMapping("/user")
-    public String home(Model model) {
-        return "user_index";
-    }
-
-    ///////// 회사홈
-    @GetMapping("/comp")
-    public String compHome() {
-        return "comp_index";
-    }
-
     ///////// 구직자 회원가입페이지
     @GetMapping("/user/joinForm")
     public String userJoinForm() {
@@ -88,7 +76,7 @@ public class UserController {
     @PostMapping("/user/join")
     public @ResponseBody String userJoin(UserRequest.UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
-        return Script.href("/user", "회원가입 완료");
+        return Script.href("/user/mainForm", "회원가입 완료");
 
     }
 
@@ -96,7 +84,14 @@ public class UserController {
     @PostMapping("/comp/join")
     public @ResponseBody String compJoin(UserRequest.UserJoinDTO userJoinDTO) {
         userService.유저회원가입(userJoinDTO);
-        return Script.href("/comp", "회원가입 완료");
+        return Script.href("/comp/mainForm", "회원가입 완료");
+
+    }
+
+    /////// 구직자 비번 변경하기
+    @GetMapping("/user/info/updateForm")
+    public String userInfoUpdateForm() {
+        return "user/user_update";
     }
 
     ///////// 유저 비번 변경하기 완료
@@ -167,24 +162,19 @@ public class UserController {
 
     }
 
-    @GetMapping("/comp/myPageForm")
-    public String compMyPageForm() {
-        return "comp/comp_info_update";
-    }
-
     @PostMapping("/user/login")
     public @ResponseBody String userLogin(UserRequest.UserLoginDTO userLoginDTO) {
 
         User sessionUser = userService.유저로그인(userLoginDTO);
         session.setAttribute("sessionUser", sessionUser);
-        return Script.href("/user", "로그인 완료");
+        return Script.href("/user/mainForm", "로그인 완료");
     }
 
     @PostMapping("/comp/login")
     public @ResponseBody String compLogin(UserRequest.UserLoginDTO userLoginDTO) {
         User sessionUser = userService.유저로그인(userLoginDTO);
         session.setAttribute("sessionUser", sessionUser);
-        return Script.href("/comp", "로그인 완료");
+        return Script.href("/comp/mainForm", "로그인 완료");
     }
 
     @GetMapping("/api/check")
@@ -200,18 +190,13 @@ public class UserController {
     @GetMapping("/user/logout")
     public String userLogout() {
         session.invalidate();
-        return "redirect:/user";
+        return "redirect:/user/mainForm";
     }
 
     @GetMapping("/comp/logout")
     public String compLogout() {
         session.invalidate();
-        return "redirect:/comp";
-    }
-
-    @GetMapping("/user/info/updateForm")
-    public String userInfoUpdateForm() {
-        return "user/user_update";
+        return "redirect:/comp/mainForm";
     }
 
     @GetMapping("/user/scrap")
