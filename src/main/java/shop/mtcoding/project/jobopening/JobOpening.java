@@ -51,7 +51,7 @@ public class JobOpening {
     @Column(nullable = true)
     private String career;
 
-    @Column(nullable = true)
+    @Column(nullable = true, name = "career_year")
     private String careerYear;
 
     @Column(nullable = true)
@@ -109,7 +109,5 @@ public class JobOpening {
         this.taskList = taskList;
         this.qualifiedList = qualifiedList;
     }
-
-    
 
 }

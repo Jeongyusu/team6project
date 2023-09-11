@@ -72,9 +72,8 @@ public class ApplyController {
         return "user/user_job_opening_apply";
     }
 
-
     @PostMapping("/user/Apply")
-    public String UserApply(ApplySaveDTO applySaveDTO) {
+    public String userApply(ApplySaveDTO applySaveDTO) {
         applyService.지원(applySaveDTO);
         Integer id = applySaveDTO.getSelectedjobOpeningId();
         return "redirect:/user/jobOpening/" + id + "/applyForm";
@@ -112,7 +111,8 @@ public class ApplyController {
     }
 
     @PostMapping("/api/apply/answer/update")
-    public @ResponseBody ApiUtil<String> AnswerApply(@RequestBody ApplyRequest.ApplyStateDTO applyStateDTO, Model model){
+    public @ResponseBody ApiUtil<String> AnswerApply(@RequestBody ApplyRequest.ApplyStateDTO applyStateDTO,
+            Model model) {
         System.out.println("테스트중" + applyStateDTO.getApplyState());
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userRepository.findById(sessionUser.getId()).get();
@@ -121,6 +121,5 @@ public class ApplyController {
         return new ApiUtil<String>(true, applyStateDTO.getApplyState());
 
     }
-
 
 }
