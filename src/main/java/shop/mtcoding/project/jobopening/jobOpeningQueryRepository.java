@@ -5,11 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 
 @Repository
 public class JobOpeningQueryRepository {
