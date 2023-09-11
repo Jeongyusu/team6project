@@ -77,6 +77,7 @@ public class ResumeController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userRepository.findById(sessionUser.getId()).get();
         List<JobOpening> jobOpeningList = jobOpeningRepository.findByUserId(user.getId());
+        System.out.println("나요기" + jobOpeningList.get(0).getTitle());
         model.addAttribute("jobOpeningList", jobOpeningList);
         return "comp/comp_resume_detail";
     }
