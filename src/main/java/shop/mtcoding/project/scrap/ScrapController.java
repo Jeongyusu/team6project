@@ -42,9 +42,9 @@ public class ScrapController {
     // comp_이력서 스크랩
     @PostMapping("/api/comp/resume/scrap/save")
     public @ResponseBody ApiUtil<String> compResumeSaveScrap(
-            @RequestBody CompScrapRequest.CompScrapDTO compScrapDTO) {
+            @RequestBody CompScrapRequest.CompScrapSaveDTO compScrapSaveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        scrapService.이력서스크랩(sessionUser.getId(), compScrapDTO);
+        scrapService.이력서스크랩(sessionUser.getId(), compScrapSaveDTO);
         return new ApiUtil<String>(true, "스크랩 성공");
     }
 

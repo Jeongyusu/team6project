@@ -18,6 +18,7 @@ public class ApplyService {
     @Autowired
     private ApplyRepository applyRepository;
 
+    //// user_ 공고 지원
     @Transactional
     public void 지원(ApplyRequest.ApplySaveDTO applySaveDTO) {
         Apply apply = Apply.builder()
@@ -31,7 +32,8 @@ public class ApplyService {
     @Transactional
     public void 지원응답(ApplyRequest.ApplyStateDTO applyStateDTO, Integer userId) {
 
-        Apply apply = applyRepository.findByResumeIdAndJobOpeningId(applyStateDTO.getResumeId(), applyStateDTO.getResumeId());
+        Apply apply = applyRepository.findByResumeIdAndJobOpeningId(applyStateDTO.getResumeId(),
+                applyStateDTO.getResumeId());
         apply.setUser(User.builder().id(userId).build());
         apply.setResume(Resume.builder().id(applyStateDTO.getResumeId()).build());
         apply.setJobOpening(JobOpening.builder().id(applyStateDTO.getJobOpeningId()).build());

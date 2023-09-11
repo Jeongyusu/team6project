@@ -12,9 +12,6 @@ public class PositionService {
     @Autowired
     private PositionRepository positionRepository;
 
-    @Autowired
-    private RequiredPositionRepository requiredPositionRepository;
-
     public List<Position> 포지션이름() {
         List<Position> positionList = positionRepository.findAll();
         return positionList;
