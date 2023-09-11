@@ -77,7 +77,7 @@ public class ApplyController {
         User user = userRepository.findById(sessionUser.getId()).get();
         applyService.지원(applySaveDTO, user.getId());
         Integer id = applySaveDTO.getSelectJobOpeningId();
-        return "redirect:/user/jobOpening/" + id + "/applyForm";
+        return "redirect:/user/jobOpening/" + id;
     }
 
     @GetMapping("/user/applyAndSuggest")

@@ -4,273 +4,306 @@
 <!-- 각자 페이지 main 클래스에 name 작성-->
 <!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
 <main class="job_opening">
-    <div class="container">
-        <!-- container 건들지 말기 -->
-        <!-- 여기서부터 시작 -->
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="job_opening_title">
-                    <h1>{{jobOpeningDetailDTO.title}}</h1>
-                    <br>
-                    <h4>{{jobOpeningDetailDTO.compName}}</h4>
-                </div>
-                <hr>
-                <div class="job_opening_content">
-                    <div class="skill">
-                        <h3>개발직무</h3>
-                        <ul>
-                            {{#jobOpeningDetailDTO.requiredPositionList}}
-                            <li class="position_skill com_skill">
-                                <span class="skill_box">{{positionName}}</span>
-                            </li>
-                            {{/jobOpeningDetailDTO.requiredPositionList}}
-                        </ul>
-                    </div>
-
-                    <div class="skill">
-                        <h3>기술스택</h3>
-                        <ul>
-                            {{#jobOpeningDetailDTO.requiredSkillList}}
-                            <li class="comp_skill com_skill">
-                                <span class="skill_box">{{skillName}}</span>
-                            </li>
-                            {{/jobOpeningDetailDTO.requiredSkillList}}
-                        </ul>
-                    </div>
-
-                    <div class="want">
-                        <h3>주요업무</h3>
-                        <ul>
-                            {{#jobOpeningDetailDTO.taskList}}
-                            <li>{{taskContent}}</li>
-                            {{/jobOpeningDetailDTO.taskList}}
-                        </ul>
-                    </div>
-
-                    <div class="want">
-                        <h3>자격요건</h3>
-                        <ul>
-                            {{#jobOpeningDetailDTO.qulifiedList}}
-                            <li>{{qualifiedContent}}</li>
-                            {{/jobOpeningDetailDTO.qulifiedList}}
-                        </ul>
-                    </div>
-
-                    <div class="want">
-                        <h3>채용절차</h3>
-                        <p>{{jobOpeningDetailDTO.process}}</p>
-                    </div>
-
-                    <div class="want">
-                        <h3>경력</h3>
-                        <div class="career-flex">
-                            <p>{{jobOpeningDetailDTO.career}}</p>
-                            <p>{{jobOpeningDetailDTO.careerYear}}</p>
-                        </div>
-                    </div>
-
-                    <div class="want">
-                        <h3>학력</h3>
-                        <div class="career-flex">
-                            <p>{{jobOpeningDetailDTO.edu}}</p>
-                        </div>
-                    </div>
-
-                    <div class="want">
-                        <h3>마감일</h3>
-                        <p>{{jobOpeningDetailDTO.deadLine}}</p>
-                    </div>
-
-                    <div class="want">
-                        <h3>근무지역</h3>
-                        <p>{{jobOpeningDetailDTO.compAddress}}</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="company_introduce">
-                    <h3>기업 / 서비스 소개</h3>
-                    <div class="company_pic">
-                        <img src="/image/company_img/{{jobOpeningDetailDTO.compPicUrl}}"
-                            alt="{{jobOpeningDetailDTO.compPicUrl}}">
-                    </div>
-                    <div class="company_intro">
-                        <span>연력</span>
-                        <span>{{jobOpeningDetailDTO.compFormatCreatedAt}}</span>
-                    </div>
-                    <div class="about_company">
-                        <p>{{jobOpeningDetailDTO.compIntro}}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-
-                <div class="apply">
-                    <div class="apply_scrap">
-                        <form>
-                            <button type="button" onclick="toggleScrap()" id="scrap_button" class="scrap_button">
-                                <input type="hidden" id="jobOpeningId" name="jobOpeningId"
-                                    value="{{jobOpeningDetailDTO.jobOpeningId}}">
-                                <img id="scrap_icon" src="/image/empty_star.png" alt="empty_star.png">
-                                <span>
-                                    스크랩
-                                </span>
-                            </button>
-                        </form>
-                        <script>
-                            let scrapState = 0; // 초기 스크랩 상태 (0: 미스크랩, 1: 스크랩)
-
-                            async function toggleScrap() {
-                                let jobOpeningId = document.querySelector("#jobOpeningId").value;
-                                let scrapIcon = document.querySelector("#scrap_icon");
-
-                                // 스크랩 상태에 따라 메소드 호출
-                                if (scrapState === 0) {
-                                    await saveScrap(jobOpeningId);
-                                    scrapState = 1;
-                                } else {
-                                    await deleteScrap(jobOpeningId);
-                                    scrapState = 0;
-                                }
-
-                                // 아이콘 업데이트
-                                updateScrapIcon();
-                            }
-
-                            async function saveScrap(jobOpeningId) {
-                                // 저장 메소드 호출
-                                let response = await fetch("/api/user/jobOpening/scrap/save", {
-                                    method: "post",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify({ jobOpeningId })
-                                });
-
-                                let responseBody = await response.json();
-                                console.log(responseBody);
-
-                                if (responseBody.success) {
-                                    alert(responseBody.data);
-                                } else {
-                                }
-                            }
-
-                            async function deleteScrap(jobOpeningId) {
-                                // 삭제 메소드 호출
-                                let response = await fetch("/api/user/jobOpening/scrap/delete", {
-                                    method: "delete",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify({ jobOpeningId })
-                                });
-
-                                let responseBody = await response.json();
-                                console.log(responseBody);
-
-                                if (responseBody.success) {
-                                    alert(responseBody.data);
-                                } else {
-                                }
-                            }
-
-                            function updateScrapIcon() {
-                                let scrapIcon = document.querySelector("#scrap_icon");
-                                if (scrapState === 1) {
-                                    scrapIcon.src = "/image/full_star.png";
-                                } else {
-                                    scrapIcon.src = "/image/empty_star.png";
-                                }
-                            }
-                        </script>
-                    </div>
-                    <div class="apply_company_user_apply">
-                        <div class="apply_company_img">
-                            <!-- 기업 이미지는 css의 백그라운드로 들어감 -->
-                        </div>
-                        <div class="apply_company_title">
-                            {{jobOpeningDetailDTO.title}}
-                        </div>
-                        <div class="apply_company_name">
-                            {{jobOpeningDetailDTO.compName}}
-                        </div>
-                    </div>
-                    <button type="button" class="apply_button" data-bs-toggle="modal" data-bs-target="#myModal">
-                        <input type="hidden" id="userId" value="{{sessionUser.id}}">
-                        <input type="hidden" id="resumeId" value="">
-                        지원하기
-                    </button>
-                </div>
-
-                <!-- The Modal -->
-                <div class="modal" id="myModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="apply_close_button">
-                                <button type="button" data-bs-dismiss="modal">
-                                    <img src="/image/close.png" alt="close_png">
-                                </button>
-                            </div>
-                            <div class="apply_user_all">
-                                <div class="modal_list">연락정보</div>
-                                <div class="apply_user_information">
-                                    <div class="user_information_email">
-                                        <p>이메일</p>
-                                        <p>{{resumeInJobOpeningDTO.userEmail}}</p>
-                                    </div>
-                                    <div class="user_information_phone">
-                                        <p>연락처</p>
-                                        <p>{{resumeInJobOpeningDTO.applyResumeInJobOpeningDTO.0.userTel}}</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="apply_resume_all">
-                                <div class="apply_resume_list">
-                                    <div class="modal_list">지원 이력서</div>
-                                    <div class="apply_sum">
-                                        <span>이력서 총</span>
-                                        <span>{{resumeInJobOpeningDTO.totalResume}}개</span>
-                                    </div>
-                                </div>
-                                <form action="/user/Apply" method="post">
-                                    <input type="hidden" name="selectJobOpeningId"
-                                        value="{{jobOpeningDetailDTO.jobOpeningId}}">
-                                    {{#resumeInJobOpeningDTO.applyResumeInJobOpeningDTO}}
-                                    <ul>
-                                        <li class="apply_resume">
-                                            <div class="resume_check_button">
-                                                <input type="radio" name="selectResumeId" value="{{resumeId}}">
-                                            </div>
-                                            <div class="about_resume">
-                                                <p class="resume_name">{{resumeTitle}}</p>
-                                                <p class="resume_created_at">
-                                                    <span>{{createdAtFormat}}
-                                                        <span>등록</span>
-                                                    </span>
-                                                    <span>
-                                                        <a href="/user/resume/{{resumeId}}/update"><img
-                                                                src="/image/write.png" alt="write_png"></a>
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    {{/resumeInJobOpeningDTO.applyResumeInJobOpeningDTO}}
-                                    <button type="submit" class="resume_apply_button" data-bs-toggle="modal"
-                                        data-bs-target="#myModal">
-                                        지원하기
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <!-- container 건들지 말기 -->
+    <!-- 여기서부터 시작 -->
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="job_opening_title">
+          <h1>{{ jobOpeningDetailDTO.title }}</h1>
+          <br />
+          <h4>{{ jobOpeningDetailDTO.compName }}</h4>
         </div>
+        <hr />
+        <div class="job_opening_content">
+          <div class="skill">
+            <h3>개발직무</h3>
+            <ul>
+              {{#jobOpeningDetailDTO.requiredPositionList}}
+              <li class="position_skill com_skill">
+                <span class="skill_box">{{ positionName }}</span>
+              </li>
+              {{/jobOpeningDetailDTO.requiredPositionList}}
+            </ul>
+          </div>
+
+          <div class="skill">
+            <h3>기술스택</h3>
+            <ul>
+              {{#jobOpeningDetailDTO.requiredSkillList}}
+              <li class="comp_skill com_skill">
+                <span class="skill_box">{{ skillName }}</span>
+              </li>
+              {{/jobOpeningDetailDTO.requiredSkillList}}
+            </ul>
+          </div>
+
+          <div class="want">
+            <h3>주요업무</h3>
+            <ul>
+              {{#jobOpeningDetailDTO.taskList}}
+              <li>{{ taskContent }}</li>
+              {{/jobOpeningDetailDTO.taskList}}
+            </ul>
+          </div>
+
+          <div class="want">
+            <h3>자격요건</h3>
+            <ul>
+              {{#jobOpeningDetailDTO.qulifiedList}}
+              <li>{{ qualifiedContent }}</li>
+              {{/jobOpeningDetailDTO.qulifiedList}}
+            </ul>
+          </div>
+
+          <div class="want">
+            <h3>채용절차</h3>
+            <p>{{ jobOpeningDetailDTO.process }}</p>
+          </div>
+
+          <div class="want">
+            <h3>경력</h3>
+            <div class="career-flex">
+              <p>{{ jobOpeningDetailDTO.career }}</p>
+              <p>{{ jobOpeningDetailDTO.careerYear }}</p>
+            </div>
+          </div>
+
+          <div class="want">
+            <h3>학력</h3>
+            <div class="career-flex">
+              <p>{{ jobOpeningDetailDTO.edu }}</p>
+            </div>
+          </div>
+
+          <div class="want">
+            <h3>마감일</h3>
+            <p>{{ jobOpeningDetailDTO.deadLine }}</p>
+          </div>
+
+          <div class="want">
+            <h3>근무지역</h3>
+            <p>{{ jobOpeningDetailDTO.compAddress }}</p>
+          </div>
+        </div>
+        <hr />
+        <div class="company_introduce">
+          <h3>기업 / 서비스 소개</h3>
+          <div class="company_pic">
+            <img
+              src="/image/company_img/{{ jobOpeningDetailDTO.compPicUrl }}"
+              alt="{{ jobOpeningDetailDTO.compPicUrl }}"
+            />
+          </div>
+          <div class="company_intro">
+            <span>연력</span>
+            <span>{{ jobOpeningDetailDTO.compFormatCreatedAt }}</span>
+          </div>
+          <div class="about_company">
+            <p>{{ jobOpeningDetailDTO.compIntro }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="apply">
+          <div class="apply_scrap">
+            <form>
+              <button
+                type="button"
+                onclick="toggleScrap()"
+                id="scrap_button"
+                class="scrap_button"
+              >
+                <input
+                  type="hidden"
+                  id="jobOpeningId"
+                  name="jobOpeningId"
+                  value="{{ jobOpeningDetailDTO.jobOpeningId }}"
+                />
+                <img
+                  id="scrap_icon"
+                  src="/image/empty_star.png"
+                  alt="empty_star.png"
+                />
+                <span> 스크랩 </span>
+              </button>
+            </form>
+            <script>
+              let scrapState = 0; // 초기 스크랩 상태 (0: 미스크랩, 1: 스크랩)
+
+              async function toggleScrap() {
+                let jobOpeningId =
+                  document.querySelector("#jobOpeningId").value;
+                let scrapIcon = document.querySelector("#scrap_icon");
+
+                // 스크랩 상태에 따라 메소드 호출
+                if (scrapState === 0) {
+                  await saveScrap(jobOpeningId);
+                  scrapState = 1;
+                } else {
+                  await deleteScrap(jobOpeningId);
+                  scrapState = 0;
+                }
+
+                // 아이콘 업데이트
+                updateScrapIcon();
+              }
+
+              async function saveScrap(jobOpeningId) {
+                // 저장 메소드 호출
+                let response = await fetch("/api/user/jobOpening/scrap/save", {
+                  method: "post",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ jobOpeningId }),
+                });
+
+                let responseBody = await response.json();
+                console.log(responseBody);
+
+                if (responseBody.success) {
+                } else {
+                  alert(responseBody.data);
+                }
+              }
+
+              async function deleteScrap(jobOpeningId) {
+                // 삭제 메소드 호출
+                let response = await fetch(
+                  "/api/user/jobOpening/scrap/delete",
+                  {
+                    method: "delete",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ jobOpeningId }),
+                  }
+                );
+
+                let responseBody = await response.json();
+                console.log(responseBody);
+
+                if (responseBody.success) {
+                } else {
+                  alert(responseBody.data);
+                }
+              }
+
+              function updateScrapIcon() {
+                let scrapIcon = document.querySelector("#scrap_icon");
+                if (scrapState === 1) {
+                  scrapIcon.src = "/image/full_star.png";
+                } else {
+                  scrapIcon.src = "/image/empty_star.png";
+                }
+              }
+            </script>
+          </div>
+          <div class="apply_company_user_apply">
+            <div class="apply_company_img">
+              <!-- 기업 이미지는 css의 백그라운드로 들어감 -->
+            </div>
+            <div class="apply_company_title">
+              {{ jobOpeningDetailDTO.title }}
+            </div>
+            <div class="apply_company_name">
+              {{ jobOpeningDetailDTO.compName }}
+            </div>
+          </div>
+          <button
+            type="button"
+            class="apply_button"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          >
+            지원하기
+          </button>
+        </div>
+
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="apply_close_button">
+                <button type="button" data-bs-dismiss="modal">
+                  <img src="/image/close.png" alt="close_png" />
+                </button>
+              </div>
+              <div class="apply_user_all">
+                <div class="modal_list">연락정보</div>
+                <div class="apply_user_information">
+                  <div class="user_information_email">
+                    <p>이메일</p>
+                    <p>{{ resumeInJobOpeningDTO.userEmail }}</p>
+                  </div>
+                  <div class="user_information_phone">
+                    <p>연락처</p>
+                    <p>
+                      {{resumeInJobOpeningDTO.applyResumeInJobOpeningDTO.0.userTel}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="apply_resume_all">
+                <div class="apply_resume_list">
+                  <div class="modal_list">지원 이력서</div>
+                  <div class="apply_sum">
+                    <span>이력서 총</span>
+                    <span>{{ resumeInJobOpeningDTO.totalResume }}개</span>
+                  </div>
+                </div>
+                <form action="/user/Apply" method="post">
+                  <input
+                    type="hidden"
+                    name="selectJobOpeningId"
+                    value="{{ jobOpeningDetailDTO.jobOpeningId }}"
+                  />
+                  {{#resumeInJobOpeningDTO.applyResumeInJobOpeningDTO}}
+                  <ul>
+                    <li class="apply_resume">
+                      <div class="resume_check_button">
+                        <input
+                          type="radio"
+                          name="selectResumeId"
+                          value="{{ resumeId }}"
+                        />
+                      </div>
+                      <div class="about_resume">
+                        <p class="resume_name">{{ resumeTitle }}</p>
+                        <p class="resume_created_at">
+                          <span
+                            >{{ createdAtFormat }}
+                            <span>등록</span>
+                          </span>
+                          <span>
+                            <a href="/user/resume/{{ resumeId }}/update"
+                              ><img src="/image/write.png" alt="write_png"
+                            /></a>
+                          </span>
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                  {{/resumeInJobOpeningDTO.applyResumeInJobOpeningDTO}}
+                  <button
+                    type="submit"
+                    class="resume_apply_button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#myModal"
+                  >
+                    지원하기
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
+  </div>
 </main>
 <!-- 메인 -->
 {{>layout/footer}}

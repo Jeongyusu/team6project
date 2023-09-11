@@ -396,10 +396,6 @@ footer li:last-child {
 
 /* comp_community_list.html */
 
-.community_list {
-  height: 100vh;
-}
-
 .common_bg {
   background-color: var(--back_02);
 }
