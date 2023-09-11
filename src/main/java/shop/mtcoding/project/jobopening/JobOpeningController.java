@@ -268,7 +268,7 @@ public class JobOpeningController {
     }
 
     //// user_ 채용정보 화면
-    @GetMapping("/comp/jobOpening/select")
+    @GetMapping("/user/jobOpening/select")
     public String compJobOpeningSelectForm(Model model) {
         List<Position> positionList = positionService.포지션이름();
         List<Skill> skillList = skillService.스킬이름();

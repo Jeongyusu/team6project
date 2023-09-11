@@ -29,10 +29,11 @@ public class JobOpeningResponse {
         private String career;
         private String careerYear;
         private String skill;
+        private String compPicUrl;
 
         @Builder
         public JobOpeningMainDTO(Integer jobOpeningId, String title, String compName, String compAddress, String career,
-                String careerYear, String skill) {
+                String careerYear, String skill, String compPicUrl) {
             this.jobOpeningId = jobOpeningId;
             this.title = title;
             this.compName = compName;
@@ -40,6 +41,7 @@ public class JobOpeningResponse {
             this.career = career;
             this.careerYear = careerYear;
             this.skill = skill;
+            this.compPicUrl = compPicUrl;
         }
     }
 

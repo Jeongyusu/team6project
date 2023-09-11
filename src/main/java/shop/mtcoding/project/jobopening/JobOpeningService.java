@@ -255,14 +255,20 @@ public class JobOpeningService {
             String Address = jobOpening.getCompAddress();
             String compAddressFormat = Split.AddressSplit(Address);
 
+            // careeryear null 방지
+            String JcareerYear = jobOpening.getCareerYear();
+            if (JcareerYear == null || "null".equals(JcareerYear)) {
+                JcareerYear = "";
+            }
             JobOpeningMainDTO jobOpeningMainDTO = JobOpeningMainDTO.builder()
                     .jobOpeningId(jobOpening.getId())
                     .title(jobOpening.getTitle())
                     .compName(jobOpening.getUser().getUserName())
                     .compAddress(compAddressFormat)
                     .career(jobOpening.getCareer())
-                    .careerYear(jobOpening.getCareerYear())
+                    .careerYear(JcareerYear)
                     .skill(skillListString)
+                    .compPicUrl(jobOpening.getUser().getCompPicUrl())
                     .build();
             jobOpeningMainDTOList.add(jobOpeningMainDTO);
         }
@@ -321,13 +327,19 @@ public class JobOpeningService {
                 skillNameDTOList.add(skillNameDTO);
             }
 
+            // careeryear null 방지
+            String JcareerYear = jobOpening.getCareerYear();
+            if (JcareerYear == null || "null".equals(JcareerYear)) {
+                JcareerYear = "";
+            }
+
             // view를 하기 위한 DTO
             JobOpeningDetailDTO jobOpeningDetailDTO = JobOpeningDetailDTO.builder()
                     .jobOpeningId(jobOpening.getId())
                     .title(jobOpening.getTitle())
                     .process(jobOpening.getProcess())
                     .career(jobOpening.getCareer())
-                    .careerYear(jobOpening.getCareerYear())
+                    .careerYear(JcareerYear)
                     .edu(jobOpening.getEdu())
                     .compName(jobOpening.getUser().getUserName())
                     .compAddress(jobOpening.getCompAddress())
@@ -374,14 +386,21 @@ public class JobOpeningService {
             String Address = jobOpening.getCompAddress();
             String compAddressFormat = Split.AddressSplit(Address);
 
+            // careeryear null 방지
+            String JcareerYear = jobOpening.getCareerYear();
+            if (JcareerYear == null || "null".equals(JcareerYear)) {
+                JcareerYear = "";
+            }
+
             JobOpeningMainDTO jobOpeningMainDTO = JobOpeningMainDTO.builder()
                     .jobOpeningId(jobOpening.getId())
                     .title(jobOpening.getTitle())
                     .compName(jobOpening.getUser().getUserName())
                     .compAddress(compAddressFormat)
                     .career(jobOpening.getCareer())
-                    .careerYear(jobOpening.getCareerYear())
+                    .careerYear(JcareerYear)
                     .skill(skillListString)
+                    .compPicUrl(jobOpening.getUser().getCompPicUrl())
                     .build();
             jobOpeningMainDTOList.add(jobOpeningMainDTO);
         }
@@ -427,14 +446,21 @@ public class JobOpeningService {
             String Address = jobOpening.getCompAddress();
             String compAddressFormat = Split.AddressSplit(Address);
 
+            // careeryear null 방지
+            String JcareerYear = jobOpening.getCareerYear();
+            if (JcareerYear == null || "null".equals(JcareerYear)) {
+                JcareerYear = "";
+            }
+
             JobOpeningMainDTO jobOpeningMainDTO = JobOpeningMainDTO.builder()
                     .jobOpeningId(jobOpening.getId())
                     .title(jobOpening.getTitle())
                     .compName(jobOpening.getUser().getUserName())
                     .compAddress(compAddressFormat)
                     .career(jobOpening.getCareer())
-                    .careerYear(jobOpening.getCareerYear())
+                    .careerYear(JcareerYear)
                     .skill(skillListString)
+                    .compPicUrl(jobOpening.getUser().getCompPicUrl())
                     .build();
             jobOpeningMainDTOList.add(jobOpeningMainDTO);
         }
