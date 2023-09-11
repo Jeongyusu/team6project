@@ -76,7 +76,7 @@ public class ApplyController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userRepository.findById(sessionUser.getId()).get();
         applyService.지원(applySaveDTO, user.getId());
-        Integer id = applySaveDTO.getSelectedjobOpeningId();
+        Integer id = applySaveDTO.getSelectJobOpeningId();
         return "redirect:/user/jobOpening/" + id + "/applyForm";
     }
 

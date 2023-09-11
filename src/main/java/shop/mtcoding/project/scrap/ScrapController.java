@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project._core.util.ApiUtil;
+import shop.mtcoding.project.scrap.CompScrapResponse.ScrapResumeDTO;
 import shop.mtcoding.project.scrap.UserScrapResponse.ScrapJobOpeningDTO;
 import shop.mtcoding.project.user.User;
 import shop.mtcoding.project.user.UserRepository;
@@ -75,6 +76,17 @@ public class ScrapController {
         model.addAttribute("scrapJobOpeningDTOList", scrapJobOpeningDTOList);
         model.addAttribute("scrapJobOpeningSum", scrapJobOpeningSum);
         return "user/user_scrap";
+    }
+
+    @GetMapping("/comp/scrap")
+    public String compScrap(Model model) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userRepository.findById(sessionUser.getId()).get();
+        List<ScrapResumeDTO> scrapResumeDTOList = scrapService.이력서스크랩조회(user.getId());
+        Integer scrapResumeSum = scrapResumeDTOList.size();
+        model.addAttribute("scrapResumeDTOList", scrapResumeDTOList);
+        model.addAttribute("scrapResumeSum", scrapResumeSum);
+        return "comp/comp_scrap";
     }
 
 }

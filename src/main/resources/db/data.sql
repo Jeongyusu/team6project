@@ -3,9 +3,9 @@ insert into user_tb (user_email_id, user_name, user_password, user_pic_url, crea
 insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('cos@nate.com', 'cos', '1234', 'basic.jpg', now(), 1);
 insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('love@nate.com', '러브', '1234', null, now(), 1);
 -- 여기는 회사가 유저의 이력서를 스크랩한 상태 --
-insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('toss@nate.com','toss', '1234', '2010-10-25', '세계1위 애플 입니다', 'apple.png', now(), 2);
-insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('naver@nate.com', 'naver', '1234','2000-11-15', '세계1위 네이버입니다', 'baemin.png', now(), 2);
-insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('kakao@nate.com', 'kakao', '1234','2005-12-01', '세계1위 카카오입니다', 'kakao.png', now(), 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('toss@nate.com','toss', '1234', '2010-10-25', '세계1위 애플 입니다', 'comp_img01.png', now(), 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('naver@nate.com', 'naver', '1234','2000-11-15', '세계1위 네이버입니다', 'comp_img01.png', now(), 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('kakao@nate.com', 'kakao', '1234','2005-12-01', '세계1위 카카오입니다', 'comp_img01.png', now(), 2);
 --
 insert into comp_scrap_tb (created_at) values(now());
 insert into comp_scrap_tb (created_at) values(now());
@@ -52,9 +52,10 @@ insert into position_tb (position) values('안드로이드 개발자');
 -- insert into required_skill_tb (skill_id, job_opening_id) values('1', '3');
 -- insert into required_skill_tb (skill_id, job_opening_id) values('2', '3');
 
-insert into resume_tb (user_id, title, user_name, user_email_id, birth, tel, address, sub_intro, career, career_year, edu, main_intro, resume_pic_url) values ('1', 'ssar 이력서입니다', 'ssar', 'ssar@nate.com', '1990-02-10', '010-1111-2222', '부산 진구 전포동 그린아카데미', '열심히하는 개발자가 되겠습니다', '경력', '4년차', '대졸', '부산/25/남/ssar입니다 어렸을때부터 메타코딩 개발자님 영상을 보며 개발자를 꿈꿧습니다.', 'basic.jpg');
-insert into resume_tb (user_id, title, user_name, user_email_id, birth, tel, address, sub_intro, career, career_year, edu, main_intro, resume_pic_url) values ('1', 'ssar 이력서2입니다', 'ssar', 'ssar@nate.com', '1995-03-05', '010-2222-3333', '부산 진구 전포동 클럽데이즈', '능력있는 개발자가 되겠습니다', '경력', '2년차', '대졸', '부산/28/남/cos입니다 어렸을때부터 메타코딩 개발자님 영상을 보며 개발자를 꿈꿧습니다.', 'basic.jpg');
-insert into resume_tb (user_id, title, user_name, user_email_id, birth, tel, address, sub_intro, career, edu, main_intro, resume_pic_url) values ('3', 'love 이력서입니다', 'love', 'test3@naver.com', '1994-05-11', '010-5555-1111', '부산 진구 전포동 제이앤제이슨', '꿈과 희망이있는 개발자가 되겠습니다', '신입','대졸', '부산/27/남/love입니다 어렸을때부터 메타코딩 개발자님 영상을 보며 개발자를 꿈꿧습니다.', 'basic.jpg');
+
+insert into resume_tb (user_id, title, resume_pic_url, user_name, user_email_id, birth, tel, address, sub_intro, career, career_year, edu, main_intro, created_at) values ('1', 'ssar 이력서입니다', null, 'ssar', 'ssar@nate.com', now(), '010-2222-3333', '부산 서면 전포', '열심히하는 개발자가 되겠습니다', '경력', '2년차', '대졸', '부산/25/남/ssar입니다 어렸을때부터 메타코딩 개발자님 영상을 보며 개발자를 꿈꿧습니다.', now());
+insert into resume_tb (user_id, title, resume_pic_url, user_name, user_email_id, birth, tel, address, sub_intro, career, career_year, edu, main_intro, created_at) values ('1', 'ssar2 이력서입니다', null, 'ssar', 'ssar@nate.com', now(), '010-2222-3333', '부산 서면 전포', '열심히하는 개발자가 되겠습니다', '경력', '2년차', '대졸', '부산/25/남/ssar입니다 어렸을때부터 메타코딩 개발자님 영상을 보며 개발자를 꿈꿧습니다.', now());
+insert into resume_tb (user_id, title, resume_pic_url, user_name, user_email_id, birth, tel, address, sub_intro, career, career_year, edu, main_intro, created_at) values ('2', 'cos 이력서입니다', null, 'cos', 'cos@nate.com', now(), '010-4444-3333', '부산 광안리', '포기하지않는 개발자가 되겠습니다', '신입', null, '대졸', '부산/20/남/cos입니다 어렸을때부터 메타코딩 개발자님 영상을 보며 개발자를 꿈꿧습니다.', now());
 
 insert into has_skill_tb (skill_id, resume_id) values('1', '1');
 insert into has_skill_tb (skill_id, resume_id) values('2', '1');
@@ -79,6 +80,10 @@ insert into required_position_tb (position_id, job_opening_id) values ('2', '2')
 insert into required_position_tb (position_id, job_opening_id) values ('3', '3');
 insert into required_position_tb (position_id, job_opening_id) values ('4', '4');
 
+-- insert into required_position_tb (position_id, job_opening_id) values ('1', '1');
+
+
+
 
 -- insert into community_tb (title, content, created_at, user_id) values('제목1', '내용1', now(), '1');
 -- insert into community_tb (title, content, created_at, user_id) values('제목2', '내용2', now(), '2');
@@ -98,9 +103,9 @@ insert into required_position_tb (position_id, job_opening_id) values ('4', '4')
 -- insert into qualified_tb (qualified_content, job_opening_id) values('CI CD 툴을 활용한 빌드,테스트,배포 자동화 경험', '3');
 
 --- user_id -> 지원한 유저의 id
-insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('합격', 1, 1, 1);
-insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('불합격', 2, 2, 1);
-insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('합격', 3, 1, 1);
+-- insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('합격', 1, 1, 1);
+-- insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('불합격', 2, 2, 1);
+-- insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('합격', 3, 1, 1);
 
 --   user_id -> 제안한 회사의 id
 insert into suggest_tb (sug_state, job_opening_id, resume_id, user_id) values ('수락', 1, 1, 1);
@@ -117,8 +122,8 @@ insert into community_tb (title, content, created_at, user_id) values('제목6',
 insert into reply_tb (comment, created_at, user_id, community_id) values('댓글1-1', now(), '1', '1');
 insert into reply_tb (comment, created_at, user_id, community_id) values('댓글1-2', now(), '1', '1');
 insert into reply_tb (comment, created_at, user_id, community_id) values('댓글2-1', now(), '2', '2');
-
 insert into reply_tb (comment, created_at, user_id, community_id) values('댓글3-1', now(), '3', '3');
+
 insert into task_tb (task_content, job_opening_id) values('재생에너지 SaaS 백엔드 개발', '1');
 insert into task_tb (task_content, job_opening_id) values('API 개발(재생에너지모니터링 웹 대시보드)', '1');
 insert into task_tb (task_content, job_opening_id) values('API 개발(재생에너지모니터링 웹 대시보드)', '2');
@@ -133,7 +138,9 @@ insert into qualified_tb (qualified_content, job_opening_id) values('Java 기반
 insert into qualified_tb (qualified_content, job_opening_id) values('MySQL 사용 경험 필수', '3');
 insert into qualified_tb (qualified_content, job_opening_id) values('CI CD 툴을 활용한 빌드,테스트,배포 자동화 경험', '3');
 
-insert into comp_scrap_tb (user_id, resume_id) values ('1', '1');
+insert into comp_scrap_tb (user_id, resume_id) values ('4', '1');
+insert into comp_scrap_tb (user_id, resume_id) values ('4', '2');
+insert into comp_scrap_tb (user_id, resume_id) values ('4', '3');
 
 insert into user_scrap_tb (user_id, job_opening_id) values ('1', '1');
 insert into user_scrap_tb (user_id, job_opening_id) values ('1', '2');

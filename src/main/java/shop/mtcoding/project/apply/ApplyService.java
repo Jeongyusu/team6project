@@ -19,8 +19,8 @@ public class ApplyService {
     public void 지원(ApplyRequest.ApplySaveDTO applySaveDTO, Integer id) {
         Apply apply = Apply.builder()
                 .user(User.builder().id(id).build())
-                .resume(Resume.builder().id(applySaveDTO.getSelectedResumeId()).build())
-                .jobOpening(JobOpening.builder().id(applySaveDTO.getSelectedjobOpeningId()).build())
+                .resume(Resume.builder().id(applySaveDTO.getSelectResumeId()).build())
+                .jobOpening(JobOpening.builder().id(applySaveDTO.getSelectJobOpeningId()).build())
                 .build();
         applyRepository.save(apply);
 

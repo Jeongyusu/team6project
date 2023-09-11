@@ -151,8 +151,8 @@
                                 console.log(responseBody);
 
                                 if (responseBody.success) {
-                                } else {
                                     alert(responseBody.data);
+                                } else {
                                 }
                             }
 
@@ -170,8 +170,8 @@
                                 console.log(responseBody);
 
                                 if (responseBody.success) {
-                                } else {
                                     alert(responseBody.data);
+                                } else {
                                 }
                             }
 
@@ -183,37 +183,6 @@
                                     scrapIcon.src = "/image/empty_star.png";
                                 }
                             }
-
-                            async function saveApply(jobOpeningId) {
-                                let userId = document.querySelector("#userId").value;
-                                let resumeId = documnet.querySelector("#resumeId").value;
-                                let jobOpeningId = document.querySelector("#jobOpeningId").value;
-
-                                let data = {
-                                 userId: userId,
-                                 resumeId: resumeId,
-                                 jobOpeningId: jobOpeningId
-                                };
-                                // 저장 메소드 호출
-                                let response = await fetch("/api/user/jobOpening/apply/save", {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                        
-                                    },
-                                    body: JSON.stringify(data)
-                                });
-
-                                let responseBody = await response.json();
-                                console.log(responseBody);
-
-                                if (responseBody.success) {
-                                } else {
-                                    alert(responseBody.data);
-                                }
-                            }
-
-                            
                         </script>
                     </div>
                     <div class="apply_company_user_apply">
@@ -265,7 +234,7 @@
                                         <span>{{resumeInJobOpeningDTO.totalResume}}개</span>
                                     </div>
                                 </div>
-                                <form action="/user/apply" method="post">
+                                <form action="/user/Apply" method="post">
                                     <input type="hidden" name="selectJobOpeningId"
                                         value="{{jobOpeningDetailDTO.jobOpeningId}}">
                                     {{#resumeInJobOpeningDTO.applyResumeInJobOpeningDTO}}
