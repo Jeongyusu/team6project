@@ -1,4 +1,5 @@
-{{>layout/userheader}}
+{{>layout/compheader}}
+
 <!-- 메인 -->
 <!-- 각자 페이지 main 클래스에 name 작성-->
 <!-- main 클래스에 background-color를 넣을거면 class="common_bg" 넣어주기 -->
@@ -8,207 +9,301 @@
     <!-- 여기서부터 시작 -->
     <div class="position_box">
       <div class="position_tab">
-        <ul class="position_category">
+        <ul class="position_category" id="position">
           <li>
-            <a href="#" class="">전체</a>
+            <input type="checkbox" class="skill_box" id="positionAll" name="positonAll"
+              onclick="handleAllClick()"></input>
+            <label for="positionAll">전체</label>
           </li>
+          {{#positionList}}
           <li>
-            <a href="#" class="">서버 백엔드 개발자</a>
+            <input type="checkbox" class="skill_box" id="position{{id}}" name="positon"
+              onclick="handlePositionClick('{{id}}')"></input>
+            <label for="position{{id}}">{{position}}</label>
           </li>
-          <li>
-            <a href="#" class="position_active">프론트 엔드 개발자</a>
+          {{/positionList}}
+        </ul>
+        <ul class="position_menu">
+          {{#skillList}}
+          <li class="position_skill com_skill">
+            <input type="checkbox" class="skill_box" id="skill{{id}}" name="skill"
+              onclick="handleSkillClick('{{id}}')"></input>
+            <label for="skill{{id}}">{{skill}}</label>
           </li>
-          <li>
-            <a href="#" class="">웹 풀스택 개발자</a>
-          </li>
-          <li>
-            <a href="#" class="">안드로이드 개발자</a>
-          </li>
-          <li>
-            <a href="#">IOS개발자</a>
-          </li>
-          <li>
-            <a href="#">크로스 플랫폼 개발자</a>
-          </li>
+          {{/skillList}}
         </ul>
       </div>
-      <ul class="position_menu">
-        <li class="position_skill com_skill position_active">
-          <span class="skill_box">MySQL</span>
-          <span class="skill_box">Spring</span>
-          <span class="skill_box">Java</span>
-          <span class="skill_box">HTML/CSS</span>
-          <span class="skill_box">JavaScript</span>
-          <span class="skill_box">React</span>
-        </li>
-
-        <li class="position_skill com_skill">
-          <span class="skill_box">MySQL</span>
-          <span class="skill_box">Spring</span>
-          <span class="skill_box">Java</span>
-
-        </li>
-
-        <li class="position_skill com_skill">
-          <span class="skill_box">HTML/CSS</span>
-          <span class="skill_box">JavaScript</span>
-          <span class="skill_box">React</span>
-        </li>
-
-        <li class="position_skill com_skill">
-          <span class="skill_box">
-            4
-          </span>
-        </li>
-        <li class="position_skill com_skill">
-          <span class="skill_box">
-            5
-            </spa>
-        </li>
-        <li class="position_skill com_skill">
-          <span class="skill_box">
-            6
-          </span>
-        </li>
-        <li class="position_skill com_skill">
-          <span class="skill_box">
-            7
-          </span>
-        </li>
-      </ul>
     </div>
+
+
+
     <div class="position_select">
-      <select class="select select_skill">
-        <option disabled selected>기술스택</option>
-        <option>java</option>
-        <option>javaScript</option>
-      </select>
-      <select class="select select_edu">
+      <select class="select select_edu" id="career">
         <option disabled selected>경력</option>
-        <option>java</option>
-        <option>javaScript</option>
+        <option value="경력">경력</option>
+        <option value="신입">신입</option>
       </select>
-      <select class="select select_adr">
+      <select class="select select_edu" id="careerYear">
+        <option disabled selected>기간</option>
+        <option value="1년차">1년차</option>
+        <option value="2년차">2년차</option>
+        <option value="3년차">3년차</option>
+        <option value="4년차">4년차</option>
+        <option value="5년차">5년차</option>
+      </select>
+
+      <select class="select select_adr" id="location">
         <option disabled selected>지역</option>
-        <option>java</option>
-        <option>javaScript</option>
+        <option value="전국">전국</option>
+        <option value="서울">서울</option>
+        <option value="경기">경기</option>
+        <option value="인천">인천</option>
+        <option value="부산">부산</option>
+        <option value="대구">대구</option>
+        <option value="광주">광주</option>
+        <option value="대전">대전</option>
+        <option value="울산">울산</option>
+        <option value="세종">세종</option>
+        <option value="충북">충북</option>
+        <option value="충남">충남</option>
+        <option value="전북">전북</option>
+        <option value="전남">전남</option>
+        <option value="경북">경북</option>
+        <option value="경남">경남</option>
+        <option value="제주">제주</option>
       </select>
     </div>
-    <div class="main_box">
-      <ul class="com_cont com_box">
-        <li class="comp_item">
-          <a href="user_job_opening_apply.html">
-            <ul class="comp_cont">
-              <li class="comp_img">
-                <img src="/image/company_img/comp_img01.png" alt="기업01">
-              </li>
-              <li class="com_name">
-                모트렉스
-              </li>
-              <li class="com_tit">
-                <h4>웹개발(백엔드,프론트엔드)</43>
-              </li>
-              <li class="com_txt">
-                CSS3·jQuery·Linux·JavaScript
-              </li>
-              <li class="com_etc">
-                <span class="com_adr">서울 영등포구</span>
-                <span class="com_car">경력 5-15년</span>
-              </li>
-            </ul>
-          </a>
-        </li>
-        <li class="comp_item">
-          <a href="user_job_opening_apply.html">
-            <ul class="comp_cont">
-              <li class="comp_img">
-                <img src="/image/company_img/comp_img01.png" alt="기업01">
-              </li>
-              <li class="com_name">
-                모트렉스
-              </li>
-              <li class="com_tit">
-                <h4>웹개발(백엔드,프론트엔드)</43>
-              </li>
-              <li class="com_txt">
-                CSS3·jQuery·Linux·JavaScript
-              </li>
-              <li class="com_etc">
-                <span class="com_adr">서울 영등포구</span>
-                <span class="com_car">경력 5-15년</span>
-              </li>
-            </ul>
-          </a>
-        </li>
-        <li class="comp_item">
-          <a href="user_job_opening_apply.html">
-            <ul class="comp_cont">
-              <li class="comp_img">
-                <img src="/image/company_img/comp_img01.png" alt="기업01">
-              </li>
-              <li class="com_name">
-                모트렉스
-              </li>
-              <li class="com_tit">
-                <h4>웹개발(백엔드,프론트엔드)</43>
-              </li>
-              <li class="com_txt">
-                CSS3·jQuery·Linux·JavaScript
-              </li>
-              <li class="com_etc">
-                <span class="com_adr">서울 영등포구</span>
-                <span class="com_car">경력 5-15년</span>
-              </li>
-            </ul>
-          </a>
-        </li>
-        <li class="comp_item">
-          <a href="user_job_opening_apply.html">
-            <ul class="comp_cont">
-              <li class="comp_img">
-                <img src="/image/company_img/comp_img01.png" alt="기업01">
-              </li>
-              <li class="com_name">
-                모트렉스
-              </li>
-              <li class="com_tit">
-                <h4>웹개발(백엔드,프론트엔드)</43>
-              </li>
-              <li class="com_txt">
-                CSS3·jQuery·Linux·JavaScript
-              </li>
-              <li class="com_etc">
-                <span class="com_adr">서울 영등포구</span>
-                <span class="com_car">경력 5-15년</span>
-              </li>
-            </ul>
-          </a>
-        </li>
-        <li class="comp_item">
-          <a href="user_job_opening_apply.html">
-            <ul class="comp_cont">
-              <li class="comp_img">
-                <img src="/image/company_img/comp_img01.png" alt="기업01">
-              </li>
-              <li class="com_name">
-                모트렉스
-              </li>
-              <li class="com_tit">
-                <h4>웹개발(백엔드,프론트엔드)</43>
-              </li>
-              <li class="com_txt">
-                CSS3·jQuery·Linux·JavaScript
-              </li>
-              <li class="com_etc">
-                <span class="com_adr">서울 영등포구</span>
-                <span class="com_car">경력 5-15년</span>
-              </li>
-            </ul>
-          </a>
-        </li>
-      </ul>
+    <div class="main_box" id="position-box">
+
     </div>
   </div>
+
+
+  <script>
+
+    document.getElementById("career").addEventListener("change", function () {
+      var careerSelect = document.getElementById("career");
+      var careerYearSelect = document.getElementById("careerYear");
+
+      if (careerSelect.value === "신입") {
+        careerYearSelect.disabled = true;
+        careerYearSelect.selectedIndex = 0; // 선택된 옵션을 초기화
+      } else {
+        careerYearSelect.disabled = false;
+      }
+    });
+
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    //제일 첫 화면
+    render1();
+
+    function handleAllClick() {
+      render1();
+    }
+
+    async function render1() {
+      $("#position-box").html('');
+      let responseBody = await download1();
+      responseBody.forEach((jobOpening) => {
+        $("#position-box").append(jobOpeningBox(jobOpening));
+      });
+    }
+
+    //////////
+
+    let positionIdList = [];
+    let skillIdList = [];
+
+    // 포지션&기술별 함수 1
+    function handlePositionClick(positionId) {
+      // 포지션 체크박스 상태 확인
+      let isChecked = $(`#position${positionId}`).prop("checked");
+
+      // 선택한 포지션을 배열에 추가 또는 제거
+      if (isChecked) {
+        positionIdList.push(positionId);
+      } else {
+        let index = positionIdList.indexOf(positionId);
+        if (index !== -1) {
+          positionIdList.splice(index, 1);
+        }
+      }
+
+      // API 호출 함수 호출
+      render2(positionIdList, skillIdList);
+      console.log("포지션리스트", positionIdList);
+    }
+
+    function handleSkillClick(skillId) {
+      // 스킬 체크박스 상태 확인
+      let isChecked = $(`#skill${skillId}`).prop("checked");
+
+      // 선택한 스킬을 배열에 추가 또는 제거
+      if (isChecked) {
+        skillIdList.push(skillId);
+      } else {
+        const index = skillIdList.indexOf(skillId);
+        if (index !== -1) {
+          skillIdList.splice(index, 1);
+        }
+      }
+
+      // API 호출 함수 호출
+      render2(positionIdList, skillIdList);
+      console.log("스킬리스트", skillIdList);
+
+    }
+
+    // 포지션&기술별 함수 2
+    async function render2(positionIdList, skillIdList) {
+      $("#position-box").html('');
+      let responseBody = await download2(positionIdList, skillIdList);
+      responseBody.forEach((jobOpening) => {
+        $("#position-box").append(jobOpeningBox(jobOpening));
+      });
+    }
+
+    // 경력&지역별 함수 1
+    $("#career, #careerYear, #location").change(async function () {
+      let careerValue = $("#career").val(); // $(this)를 사용하여 현재 선택한 요소를 참조
+      let locationValue = $("#location").val();
+      let careerYearValue = $("#careerYear").val();
+
+      console.log(careerValue);
+      console.log(locationValue);
+      console.log(careerYearValue);
+
+
+      // 전국과 중복값 추출 조건
+      if ((careerValue !== null) && (careerYearValue === null) && (locationValue !== "전국")) {
+        await render3(careerValue, null, locationValue);
+
+      } else if ((careerValue !== null) && (careerYearValue === null) && (locationValue === "전국")) {
+        await render3(careerValue, null, " ");
+
+      } else if ((careerValue !== null) && (careerYearValue === null) && (locationValue !== null && locationValue !== "전국")) {
+        await render3(careerValue, null, locationValue)
+
+      } else if ((careerValue !== null) && (careerYearValue === null) && (locationValue === null)) {
+        await render3(careerValue, null, null);
+
+      } else if ((careerValue === null) && (careerYearValue !== null) && (locationValue !== "전국")) {
+        await render3(null, careerYearValue, locationValue);
+
+      } else if ((careerValue === null) && (careerYearValue !== null) && (locationValue !== null)) {
+        await render3(null, careerYearValue, " ")
+
+      } else if ((careerYearValue === null) && (careerYearValue !== null) && (locationValue === "전국")) {
+        await render3(null, careerYearValue, " ");
+
+      } else if ((careerValue === null) && (careerYearValue !== null) && (locationValue === null)) {
+        await render3(null, careerYearValue, null);
+
+      } else if ((careerValue === null) && (careerYearValue === null) && locationValue === "전국") {
+        await render3(null, null, " ");
+
+      } else if ((careerValue == null) && (careerYearValue === null) && (locationValue !== "전국")) {
+        await render3(null, null, locationValue);
+      }
+    });
+
+    // 경력&지역별 함수 2
+    async function render3(career, careerYear, location) {
+      $("#position-box").html('');
+      let responseBody = await download3(career, careerYear, location);
+      responseBody.forEach((jobOpening) => {
+        $("#position-box").append(jobOpeningBox(jobOpening));
+      });
+    }
+
+    // 3. 컴퍼넌트
+    function jobOpeningBox(jobOpening) {
+      return `
+        <li class="comp_item">
+          <a href="/user/jobOpening/${jobOpening.jobOpeningId}">
+            <ul class="comp_cont">
+              <li class="comp_img">
+                <img src="/image/company_img/comp_img01.png" alt="기업01">
+              </li>
+              <li class="com_name">
+                ${jobOpening.compName}
+              </li>
+              <li class="com_tit">
+                <h4>${jobOpening.title}</h4>
+                </li>
+                <li class="com_txt">
+                <p>${jobOpening.skill}</p>
+                </li>
+              <li class="com_etc">
+                <span class="com_adr">
+                  <p class="compaddress">${jobOpening.compAddress}</p>
+                  <p>|</p>
+                </span>
+                <span class="com_car">
+                  <p>${jobOpening.career}</p>
+                  <p>${jobOpening.careerYear}</p>
+                </span>
+              </li>
+            </ul>
+          </a>
+        </li>`;
+    }
+
+    // 메인 또는 전체보기
+    async function download1() {
+      let response = await fetch(`/api/jobOpening/select/all`);
+      let responseBody = await response.json();
+      console.log(responseBody);
+      return responseBody;
+    }
+
+    // 포지션&기술별 채용공고 통신코드
+    async function download2(positionIdList, skillIdList) {
+      let url = `/api/jobOpening/select/pk`;
+      if (positionIdList == null && skillIdList > 0) {
+        url += `?skillIdList=${skillIdList.join(",")}`;
+      } else if (skillIdList == null && positionIdList > 0) {
+        url += `?positionIdList=${positionIdList.join(",")}`;
+      } else if (positionIdList != null && skillIdList != null) {
+        url += `?positionIdList=${positionIdList.join(",")}&skillIdList=${skillIdList.join(",")}`;
+      }
+
+      let response = await fetch(url);
+      let responseBody = await response.json();
+      console.log(responseBody);
+      return responseBody;
+    }
+
+    // 경력&지역별 채용공고 통신코드
+    async function download3(career, careerYear, location) {
+      let url = `/api/jobOpening/select/cl`;
+      if (career != null && careerYear == null && location == null) {
+        url += `?career=${career}`;
+      } else if (career == null && careerYear != null && location == null) {
+        url += `?careerYear=${careerYear}`;
+      } else if (career == null && careerYear == null && location != null) {
+        url += `?location=${location}`;
+      } else if (career != null && careerYear != null && location == null) {
+        url += `?career=${career}&careerYear=${careerYear}`;
+      } else if (career != null && careerYear == null && location != null) {
+        url += `?career=${career}&location=${location}`;
+      } else if (career == null && careerYear != null && location != null) {
+        url += `?careerYear=${careerYear}&location=${location}`;
+      } else if (career != null && careerYear != null & location != null) {
+        url += `?career=${career}&careerYear=${careerYear}&location=${location}`;
+      } else if (career != null && careerYear != null & location != null) {
+
+      }
+      let response = await fetch(url);
+      console.log(response);
+      let responseBody = await response.json();
+      return responseBody;
+    }
+  </script>
+
 </main>
 <!-- 메인 -->
+
 {{>layout/footer}}

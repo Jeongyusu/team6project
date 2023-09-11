@@ -54,9 +54,12 @@ insert into resume_tb (user_id, title, user_name, user_email_id, birth, tel, add
 
 insert into has_skill_tb (skill_id, resume_id) values('1', '1');
 insert into has_skill_tb (skill_id, resume_id) values('2', '1');
-
-insert into has_skill_tb (skill_id, resume_id) values('2', '2');
-insert into has_skill_tb (skill_id, resume_id) values('3', '3');
+-----------------
+insert into required_skill_tb (skill_id, job_opening_id) values ('1', '1');
+insert into required_skill_tb (skill_id, job_opening_id) values ('2', '1');
+insert into required_skill_tb (skill_id, job_opening_id) values ('2', '2');
+insert into required_skill_tb (skill_id, job_opening_id) values ('3', '3');
+insert into required_skill_tb (skill_id, job_opening_id) values ('4', '3');
 
 insert into wish_position_tb (position_id, resume_id) values ('3', '1');
 insert into wish_position_tb (position_id, resume_id) values ('5', '1');

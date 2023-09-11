@@ -9,6 +9,7 @@ import lombok.Setter;
 
 public class UserScrapResponse {
 
+    // 유저 -> 스크랩한 채용공고 정보 DTO
     @Getter
     @Setter
     public static class ScrapJobOpeningDTO {
