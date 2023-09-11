@@ -22,7 +22,6 @@ import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.suggest.Suggest;
 import shop.mtcoding.project.suggest.SuggestQueryRepository;
 import shop.mtcoding.project.suggest.SuggestRepository;
-import shop.mtcoding.project.suggest.SuggestRequest;
 import shop.mtcoding.project.user.User;
 import shop.mtcoding.project.user.UserRepository;
 
@@ -73,8 +72,10 @@ public class ApplyController {
     }
 
     @PostMapping("/user/Apply")
-    public String userApply(ApplySaveDTO applySaveDTO) {
-        applyService.지원(applySaveDTO);
+    public String UserApply(ApplySaveDTO applySaveDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userRepository.findById(sessionUser.getId()).get();
+        applyService.지원(applySaveDTO, user.getId());
         Integer id = applySaveDTO.getSelectedjobOpeningId();
         return "redirect:/user/jobOpening/" + id + "/applyForm";
     }

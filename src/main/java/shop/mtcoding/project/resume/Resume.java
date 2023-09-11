@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,9 +22,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.skill.HasSkill;
+import shop.mtcoding.project.suggest.Suggest;
 import shop.mtcoding.project.user.User;
 
 @NoArgsConstructor
@@ -77,14 +80,20 @@ public class Resume {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<JobOpening> jobOpeningList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HasSkill> hasSkillList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<WishPosition> wishPositionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Apply> applyList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Suggest> suggestList = new ArrayList<>();
 
     @Builder
     public Resume(Integer id, String userName, String userEmailId, String title, LocalDate birth, String tel,

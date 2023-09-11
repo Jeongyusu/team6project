@@ -47,16 +47,13 @@
             </div>
             <ul class="com_cont">
               {{#resumeList}}
-              <li class="resume_inner mb-2">
-                <ul class="resume_cont" id="resume-{{id}}">
+              <li class="resume_inner mb-2" id="resume-{{id}}">
+                <ul class="resume_cont">
                   <li class="com_tit com_btn">
                     <h4>{{title}}</h4>
                     <div class="double_btn">
                       <form>
-                        <a href="/user/resume/{{id}}/updateForm" class="btn_empty" >이력서 수정</a>
-                      </form>
-                      <form>
-                        <button type="button" class="btn_fill" onclick="deleteResume('{{id}}')">이력서 삭제</button>
+                        <a href="/user/resume/{{id}}" class="btn_empty" >이력서 상세보기</a>
                       </form>
                     </div>
                   </li>
@@ -206,6 +203,7 @@
         alert(responseBody.data);
     }
 }
+
 </script>
 
 {{>layout/footer}}

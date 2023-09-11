@@ -196,20 +196,23 @@ public class ResumeService {
 
     @Transactional
     public void 삭제(Integer id) {
+        System.out.println("나여기0" + id);
         List<HasSkill> hasSkillList = hasSkillRepository.findByResumeId(id);
         for (HasSkill hasSkill : hasSkillList) {
             hasSkill.setResume(null);
             hasSkillRepository.save(hasSkill);
         }
+        System.out.println("나여기1 : 성공");
 
         List<WishPosition> wishPositionList = wishPositionRepository.findByResumeId(id);
         for (WishPosition wishPosition : wishPositionList) {
             wishPosition.setResume(null);
             wishPositionRepository.save(wishPosition);
         }
-
+        System.out.println("나여기2 : 성공");
         try {
             resumeRepository.deleteById(id);
+            System.out.println("나여기3 : 성공");
         } catch (Exception e) {
             throw new MyException("삭제에 실패했습니다. : " + e.getMessage());
         }

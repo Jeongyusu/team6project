@@ -100,10 +100,9 @@
                     <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
                     <td>백엔드</td>
                     <td>
-                      <input type="hidden" id="resumeId" value="{{resume.id}}">
-                      <input type="hidden" id="sugState" value="{{sugState}}">
-                      <input type="hidden" id="jobOpeningId" value="{{jobOpening.id}}">
-                      <input type="hidden" id="suggestId" value="{{id}}">
+                      <input type="hidden" id="resume-{{id}}" value="{{resume.id}}">
+                      <input type="hidden" id="sugState-{{id}}" value="{{sugState}}">
+                      <input type="hidden" id="jobOpening-{{id}}" value="{{jobOpening.id}}">
                       <ul id = "sugStateUl-{{id}}">
                         <li>{{sugState}}</li>
                       </ul>
@@ -146,8 +145,8 @@
 
 async function checkedValue(id) {
   let sugState = document.querySelector(`#state-${id}`).value;
-  let resumeId = document.querySelector(`#resumeId`).value;
-  let jobOpeningId = document.querySelector(`#jobOpeningId`).value;
+  let resumeId = document.querySelector(`#resume-${id}`).value;
+  let jobOpeningId = document.querySelector(`#jobOpening-${id}`).value;
   
   console.log("테스트중 : 통과" + sugState);
   let data = {

@@ -43,8 +43,8 @@
                     </div>
                     <ul class="com_cont">
                       {{#resumeList}}
-                      <li class="resume_inner mb-2">
-                        <ul class="resume_cont" id="resume-{{id}}">
+                      <li class="resume_inner mb-2" id="resume-{{id}}">
+                        <ul class="resume_cont">
                           <li class="com_tit com_btn">
                             <h4>{{title}}</h4>
                             <div class="double_btn">
@@ -98,6 +98,7 @@
 //             method: "POST"
 //         });
 //         let responseBody = await response.json();
+//         console.log("나여기: 실패" + responseBody.success);
 //         if(responseBody.success){
 //           $(`#resume-${id}`).remove();
 //         }else{

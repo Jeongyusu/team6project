@@ -22,6 +22,7 @@ import shop.mtcoding.project.jobopening.JobOpeningService;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.scrap.ScrapService;
+import shop.mtcoding.project.scrap.UserScrapResponse.ScrapJobOpeningDTO;
 import shop.mtcoding.project.suggest.SuggestQueryRepository;
 import shop.mtcoding.project.suggest.SuggestRepository;
 import shop.mtcoding.project.user.UserRequest.CompInfoUpdateDTO;
@@ -113,15 +114,14 @@ public class UserController {
         return "comp/comp_password_update";
     }
 
-      ///////// 회사 비번 변경
+    ///////// 회사 비번 변경
     @PostMapping("/comp/password/update")
-     public @ResponseBody String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
+    public @ResponseBody String compPWUpdate(UserRequest.UserUpdateDTO userUpdateDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
         return Script.href("/comp/myPageForm", "비밀번호 변경완료");
-      }
-
+    }
 
     @PostMapping("/user/picUpdate")
     public String userPicUpdate(UserRequest.UserPicUpdateDTO userPicUpdateDTO, Model model) {
@@ -157,6 +157,12 @@ public class UserController {
         model.addAttribute("jobOpeningInfo", jobOpeningInfo);
         model.addAttribute("totalApply", totalApply);
         model.addAttribute("applyList2", applyList2);
+
+        List<ScrapJobOpeningDTO> scrapJobOpeningDTOList = scrapService.채용공고스크랩조회(sessionUser.getId());
+        Integer scrapJobOpeningSum = scrapJobOpeningDTOList.size();
+        model.addAttribute("scrapJobOpeningDTOList", scrapJobOpeningDTOList);
+        model.addAttribute("scrapJobOpeningSum", scrapJobOpeningSum);
+
         return "user/user_mypage";
 
     }
@@ -166,7 +172,6 @@ public class UserController {
         return "comp/comp_info_update";
     }
 
-
     @PostMapping("/user/login")
     public @ResponseBody String userLogin(UserRequest.UserLoginDTO userLoginDTO) {
 
@@ -174,7 +179,6 @@ public class UserController {
         session.setAttribute("sessionUser", sessionUser);
         return Script.href("/user", "로그인 완료");
     }
-
 
     @PostMapping("/comp/login")
     public @ResponseBody String compLogin(UserRequest.UserLoginDTO userLoginDTO) {
@@ -206,12 +210,12 @@ public class UserController {
     }
 
     @GetMapping("/user/info/updateForm")
-    public String userInfoUpdateForm(){
+    public String userInfoUpdateForm() {
         return "user/user_update";
     }
 
     @GetMapping("/user/scrap")
-    public String userScrap(){
+    public String userScrap() {
         return "user/user_scrap";
     }
 
@@ -220,6 +224,7 @@ public class UserController {
     public String compInfoUpdateForm() {
         return "comp/comp_info_update";
     }
+
     /////// 회사정보 수정
     @PostMapping("/comp/info/update")
     public String compInfoUpdate(CompInfoUpdateDTO compInfoUpdateDTO) {

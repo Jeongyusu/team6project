@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
+import shop.mtcoding.project.jobopening.JobOpening;
+import shop.mtcoding.project.jobopening.JobOpeningRepository;
 import shop.mtcoding.project.position.PositionResponse.WishPositionResponseDTO;
 import shop.mtcoding.project.position.WishPosition;
 import shop.mtcoding.project.position.WishPositionRepository;
@@ -30,6 +32,7 @@ import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.SkillRepository;
 import shop.mtcoding.project.skill.SkillResponse.HasSkillResponseDTO;
 import shop.mtcoding.project.user.User;
+import shop.mtcoding.project.user.UserRepository;
 
 @Controller
 public class ResumeController {
@@ -55,6 +58,12 @@ public class ResumeController {
     @Autowired
     private HttpSession session;
 
+    @Autowired
+    private JobOpeningRepository jobOpeningRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/user/resume/saveForm")
     public String resumeSaveForm() {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -64,10 +73,14 @@ public class ResumeController {
         return "user/user_resume_write";
     }
 
-    @GetMapping("/comp/{id}/resume/detail")
+    @GetMapping("/comp/resume/{id}")
     public String userOpenResumeDetail(@PathVariable Integer id, Model model) {
         Resume resume = resumeRepository.findById(id).get();
         model.addAttribute("resume", resume);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userRepository.findById(sessionUser.getId()).get();
+        List<JobOpening> jobOpeningList = jobOpeningRepository.findByUserId(user.getId());
+        model.addAttribute("jobOpeningList", jobOpeningList);
         return "comp/comp_resume_detail";
     }
 
@@ -115,7 +128,7 @@ public class ResumeController {
     @PostMapping("/user/resume/{id}/update")
     public @ResponseBody String updateResume(@PathVariable Integer id, UserUpdateResumeDTO userUpdateResumeDTO) {
         resumeService.이력서수정(userUpdateResumeDTO, id);
-        return Script.back("수정완료");
+        return Script.href("/user/resume", "수정완료");
     }
 
     @GetMapping("/api/resume/{resumeId}/skillList")
@@ -145,11 +158,6 @@ public class ResumeController {
         return wishPositionResponseDTOList;
     }
 
-    @GetMapping("/comp/resume/{id}")
-    public String compResumeDetail() {
-        return "user/user_resume_detail";
-    }
-
     @GetMapping("/user/resume/{id}")
     public String userResumeDetail(@PathVariable Integer id, Model model) {
 
@@ -166,7 +174,7 @@ public class ResumeController {
 
     @PostMapping("/api/resume/{id}/delete")
     public @ResponseBody ApiUtil<String> deleteResume(@PathVariable Integer id) {
-        System.out.println("test : 삭제 요청됨 : id : " + id);
+        System.out.println("test : 삭제 요청됨 : id : " + id + "통과");
         // 1.인증체크
         // User sessionUser = (User) session.getAttribute("sessionUser");
         // if (sessionUser == null) {
@@ -176,6 +184,7 @@ public class ResumeController {
         // 2.핵심로직
         resumeService.삭제(id);
         // 3.응답
+        System.out.println("test : 삭제 요청됨2 : id : " + id + "통과");
         return new ApiUtil<String>(true, "이력서 삭제 완료");
 
     }

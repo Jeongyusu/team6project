@@ -96,4 +96,11 @@ public class JobOpeningResponse {
             this.qulifiedList = qulifiedList;
         }
     }
+
+    @Getter
+    @Setter
+    public static class JobOpeningRequiredPositionDTO {
+        Integer id;
+        List<String> positionList = new ArrayList<>();
+    }
 }
