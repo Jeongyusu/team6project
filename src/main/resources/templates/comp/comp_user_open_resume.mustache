@@ -9,10 +9,10 @@
     <!-- 여기서부터 시작 -->
     <div class="main_box">
       {{#compUserOpenResumeDTO}}
-      <a href="/user/resume/{{id}}>
+      <a href="/comp/resume/{{resumeId}}>
         <ul class="user_cont user_box">
           <li class="user_img">
-            <img src="/image/user_img/{{ resumePic }}" alt="이력서 사진" />
+            <img src="/image/user_img/{{#resumePic}}{{resumePic}}{{/resumePic}}" alt="이력서 사진" />
           </li>
           <li class="user_cont">
             <div class="com_tit">

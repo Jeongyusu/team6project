@@ -341,6 +341,7 @@ public class ResumeService {
                     .build();
 
             compUserOpenResumeDTOList.add(compUserOpenResumeDTO);
+            System.out.println("ㅋㅋ : " + compUserOpenResumeDTOList.get(0).getResumePic());
         }
         return compUserOpenResumeDTOList;
     }

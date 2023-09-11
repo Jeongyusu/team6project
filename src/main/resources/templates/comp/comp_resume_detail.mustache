@@ -188,8 +188,62 @@
                             <span>공고 총</span>
                             <span>개</span>
                           </div>
+                          <ul>
+                            <li class="apply_resume">
+                              <div class="resume_check_button">
+                                <input
+                                  type="radio"
+                                  name="selectedResumeId"
+                                  value="true"
+                                  checked=""
+                                />
+                              </div>
+                              <div class="about_resume">
+                                <p class="resume_name">toss</p>
+                                <p class="resume_created_at">
+                                  <span
+                                    >2023.08.25
+                                    <span>등록</span>
+                                  </span>
+                                  <span>
+                                    <a href="user_resume_update.html"
+                                      ><img
+                                        src="/image/write.png"
+                                        alt="write_png"
+                                    /></a>
+                                  </span>
+                                </p>
+                              </div>
+                            </li>
+                            <li class="apply_resume">
+                              <div class="resume_check_button">
+                                <input
+                                  type="radio"
+                                  name="selectedResumeId"
+                                  value="true"
+                                  checked=""
+                                />
+                              </div>
+                              <div class="about_resume">
+                                <p class="resume_name">toss</p>
+                                <p class="resume_created_at">
+                                  <span
+                                    >2023.08.25
+                                    <span>등록</span>
+                                  </span>
+                                  <span>
+                                    <a href="user_resume_update.html"
+                                      ><img
+                                        src="/image/write.png"
+                                        alt="write_png"
+                                    /></a>
+                                  </span>
+                                </p>
+                              </div>
+                            </li>
+                          </ul>
                         </div>
-                        <form action="/user/apply" method="post">
+                        <form action="/user/Apply" method="post">
                           <input type="hidden" name="JobOpeningId" value="" />
                           {{#jobOpeningList}}
                           <ul>
@@ -202,7 +256,10 @@
                                 <p class="resume_created_at">
                                   <span>채용 공고 </span>
                                   <span>
-                                    <a href="/comp/jobOpening/{id}/updateForm"
+                                    <a
+                                      href="/comp/jobOpening/{{
+                                        id
+                                      }}/updateForm"
                                       ><img
                                         src="/image/write.png"
                                         alt="write_png"
@@ -214,7 +271,7 @@
                           </ul>
                           {{/jobOpeningList}}
                           <button
-                            type="button"
+                            type="submit"
                             class="resume_sug_button"
                             data-bs-toggle="modal"
                             data-bs-target="#myModal"
