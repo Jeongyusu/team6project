@@ -176,6 +176,14 @@ main>.container {
   font-size: 14px;
 }
 
+.double_btn button {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+
 .double_btn .btn_empty {
   border: 1px solid var(--primary_01);
   background-color: var(--def_wh);
@@ -367,6 +375,11 @@ footer li:last-child {
 }
 
 /* comp_community_list.html */
+
+.community_list {
+  height: 100vh;
+}
+
 .common_bg {
   background-color: var(--back_02);
 }
@@ -1791,6 +1804,7 @@ footer li:last-child {
 .open_resume_box>.main_box {
   display: flex;
   flex-wrap: wrap;
+
 }
 
 .career-flex {
@@ -1809,4 +1823,5 @@ footer li:last-child {
   padding: 14px;
   border-top: none;
   border-bottom: none;
+
 }

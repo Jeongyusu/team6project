@@ -74,6 +74,42 @@ insert into has_skill_tb (skill_id, resume_id) values('3', '2');
 insert into has_skill_tb (skill_id, resume_id) values('3', '3');
 insert into has_skill_tb (skill_id, resume_id) values('4', '3');
 
+-----------------
+insert into required_skill_tb (skill_id, job_opening_id) values ('1', '1');
+insert into required_skill_tb (skill_id, job_opening_id) values ('2', '1');
+insert into required_skill_tb (skill_id, job_opening_id) values ('2', '2');
+insert into required_skill_tb (skill_id, job_opening_id) values ('3', '3');
+insert into required_skill_tb (skill_id, job_opening_id) values ('4', '3');
+
+insert into wish_position_tb (position_id, resume_id) values ('3', '1');
+insert into wish_position_tb (position_id, resume_id) values ('5', '1');
+insert into wish_position_tb (position_id, resume_id) values ('6', '1');
+
+-- insert into community_tb (title, content, created_at, user_id) values('제목1', '내용1', now(), '1');
+-- insert into community_tb (title, content, created_at, user_id) values('제목2', '내용2', now(), '2');
+-- insert into community_tb (title, content, created_at, user_id) values('제목3', '내용3', now(), '3');
+
+-- insert into reply_tb (comment, created_at, user_id, community_id) values('댓글1-1', now(), '1', '1');
+-- insert into reply_tb (comment, created_at, user_id, community_id) values('댓글1-2', now(), '1', '1');
+-- insert into reply_tb (comment, created_at, user_id, community_id) values('댓글2-1', now(), '2', '2');
+-- insert into reply_tb (comment, created_at, user_id, community_id) values('댓글3-1', now(), '3', '3');
+
+-- insert into task_tb (task_content, job_opening_id) values('재생에너지 SaaS 백엔드 개발', '1');
+-- insert into task_tb (task_content, job_opening_id) values('API 개발(재생에너지모니터링 웹 대시보드)', '2');
+-- insert into task_tb (task_content, job_opening_id) values('서비스 아키텍쳐 설계 및 AWS 인프라 관리 및 운영', '3');
+
+-- insert into qualified_tb (qualified_content, job_opening_id) values('백엔드 개발 실무 경력3년이상', '1');
+-- insert into qualified_tb (qualified_content, job_opening_id) values('Python 기반 개발 경험', '2');
+-- insert into qualified_tb (qualified_content, job_opening_id) values('CI CD 툴을 활용한 빌드,테스트,배포 자동화 경험', '3');
+
+-- insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('합격', 1, 1, 1);
+-- insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('불합격', 2, 2, 1);
+-- insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('합격', 3, 1, 1);
+
+insert into suggest_tb (sug_state, job_opening_id, resume_id, user_id) values ('수락', 1, 1, 1);
+insert into suggest_tb (sug_state, job_opening_id, resume_id, user_id) values ('거절', 1, 3, 1);
+
+
 insert into community_tb (title, content, created_at, user_id) values('제목1', '내용1', now(), '1');
 insert into community_tb (title, content, created_at, user_id) values('제목2', '내용2', now(), '2');
 insert into community_tb (title, content, created_at, user_id) values('제목3', '내용3', now(), '3');
@@ -84,6 +120,7 @@ insert into community_tb (title, content, created_at, user_id) values('제목6',
 insert into reply_tb (comment, created_at, user_id, community_id) values('댓글1-1', now(), '1', '1');
 insert into reply_tb (comment, created_at, user_id, community_id) values('댓글1-2', now(), '1', '1');
 insert into reply_tb (comment, created_at, user_id, community_id) values('댓글2-1', now(), '2', '2');
+
 insert into reply_tb (comment, created_at, user_id, community_id) values('댓글3-1', now(), '3', '3');
 insert into task_tb (task_content, job_opening_id) values('재생에너지 SaaS 백엔드 개발', '1');
 insert into task_tb (task_content, job_opening_id) values('API 개발(재생에너지모니터링 웹 대시보드)', '1');
@@ -103,3 +140,6 @@ insert into comp_scrap_tb (user_id, resume_id) values ('1', '1');
 insert into user_scrap_tb (user_id, job_opening_id) values ('1', '1');
 insert into user_scrap_tb (user_id, job_opening_id) values ('1', '2');
 insert into user_scrap_tb (user_id, job_opening_id) values ('1', '3');
+
+insert into reply_tb (comment, created_at, user_id, community_id) values('댓글3-1', now(), '3', '3');
+
