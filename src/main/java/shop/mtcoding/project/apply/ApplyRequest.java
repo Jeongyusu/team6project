@@ -10,8 +10,8 @@ public class ApplyRequest {
     @Getter
     @Setter
     public static class ApplySaveDTO {
-        private Integer selectedResumeId;
-        private Integer selectedjobOpeningId;
+        private Integer selectResumeId;
+        private Integer selectJobOpeningId;
     }
 
     @Getter

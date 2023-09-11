@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project.apply.ApplyRepository;
 import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningDetailDTO;
@@ -255,6 +256,11 @@ public class JobOpeningController {
     //// comp_ 채용공고 상세 화면
     @GetMapping("/comp/jobOpening/{id}")
     public String compJobOpeningDetailForm(@PathVariable Integer id, Model model) {
+        // 로그인 인증검사
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            throw new MyException("로그인 후 열람이 가능합니다.");
+        }
         JobOpeningDetailDTO jobOpeningDetailDTO = jobOpeningService.상세채용공고(id);
         ResumeInJobOpeningDTO resumeInJobOpeningDTO = resumeService.지원화면();
         model.addAttribute("jobOpeningDetailDTO", jobOpeningDetailDTO);
@@ -265,6 +271,11 @@ public class JobOpeningController {
     //// user_채용공고 상세 화면
     @GetMapping("/user/jobOpening/{id}")
     public String userJobOpeningDetailForm(@PathVariable Integer id, Model model) {
+        // 로그인 인증검사
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            throw new MyException("로그인 후 열람이 가능합니다.");
+        }
         JobOpeningDetailDTO jobOpeningDetailDTO = jobOpeningService.상세채용공고(id);
         ResumeInJobOpeningDTO resumeInJobOpeningDTO = resumeService.지원화면();
         model.addAttribute("jobOpeningDetailDTO", jobOpeningDetailDTO);

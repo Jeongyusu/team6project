@@ -248,6 +248,8 @@ main>.container {
   display: flex;
 }
 
+
+
 .comp_img {
   max-width: 222px;
 }
@@ -393,10 +395,6 @@ footer li:last-child {
 }
 
 /* comp_community_list.html */
-
-.community_list {
-  height: 100vh;
-}
 
 .common_bg {
   background-color: var(--back_02);
@@ -610,7 +608,9 @@ footer li:last-child {
   outline: none;
   padding-bottom: 12px;
 }
-
+.mypage_list .scrap_item > .comp_cont{
+  margin-right: 15px;
+}
 .scrap_button span {
   text-decoration: underline;
   text-underline-offset: 2px;
