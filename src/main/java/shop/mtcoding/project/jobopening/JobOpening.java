@@ -23,10 +23,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.scrap.UserScrap;
 import shop.mtcoding.project.skill.RequiredSkill;
+import shop.mtcoding.project.suggest.Suggest;
 import shop.mtcoding.project.task.Task;
 import shop.mtcoding.project.user.User;
 
@@ -82,6 +84,12 @@ public class JobOpening {
 
     @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Qualified> qualifiedList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Apply> applyList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Suggest> suggestList = new ArrayList<>();
 
     @Builder
     public JobOpening(Integer id, String title, String process, String career, String careerYear, String edu,

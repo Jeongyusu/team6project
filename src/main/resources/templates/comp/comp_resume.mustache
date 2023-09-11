@@ -56,14 +56,14 @@
             </div>
 
             {{#jobOpeningList}}
-            <ul class="com_cont" id="jobOpening-{{ id }}">
-              <li class="resume_inner">
+            <ul class="com_cont">
+              <li class="resume_inner" id="jobOpening-{{ id }}">
                 <ul class="resume_cont">
                   <li class="com_tit com_btn">
                     <h4>{{ title }}</h4>
                     <div class="double_btn">
                       <form action="/comp/jobOpening/{{ id }}/updateForm">
-                        <button type="submit" class="btn_empty">
+                        <button type="button" class="btn_empty">
                           공고 수정
                         </button>
                       </form>
@@ -71,7 +71,7 @@
                         <button
                           type="button"
                           class="btn_fill"
-                          onclick="deleteResume('{{ id }}')"
+                          onclick="deleteResume2('{{ id }}')"
                         >
                           공고 삭제
                         </button>
@@ -111,7 +111,7 @@
   //   }
   // }
 
-  function deleteResume(id) {
+  function deleteResume2(id) {
     $.ajax({
       url: `/api/comp/jobOpening/${id}/delete`,
       method: "POST",
