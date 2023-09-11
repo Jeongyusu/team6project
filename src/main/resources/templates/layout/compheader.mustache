@@ -1,72 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>header</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script src="/js/script.js"></script>
+  </head>
 
-<head>
-  <title>header</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" type="text/css" href="/css/style.css" />
-  <script src="/js/script.js"></script>
-</head>
+  <body>
+    <!--헤더-->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav_top">
+          <a class="navbar-brand" href="/comp">봉티드</a>
+          <form class="d-flex">
+            <input
+              class="search form-control me-2"
+              type="text"
+              placeholder="검색어를 입력해주세요"
+            />
+            <button class="btn btn-primary" type="button">Search</button>
+          </form>
+        </div>
+        <div class="navbar-nav">
+          <ul class="nav_left">
+            <li class="nav-item">
+              <a class="nav-link nav_active" href="comp_emp_info.html"
+                >채용 정보</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/OpenResumeForm"
+                >공개 이력서 열람</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="comp_resume_management.html"
+                >지원 현황</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="comp_community_list.html">커뮤니티</a>
+            </li>
+          </ul>
+          <ul class="nav_right">
+            {{#sessionUser}}
+            <li class="nav-item">
+              <a class="nav-link" href="/comp/myPageForm">회원정보보기</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/comp/logout">로그아웃</a>
+            </li>
+            {{/sessionUser}}
 
-<body>
-  <!--헤더-->
-  <nav class="navbar">
-    <div class="container">
-      <div class="nav_top">
-        <a class="navbar-brand" href="/comp">봉티드</a>
-        <form class="d-flex">
-          <input class="search form-control me-2" type="text" placeholder="검색어를 입력해주세요" />
-          <button class="btn btn-primary" type="button">Search</button>
-        </form>
+            {{^sessionUser}}
+            <li class="nav-item">
+              <a class="nav-link" href="/comp/joinForm">회원가입</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/comp/loginForm">로그인</a>
+            </li>
+            {{/sessionUser}}
+            <li class="nav-item">
+              <a class="nav-link nav_company_btn" href="/user">개인서비스</a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="navbar-nav">
-        <ul class="nav_left">
-          <li class="nav-item">
-            <a class="nav-link nav_active" href="comp_emp_info.html">채용 정보</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/openResumeList">공개 이력서 열람</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="comp_resume_management.html">지원 현황</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="comp_community_list.html">커뮤니티</a>
-          </li>
-        </ul>
-        <ul class="nav_right">
-          {{#sessionUser}}
-          <li class="nav-item">
-            <a class="nav-link" href="/comp/myPageForm">회원정보보기</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/comp/logout">로그아웃</a>
-          </li>
-          {{/sessionUser}}
-
-          {{^sessionUser}}
-          <li class="nav-item">
-            <a class="nav-link" href="/comp/joinForm">회원가입</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/comp/loginForm">로그인</a>
-          </li>
-          {{/sessionUser}}
-          <li class="nav-item">
-            <a class="nav-link nav_company_btn" href="/user">개인서비스</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!--헤더-->
-</body>
-
+    </nav>
+    <!--헤더-->
+  </body>
 </html>

@@ -23,11 +23,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.scrap.UserScrap;
 import shop.mtcoding.project.skill.RequiredSkill;
+import shop.mtcoding.project.suggest.Suggest;
 import shop.mtcoding.project.task.Task;
 import shop.mtcoding.project.user.User;
 
@@ -87,11 +89,15 @@ public class JobOpening {
     @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Qualified> qualifiedList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Apply> applyList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Suggest> suggestList = new ArrayList<>();
+
     @Builder
     public JobOpening(Integer id, String title, String process, String career, String careerYear, String edu,
-            String compAddress, LocalDate deadLine, Timestamp createdAt, User user, Resume resume,
-            List<UserScrap> userScrapList, List<RequiredSkill> requiredSkillList,
-            List<RequiredPosition> requiredPositionList, List<Task> taskList, List<Qualified> qualifiedList) {
+            String compAddress, LocalDate deadLine, Timestamp createdAt, User user, Resume resume) {
         this.id = id;
         this.title = title;
         this.process = process;
@@ -103,13 +109,6 @@ public class JobOpening {
         this.createdAt = createdAt;
         this.user = user;
         this.resume = resume;
-        this.userScrapList = userScrapList;
-        this.requiredSkillList = requiredSkillList;
-        this.requiredPositionList = requiredPositionList;
-        this.taskList = taskList;
-        this.qualifiedList = qualifiedList;
     }
-
-    
 
 }
