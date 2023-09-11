@@ -7,6 +7,7 @@ import lombok.Setter;
 
 public class TaskResponse {
 
+    // 채용공고 주요업무에 대한 DTO
     @NoArgsConstructor
     @Getter
     @Setter

@@ -9,6 +9,7 @@ import lombok.Setter;
 
 public class CompScrapResponse {
 
+    // 기업 - > 스크랩한 이력서 정보 DTO
     @Getter
     @Setter
     public static class ScrapResumeDTO {

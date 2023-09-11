@@ -5,6 +5,7 @@ import lombok.Setter;
 
 public class ReplyRequest {
 
+    // reply 등록 DTO
     @Getter
     @Setter
     public static class ReplySaveDTO {
