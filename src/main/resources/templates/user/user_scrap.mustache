@@ -36,39 +36,46 @@
           <div class="mypage_list">
             <div class="resume_count">
               전체
-              <span class="common_num">3</span>
+              <span class="common_num">{{scrapJobOpeningSum}}</span>
             </div>
-            <ul class="com_cont">
-              <li class="resume_box">
-                <ul class="resume_cont">
-                  <a href="#">
-                    <li class="com_tit com_btn">
-                      <div class="apply_scrap">
-                        <button class="scrap_button">
-                          <img
-                            src="/image/empty_star.png"
-                            alt="empty_star.png"
-                          />
-                        </button>
-                        <h4>프론트엔드 모집합니다</h4>
-                      </div>
-                    </li>
-                    <li class="com_txt">고졸 신입</li>
-                    <li class="com_skill comp_skill">
-                      <span class="skill_box">HTML/CSS</span>
-                      <span class="skill_box">JavaScript</span>
-                      <span class="skill_box">MySQL</span>
-                      <span class="skill_box">Spring</span>
-                      <span class="skill_box">JAVA</span>
-                    </li>
-                  </a>
-                </ul>
+            {{#scrapJobOpeningDTOList}}
+            <ul class="comp_cont">
+              <li class="comp_img">
+                <a href="/user/jobOpening/{{jobOpeningId}}">
+                  <img src="/image/company_img/{{compPicUrl}}" alt="기업01">
+                  <span class="comp_dday">{{dDayDeadLine}}</span>
+                </a>
+              </li>
+              <li class="com_name comp_scrap">
+                {{compName}}
+                <div class="apply_scrap">
+                  <form>
+                    <button type="button" onclick="deleteScrap('{{jobOpeningId}}')" id="scrap_button{{jobOpeningId}}"
+                      class="btn_empty scrap_icon scrap_button">
+                      <input type="hidden" id="jobOpeningId{{jobOpeningId}}" name="jobOpeningId"
+                        value="{{jobOpeningId}}">
+                      <img id="scrap_icon" src="/image/full_star.png" alt="full_star.png" />
+                    </button>
+                  </form>
+                </div>
+              </li>
+              <li class="com_tit">
+                <h4>{{title}}</h4>
+              </li>
+              <li class="com_txt">
+                {{skillName}}
               </li>
             </ul>
+
+            </li>
+            </ul>
           </div>
+
+          {{/scrapJobOpeningDTOList}}
         </div>
       </div>
     </div>
+  </div>
   </div>
 </main>
 <!-- 메인 -->
