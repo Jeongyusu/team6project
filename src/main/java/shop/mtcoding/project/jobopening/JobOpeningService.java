@@ -466,4 +466,46 @@ public class JobOpeningService {
         }
         return jobOpeningMainDTOList;
     }
+
+    public List<JobOpeningMainDTO> 검색후메인화면(String keyword) {
+
+        List<JobOpening> jobOpeningList = jobOpeningRepository.mfindBySearchJobOpeningList(keyword);
+
+        // jobOpening을 담기 위한 List
+        List<JobOpeningMainDTO> jobOpeningMainDTOList = new ArrayList<>();
+        for (JobOpening jobOpening : jobOpeningList) {
+
+            // skillName을 담기 위한 List
+            List<String> skillName = new ArrayList<>();
+            for (RequiredSkill requiredSkill : jobOpening.getRequiredSkillList()) {
+                String skill = requiredSkill.getSkill().getSkill();
+                skillName.add(skill);
+            }
+
+            // 이중 for문을 방지하기 위해, 배열을 하나의 문자열로 만들기
+            String skillListString = String.join(" · ", skillName);
+
+            // 주소 포맷
+            String Address = jobOpening.getCompAddress();
+            String compAddressFormat = Split.AddressSplit(Address);
+
+            // careeryear null 방지
+            String JcareerYear = jobOpening.getCareerYear();
+            if (JcareerYear == null || "null".equals(JcareerYear)) {
+                JcareerYear = "";
+            }
+            JobOpeningMainDTO jobOpeningMainDTO = JobOpeningMainDTO.builder()
+                    .jobOpeningId(jobOpening.getId())
+                    .title(jobOpening.getTitle())
+                    .compName(jobOpening.getUser().getUserName())
+                    .compAddress(compAddressFormat)
+                    .career(jobOpening.getCareer())
+                    .careerYear(JcareerYear)
+                    .skill(skillListString)
+                    .compPicUrl(jobOpening.getUser().getCompPicUrl())
+                    .build();
+            jobOpeningMainDTOList.add(jobOpeningMainDTO);
+        }
+        return jobOpeningMainDTOList;
+    }
 }

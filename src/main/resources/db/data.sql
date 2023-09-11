@@ -46,7 +46,6 @@ insert into position_tb (position) values('안드로이드 개발자');
 
 -- insert into required_skill_tb (skill_id, job_opening_id) values('1', '1');
 -- insert into required_skill_tb (skill_id, job_opening_id) values('2', '1');
--- insert into required_skill_tb (skill_id, job_opening_id) values('3', '1');
 -- insert into required_skill_tb (skill_id, job_opening_id) values('2', '2');
 -- insert into required_skill_tb (skill_id, job_opening_id) values('3', '2');
 -- insert into required_skill_tb (skill_id, job_opening_id) values('4', '2');
@@ -74,6 +73,12 @@ insert into required_skill_tb (skill_id, job_opening_id) values ('4', '3');
 insert into wish_position_tb (position_id, resume_id) values ('3', '1');
 insert into wish_position_tb (position_id, resume_id) values ('5', '1');
 insert into wish_position_tb (position_id, resume_id) values ('6', '1');
+
+insert into required_position_tb (position_id, job_opening_id) values ('1', '1');
+insert into required_position_tb (position_id, job_opening_id) values ('2', '2');
+insert into required_position_tb (position_id, job_opening_id) values ('3', '3');
+insert into required_position_tb (position_id, job_opening_id) values ('4', '4');
+
 
 -- insert into community_tb (title, content, created_at, user_id) values('제목1', '내용1', now(), '1');
 -- insert into community_tb (title, content, created_at, user_id) values('제목2', '내용2', now(), '2');

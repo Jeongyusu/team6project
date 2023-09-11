@@ -118,8 +118,13 @@ public class JobOpeningController {
 
     // user_ 채용공고 메인 화면
     @GetMapping("/user/mainForm")
-    public String userMainForm(Model model) {
-        List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.메인화면();
+    public String userMainForm(String keyword, Model model) {
+        List<JobOpeningMainDTO> jobOpeningMainDTO = null;
+        if (keyword == null || keyword.trim().isEmpty()) {
+            jobOpeningMainDTO = jobOpeningService.메인화면();
+        } else {
+            jobOpeningMainDTO = jobOpeningService.검색후메인화면(keyword);
+        }
         model.addAttribute("jobOpeningMainDTO", jobOpeningMainDTO);
         return "user_index";
     }
@@ -246,7 +251,6 @@ public class JobOpeningController {
         }
         return requiredPositionResponseDTOList;
     }
-
 
     //// comp_ 채용공고 상세 화면
     @GetMapping("/comp/jobOpening/{id}")
