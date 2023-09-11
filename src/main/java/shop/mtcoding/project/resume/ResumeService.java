@@ -174,7 +174,7 @@ public class ResumeService {
             List<String> skillList = userUpdateResumeDTO.getSkillList();
             for (String skillName : skillList) {
                 Skill skill = skillRepository.findBySkillName(skillName);
-
+            
                 HasSkill hasSkill = HasSkill.builder()
                         .resume(resume)
                         .skill(skill)
