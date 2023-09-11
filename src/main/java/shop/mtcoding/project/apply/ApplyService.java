@@ -14,6 +14,7 @@ public class ApplyService {
     @Autowired
     private ApplyRepository applyRepository;
 
+    //// user_ 공고 지원
     @Transactional
     public void 지원(ApplyRequest.ApplySaveDTO applySaveDTO, Integer id) {
         Apply apply = Apply.builder()

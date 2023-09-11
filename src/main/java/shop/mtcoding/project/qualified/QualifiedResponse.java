@@ -7,6 +7,7 @@ import lombok.Setter;
 
 public class QualifiedResponse {
 
+    // 채용공고 자격요건 content DTO
     @NoArgsConstructor
     @Getter
     @Setter

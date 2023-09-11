@@ -14,7 +14,11 @@
         <div class="mypage_left">
           <ul>
             <li>
-              <div class="comp_pic_bg"></div>
+              <div class="comp_pic_bg">
+                <div class="comp_pic">
+                  <img id="preview" src="" />
+                </div>
+              </div>
             </li>
             <li>
               {{#sessionUser}}
@@ -51,13 +55,13 @@
             </div>
             {{#jobOpeningList}}
             <ul class="com_cont">
-              <li class="resume_inner">
+              <li class="resume_inner" id="jobOpening-{{ id }}">
                 <ul class="resume_cont">
                   <li class="com_tit com_btn">
                     <h4>{{ title }}</h4>
                     <div class="double_btn">
                       <form action="/comp/jobOpening/{{ id }}/updateForm">
-                        <button type="submit" class="btn_empty">
+                        <button type="button" class="btn_empty">
                           공고 수정
                         </button>
                       </form>
@@ -65,7 +69,7 @@
                         <button
                           type="button"
                           class="btn_fill"
-                          onclick="deleteJob('{{ id }}')"
+                          onclick="deletejob2('{{ id }}')"
                         >
                           공고 삭제
                         </button>
@@ -91,31 +95,31 @@
 </main>
 <!-- 메인 -->
 <script>
+  // function deleteResume2(id) {
+  //     $.ajax({
+  //       url: `/api/comp/jobOpening/${id}/delete`,
+  //       method: "POST",
+  //       success: (response) => {
+  //         console.log(response);
+  //         if (response.success === true) {
+  //           $(`#jobOpening-${id}`).remove();
+  //         }
+  //       },
+  //     });
 
-// function deleteResume2(id) {
-//     $.ajax({
-//       url: `/api/comp/jobOpening/${id}/delete`,
-//       method: "POST",
-//       success: (response) => {
-//         console.log(response);
-//         if (response.success === true) {
-//           $(`#jobOpening-${id}`).remove();
-//         }
-//       },
-//     });
+  //   }
 
-//   }
-
-  async function deleteJob(id){
-       let response = await fetch(`/api/comp/jobOpening/${id}/delete`,{
-            method : "POST"
-       });
-       let responseBody = await response.json(); // json -> js object
-       if(responseBody.success) {
-            location.reload();
-       } else {
-            alert(responseBody.data);
-       }
-    }
+  function deletejob2(id) {
+    $.ajax({
+      url: `/api/comp/jobOpening/${id}/delete`,
+      method: "POST",
+      success: (response) => {
+        console.log(response);
+        if (response.success === true) {
+          $(`#jobOpening-${id}`).remove();
+        }
+      },
+    });
+  }
 </script>
 {{>layout/footer}}

@@ -44,4 +44,10 @@ public class FormatDate {
         }
 
     }
+
+    // yyyy 날짜 포맷 메소드
+    public static String formatDateYear(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        return sdf.format(date);
+    }
 }

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningRequiredPositionDTO;
+import shop.mtcoding.project.resume.Resume;
 
 public interface JobOpeningRepository extends JpaRepository<JobOpening, Integer> {
 
@@ -28,5 +28,9 @@ public interface JobOpeningRepository extends JpaRepository<JobOpening, Integer>
 
     @Query("select j from JobOpening j left join fetch j.requiredPositionList jr left join fetch jr.position")
     public List<JobOpening> findByPositionInRequiredPositionInJobOpeing();
+
+    @Query("SELECT r FROM Resume r WHERE r.openCheck = '1' AND (r.career LIKE %:career% OR r.careerYear IS NULL OR r.careerYear = :careerYear) OR r.address LIKE %:address%")
+    List<Resume> findByOpenAndCareerAndOpenAddress(@Param("career") String career,
+            @Param("careerYear") String careerYear, @Param("address") String address);
 
 }

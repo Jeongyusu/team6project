@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project.apply.ApplyRepository;
+import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningDetailDTO;
 import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 import shop.mtcoding.project.position.Position;
 import shop.mtcoding.project.position.PositionResponse.RequiredPositionResponseDTO;
@@ -25,6 +27,8 @@ import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.position.RequiredPositionRepository;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.qualified.QualifiedRepository;
+import shop.mtcoding.project.resume.ResumeService;
+import shop.mtcoding.project.resume.ResumeResponse.ResumeInJobOpeningDTO;
 import shop.mtcoding.project.scrap.ScrapService;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
@@ -76,6 +80,9 @@ public class JobOpeningController {
     private JobOpeningRepository jobOpeningRepository;
 
     @Autowired
+    private ResumeService resumeService;
+
+    @Autowired
     private HttpSession session;
 
     @GetMapping("/comp/indexForm")
@@ -109,7 +116,7 @@ public class JobOpeningController {
         return "comp_index";
     }
 
-    // comp_ 채용공고 메인 화면
+    // user_ 채용공고 메인 화면
     @GetMapping("/user/mainForm")
     public String userMainForm(Model model) {
         List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.메인화면();
@@ -241,6 +248,61 @@ public class JobOpeningController {
     }
 
 
-    
+    //// comp_ 채용공고 상세 화면
+    @GetMapping("/comp/jobOpening/{id}")
+    public String compJobOpeningDetailForm(@PathVariable Integer id, Model model) {
+        JobOpeningDetailDTO jobOpeningDetailDTO = jobOpeningService.상세채용공고(id);
+        ResumeInJobOpeningDTO resumeInJobOpeningDTO = resumeService.지원화면();
+        model.addAttribute("jobOpeningDetailDTO", jobOpeningDetailDTO);
+        model.addAttribute("resumeInJobOpeningDTO", resumeInJobOpeningDTO);
+        return "comp/comp_job_opening_detail";
+    }
+
+    //// user_채용공고 상세 화면
+    @GetMapping("/user/jobOpening/{id}")
+    public String userJobOpeningDetailForm(@PathVariable Integer id, Model model) {
+        JobOpeningDetailDTO jobOpeningDetailDTO = jobOpeningService.상세채용공고(id);
+        ResumeInJobOpeningDTO resumeInJobOpeningDTO = resumeService.지원화면();
+        model.addAttribute("jobOpeningDetailDTO", jobOpeningDetailDTO);
+        model.addAttribute("resumeInJobOpeningDTO", resumeInJobOpeningDTO);
+        return "user/user_job_opening_apply";
+    }
+
+    //// user_ 채용정보 화면
+    @GetMapping("/user/jobOpening/select")
+    public String compJobOpeningSelectForm(Model model) {
+        List<Position> positionList = positionService.포지션이름();
+        List<Skill> skillList = skillService.스킬이름();
+        model.addAttribute("positionList", positionList);
+        model.addAttribute("skillList", skillList);
+        model.addAttribute("positionList", positionList);
+        return "user/user_emp_info";
+    }
+
+    //// 채용정보 제일 첫 화면
+    @GetMapping("/api/jobOpening/select/all")
+    public @ResponseBody List<JobOpeningMainDTO> jobOpeningSelectAll() {
+        List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.메인화면();
+        return jobOpeningMainDTO;
+    }
+
+    //// 경력or지역/경력and지역을 기반으로 데이터 필터링
+    @GetMapping("/api/jobOpening/select/cl")
+    public @ResponseBody List<JobOpeningMainDTO> jobOpeningSelectByCareerOrLocation(
+            @RequestParam(name = "career", required = false) String career,
+            @RequestParam(name = "careerYear", required = false) String careerYear,
+            @RequestParam(name = "location", required = false) String location) {
+        List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.경력과지역선택(career, careerYear, location);
+        return jobOpeningMainDTO;
+    }
+
+    //// 포지션or스킬/포지션ans스킬을 기반으로 데이터 필터링
+    @GetMapping("/api/jobOpening/select/pk")
+    public @ResponseBody List<JobOpeningMainDTO> jobOpeningSelectByPositionOrSkill(
+            @RequestParam(required = false) List<Integer> positionIdList,
+            @RequestParam(required = false) List<Integer> skillIdList) {
+        List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.포지션과스킬선택(positionIdList, skillIdList);
+        return jobOpeningMainDTO;
+    }
 
 }

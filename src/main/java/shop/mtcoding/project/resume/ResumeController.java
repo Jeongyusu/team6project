@@ -1,6 +1,7 @@
 package shop.mtcoding.project.resume;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -27,6 +28,7 @@ import shop.mtcoding.project.resume.ResumeRequest.UserUpdateResumeDTO;
 import shop.mtcoding.project.scrap.ScrapService;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.skill.HasSkillRepository;
+import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.SkillRepository;
 import shop.mtcoding.project.skill.SkillResponse.HasSkillResponseDTO;
 import shop.mtcoding.project.user.User;
@@ -129,53 +131,6 @@ public class ResumeController {
         return Script.href("/user/resume", "수정완료");
     }
 
-    // @GetMapping("/user/myPageForm")
-    // public String resumeList(Model model) {
-    // User sessionUser = (User) session.getAttribute("sessionUser");
-
-    // List<Apply> applyList = applyRepository.findAll();
-    // model.addAttribute("applyList", applyList);
-    // List<Apply> applyList2 =
-    // applyRepository.findByResumeUserId(sessionUser.getId());
-
-    // int totalApply = applyList2.size();
-    // List<JobOpening> jobOpeningInfo =
-    // suggestQueryRepository.findJobOpeningsByUserId(sessionUser.getId());
-
-    // model.addAttribute("jobOpeningInfo", jobOpeningInfo);
-    // model.addAttribute("totalApply", totalApply);
-    // model.addAttribute("applyList2", applyList2);
-
-    // List<Suggest> suggestList = suggestRepository.findAll();
-    // model.addAttribute("suggestList", suggestList);
-
-    // List<Suggest> suggestList2 =
-    // suggestRepository.findBySuggestUserId(sessionUser.getId());
-    // int totalSuggestList = suggestList2.size();
-
-    // model.addAttribute("totalSuggestList", totalSuggestList);
-    // model.addAttribute("suggestList2", suggestList2);
-
-    // List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
-    // model.addAttribute("jobOpeningList", jobOpeningList);
-
-    // List<Resume> resumeList = resumeRepository.findAll();
-    // model.addAttribute("resumeList", resumeList);
-
-    // List<Resume> resumeList2 =
-    // resumeRepository.findByUserId(sessionUser.getId());
-    // int totalResume = resumeList2.size();
-    // model.addAttribute("totalResume", totalResume);
-    // model.addAttribute("resumeList", resumeList2);
-
-    // List<ScrapJobOpeningDTO> scrapJobOpeningDTOList =
-    // scrapService.채용공고스크랩조회(sessionUser.getId());
-    // Integer scrapJobOpeningSum = scrapJobOpeningDTOList.size();
-    // model.addAttribute("scrapJobOpeningDTOList", scrapJobOpeningDTOList);
-    // model.addAttribute("scrapJobOpeningSum", scrapJobOpeningSum);
-    // return "user/user_mypage";
-    // }
-
     @GetMapping("/api/resume/{resumeId}/skillList")
     public @ResponseBody List<HasSkillResponseDTO> checkboxSkillList(@PathVariable Integer resumeId) {
         List<HasSkill> hasSkillList = hasSkillRepository.hasSkillofResume(resumeId);
@@ -245,17 +200,22 @@ public class ResumeController {
         return "user/user_resume";
     }
 
-    @GetMapping("/api/openResum/condition")
-    public @ResponseBody List<CompUserOpenResumeDTO> career(
-            @RequestParam(name = "career", required = false) String career,
-            @RequestParam(name = "careerYear", required = false) String careerYear,
-            @RequestParam(name = "address", required = false) String address) {
-        List<CompUserOpenResumeDTO> compUserOpenResumeDTO = resumeService.조건선택(career, careerYear, address);
-        return compUserOpenResumeDTO;
-    }
+    // @GetMapping("/api/openResum/condition")
+    // public @ResponseBody List<CompUserOpenResumeDTO> career(
+    // @RequestParam(name = "career", required = false) String career,
+    // @RequestParam(name = "careerYear", required = false) String careerYear,
+    // @RequestParam(name = "address", required = false) String address) {
+    // List<CompUserOpenResumeDTO> compUserOpenResumeDTO =
+    // resumeService.조건선택(career, careerYear, address);
+    // return compUserOpenResumeDTO;
+    // }
 
-    @GetMapping("/user/OpenResumeForm")
-    public String compOpenResumForm() {
+    @GetMapping("/comp/userOpenResumeForm")
+    public String compOpenResumForm(Model model) {
+
+        List<CompUserOpenResumeDTO> compUserOpenResumeDTO = resumeService.공개이력서목록();
+        model.addAttribute("compUserOpenResumeDTO", compUserOpenResumeDTO);
+
         return "comp/comp_user_open_resume";
     }
 

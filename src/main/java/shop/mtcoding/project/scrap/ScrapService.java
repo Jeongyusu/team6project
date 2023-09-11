@@ -8,15 +8,13 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.DefaultMessageCodesResolver.Format;
 
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.util.FormatDate;
-import shop.mtcoding.project._core.util.Split;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.resume.Resume;
-import shop.mtcoding.project.scrap.CompScrapRequest.CompScrapDTO;
 import shop.mtcoding.project.scrap.CompScrapRequest.CompScrapDeleteDTO;
+import shop.mtcoding.project.scrap.CompScrapRequest.CompScrapSaveDTO;
 import shop.mtcoding.project.scrap.CompScrapResponse.ScrapResumeDTO;
 import shop.mtcoding.project.scrap.UserScrapRequest.UserScrapDTO;
 import shop.mtcoding.project.scrap.UserScrapResponse.ScrapJobOpeningDTO;
@@ -63,10 +61,10 @@ public class ScrapService {
     }
 
     @Transactional
-    public void 이력서스크랩(Integer sessionId, CompScrapDTO compScrapDTO) {
+    public void 이력서스크랩(Integer sessionId, CompScrapSaveDTO compScrapSaveDTO) {
         CompScrap compScrap = CompScrap.builder()
                 .user(User.builder().id(sessionId).build())
-                .resume(Resume.builder().id(compScrapDTO.getResumeId()).build())
+                .resume(Resume.builder().id(compScrapSaveDTO.getResumeId()).build())
                 .build();
 
         compScrapRepository.save(compScrap);
@@ -98,13 +96,14 @@ public class ScrapService {
         List<ScrapResumeDTO> scrapResumeDTOList = new ArrayList<>();
         for (CompScrap compScrap : compScrapList) {
 
+            // 이력서의 구직자가 할 수 있는 기술 이름을 출력
             List<String> skillList = new ArrayList<>();
             for (HasSkill skill : compScrap.getResume().getHasSkillList()) {
                 String skillName = skill.getSkill().getSkill();
                 skillList.add(skillName);
             }
 
-            // 이중 for문을 방지하기 위해, 배열을 하나의 문자열로 만들기
+            // 이중 for문을 방지하기 위해, 기술 이름의 배열을 하나의 문자열로 만들기
             String skillListString = String.join(" · ", skillList);
 
             ScrapResumeDTO scrapResumeDTO = ScrapResumeDTO.builder()
@@ -126,6 +125,7 @@ public class ScrapService {
         List<ScrapJobOpeningDTO> scrapJobOpeningDTOList = new ArrayList<>();
         for (UserScrap userScrap : userScrapList) {
 
+            // 이력서의 구직자가 할 수 있는 기술 이름을 출력
             List<String> skillList = new ArrayList<>();
             for (RequiredSkill skill : userScrap.getJobOpening().getRequiredSkillList()) {
                 String skillName = skill.getSkill().getSkill();
@@ -151,9 +151,7 @@ public class ScrapService {
             scrapJobOpeningDTOList.add(scrapJobOpeningDTO);
         }
 
-        for (ScrapJobOpeningDTO scrapJobOpeningDTO : scrapJobOpeningDTOList) {
-            System.out.println("테테테 : " + scrapJobOpeningDTO.getTitle());
-        }
         return scrapJobOpeningDTOList;
     }
+
 }

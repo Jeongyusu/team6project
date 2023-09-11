@@ -19,11 +19,11 @@
                     <div class="skill">
                         <h3>개발직무</h3>
                         <ul>
+                            {{#jobOpeningDetailDTO.requiredPositionList}}
                             <li class="position_skill com_skill">
-                                {{#jobOpeningDetailDTO.requiredPositionList}}
                                 <span class="skill_box">{{positionName}}</span>
-                                {{/jobOpeningDetailDTO.requiredPositionList}}
                             </li>
+                            {{/jobOpeningDetailDTO.requiredPositionList}}
                         </ul>
                     </div>
 
@@ -32,9 +32,7 @@
                         <ul>
                             {{#jobOpeningDetailDTO.requiredSkillList}}
                             <li class="comp_skill com_skill">
-                                {{#jobOpeningDetailDTO.requiredSkillList}}
-                                <span class="skill_box">{{skillName}}</spa>n
-                                    {{/jobOpeningDetailDTO.requiredSkillList}}
+                                <span class="skill_box">{{skillName}}</span>
                             </li>
                             {{/jobOpeningDetailDTO.requiredSkillList}}
                         </ul>
@@ -73,7 +71,9 @@
 
                     <div class="want">
                         <h3>학력</h3>
-                        <p>{{jobOpeningDetailDTO.edu}}</p>
+                        <div class="career-flex">
+                            <p>{{jobOpeningDetailDTO.edu}}</p>
+                        </div>
                     </div>
 
                     <div class="want">
@@ -281,8 +281,8 @@
                                                         <span>등록</span>
                                                     </span>
                                                     <span>
-                                                        <a href="user_resume_update.html"><img src="/image/write.png"
-                                                                alt="write_png"></a>
+                                                        <a href="/user/resume/{{resumeId}}/update"><img
+                                                                src="/image/write.png" alt="write_png"></a>
                                                     </span>
                                                 </p>
                                             </div>
@@ -300,6 +300,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </main>
 <!-- 메인 -->

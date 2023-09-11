@@ -17,7 +17,6 @@ import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project.apply.ApplyRequest.ApplySaveDTO;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.jobopening.JobOpeningRepository;
-import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningRequiredPositionDTO;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.suggest.Suggest;
@@ -123,25 +122,5 @@ public class ApplyController {
         return new ApiUtil<String>(true, applyStateDTO.getApplyState());
 
     }
-
-    // @GetMapping("/comp/applyAndSuggest")
-    // public @ResponseBody List<Suggest> compApplyAndSuggest(Model model) {
-    // User sessionUser = (User) session.getAttribute("sessionUser");
-    // User user = userRepository.findById(sessionUser.getId()).get();
-    // List<Apply> applyList =
-    // applyRepository.findByUserIdofJobOpening(user.getId());
-    // int totalApply = applyList.size();
-    // List<Suggest> suggestList =
-    // suggestRepository.findByUserIdofJobOpeningInSuggest(user.getId());
-    // int totalSuggest = suggestList.size();
-    // List<JobOpening> jobOpeningList = jobOpeningRepository
-    // .findByPositionInRequiredPositionInJobOpeing();
-    // model.addAttribute("suggestList", suggestList);
-    // model.addAttribute("totalApply", totalApply);
-    // model.addAttribute("applyList", applyList);
-    // model.addAttribute("totalSuggest", totalSuggest);
-    // model.addAttribute("jobOpeningList", jobOpeningList);
-    // return suggestList;
-    // }
 
 }
