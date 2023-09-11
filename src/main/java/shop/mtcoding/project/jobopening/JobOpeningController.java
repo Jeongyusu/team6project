@@ -285,7 +285,7 @@ public class JobOpeningController {
 
     //// user_ 채용정보 화면
     @GetMapping("/user/jobOpening/select")
-    public String compJobOpeningSelectForm(Model model) {
+    public String userJobOpeningSelectForm(Model model) {
         List<Position> positionList = positionService.포지션이름();
         List<Skill> skillList = skillService.스킬이름();
         model.addAttribute("positionList", positionList);
@@ -318,6 +318,17 @@ public class JobOpeningController {
             @RequestParam(required = false) List<Integer> skillIdList) {
         List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.포지션과스킬선택(positionIdList, skillIdList);
         return jobOpeningMainDTO;
+    }
+
+    //// comp_ 채용정보 화면
+    @GetMapping("/comp/jobOpening/select")
+    public String compJobOpeningSelectForm(Model model) {
+        List<Position> positionList = positionService.포지션이름();
+        List<Skill> skillList = skillService.스킬이름();
+        model.addAttribute("positionList", positionList);
+        model.addAttribute("skillList", skillList);
+        model.addAttribute("positionList", positionList);
+        return "comp/comp_emp_info";
     }
 
 }
