@@ -16,7 +16,7 @@
             <li>
               <form action="#">
                 <button type="submit">
-                  <img src="/images/{{sessionUser.compPicUrl}}" alt=" 기본 이미지" />
+                  <img src="/images/wanted.png" alt=" 기본 이미지" />
                 </button>
               </form>
             </li>
@@ -59,7 +59,7 @@
                     class="form-control"
                     id="compDate"
                     name="compDate"
-                    value="{{ compHistory }}"
+                    value="{{#compHistory}}{{ compHistory }}{{/compHistory}}"
                   />
                 </div>
                 <div>
@@ -69,7 +69,7 @@
                     class="form-control"
                     id="compExplan"
                     name="compExplan"
-                    value="{{ compIntro }}"
+                    value="{{#compIntro }}{{ compIntro }}{{/compIntro }}"
                   />
                 </div>
                 {{/sessionUser}}

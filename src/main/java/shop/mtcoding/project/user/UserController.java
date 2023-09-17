@@ -115,7 +115,7 @@ public class UserController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.회원정보수정(userUpdateDTO, sessionUser.getId());
         session.setAttribute("sessionUser", user);
-        return Script.href("/comp/myPageForm", "비밀번호 변경완료");
+        return Script.back("변경 완료");
     }
 
     @PostMapping("/user/picUpdate")
