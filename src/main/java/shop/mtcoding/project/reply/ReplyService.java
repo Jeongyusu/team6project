@@ -32,7 +32,12 @@ public class ReplyService {
                 .community(Community.builder().id(replySaveDTO.getBoardId()).build())
                 .build();
 
-        replyRepository.save(reply);
+        try {
+            replyRepository.save(reply);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
+
     }
 
     //// 댓글 삭제
@@ -48,8 +53,12 @@ public class ReplyService {
         if (sessionId != reply.getUser().getId()) {
             throw new MyException("댓글 삭제의 권한이 없습니다.");
         }
+        try {
+            replyRepository.deleteById(replyId);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
 
-        replyRepository.deleteById(replyId);
     }
 
 }

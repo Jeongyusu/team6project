@@ -73,7 +73,7 @@ public class JobOpeningService {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             date = LocalDate.parse(dateString, formatter);
         } catch (DateTimeParseException e) {
-            e.printStackTrace();
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
         }
         // 내가 선택한 날짜 지정
 
@@ -87,8 +87,11 @@ public class JobOpeningService {
                 .user(User.builder().id(sessionUserId).build())
                 .deadLine(date)
                 .build();
-
-        jobOpeningRepository.save(jobOpening);
+        try {
+            jobOpeningRepository.save(jobOpening);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
 
         List<String> requiredPositionList = jobOpeningSaveDTO.getPositionList();
         for (String positionName : requiredPositionList) {
@@ -98,8 +101,12 @@ public class JobOpeningService {
                     .jobOpening(jobOpening)
                     .position(position)
                     .build();
+            try {
+                requiredPositionRepository.save(requiredPosition);
+            } catch (Exception e) {
+                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            }
 
-            requiredPositionRepository.save(requiredPosition);
         }
         // 내가 선택한 체크박스 포지션 등록
 
@@ -111,7 +118,12 @@ public class JobOpeningService {
                     .jobOpening(jobOpening)
                     .skill(skill)
                     .build();
-            requiredSkillRepository.save(requiredSkill);
+            try {
+                requiredSkillRepository.save(requiredSkill);
+            } catch (Exception e) {
+                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            }
+
         }
         // 내가 선택한 체크박스 스킬 등록
 
@@ -122,7 +134,12 @@ public class JobOpeningService {
                     .jobOpening(jobOpening)
                     .qualifiedContent(qual)
                     .build();
-            qualifiedRepository.save(qualCont);
+            try {
+                qualifiedRepository.save(qualCont);
+            } catch (Exception e) {
+                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            }
+
         }
         // 자격요건 등록
 
@@ -133,7 +150,12 @@ public class JobOpeningService {
                     .jobOpening(jobOpening)
                     .taskContent(task)
                     .build();
-            taskRepository.save(taskCont);
+            try {
+                taskRepository.save(taskCont);
+            } catch (Exception e) {
+                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            }
+
         }
         // 주요업무 등록
     }
@@ -165,7 +187,12 @@ public class JobOpeningService {
             jobOpening.setCompAddress(jobOpeningUpdateDTO.getCompAddress());
             jobOpening.setProcess(jobOpeningUpdateDTO.getProcess());
             jobOpening.setUser(jobOpeningUpdateDTO.getUser());
-            jobOpeningRepository.save(jobOpening);
+
+            try {
+                jobOpeningRepository.save(jobOpening);
+            } catch (Exception e) {
+                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            }
 
             List<String> positionList = jobOpeningUpdateDTO.getPositionList();
             for (String positionName : positionList) {
@@ -174,7 +201,12 @@ public class JobOpeningService {
                         .jobOpening(jobOpening)
                         .position(position)
                         .build();
-                requiredPositionRepository.save(requiredPosition);
+                try {
+                    requiredPositionRepository.save(requiredPosition);
+                } catch (Exception e) {
+                    throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                }
+
             }
 
             List<String> skillList = jobOpeningUpdateDTO.getSkillList();
@@ -184,7 +216,12 @@ public class JobOpeningService {
                         .jobOpening(jobOpening)
                         .skill(skill)
                         .build();
-                requiredSkillRepository.save(requiredSkill);
+                try {
+                    requiredSkillRepository.save(requiredSkill);
+                } catch (Exception e) {
+                    throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                }
+
             }
 
             qualifiedRepository.deleteByJobOpeningId(id);
@@ -195,7 +232,12 @@ public class JobOpeningService {
                         .jobOpening(jobOpening)
                         .qualifiedContent(qualName)
                         .build();
-                qualifiedRepository.save(requiredQualified);
+                try {
+                    qualifiedRepository.save(requiredQualified);
+                } catch (Exception e) {
+                    throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                }
+
             }
 
             taskRepository.deleteByJobOpeningId(id);
@@ -206,7 +248,12 @@ public class JobOpeningService {
                         .jobOpening(jobOpening)
                         .taskContent(taskName)
                         .build();
-                taskRepository.save(requiredTask);
+                try {
+                    taskRepository.save(requiredTask);
+                } catch (Exception e) {
+                    throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                }
+
             }
 
         } else {
@@ -230,7 +277,7 @@ public class JobOpeningService {
         try {
             jobOpeningRepository.deleteById(id);
         } catch (Exception e) {
-            throw new MyException("삭제에 실패했습니다.");
+            throw new MyException("삭제에 실패했습니다. 이유 : " + e.getMessage());
         }
     }
 

@@ -33,17 +33,7 @@ insert into job_opening_tb (user_id, title, process, career, career_year, edu, c
 insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
 insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
 insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
-insert into job_opening_tb (user_id, title, process, career, career_year, edu, comp_address, dead_line, created_at) values ('4', '오뚜기 공고글', '채용절차는 코딩테스트 후 면접입니다', '경력', '1년차', '고졸', '제주 장산', now(), now());
+
 
 -- insert into user_scrap_tb (created_at, user_id, job_opening_id) values(now(), '1', '1');
 -- insert into user_scrap_tb (created_at, user_id, job_opening_id) values(now(), '2', '1');

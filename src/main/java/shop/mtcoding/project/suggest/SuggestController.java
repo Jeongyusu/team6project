@@ -40,13 +40,13 @@ public class SuggestController {
         return "user/user_resume_detail";
     }
 
-    @PostMapping("/user/suggest")
+    @PostMapping("/comp/suggest")
     public String UserSuggest(SuggestSaveDTO suggestSaveDTO, Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userRepository.findById(sessionUser.getId()).get();
         suggestService.제안(suggestSaveDTO, user.getId());
         model.addAttribute("sessionUser", sessionUser);
-        Integer id = suggestSaveDTO.getResumeId();
+        Integer id = suggestSaveDTO.getSelectedResumeId();
         return "redirect:/user/" + id + "/resume/detail";
     }
 

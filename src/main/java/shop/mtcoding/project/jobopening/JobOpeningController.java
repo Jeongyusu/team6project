@@ -3,13 +3,13 @@ package shop.mtcoding.project.jobopening;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +28,8 @@ import shop.mtcoding.project.position.RequiredPosition;
 import shop.mtcoding.project.position.RequiredPositionRepository;
 import shop.mtcoding.project.qualified.Qualified;
 import shop.mtcoding.project.qualified.QualifiedRepository;
-import shop.mtcoding.project.resume.ResumeService;
 import shop.mtcoding.project.resume.ResumeResponse.ResumeInJobOpeningDTO;
+import shop.mtcoding.project.resume.ResumeService;
 import shop.mtcoding.project.scrap.ScrapService;
 import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
@@ -41,6 +41,7 @@ import shop.mtcoding.project.suggest.SuggestRepository;
 import shop.mtcoding.project.task.Task;
 import shop.mtcoding.project.task.TaskRepository;
 import shop.mtcoding.project.user.User;
+import shop.mtcoding.project.user.UserRepository;
 
 @Controller
 public class JobOpeningController {
@@ -86,10 +87,8 @@ public class JobOpeningController {
     @Autowired
     private HttpSession session;
 
-    @GetMapping("/comp/indexForm")
-    public String compIndexForm() {
-        return "comp_index";
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     // 채용 공고 목록 페이지
     @GetMapping("/comp/jobOpening/compResume")
@@ -112,14 +111,43 @@ public class JobOpeningController {
     // comp_ 채용공고 메인 화면
     @GetMapping("/comp/mainForm")
     public String compMainForm(Model model) {
+
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        if (sessionUser != null) {
+            if (sessionUser.getGubun() != 2) {
+                session.invalidate();
+            }
+            // User user = userRepository.findById(sessionUser.getId()).get();
+        }
+
+        // if (user != null || user.getGubun() == 2) {
+        // session.invalidate();
+        // }
+
+        // if (userOP.isPresent()) {
+        // User user = userOP.get();
+        // if (user.getGubun() == 1) {
+        // session.invalidate();
+        // }
+        // }
         List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.메인화면();
         model.addAttribute("jobOpeningMainDTO", jobOpeningMainDTO);
         return "comp_index";
+
     }
 
     // user_ 채용공고 메인 화면
     @GetMapping("/user/mainForm")
     public String userMainForm(String keyword, Model model) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        if (sessionUser != null) {
+            if (sessionUser.getGubun() != 1) {
+                session.invalidate();
+            }
+        }
+
         List<JobOpeningMainDTO> jobOpeningMainDTO = null;
         if (keyword == null || keyword.trim().isEmpty()) {
             jobOpeningMainDTO = jobOpeningService.메인화면();
