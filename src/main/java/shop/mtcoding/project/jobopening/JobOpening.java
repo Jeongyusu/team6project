@@ -46,7 +46,7 @@ public class JobOpening {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = true, length = 60)
+    @Column(nullable = false, length = 60)
     private String title;
 
     @Column(nullable = true)

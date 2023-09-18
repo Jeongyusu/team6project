@@ -19,8 +19,6 @@ import shop.mtcoding.project._core.error.ex.MyApiException;
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.util.FormatDate;
 import shop.mtcoding.project._core.vo.MyPath;
-import shop.mtcoding.project.jobopening.JobOpening;
-import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 import shop.mtcoding.project.position.Position;
 import shop.mtcoding.project.position.PositionRepository;
 import shop.mtcoding.project.position.WishPosition;
@@ -30,7 +28,6 @@ import shop.mtcoding.project.resume.ResumeResponse.ApplyResumeInJobOpeningDTO;
 import shop.mtcoding.project.resume.ResumeResponse.ResumeInJobOpeningDTO;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.skill.HasSkillRepository;
-import shop.mtcoding.project.skill.RequiredSkill;
 import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.Skill;
 import shop.mtcoding.project.skill.SkillRepository;
@@ -341,7 +338,6 @@ public class ResumeService {
                     .build();
 
             compUserOpenResumeDTOList.add(compUserOpenResumeDTO);
-            System.out.println("ㅋㅋ : " + compUserOpenResumeDTOList.get(0).getResumePic());
         }
         return compUserOpenResumeDTOList;
     }
