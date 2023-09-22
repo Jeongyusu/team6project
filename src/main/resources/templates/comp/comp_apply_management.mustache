@@ -71,7 +71,7 @@
                   <td><a href="/user/resume/{{resume.id}}">{{resume.title}}</td>
                   <td>
                     <input type="hidden" id="resume-{{id}}" value="{{resume.id}}">
-                    <input type="hidden" id="applyState-{{id}}" value="{{applyState}}">
+                    <input type="hidden" id="applyState-{{id}}" value="{{#applyState}}{{applyState}}{{/applyState}}">
                     <input type="hidden" id="jobOpening-{{id}}" value="{{jobOpening.id}}">
                     <ul id = "applyStateUl-{{id}}">
                       <li>{{applyState}}</li>
