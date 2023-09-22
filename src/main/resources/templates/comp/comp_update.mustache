@@ -14,23 +14,24 @@
         <div class="mypage_left">
           <ul>
             <li>
-              <div class="main_pic">
-                <img id="preview" src="/images/basic.jpg" alt="기본 이미지">
-                <input type="hidden" onchange="changeUserPic(event)" name="userPic">
+              {{#sessionUser}}
+              <div class="comp_pic_bg">
+                <div class="comp_pic">
+                    <img id="preview" src="/images/{{#compPicUrl}}{{compPicUrl}}{{/compPicUrl}}">
+                </div>
               </div>
-
             </li>
             <li>
-              {{#sessionUser}}
-              <h3>{{userName}}</h3>
+              <h3>{{ userName }}</h3>
               {{/sessionUser}}
             </li>
           </ul>
           <ul class="mypage_menu tab_menu">
-            <li><a href="/user/resume">이력서</a></li>
-            <li><a href="/user/applyAndSuggest">지원/제안</a></li>
-            <li><a href="/user/scrap">스크랩</a></li>
-            <li><a href="/user/info/updateForm">정보 수정</a></li>
+            <li><a href="/comp/info/updateForm">회사 정보 수정</a></li>
+            <li><a href="/comp/jobOpening/compResume">채용 공고</a></li>
+            <li><a href="/comp/applyAndSuggest">지원/제안</a></li>
+            <li><a href="/comp/scrap">스크랩</a></li>
+            <li><a href="/comp/password/updateForm">비밀번호 변경</a></li>
           </ul>
           <ul class="mypage_menu">
             <li><a href="#">로그아웃</a></li>
@@ -42,7 +43,7 @@
           <div class="mypage_list">
             <div class="update_box">
               <div class="udpassword">
-                <form action="/user/password/update" method="post" class="pw_update">
+                <form action="/comp/password/update" method="post" class="pw_update">
                   <div class="">
                     <label for="nowPassword" class="form-label">현재 비밀번호</label>
                     <input type="password" class="form-control" id="nowPassword" placeholder="비밀번호를 입력해 주세요."

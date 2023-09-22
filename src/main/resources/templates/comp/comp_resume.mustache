@@ -14,14 +14,14 @@
         <div class="mypage_left">
           <ul>
             <li>
+              {{#sessionUser}}
               <div class="comp_pic_bg">
                 <div class="comp_pic">
-                  <img id="preview" src="" />
+                    <img id="preview" src="/images/{{#compPicUrl}}{{compPicUrl}}{{/compPicUrl}}">
                 </div>
               </div>
             </li>
             <li>
-              {{#sessionUser}}
               <h3>{{ userName }}</h3>
               {{/sessionUser}}
             </li>
