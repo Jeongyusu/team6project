@@ -87,7 +87,11 @@ public class ResumeService {
                 .user(User.builder().id(sessionUserId).build())
                 .build();
 
-        resumeRepository.save(resume);
+        try {
+            resumeRepository.save(resume);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
 
         List<String> positionList = userSaveResumeDTO.getPositionList();
         System.out.println("테스트" + positionList.get(0));
@@ -100,7 +104,12 @@ public class ResumeService {
                     .position(position)
                     .build();
 
-            wishPositionRepository.save(wishPosition);
+            try {
+                wishPositionRepository.save(wishPosition);
+            } catch (Exception e) {
+                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            }
+
         }
         // 내가 선택한 체크박스 포지션 등록
 
@@ -112,7 +121,12 @@ public class ResumeService {
                     .resume(resume)
                     .skill(skill)
                     .build();
-            hasSkillRepository.save(hasSkill);
+            try {
+                hasSkillRepository.save(hasSkill);
+            } catch (Exception e) {
+                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            }
+
         }
         // 내가 선택한 체크박스 스킬 등록
 
@@ -153,7 +167,12 @@ public class ResumeService {
             resume.setEdu(userUpdateResumeDTO.getEdu());
             resume.setMainIntro(userUpdateResumeDTO.getMainIntro());
             resume.setOpenCheck(userUpdateResumeDTO.getOpenCheck());
-            resumeRepository.save(resume);
+
+            try {
+                resumeRepository.save(resume);
+            } catch (Exception e) {
+                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            }
 
             List<String> positionList = userUpdateResumeDTO.getPositionList();
             for (String positionName : positionList) {
@@ -163,8 +182,12 @@ public class ResumeService {
                         .resume(resume)
                         .position(position)
                         .build();
+                try {
+                    wishPositionRepository.save(wishPosition);
+                } catch (Exception e) {
+                    throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                }
 
-                wishPositionRepository.save(wishPosition);
             }
             // 내가 선택한 체크박스 포지션 등록
 
@@ -176,12 +199,16 @@ public class ResumeService {
                         .resume(resume)
                         .skill(skill)
                         .build();
-                hasSkillRepository.save(hasSkill);
+
+                try {
+                    hasSkillRepository.save(hasSkill);
+                } catch (Exception e) {
+                    throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                }
+
             }
             // 내가 선택한 체크박스 스킬 등록
 
-        } else {
-            throw new MyException("수정시 에러가 발생했습니다.");
         }
 
     }
@@ -193,25 +220,34 @@ public class ResumeService {
 
     @Transactional
     public void 삭제(Integer id) {
-        System.out.println("나여기0" + id);
+
         List<HasSkill> hasSkillList = hasSkillRepository.findByResumeId(id);
         for (HasSkill hasSkill : hasSkillList) {
             hasSkill.setResume(null);
-            hasSkillRepository.save(hasSkill);
+            try {
+                hasSkillRepository.save(hasSkill);
+            } catch (Exception e) {
+                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            }
+
         }
-        System.out.println("나여기1 : 성공");
 
         List<WishPosition> wishPositionList = wishPositionRepository.findByResumeId(id);
         for (WishPosition wishPosition : wishPositionList) {
             wishPosition.setResume(null);
-            wishPositionRepository.save(wishPosition);
+
+            try {
+                wishPositionRepository.save(wishPosition);
+            } catch (Exception e) {
+                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            }
+
         }
-        System.out.println("나여기2 : 성공");
+
         try {
             resumeRepository.deleteById(id);
-            System.out.println("나여기3 : 성공");
         } catch (Exception e) {
-            throw new MyException("삭제에 실패했습니다. : " + e.getMessage());
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
         }
 
     }
@@ -257,61 +293,6 @@ public class ResumeService {
         return resumeInJobOpeningDTO;
 
     }
-
-    // public List<CompUserOpenResumeDTO> 조건선택(String career, String careerYear,
-    // String address) {
-
-    // List<Resume> resumeList =
-    // resumeRepository.findByOpenAndCareerAndOpenAddress(career, careerYear,
-    // address);
-    // // List<Resume> resumeCareerAndAdress = null;
-
-    // // if (career == null && careerYear == null && address != null) {
-    // // resumeCareerAndAdress =
-    // // resumeQueryRepository.mFindBySelectedCareerOrCareerYearOrAddress(null,
-    // null,
-    // // address);
-    // // } else if (career == null && careerYear != null && address == null) {
-    // // resumeCareerAndAdress =
-    // // resumeQueryRepository.mFindBySelectedCareerOrCareerYearOrAddress(null,
-    // // careerYear, null);
-    // // } else if (career != null && careerYear == null && address == null) {
-    // // resumeCareerAndAdress =
-    // // resumeQueryRepository.mFindBySelectedCareerOrCareerYearOrAddress(career,
-    // // null,
-    // // null);
-    // // } else if ((career == null || careerYear == null) && (address != null ||
-    // // address == " ")) {
-    // // resumeCareerAndAdress =
-    // // resumeQueryRepository.mFindBySelectedCareerOrCareerYearAndAddress(career,
-    // // careerYear,
-    // // address);
-    // // }
-    // List<CompUserOpenResumeDTO> compUserOpenResumeDTOList = new ArrayList<>();
-    // for (Resume resume : resumeList) {
-    // List<String> skills = new ArrayList<>();
-    // for (HasSkill skill : resume.getHasSkillList()) {
-    // String skillName = skill.getSkill().getSkill();
-    // skills.add(skillName);
-    // }
-    // String skillFormat = String.join(" · ", skills);
-
-    // CompUserOpenResumeDTO compUserOpenResumeDTO = CompUserOpenResumeDTO.builder()
-    // .resumeId(resume.getId())
-    // .userName(resume.getUserName())
-    // .resumePic(resume.getResumePicUrl())
-    // .address(resume.getAddress())
-    // .career(resume.getCareer())
-    // .careerYear(resume.getCareerYear())
-    // .title(resume.getTitle())
-    // .openCheck(resume.getOpenCheck())
-    // .userSkillList(skillFormat)
-    // .build();
-
-    // compUserOpenResumeDTOList.add(compUserOpenResumeDTO);
-    // }
-    // return compUserOpenResumeDTOList;
-    // }
 
     public List<CompUserOpenResumeDTO> 공개이력서목록() {
         List<Resume> resumeList = resumeRepository.findByCheckUserId();

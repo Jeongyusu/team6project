@@ -65,10 +65,10 @@
                   <td>{{resume.title}}</td>
                   <td>백엔드</td>
                   <td>
-                    <input type="hidden" id="applyState" value="{{applyState}}">
+                    <input type="hidden" id="applyState" value="{{#applyState}}{{applyState}}{{/applyState}}">
                     <input type="hidden" id="applyId" value="{{id}}">
                     <ul id="applyStateUl-{{id}}">
-                      <li>{{applyState}}</li>
+                      <li>{{#applyState}}{{applyState}}{{/applyState}}{{^applyState}}대기중{{/applyState}}</li>
                     </ul>
                   </td>
                 </tr>

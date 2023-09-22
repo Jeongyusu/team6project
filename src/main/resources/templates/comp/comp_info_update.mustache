@@ -61,7 +61,7 @@
                     class="form-control"
                     id="compDate"
                     name="compDate"
-                    value="{{ compHistory }}"
+                    value="{{#compHistory}}{{ compHistory }}{{/compHistory}}"
                   />
                 </div>
                 <div>
@@ -71,7 +71,7 @@
                     class="form-control"
                     id="compExplan"
                     name="compExplan"
-                    value="{{ compIntro }}"
+                    value="{{#compIntro }}{{ compIntro }}{{/compIntro }}"
                   />
                 </div>
                 {{/sessionUser}}

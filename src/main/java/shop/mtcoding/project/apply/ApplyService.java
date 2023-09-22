@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.user.User;
@@ -22,7 +23,11 @@ public class ApplyService {
                 .resume(Resume.builder().id(applySaveDTO.getSelectResumeId()).build())
                 .jobOpening(JobOpening.builder().id(applySaveDTO.getSelectJobOpeningId()).build())
                 .build();
-        applyRepository.save(apply);
+        try {
+            applyRepository.save(apply);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
 
     }
 
@@ -35,7 +40,11 @@ public class ApplyService {
         apply.setResume(Resume.builder().id(applyStateDTO.getResumeId()).build());
         apply.setJobOpening(JobOpening.builder().id(applyStateDTO.getJobOpeningId()).build());
         apply.setApplyState(applyStateDTO.getApplyState());
-        applyRepository.save(apply);
+        try {
+            applyRepository.save(apply);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
 
     }
 

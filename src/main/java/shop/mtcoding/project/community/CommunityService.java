@@ -103,7 +103,12 @@ public class CommunityService {
                 .content(boardSaveDTO.getContent())
                 .user(User.builder().id(sessionId).build())
                 .build();
-        communityRepository.save(community);
+        try {
+            communityRepository.save(community);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
+
     }
 
     //// 게시물 상세
@@ -221,7 +226,12 @@ public class CommunityService {
             if (sessionId != community.getUser().getId()) {
                 throw new MyException("게시물 삭제의 권한이 없습니다.");
             }
-            communityRepository.deleteById(id);
+            try {
+                communityRepository.deleteById(id);
+            } catch (Exception e) {
+                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            }
+
         } else {
             throw new MyException("해당 게시글을 찾을 수 없습니다.");
         }

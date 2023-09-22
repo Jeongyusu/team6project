@@ -3,6 +3,7 @@ package shop.mtcoding.project.resume;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,14 +72,14 @@ public class ResumeController {
     }
 
     @GetMapping("/comp/resume/{id}")
-    public String userOpenResumeDetail(@PathVariable Integer id, Model model) {
+    public String userOpenResumeDetail(@PathVariable Integer id, Model model, HttpServletRequest request) {
         Resume resume = resumeRepository.findById(id).get();
         model.addAttribute("resume", resume);
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userRepository.findById(sessionUser.getId()).get();
         List<JobOpening> jobOpeningList = jobOpeningRepository.findByUserId(user.getId());
-        System.out.println("나요기" + jobOpeningList.get(0).getTitle());
-        model.addAttribute("jobOpeningList", jobOpeningList);
+        // model.addAttribute("jobOpeningList", jobOpeningList);
+        request.setAttribute("jobOpeningList", jobOpeningList);
         return "comp/comp_resume_detail";
     }
 

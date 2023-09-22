@@ -39,7 +39,12 @@ public class ScrapService {
                 .jobOpening(JobOpening.builder().id(userScrapDTO.getJobOpeningId()).build())
                 .build();
 
-        userScrapRepository.save(userScrap);
+        try {
+            userScrapRepository.save(userScrap);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유: " + e.getMessage());
+        }
+
     }
 
     @Transactional
@@ -57,7 +62,13 @@ public class ScrapService {
         if (sessionId != userScrap.getUser().getId()) {
             throw new MyException("삭제할 권한이 없습니다.");
         }
-        userScrapRepository.mdeleteByJobOpeningId(userScrapDeleteDTO.getJobOpeningId(), sessionId);
+
+        try {
+            userScrapRepository.mdeleteByJobOpeningId(userScrapDeleteDTO.getJobOpeningId(), sessionId);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
+
     }
 
     @Transactional
@@ -67,7 +78,11 @@ public class ScrapService {
                 .resume(Resume.builder().id(compScrapSaveDTO.getResumeId()).build())
                 .build();
 
-        compScrapRepository.save(compScrap);
+        try {
+            compScrapRepository.save(compScrap);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유: " + e.getMessage());
+        }
     }
 
     @Transactional
@@ -86,7 +101,12 @@ public class ScrapService {
         if (sessionId != compScrap.getUser().getId()) {
             throw new MyException("삭제할 권한이 없습니다.");
         }
-        compScrapRepository.mdeleteByResumeId(compScrapDeleteDTO.getResumeId(), sessionId);
+
+        try {
+            compScrapRepository.mdeleteByResumeId(compScrapDeleteDTO.getResumeId(), sessionId);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
 
     }
 

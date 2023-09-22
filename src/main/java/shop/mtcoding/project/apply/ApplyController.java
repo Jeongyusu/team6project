@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
 import shop.mtcoding.project.apply.ApplyRequest.ApplySaveDTO;
@@ -74,44 +75,49 @@ public class ApplyController {
 
     @PostMapping("/user/apply")
     public @ResponseBody String UserApply(ApplySaveDTO applySaveDTO) {
-        System.out.println("실험중" + applySaveDTO.getSelectResumeId());
-        System.out.println("실험중" + applySaveDTO.getSelectJobOpeningId());
 
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userRepository.findById(sessionUser.getId()).get();
         applyService.지원(applySaveDTO, user.getId());
         Integer id = applySaveDTO.getSelectJobOpeningId();
-        return Script.href("/user/jobOpening/"+id, "지원 완료");
+        return Script.href("/user/jobOpening/" + id, "지원 완료");
     }
 
     @GetMapping("/user/applyAndSuggest")
     public String userApplyAndSuggest(Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userRepository.findById(sessionUser.getId()).get();
-        List<Apply> applyList = applyRepository.findByUserId(user.getId());
-        int totalApply = applyList.size();
-        List<Suggest> suggestList = suggestRepository.findBySuggestUserId(user.getId());
-        int totalSuggest = suggestList.size();
-        model.addAttribute("suggestList", suggestList);
-        model.addAttribute("totalApply", totalApply);
-        model.addAttribute("applyList", applyList);
-        model.addAttribute("totalSuggest", totalSuggest);
-
+        if (sessionUser != null) {
+            User user = userRepository.findById(sessionUser.getId()).get();
+            List<Apply> applyList = applyRepository.findByUserId(user.getId());
+            int totalApply = applyList.size();
+            List<Suggest> suggestList = suggestRepository.findBySuggestUserId(user.getId());
+            int totalSuggest = suggestList.size();
+            model.addAttribute("suggestList", suggestList);
+            model.addAttribute("totalApply", totalApply);
+            model.addAttribute("applyList", applyList);
+            model.addAttribute("totalSuggest", totalSuggest);
+        } else {
+            throw new MyException("로그인 후 이용하세요");
+        }
         return "user/user_resume_management";
     }
 
     @GetMapping("/comp/applyAndSuggest")
     public String compApplyAndSuggest(Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userRepository.findById(sessionUser.getId()).get();
-        List<Apply> applyList = applyRepository.findByUserIdofJobOpening(user.getId());
-        int totalApply = applyList.size();
-        List<Suggest> suggestList = suggestRepository.findByUserIdofJobOpeningInSuggest(user.getId());
-        int totalSuggest = suggestList.size();
-        model.addAttribute("suggestList", suggestList);
-        model.addAttribute("totalApply", totalApply);
-        model.addAttribute("applyList", applyList);
-        model.addAttribute("totalSuggest", totalSuggest);
+        if (sessionUser != null) {
+            User user = userRepository.findById(sessionUser.getId()).get();
+            List<Apply> applyList = applyRepository.findByUserIdofJobOpening(user.getId());
+            int totalApply = applyList.size();
+            List<Suggest> suggestList = suggestRepository.findByUserIdofJobOpeningInSuggest(user.getId());
+            int totalSuggest = suggestList.size();
+            model.addAttribute("suggestList", suggestList);
+            model.addAttribute("totalApply", totalApply);
+            model.addAttribute("applyList", applyList);
+            model.addAttribute("totalSuggest", totalSuggest);
+        } else {
+            throw new MyException("로그인 후 이용하세요");
+        }
         return "comp/comp_apply_management";
     }
 

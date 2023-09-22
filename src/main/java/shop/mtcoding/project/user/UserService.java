@@ -71,7 +71,13 @@ public class UserService {
                     .userPassword(userjoinDTO.getUserPassword()).gubun(userjoinDTO.getGubun()).build();
         }
 
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
+
     }
 
     public User 유저로그인(UserRequest.UserLoginDTO userloginDTO) {
@@ -79,7 +85,7 @@ public class UserService {
         User user = null;
         if (userloginDTO.getGubun() == 1) {
             user = userRepository.findByUserEmailId(userloginDTO.getUserEmailId());
-        } else if(userloginDTO.getGubun() == 2){
+        } else if (userloginDTO.getGubun() == 2) {
             user = userRepository.findByCompEmailId(userloginDTO.getCompEmailId());
         }
 
@@ -95,10 +101,11 @@ public class UserService {
 
     }
 
+    @Transactional
     public User 회원정보수정(UserRequest.UserUpdateDTO userUpdateDTO, Integer id) {
-     
+
         User user = userRepository.findById(id).get();
-       
+
         if (!user.getUserPassword().equals(userUpdateDTO.getNowPassword())) {
             throw new MyException("현재 비밀번호가 틀렸습니다.");
         }
@@ -106,7 +113,13 @@ public class UserService {
             throw new MyException("새로운 비밀번호가 일치하지않습니다.");
         }
         user.setUserPassword(userUpdateDTO.getNewPassword());
-        userRepository.save(user);
+
+        try {
+            userRepository.save(user);
+
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
 
         return user;
     }
@@ -125,7 +138,12 @@ public class UserService {
 
         user.setCompPicUrl(fileName);
 
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
 
         return user;
     }
@@ -149,7 +167,12 @@ public class UserService {
         user.setCompHistory(compHistoryDate);
         user.setCompIntro(compInfoUpdateDTO.getCompExplan());
 
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
 
         return user;
 

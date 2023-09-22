@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.user.User;
@@ -18,10 +19,15 @@ public class SuggestService {
     public void 제안(SuggestRequest.SuggestSaveDTO suggestSaveDTO, Integer userId) {
         Suggest suggest = Suggest.builder()
                 .user(User.builder().id(userId).build())
-                .resume(Resume.builder().id(suggestSaveDTO.getResumeId()).build())
+                .resume(Resume.builder().id(suggestSaveDTO.getSelectedResumeId()).build())
                 .jobOpening(JobOpening.builder().id(suggestSaveDTO.getJobOpeningId()).build())
                 .build();
-        suggestRepository.save(suggest);
+        try {
+            suggestRepository.save(suggest);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
+
     }
 
     @Transactional
@@ -34,7 +40,12 @@ public class SuggestService {
         suggest.setJobOpening(JobOpening.builder().id(suggestStateDTO.getJobOpeningId()).build());
         ;
         suggest.setSugState(suggestStateDTO.getSugState());
-        suggestRepository.save(suggest);
+
+        try {
+            suggestRepository.save(suggest);
+        } catch (Exception e) {
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+        }
 
     }
 
