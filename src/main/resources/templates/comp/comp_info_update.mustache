@@ -14,14 +14,16 @@
         <div class="mypage_left">
           <ul>
             <li>
-              <form action="#">
-                <button type="submit">
-                  <img src="/images/wanted.png" alt=" 기본 이미지" />
-                </button>
-              </form>
+              {{#sessionUser}}
+              <div class="comp_pic_bg">
+                <div class="comp_pic">
+                    <img id="preview" src="/images/{{#compPicUrl}}{{compPicUrl}}{{/compPicUrl}}">
+                </div>
+              </div>
             </li>
             <li>
-              <h3>{{ sessionUser.userName }}</h3>
+              <h3>{{ userName }}</h3>
+              {{/sessionUser}}
             </li>
           </ul>
           <ul class="mypage_menu tab_menu">

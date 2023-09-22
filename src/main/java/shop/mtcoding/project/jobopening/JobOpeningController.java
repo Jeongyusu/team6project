@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project._core.error.ex.MyApiException;
 import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project.apply.ApplyRepository;
@@ -105,7 +106,7 @@ public class JobOpeningController {
         model.addAttribute("totalJopOpeningList", totalJopOpeningList);
         model.addAttribute("jobOpeningList", jobOpeningList);
 
-        return "/comp/comp_resume";
+        return "comp/comp_resume";
     }
 
     // comp_ 채용공고 메인 화면
@@ -161,6 +162,11 @@ public class JobOpeningController {
     @GetMapping("/comp/jobOpening/saveForm")
     public String saveCompForm(Model model) {
 
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/comp/loginForm";
+        }
+
         List<Skill> skillList = skillService.스킬이름();
         List<Position> positionList = positionService.포지션이름();
 
@@ -173,6 +179,11 @@ public class JobOpeningController {
     // 채용 공고 수정 페이지
     @GetMapping("/comp/jobOpening/{id}/updateForm")
     public String updateCompForm(@PathVariable Integer id, Model model) {
+
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/comp/loginForm";
+        }
 
         List<Skill> skillList = skillService.스킬이름();
         List<Position> positionList = positionService.포지션이름();
@@ -225,6 +236,14 @@ public class JobOpeningController {
     @PostMapping("/comp/jobOpening/save")
     public String saveComp(JobOpeningRequest.JobOpeningSaveDTO jobOpeningSaveDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/comp/loginForm";
+        }
+
+        if (jobOpeningSaveDTO.getTitle() == null || jobOpeningSaveDTO.getTitle().isEmpty()) {
+            return "redirect:/40x";
+        }
+
         jobOpeningService.공고등록(jobOpeningSaveDTO, sessionUser.getId());
         return "redirect:/comp/jobOpening/compResume";
     }
@@ -233,6 +252,12 @@ public class JobOpeningController {
     @PostMapping("/comp/jobOpening/{id}/update")
     public String updateComp(@PathVariable Integer id,
             JobOpeningRequest.JobOpeningUpdateDTO jobOpeningUpdateDTO) {
+
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/comp/loginForm";
+        }
+
         jobOpeningService.공고수정(jobOpeningUpdateDTO, id);
         return "redirect:/comp/jobOpening/compResume";
     }
@@ -241,10 +266,15 @@ public class JobOpeningController {
 
     @PostMapping("/api/comp/jobOpening/{id}/delete")
     public @ResponseBody ApiUtil<String> delete(@PathVariable("id") Integer id) {
+
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            throw new MyApiException("인증되지 않았습니다");
+        }
         // 2. 핵심로직
         jobOpeningService.공고삭제(id);
-        // 3. 응답
         return new ApiUtil<String>(true, "공고가 삭제되었습니다");
+        // 3. 응답
     }
 
     // --------- delete

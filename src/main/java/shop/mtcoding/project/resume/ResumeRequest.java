@@ -95,7 +95,6 @@ public class ResumeRequest {
             this.careerYear = careerYear;
             this.openCheck = openCheck;
         }
-
     }
 
 }

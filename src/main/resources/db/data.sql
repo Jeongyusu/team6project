@@ -3,9 +3,9 @@ insert into user_tb (user_email_id, user_name, user_password, user_pic_url, crea
 insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('cos@nate.com', 'cos', '1234', 'n_img.png', now(), 1);
 insert into user_tb (user_email_id, user_name, user_password, user_pic_url, created_at, gubun) values('love@nate.com', 'love', '1234', 'c_img.png', now(), 1);
 -- 여기는 회사가 유저의 이력서를 스크랩한 상태 --
-insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('toss@nate.com','toss', '1234', '2010-10-25', '세계1위 애플 입니다', 'comp_img01.png', now(), 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('toss@nate.com','toss', '1234', '2010-10-25', '세계1위 애플 입니다', 'apple.png', now(), 2);
 insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('naver@nate.com', 'naver', '1234','2000-11-15', '세계1위 네이버입니다', 'comp_img01.png', now(), 2);
-insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('kakao@nate.com', 'kakao', '1234','2005-12-01', '세계1위 카카오입니다', 'comp_img01.png', now(), 2);
+insert into user_tb (comp_email_id, user_name, user_password, comp_history, comp_intro, comp_pic_url, created_at, gubun) values('kakao@nate.com', 'kakao', '1234','2005-12-01', '세계1위 카카오입니다', 'kakao.png', now(), 2);
 --
 insert into comp_scrap_tb (created_at) values(now());
 insert into comp_scrap_tb (created_at) values(now());

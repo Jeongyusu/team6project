@@ -14,20 +14,26 @@
         <div class="mypage_left">
           <ul>
             <li>
-              <img src="/images/basic.jpg" alt="기본 이미지" />
+              <div class="main_pic">
+                <img id="preview" src="/images/basic.jpg" alt="기본 이미지">
+                <input type="hidden" onchange="changeUserPic(event)" name="userPic">
+              </div>
+
             </li>
             <li>
-              <h3>남은혜</h3>
+              {{#sessionUser}}
+              <h3>{{userName}}</h3>
+              {{/sessionUser}}
             </li>
           </ul>
-          <ul class="mypage_menu">
+          <ul class="mypage_menu tab_menu">
             <li><a href="/user/resume">이력서</a></li>
             <li><a href="/user/applyAndSuggest">지원/제안</a></li>
             <li><a href="/user/scrap">스크랩</a></li>
+            <li><a href="/user/info/updateForm">정보 수정</a></li>
           </ul>
           <ul class="mypage_menu">
-            <li><a href="/user/info/updateForm">정보 수정</a></li>
-            <li><a href="/user/logout">로그아웃</a></li>
+            <li><a href="#">로그아웃</a></li>
           </ul>
         </div>
       </div>
