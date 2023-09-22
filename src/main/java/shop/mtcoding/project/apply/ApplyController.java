@@ -125,9 +125,10 @@ public class ApplyController {
     public @ResponseBody ApiUtil<String> AnswerApply(@RequestBody ApplyRequest.ApplyStateDTO applyStateDTO,
             Model model) {
         System.out.println("테스트중" + applyStateDTO.getApplyState());
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userRepository.findById(sessionUser.getId()).get();
-        applyService.지원응답(applyStateDTO, user.getId());
+        // User sessionUser = (User) session.getAttribute("sessionUser");
+        // User user = userRepository.findById(sessionUser.getId()).get();
+        System.out.println("테스트중나여기" + applyStateDTO.getApplyState());
+        applyService.지원응답(applyStateDTO);
 
         return new ApiUtil<String>(true, applyStateDTO.getApplyState());
 

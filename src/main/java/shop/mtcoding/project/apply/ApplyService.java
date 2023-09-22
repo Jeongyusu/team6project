@@ -32,11 +32,10 @@ public class ApplyService {
     }
 
     @Transactional
-    public void 지원응답(ApplyRequest.ApplyStateDTO applyStateDTO, Integer userId) {
+    public void 지원응답(ApplyRequest.ApplyStateDTO applyStateDTO) {
 
         Apply apply = applyRepository.findByResumeIdAndJobOpeningId(applyStateDTO.getResumeId(),
-                applyStateDTO.getResumeId());
-        apply.setUser(User.builder().id(userId).build());
+                applyStateDTO.getJobOpeningId());
         apply.setResume(Resume.builder().id(applyStateDTO.getResumeId()).build());
         apply.setJobOpening(JobOpening.builder().id(applyStateDTO.getJobOpeningId()).build());
         apply.setApplyState(applyStateDTO.getApplyState());

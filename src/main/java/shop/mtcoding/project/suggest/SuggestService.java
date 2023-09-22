@@ -17,6 +17,9 @@ public class SuggestService {
 
     @Transactional
     public void 제안(SuggestRequest.SuggestSaveDTO suggestSaveDTO, Integer userId) {
+        System.out.println("테스트" + suggestSaveDTO.getJobOpeningId());
+        System.out.println("테스트" + suggestSaveDTO.getSelectedResumeId());
+        System.out.println("테스트" + suggestSaveDTO.getSelectedUserId());
         Suggest suggest = Suggest.builder()
                 .user(User.builder().id(userId).build())
                 .resume(Resume.builder().id(suggestSaveDTO.getSelectedResumeId()).build())
@@ -31,11 +34,10 @@ public class SuggestService {
     }
 
     @Transactional
-    public void 제안응답(SuggestRequest.SuggestStateDTO suggestStateDTO, Integer userId) {
+    public void 제안응답(SuggestRequest.SuggestStateDTO suggestStateDTO) {
 
         Suggest suggest = suggestRepository.findByResumeIdAndJobOpeningId(suggestStateDTO.getResumeId(),
                 suggestStateDTO.getJobOpeningId());
-        suggest.setUser(User.builder().id(userId).build());
         suggest.setResume(Resume.builder().id(suggestStateDTO.getResumeId()).build());
         suggest.setJobOpening(JobOpening.builder().id(suggestStateDTO.getJobOpeningId()).build());
         ;

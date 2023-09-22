@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.project._core.util.ApiUtil;
+import shop.mtcoding.project._core.util.Script;
 import shop.mtcoding.project.resume.Resume;
 import shop.mtcoding.project.resume.ResumeRepository;
 import shop.mtcoding.project.suggest.SuggestRequest.SuggestSaveDTO;
@@ -41,21 +42,20 @@ public class SuggestController {
     }
 
     @PostMapping("/comp/suggest")
-    public String UserSuggest(SuggestSaveDTO suggestSaveDTO, Model model) {
+    public @ResponseBody String UserSuggest(SuggestSaveDTO suggestSaveDTO, Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userRepository.findById(sessionUser.getId()).get();
         suggestService.제안(suggestSaveDTO, user.getId());
         model.addAttribute("sessionUser", sessionUser);
         Integer id = suggestSaveDTO.getSelectedResumeId();
-        return "redirect:/user/" + id + "/resume/detail";
+        return Script.href("/comp/resume/" + id, "제안 완료");
     }
 
     @PostMapping("/api/suggest/answer/update")
     public @ResponseBody ApiUtil<String> AnswerSuggest(@RequestBody SuggestRequest.SuggestStateDTO suggestStateDTO,
             Model model) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userRepository.findById(sessionUser.getId()).get();
-        suggestService.제안응답(suggestStateDTO, user.getId());
+
+        suggestService.제안응답(suggestStateDTO);
         return new ApiUtil<String>(true, suggestStateDTO.getSugState());
 
     }

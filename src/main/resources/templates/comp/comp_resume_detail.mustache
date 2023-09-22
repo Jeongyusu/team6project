@@ -6,7 +6,8 @@
   <div class="container">
     <!-- container 건들지 말기 -->
     <!-- 여기서부터 시작 -->
-    <form action="/user/green">
+    <form action="/comp/suggest" method="POST">
+    <input type="hidden" name="selectedResumeId" value={{resume.id}}>
       <div class="main_total">
         <div class="main_tit">
           <h2>이력서</h2>
@@ -185,7 +186,6 @@
                                   <li class="apply_resume">
                                       <div class="resume_check_button">
                                           <input type="radio" name="jobOpeningId" value={{id}}>
-                                          <input type="hidden" name="selectedResumeId" value="{{ id }}" />
                                              <input
                                                  type="hidden"
                                                  name="selectedUserId"
