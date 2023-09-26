@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.project._core.error.ex.MyException;
 import shop.mtcoding.project._core.util.ApiUtil;
 import shop.mtcoding.project._core.util.Script;
 import shop.mtcoding.project.jobopening.JobOpening;
@@ -73,13 +74,17 @@ public class ResumeController {
 
     @GetMapping("/comp/resume/{id}")
     public String userOpenResumeDetail(@PathVariable Integer id, Model model, HttpServletRequest request) {
-        Resume resume = resumeRepository.findById(id).get();
-        model.addAttribute("resume", resume);
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userRepository.findById(sessionUser.getId()).get();
-        List<JobOpening> jobOpeningList = jobOpeningRepository.findByUserId(user.getId());
-        // model.addAttribute("jobOpeningList", jobOpeningList);
-        request.setAttribute("jobOpeningList", jobOpeningList);
+        if (sessionUser != null) {
+            Resume resume = resumeRepository.findById(id).get();
+            model.addAttribute("resume", resume);
+            User user = userRepository.findById(sessionUser.getId()).get();
+            List<JobOpening> jobOpeningList = jobOpeningRepository.findByUserId(user.getId());
+            // model.addAttribute("jobOpeningList", jobOpeningList);
+            request.setAttribute("jobOpeningList", jobOpeningList);
+        } else {
+            throw new MyException("로그인 후 이용하세요");
+        }
         return "comp/comp_resume_detail";
     }
 
