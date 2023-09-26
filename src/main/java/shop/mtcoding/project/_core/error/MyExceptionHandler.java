@@ -15,9 +15,9 @@ public class MyExceptionHandler {
 
     @ExceptionHandler(MyException.class)
     public String error(MyException e) {
-        log.debug("에러 " + e.getMessage());
-        log.info("에러 " + e.getMessage());
+        System.out.println("나요기--------------------------------------------------------------");
         return Script.back(e.getMessage());
+        // return "okay";
     }
 
     @ExceptionHandler(MyApiException.class)

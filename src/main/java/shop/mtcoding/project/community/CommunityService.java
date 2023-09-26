@@ -106,7 +106,7 @@ public class CommunityService {
         try {
             communityRepository.save(community);
         } catch (Exception e) {
-            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            throw new MyException("게시물 작성 중 에러가 발생했습니다. 이유 : " + e.getClass().toString());
         }
 
     }
@@ -229,7 +229,7 @@ public class CommunityService {
             try {
                 communityRepository.deleteById(id);
             } catch (Exception e) {
-                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                throw new MyException("게시글 삭제 중 에러가 발생했습니다. 이유 : " + e.getClass().toString());
             }
 
         } else {

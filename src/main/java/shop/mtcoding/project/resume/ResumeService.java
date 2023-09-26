@@ -40,9 +40,6 @@ public class ResumeService {
     ResumeRepository resumeRepository;
 
     @Autowired
-    private HttpSession session;
-
-    @Autowired
     private PositionRepository positionRepository;
 
     @Autowired
@@ -53,9 +50,6 @@ public class ResumeService {
 
     @Autowired
     private HasSkillRepository hasSkillRepository;
-
-    @Autowired
-    private RequiredSkillRepository requiredSkillRepository;
 
     @Transactional
     public void 이력서작성(ResumeRequest.UserSaveResumeDTO userSaveResumeDTO, int sessionUserId) {
@@ -90,7 +84,7 @@ public class ResumeService {
         try {
             resumeRepository.save(resume);
         } catch (Exception e) {
-            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            throw new MyException("이력서 작성 중 에러가 발생했습니다. 이유 : " + e.getClass().toString());
         }
 
         List<String> positionList = userSaveResumeDTO.getPositionList();

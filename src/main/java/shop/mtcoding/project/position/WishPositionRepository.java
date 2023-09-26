@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import shop.mtcoding.project.resume.Resume;
-import shop.mtcoding.project.skill.HasSkill;
 
 public interface WishPositionRepository extends JpaRepository<WishPosition, Integer> {
 

@@ -19,6 +19,7 @@ public class ApplyService {
     @Transactional
     public void 지원(ApplyRequest.ApplySaveDTO applySaveDTO, Integer id) {
         Apply apply = Apply.builder()
+                .applyState("대기중")
                 .user(User.builder().id(id).build())
                 .resume(Resume.builder().id(applySaveDTO.getSelectResumeId()).build())
                 .jobOpening(JobOpening.builder().id(applySaveDTO.getSelectJobOpeningId()).build())
@@ -26,7 +27,7 @@ public class ApplyService {
         try {
             applyRepository.save(apply);
         } catch (Exception e) {
-            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            throw new MyException("지원하기 에러가 발생했습니다 : " + e.getClass().toString());
         }
 
     }
@@ -42,7 +43,7 @@ public class ApplyService {
         try {
             applyRepository.save(apply);
         } catch (Exception e) {
-            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            throw new MyException("지원응답 중 에러가 발생했습니다. 이유 : " + e.getClass().toString());
         }
 
     }

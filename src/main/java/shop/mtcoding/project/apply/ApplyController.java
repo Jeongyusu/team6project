@@ -90,7 +90,7 @@ public class ApplyController {
             User user = userRepository.findById(sessionUser.getId()).get();
             List<Apply> applyList = applyRepository.findByUserId(user.getId());
             int totalApply = applyList.size();
-            List<Suggest> suggestList = suggestRepository.findBySuggestUserId(user.getId());
+            List<Suggest> suggestList = suggestRepository.findBySuggestResumeUserId(user.getId());
             int totalSuggest = suggestList.size();
             model.addAttribute("suggestList", suggestList);
             model.addAttribute("totalApply", totalApply);

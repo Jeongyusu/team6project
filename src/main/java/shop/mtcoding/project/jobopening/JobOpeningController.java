@@ -156,6 +156,7 @@ public class JobOpeningController {
             jobOpeningMainDTO = jobOpeningService.검색후메인화면(keyword);
         }
         model.addAttribute("jobOpeningMainDTO", jobOpeningMainDTO);
+
         return "user_index";
     }
 

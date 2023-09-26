@@ -56,7 +56,7 @@ public class ReplyService {
         try {
             replyRepository.deleteById(replyId);
         } catch (Exception e) {
-            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            throw new MyException("댓글 삭제 중 에러가 발생했습니다. 이유 : " + e.getClass().toString());
         }
 
     }

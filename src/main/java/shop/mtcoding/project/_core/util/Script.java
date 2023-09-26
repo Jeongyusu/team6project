@@ -9,6 +9,7 @@ public class Script {
         sb.append("alert('" + msg + "');");
         sb.append("history.back();");
         sb.append("</script>");
+        System.out.println("sb : toStr4ing  : " + sb.toString());
         return sb.toString();
     }
 

@@ -73,7 +73,7 @@ public class JobOpeningService {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             date = LocalDate.parse(dateString, formatter);
         } catch (DateTimeParseException e) {
-            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            throw new MyException("에러가 발생했습니다. 이유 : " + e.getClass().toString());
         }
         // 내가 선택한 날짜 지정
 
@@ -90,7 +90,7 @@ public class JobOpeningService {
         try {
             jobOpeningRepository.save(jobOpening);
         } catch (Exception e) {
-            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            throw new MyException("공고 등록 중 에러가 발생했습니다. 이유 : " + e.getClass().toString());
         }
 
         List<String> requiredPositionList = jobOpeningSaveDTO.getPositionList();
@@ -104,7 +104,7 @@ public class JobOpeningService {
             try {
                 requiredPositionRepository.save(requiredPosition);
             } catch (Exception e) {
-                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                throw new MyException("공고 등록 중 에러가 발생했습니다(포지션 등록). 이유 : " + e.getClass().toString());
             }
 
         }
@@ -121,7 +121,7 @@ public class JobOpeningService {
             try {
                 requiredSkillRepository.save(requiredSkill);
             } catch (Exception e) {
-                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                throw new MyException("공고 등록 중 에러가 발생했습니다(스킬 등록). 이유 : " + e.getClass().toString());
             }
 
         }
@@ -137,7 +137,7 @@ public class JobOpeningService {
             try {
                 qualifiedRepository.save(qualCont);
             } catch (Exception e) {
-                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                throw new MyException("공고 등록 중 에러가 발생했습니다(자격요건 등록). 이유 : " + e.getClass().toString());
             }
 
         }
@@ -153,7 +153,7 @@ public class JobOpeningService {
             try {
                 taskRepository.save(taskCont);
             } catch (Exception e) {
-                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                throw new MyException("공고 등록 중 에러가 발생했습니다(주요업무 등록). 이유 : " + e.getClass().toString());
             }
 
         }
@@ -191,7 +191,7 @@ public class JobOpeningService {
             try {
                 jobOpeningRepository.save(jobOpening);
             } catch (Exception e) {
-                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                throw new MyException("공고 수정 중 에러가 발생했습니다. 이유 : " + e.getClass().toString());
             }
 
             List<String> positionList = jobOpeningUpdateDTO.getPositionList();
@@ -204,7 +204,7 @@ public class JobOpeningService {
                 try {
                     requiredPositionRepository.save(requiredPosition);
                 } catch (Exception e) {
-                    throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                    throw new MyException("공고 수정 중 에러가 발생했습니다(포지션 수정). 이유 : " + e.getClass().toString());
                 }
 
             }
@@ -219,7 +219,7 @@ public class JobOpeningService {
                 try {
                     requiredSkillRepository.save(requiredSkill);
                 } catch (Exception e) {
-                    throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                    throw new MyException("공고 수정 중 에러가 발생했습니다(스킬 수정). 이유 : " + e.getClass().toString());
                 }
 
             }
@@ -235,7 +235,7 @@ public class JobOpeningService {
                 try {
                     qualifiedRepository.save(requiredQualified);
                 } catch (Exception e) {
-                    throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                    throw new MyException("에러가 발생했습니다(자격요건 수정). 이유 : " + e.getClass().toString());
                 }
 
             }
@@ -251,7 +251,7 @@ public class JobOpeningService {
                 try {
                     taskRepository.save(requiredTask);
                 } catch (Exception e) {
-                    throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+                    throw new MyException("에러가 발생했습니다(주요업무 수정). 이유 : " + e.getClass().toString());
                 }
 
             }
@@ -277,7 +277,7 @@ public class JobOpeningService {
         try {
             jobOpeningRepository.deleteById(id);
         } catch (Exception e) {
-            throw new MyException("삭제에 실패했습니다. 이유 : " + e.getMessage());
+            throw new MyException("삭제에 실패했습니다. 이유 : " + e.getClass().toString());
         }
     }
 

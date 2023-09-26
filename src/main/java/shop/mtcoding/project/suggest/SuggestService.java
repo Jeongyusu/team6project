@@ -21,6 +21,7 @@ public class SuggestService {
         System.out.println("테스트" + suggestSaveDTO.getSelectedResumeId());
         System.out.println("테스트" + suggestSaveDTO.getSelectedUserId());
         Suggest suggest = Suggest.builder()
+                .sugState("대기중")
                 .user(User.builder().id(userId).build())
                 .resume(Resume.builder().id(suggestSaveDTO.getSelectedResumeId()).build())
                 .jobOpening(JobOpening.builder().id(suggestSaveDTO.getJobOpeningId()).build())
@@ -28,7 +29,7 @@ public class SuggestService {
         try {
             suggestRepository.save(suggest);
         } catch (Exception e) {
-            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            throw new MyException("제안하기 에러가 발생했습니다. 이유 : " + e.getClass().toString());
         }
 
     }
@@ -46,7 +47,7 @@ public class SuggestService {
         try {
             suggestRepository.save(suggest);
         } catch (Exception e) {
-            throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
+            throw new MyException("제안 응답 중 에러가 발생했습니다. 이유 : " + e.getClass().toString());
         }
 
     }

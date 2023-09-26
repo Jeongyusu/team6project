@@ -22,8 +22,8 @@ import shop.mtcoding.project.jobopening.JobOpening;
 @Getter
 @Setter
 @Table(name = "apply_tb", uniqueConstraints = {
-           @UniqueConstraint(columnNames = {"resume_id", "job_opening_id"})
-       })
+        @UniqueConstraint(columnNames = { "resume_id", "job_opening_id" })
+})
 @Entity
 public class Apply {
 
@@ -31,7 +31,7 @@ public class Apply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String applyState = "대기중";
+    private String applyState;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private JobOpening jobOpening;
@@ -50,7 +50,5 @@ public class Apply {
         this.resume = resume;
         this.user = user;
     }
-
-    
 
 }
