@@ -18,6 +18,5 @@ public class TaskResponse {
         public TaskContentDTO(String taskContent) {
             this.taskContent = taskContent;
         }
-
     }
 }

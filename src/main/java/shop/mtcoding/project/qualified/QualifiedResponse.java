@@ -18,6 +18,5 @@ public class QualifiedResponse {
         public QualifiedContentDTO(String qualifiedContent) {
             this.qualifiedContent = qualifiedContent;
         }
-
     }
 }

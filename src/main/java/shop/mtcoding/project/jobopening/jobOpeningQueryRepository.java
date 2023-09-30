@@ -73,10 +73,10 @@ public class JobOpeningQueryRepository {
     //// 채용정보에서 경력, 기간, 지역을 조인해서, 셋 중에 1의 값만 있어도 조건에 맞는 데이터 출력 = OR/like 사용
     public List<JobOpening> mFindBySelectedCareerOrCareerYearOrLocation(String career, String careerYear,
             String location) {
-        String sql = "SELECT * FROM Job_opening_tb j WHERE (j.career LIKE :career) OR (j.career_year LIKE :careerYear) OR (j.comp_address LIKE :location)";
+        String sql = "SELECT * FROM Job_opening_tb j WHERE (j.career = :career) OR (j.career_year LIKE :careerYear) OR (j.comp_address LIKE :location)";
         Query query = em.createNativeQuery(sql, JobOpening.class);
 
-        query.setParameter("career", "%" + career + "%");
+        query.setParameter("career", career);
         query.setParameter("careerYear", "%" + careerYear + "%");
         query.setParameter("location", "%" + location + "%");
 
@@ -87,14 +87,28 @@ public class JobOpeningQueryRepository {
     //// 사용
     public List<JobOpening> mFindBySelectedCareerOrCareerYearAndLocation(String career, String careerYear,
             String location) {
-        String sql = "SELECT * FROM Job_opening_tb j WHERE ((j.career LIKE :career) OR (j.career_year LIKE :careerYear)) And (j.comp_address LIKE :location)";
+        String sql = "SELECT * FROM Job_opening_tb j WHERE ((j.career = :career) OR (j.career_year LIKE :careerYear)) And (j.comp_address LIKE :location)";
         Query query = em.createNativeQuery(sql, JobOpening.class);
 
-        query.setParameter("career", "%" + career + "%");
+        query.setParameter("career", career);
         query.setParameter("careerYear", "%" + careerYear + "%");
         query.setParameter("location", "%" + location + "%");
 
         return (List<JobOpening>) query.getResultList();
     }
 
+    //// 채용정보에서 경력, 기간, 지역을 조인해서, 셋 중에 지역 + 신입 또는 지역 +경력에 조건에 맞는 데이터 출력 = AND/like
+    //// 사용
+    public List<JobOpening> mFindBySelectedCareerAndCareerYearAndLocation(String career, String careerYear,
+            String location) {
+        String sql = "SELECT * FROM Job_opening_tb j WHERE ((j.career = :career) And (j.career_year LIKE :careerYear)) And (j.comp_address LIKE :location)";
+        Query query = em.createNativeQuery(sql, JobOpening.class);
+
+        query.setParameter("career", career);
+        query.setParameter("careerYear", "%" + careerYear + "%");
+        query.setParameter("location", "%" + location + "%");
+
+        return (List<JobOpening>) query.getResultList();
+
+    }
 }

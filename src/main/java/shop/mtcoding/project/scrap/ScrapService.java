@@ -44,7 +44,6 @@ public class ScrapService {
         } catch (Exception e) {
             throw new MyException("에러가 발생했습니다. 이유: " + e.getMessage());
         }
-
     }
 
     @Transactional
