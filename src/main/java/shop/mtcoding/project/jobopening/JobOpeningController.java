@@ -336,8 +336,11 @@ public class JobOpeningController {
         }
         JobOpeningDetailDTO jobOpeningDetailDTO = jobOpeningService.상세채용공고(id);
         ResumeInJobOpeningDTO resumeInJobOpeningDTO = resumeService.지원화면();
+        Boolean userScrap = scrapService.채용정보스크랩유무(sessionUser.getId(), id);
         model.addAttribute("jobOpeningDetailDTO", jobOpeningDetailDTO);
         model.addAttribute("resumeInJobOpeningDTO", resumeInJobOpeningDTO);
+        model.addAttribute("userScrap", userScrap);
+        System.out.println("test : " + userScrap);
         return "user/user_job_opening_apply";
     }
 

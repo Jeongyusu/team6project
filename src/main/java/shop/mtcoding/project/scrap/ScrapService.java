@@ -173,4 +173,15 @@ public class ScrapService {
         return scrapJobOpeningDTOList;
     }
 
+    // User scrap 유무
+    public Boolean 채용정보스크랩유무(Integer sessionId, Integer jobOpeningId) {
+        Optional<UserScrap> userScrapOP = userScrapRepository.mfindByJobOpeningId(jobOpeningId, sessionId);
+        Boolean scrapUser = false;
+        if (userScrapOP.isPresent()) {
+            scrapUser = true;
+        } else {
+            scrapUser = false;
+        }
+        return scrapUser;
+    }
 }
