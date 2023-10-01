@@ -467,26 +467,18 @@ public class JobOpeningService {
         // location = 전국, " "으로 처리
         if (career == null && careerYear == null && location != null) {
             jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerOrCareerYearOrLocation(null, null, location);
-            System.out.println("테스트 : 1");
         } else if (career == null && careerYear != null && location == null) {
             jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerOrCareerYearOrLocation(null, careerYear, null);
-            System.out.println("테스트 : 2");
         } else if (career != null && careerYear == null && location == null) {
             jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerOrCareerYearOrLocation(career, null, null);
-            System.out.println("테스트 : 3");
         } else if (career != null && careerYear != null && location == null) {
-            System.out.println("테스트 : 4");
             jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerOrCareerYearOrLocation(career, careerYear, null);
         } else if ((career == null || careerYear == null) && (location != null || location == " ")) {
             jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerOrCareerYearAndLocation(career, careerYear,
                     location);
-            System.out.println("테스트 : career : " + career + " careerYear : " + careerYear + " location : " + location);
-            System.out.println("테스트 : 5");
         } else if (career != null && careerYear != null && (location != null || location == " ")) {
             jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerAndCareerYearAndLocation(career, careerYear,
                     location);
-            System.out.println("테스트 : career : " + career + " careerYear : " + careerYear + " location : " + location);
-            System.out.println("테스트 : 6");
         }
 
         // jobOpening을 담기 위한 List
