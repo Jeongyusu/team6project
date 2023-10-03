@@ -187,13 +187,15 @@
         await render3(careerValue, careerYearValue, null);
 
       } else if ((careerValue !== null) && (careerYearValue === null) && (locationValue === "전국")) {
-        await render3(careerValue, null, " ");
+        locationValue = " ";
+        await render3(careerValue, null, locationValue);
 
       } else if ((careerValue !== null) && (careerYearValue === null) && (locationValue === null)) {
         await render3(careerValue, null, null);
 
-      } else if ((careerYearValue === null) && (careerYearValue !== null) && (locationValue === "전국")) {
-        await render3(null, careerYearValue, " ");
+      } else if (((careerValue === null) && (careerYearValue !== null)) && (locationValue === "전국")) {
+        locationValue = " ";
+        await render3(null, careerYearValue, locationValue);
 
       } else if ((careerValue === null) && (careerYearValue !== null) && (locationValue === null)) {
         await render3(null, careerYearValue, null);
@@ -202,13 +204,16 @@
         await render3(null, null, locationValue);
 
       } else if ((careerValue === null) && (careerYearValue === null) && locationValue === "전국") {
-        await render3(null, null, " ");
+        locationValue = " ";
+        await render3(null, null, locationValue);
 
       } else if ((careerValue !== null) && (careerYearValue !== null) && (locationValue !== "전국" && locationValue !== null)) {
         await render3(careerValue, careerYearValue, locationValue);
 
       } else if ((careerValue !== null) && (careerYearValue !== null) && (locationValue === "전국")) {
-        await render3(careerValue, careerYearValue, " ");
+        locationValue = " ";
+        await render3(careerValue, careerYearValue, locationValue);
+
       }
     });
 
@@ -291,7 +296,7 @@
         url += `?career=${career}&careerYear=${careerYear}`;
       } else if (career != null && careerYear == null && location != null) {
         url += `?career=${career}&location=${location}`;
-      } else if (career == null && careerYear != null && location != null) {
+      } else if (career == null && careerYear != null && location !=null) {
         url += `?careerYear=${careerYear}&location=${location}`;
       } else if (career != null && careerYear != null & location != null) {
         url += `?career=${career}&careerYear=${careerYear}&location=${location}`;

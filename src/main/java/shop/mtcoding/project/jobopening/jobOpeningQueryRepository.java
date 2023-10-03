@@ -5,11 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import shop.mtcoding.project.jobopening.JobOpeningResponse.JobOpeningMainDTO;
 
 @Repository
 public class JobOpeningQueryRepository {
@@ -71,9 +68,23 @@ public class JobOpeningQueryRepository {
     }
 
     //// 채용정보에서 경력, 기간, 지역을 조인해서, 셋 중에 1의 값만 있어도 조건에 맞는 데이터 출력 = OR/like 사용
-    public List<JobOpening> mFindBySelectedCareerOrCareerYearOrLocation(String career, String careerYear,
+    public List<JobOpening> mFindBySelectCareerAndCareerYearAndlocation(String career, String careerYear,
             String location) {
-        String sql = "SELECT * FROM Job_opening_tb j WHERE (j.career = :career) OR (j.career_year LIKE :careerYear) OR (j.comp_address LIKE :location)";
+        String sql = "SELECT * FROM Job_opening_tb j WHERE ";
+        if (career == null && careerYear == null && location != null) {
+            sql += "(j.career = :career) OR (j.career_year LIKE :careerYear) OR (j.comp_address LIKE :location)";
+        } else if (career == null && careerYear != null && location == null) {
+            sql += "(j.career = :career) OR (j.career_year LIKE :careerYear) OR (j.comp_address LIKE :location)";
+        } else if (career != null && careerYear == null && location == null) {
+            sql += "(j.career = :career) OR (j.career_year LIKE :careerYear) OR (j.comp_address LIKE :location)";
+        } else if (career != null && careerYear != null && location == null) {
+            sql += "(j.career = :career) AND (j.career_year LIKE :careerYear) OR (j.comp_address LIKE :location)";
+        } else if ((career == null || careerYear == null) && (location != null || location == " ")) {
+            sql += "((j.career = :career) OR (j.career_year LIKE :careerYear)) And (j.comp_address LIKE :location)";
+        } else if ((career != null && careerYear != null) && (location != null || location == " ")) {
+            sql += "(j.career = :career) AND (j.career_year LIKE :careerYear) AND (j.comp_address LIKE :location)";
+        }
+
         Query query = em.createNativeQuery(sql, JobOpening.class);
 
         query.setParameter("career", career);
@@ -83,32 +94,4 @@ public class JobOpeningQueryRepository {
         return (List<JobOpening>) query.getResultList();
     }
 
-    //// 채용정보에서 경력, 기간, 지역을 조인해서, 셋 중에 지역 + 신입 또는 지역 +경력에 조건에 맞는 데이터 출력 = AND/like
-    //// 사용
-    public List<JobOpening> mFindBySelectedCareerOrCareerYearAndLocation(String career, String careerYear,
-            String location) {
-        String sql = "SELECT * FROM Job_opening_tb j WHERE ((j.career = :career) OR (j.career_year LIKE :careerYear)) And (j.comp_address LIKE :location)";
-        Query query = em.createNativeQuery(sql, JobOpening.class);
-
-        query.setParameter("career", career);
-        query.setParameter("careerYear", "%" + careerYear + "%");
-        query.setParameter("location", "%" + location + "%");
-
-        return (List<JobOpening>) query.getResultList();
-    }
-
-    //// 채용정보에서 경력, 기간, 지역을 조인해서, 셋 중에 지역 + 신입 또는 지역 +경력에 조건에 맞는 데이터 출력 = AND/like
-    //// 사용
-    public List<JobOpening> mFindBySelectedCareerAndCareerYearAndLocation(String career, String careerYear,
-            String location) {
-        String sql = "SELECT * FROM Job_opening_tb j WHERE ((j.career = :career) And (j.career_year LIKE :careerYear)) And (j.comp_address LIKE :location)";
-        Query query = em.createNativeQuery(sql, JobOpening.class);
-
-        query.setParameter("career", career);
-        query.setParameter("careerYear", "%" + careerYear + "%");
-        query.setParameter("location", "%" + location + "%");
-
-        return (List<JobOpening>) query.getResultList();
-
-    }
 }
