@@ -458,36 +458,14 @@ public class JobOpeningService {
 
     public List<JobOpeningMainDTO> 경력과지역선택(String career, String careerYear, String location) {
 
-        List<JobOpening> jobCareer = null;
         List<JobOpeningMainDTO> jobOpeningMainDTOList = new ArrayList<>();
 
         // career = 경력/신입 ,careerYear = 1년차/2년차/3년차/4년차/5년차, location = 지역
         // career = 신입, location만 선택 가능(careerYear 옵션 비활성화)
         // career = 경력, careerYear, location 선택 가능
         // location = 전국, " "으로 처리
-        if (career == null && careerYear == null && location != null) {
-            jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerOrCareerYearOrLocation(null, null, location);
-            System.out.println("테스트 : 1");
-        } else if (career == null && careerYear != null && location == null) {
-            jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerOrCareerYearOrLocation(null, careerYear, null);
-            System.out.println("테스트 : 2");
-        } else if (career != null && careerYear == null && location == null) {
-            jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerOrCareerYearOrLocation(career, null, null);
-            System.out.println("테스트 : 3");
-        } else if (career != null && careerYear != null && location == null) {
-            System.out.println("테스트 : 4");
-            jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerOrCareerYearOrLocation(career, careerYear, null);
-        } else if ((career == null || careerYear == null) && (location != null || location == " ")) {
-            jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerOrCareerYearAndLocation(career, careerYear,
-                    location);
-            System.out.println("테스트 : career : " + career + " careerYear : " + careerYear + " location : " + location);
-            System.out.println("테스트 : 5");
-        } else if (career != null && careerYear != null && (location != null || location == " ")) {
-            jobCareer = jobOpeningQueryRepository.mFindBySelectedCareerAndCareerYearAndLocation(career, careerYear,
-                    location);
-            System.out.println("테스트 : career : " + career + " careerYear : " + careerYear + " location : " + location);
-            System.out.println("테스트 : 6");
-        }
+        List<JobOpening> jobCareer = jobOpeningQueryRepository.mFindBySelectCareerAndCareerYearAndlocation(career,
+                careerYear, location);
 
         // jobOpening을 담기 위한 List
         for (JobOpening jobOpening : jobCareer) {
