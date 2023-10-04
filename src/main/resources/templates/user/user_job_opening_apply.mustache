@@ -121,6 +121,12 @@
                   name="jobOpeningId"
                   value="{{ jobOpeningDetailDTO.jobOpeningId }}"
                 />
+                <input
+                  type="hidden"
+                  id="userScrap"
+                  name="userScrap"
+                  value="{{ userScrap }}"
+                />
                 <img
                   id="scrap_icon"
                   src="/image/empty_star.png"
@@ -130,12 +136,26 @@
               </button>
             </form>
             <script>
-              let scrapState = 0; // 초기 스크랩 상태 (0: 미스크랩, 1: 스크랩)
+              let scrapState;
+              let booleanScrapState = document.querySelector("#userScrap").value;
+              let scrapIcon = document.querySelector("#scrap_icon");
+              console.log("boolean : " + booleanScrapState);
+
+                if (booleanScrapState === "true") {
+                  scrapIcon.src = "/image/full_star.png";
+                  scrapState = 1;
+                } else {
+                  scrapIcon.src = "/image/empty_star.png";
+                  scrapState = 0;
+                }
+
+                console.log("scrapState : " + scrapState)
 
               async function toggleScrap() {
                 let jobOpeningId =
                   document.querySelector("#jobOpeningId").value;
                 let scrapIcon = document.querySelector("#scrap_icon");
+                // let scrapState = document.querySelector("#userScrap");
 
                 // 스크랩 상태에 따라 메소드 호출
                 if (scrapState === 0) {
@@ -192,12 +212,12 @@
               }
 
               function updateScrapIcon() {
-                let scrapIcon = document.querySelector("#scrap_icon");
-                if (scrapState === 1) {
+                // let scrapIcon = document.querySelector("#scrap_icon");
+              if (scrapState === 1) {
                   scrapIcon.src = "/image/full_star.png";
                 } else {
                   scrapIcon.src = "/image/empty_star.png";
-                }
+                }  
               }
             </script>
           </div>

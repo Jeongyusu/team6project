@@ -337,8 +337,11 @@ public class JobOpeningController {
         }
         JobOpeningDetailDTO jobOpeningDetailDTO = jobOpeningService.상세채용공고(id);
         ResumeInJobOpeningDTO resumeInJobOpeningDTO = resumeService.지원화면();
+        Boolean userScrap = scrapService.채용정보스크랩유무(sessionUser.getId(), id);
         model.addAttribute("jobOpeningDetailDTO", jobOpeningDetailDTO);
         model.addAttribute("resumeInJobOpeningDTO", resumeInJobOpeningDTO);
+        model.addAttribute("userScrap", userScrap);
+        System.out.println("test : " + userScrap);
         return "user/user_job_opening_apply";
     }
 
@@ -351,6 +354,17 @@ public class JobOpeningController {
         model.addAttribute("skillList", skillList);
         model.addAttribute("positionList", positionList);
         return "user/user_emp_info";
+    }
+
+    //// comp_ 채용정보 화면
+    @GetMapping("/comp/jobOpening/select")
+    public String compJobOpeningSelectForm(Model model) {
+        List<Position> positionList = positionService.포지션이름();
+        List<Skill> skillList = skillService.스킬이름();
+        model.addAttribute("positionList", positionList);
+        model.addAttribute("skillList", skillList);
+        model.addAttribute("positionList", positionList);
+        return "comp/comp_emp_info";
     }
 
     //// 채용정보 제일 첫 화면
@@ -377,17 +391,6 @@ public class JobOpeningController {
             @RequestParam(required = false) List<Integer> skillIdList) {
         List<JobOpeningMainDTO> jobOpeningMainDTO = jobOpeningService.포지션과스킬선택(positionIdList, skillIdList);
         return jobOpeningMainDTO;
-    }
-
-    //// comp_ 채용정보 화면
-    @GetMapping("/comp/jobOpening/select")
-    public String compJobOpeningSelectForm(Model model) {
-        List<Position> positionList = positionService.포지션이름();
-        List<Skill> skillList = skillService.스킬이름();
-        model.addAttribute("positionList", positionList);
-        model.addAttribute("skillList", skillList);
-        model.addAttribute("positionList", positionList);
-        return "comp/comp_emp_info";
     }
 
 }
