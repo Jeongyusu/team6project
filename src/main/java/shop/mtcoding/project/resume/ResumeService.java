@@ -51,6 +51,17 @@ public class ResumeService {
     @Autowired
     private HasSkillRepository hasSkillRepository;
 
+
+
+    public List<Resume> 이력서조회(Integer sessionId) {
+        List<Resume> resumeList = resumeRepository.findByUserId(sessionId);
+        return resumeList;
+    }
+
+
+
+
+
     @Transactional
     public void 이력서작성(ResumeRequest.UserSaveResumeDTO userSaveResumeDTO, int sessionUserId) {
 
@@ -213,30 +224,7 @@ public class ResumeService {
     }
 
     @Transactional
-    public void 삭제(Integer id) {
-
-        List<HasSkill> hasSkillList = hasSkillRepository.findByResumeId(id);
-        for (HasSkill hasSkill : hasSkillList) {
-            hasSkill.setResume(null);
-            try {
-                hasSkillRepository.save(hasSkill);
-            } catch (Exception e) {
-                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
-            }
-
-        }
-
-        List<WishPosition> wishPositionList = wishPositionRepository.findByResumeId(id);
-        for (WishPosition wishPosition : wishPositionList) {
-            wishPosition.setResume(null);
-
-            try {
-                wishPositionRepository.save(wishPosition);
-            } catch (Exception e) {
-                throw new MyException("에러가 발생했습니다. 이유 : " + e.getMessage());
-            }
-
-        }
+    public void 이력서삭제(Integer id) {
 
         try {
             resumeRepository.deleteById(id);

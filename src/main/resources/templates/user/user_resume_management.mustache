@@ -51,7 +51,7 @@
                   <th class="td_width80">NUM</th>
                   <th class="td_width80">회사명</th>
                   <th class="td_width160">공고명</th>
-                  <th class="td_width160">이력서</th>
+                  <th class="td_width160">이력서명</th>
                   <th class="td_width120">포지션</th>
                   <th class="td_width120">상태</th>
                 </tr>
@@ -61,7 +61,7 @@
                 <tr class="td_border">
                   <td>{{id}}</td>
                   <td>{{jobOpening.user.userName}}</td>
-                  <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
+                  <td>{{jobOpening.title}}</td>
                   <td>{{resume.title}}</td>
                   <td>백엔드</td>
                   <td>
@@ -96,8 +96,8 @@
                 <tbody>
                   <tr class="td_border">
                     <td>{{id}}</td>
-                    <td>{{resume.user.userName}}</td>
-                    <td><a href="user_job_opening_apply.html">{{jobOpening.title}}</a></td>
+                    <td>{{jobOpening.user.userName}}</td>
+                    <td>{{jobOpening.title}}</a></td>
                     <td>백엔드</td>
                     <td>
                       <input type="hidden" id="resume-{{id}}" value="{{resume.id}}">

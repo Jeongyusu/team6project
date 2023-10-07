@@ -186,11 +186,18 @@ public class ResumeController {
         // }
 
         // 2.핵심로직
-        resumeService.삭제(id);
+        resumeService.이력서삭제(id);
         // 3.응답
         System.out.println("test : 삭제 요청됨2 : id : " + id + "통과");
         return new ApiUtil<String>(true, "이력서 삭제 완료");
 
+    }
+
+    @GetMapping("/api/resumes/count/{userId}")
+    public @ResponseBody ApiUtil<Integer> getResumeListSize(@PathVariable Integer userId) {
+        List<Resume> resumeList = resumeService.이력서조회(userId);
+        Integer totalResume = resumeList.size();
+        return new ApiUtil<Integer>(true, totalResume);
     }
 
     @GetMapping("/user/resume")

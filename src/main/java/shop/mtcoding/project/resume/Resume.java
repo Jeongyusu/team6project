@@ -25,6 +25,7 @@ import lombok.Setter;
 import shop.mtcoding.project.apply.Apply;
 import shop.mtcoding.project.jobopening.JobOpening;
 import shop.mtcoding.project.position.WishPosition;
+import shop.mtcoding.project.scrap.CompScrap;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.suggest.Suggest;
 import shop.mtcoding.project.user.User;
@@ -94,6 +95,10 @@ public class Resume {
 
     @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Suggest> suggestList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CompScrap> compScrapList = new ArrayList<>();
+
 
     @Builder
     public Resume(Integer id, String userName, String userEmailId, String title, LocalDate birth, String tel,

@@ -1,7 +1,10 @@
 package shop.mtcoding.project._core.util;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
+import shop.mtcoding.project.resume.Resume;
 
 @Getter
 @Setter
@@ -13,4 +16,6 @@ public class ApiUtil<T> {
         this.success = success;
         this.data = data;
     }
+
+   
 }
