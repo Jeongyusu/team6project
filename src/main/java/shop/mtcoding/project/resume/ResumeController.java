@@ -73,15 +73,14 @@ public class ResumeController {
     }
 
     @GetMapping("/comp/resume/{id}")
-    public String userOpenResumeDetail(@PathVariable Integer id, Model model, HttpServletRequest request) {
+    public String userOpenResumeDetail(@PathVariable Integer id, Model model) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser != null) {
             Resume resume = resumeRepository.findById(id).get();
             model.addAttribute("resume", resume);
             User user = userRepository.findById(sessionUser.getId()).get();
             List<JobOpening> jobOpeningList = jobOpeningRepository.findByUserId(user.getId());
-            // model.addAttribute("jobOpeningList", jobOpeningList);
-            request.setAttribute("jobOpeningList", jobOpeningList);
+            model.addAttribute("jobOpeningList", jobOpeningList);
         } else {
             throw new MyException("로그인 후 이용하세요");
         }

@@ -44,7 +44,7 @@
             <div class="resume_btn">
               <div class="resume_count">
                 전체
-                <span class="common_num">{{ totalJopOpeningList }}</span>
+                <span id="totalJobOpening" class="common_num">{{totalJobOpening}}</span>
               </div>
               <a
                 href="/comp/jobOpening/saveForm"
@@ -69,7 +69,7 @@
                         <button
                           type="button"
                           class="btn_fill"
-                          onclick="deletejob2('{{ id }}')"
+                          onclick="deletejob2('{{ id }}','{{sessionUser.id}}')"
                         >
                           공고 삭제
                         </button>
@@ -95,21 +95,8 @@
 </main>
 <!-- 메인 -->
 <script>
-  // function deleteResume2(id) {
-  //     $.ajax({
-  //       url: `/api/comp/jobOpening/${id}/delete`,
-  //       method: "POST",
-  //       success: (response) => {
-  //         console.log(response);
-  //         if (response.success === true) {
-  //           $(`#jobOpening-${id}`).remove();
-  //         }
-  //       },
-  //     });
 
-  //   }
-
-  function deletejob2(id) {
+  function deletejob2(id, userId) {
     $.ajax({
       url: `/api/comp/jobOpening/${id}/delete`,
       method: "POST",
@@ -117,9 +104,23 @@
         console.log(response);
         if (response.success === true) {
           $(`#jobOpening-${id}`).remove();
+          reloadTotalJobOpening(userId);
         }
       },
     });
+  }
+
+  function reloadTotalJobOpening(userId){
+    $.ajax({
+      url: `/api/JobOpenings/count/${userId}`,
+      success: (response) => {
+         console.log(response);
+         if(response.success == true) {
+            $(`#totalJobOpening`).html('');
+            $(`#totalJobOpening`).html(response.data);
+         }
+      }
+    })
   }
 </script>
 {{>layout/footer}}

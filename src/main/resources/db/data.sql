@@ -126,7 +126,8 @@ insert into required_position_tb (position_id, job_opening_id) values ('4', '4')
 -- insert into qualified_tb (qualified_content, job_opening_id) values('CI CD 툴을 활용한 빌드,테스트,배포 자동화 경험', '3');
 
 --- user_id -> 지원한 유저의 id
-insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('합격', 1, 4, 3);
+insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('대기중', 1, 4, 3);
+insert into apply_tb (apply_state, job_opening_id, resume_id, user_id) values ('대기중', 1, 3, 2);
 
 
 

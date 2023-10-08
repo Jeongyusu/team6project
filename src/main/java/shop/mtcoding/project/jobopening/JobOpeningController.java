@@ -97,14 +97,10 @@ public class JobOpeningController {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        List<JobOpening> JobOpeningList = jobOpeningRepository.findByUserId(sessionUser.getId());
-        int totalJobOpening = JobOpeningList.size();
-        model.addAttribute("totalJobOpening", totalJobOpening);
-
-        List<JobOpening> jobOpeningList = jobOpeningRepository.findAll();
-        int totalJopOpeningList = jobOpeningList.size();
-        model.addAttribute("totalJopOpeningList", totalJopOpeningList);
+        List<JobOpening> jobOpeningList = jobOpeningRepository.findByUserId(sessionUser.getId());
+        int totalJobOpening = jobOpeningList.size();
         model.addAttribute("jobOpeningList", jobOpeningList);
+        model.addAttribute("totalJobOpening", totalJobOpening);
 
         return "comp/comp_resume";
     }
@@ -278,6 +274,13 @@ public class JobOpeningController {
         // 3. 응답
     }
 
+    @GetMapping("/api/JobOpenings/count/{userId}")
+    public @ResponseBody ApiUtil<Integer> getJobOpeningListSize(@PathVariable Integer userId){
+        List<JobOpening> jobOpeningList = jobOpeningService.공고조회(userId);
+        Integer totalJobOpening = jobOpeningList.size();
+        return new ApiUtil<Integer>(true, totalJobOpening);
+    }
+
     // --------- delete
 
     // 스킬 체크 박스
@@ -321,9 +324,7 @@ public class JobOpeningController {
             throw new MyException("로그인 후 열람이 가능합니다.");
         }
         JobOpeningDetailDTO jobOpeningDetailDTO = jobOpeningService.상세채용공고(id);
-        ResumeInJobOpeningDTO resumeInJobOpeningDTO = resumeService.지원화면();
         model.addAttribute("jobOpeningDetailDTO", jobOpeningDetailDTO);
-        model.addAttribute("resumeInJobOpeningDTO", resumeInJobOpeningDTO);
         return "comp/comp_job_opening_detail";
     }
 
@@ -336,7 +337,7 @@ public class JobOpeningController {
             throw new MyException("로그인 후 열람이 가능합니다.");
         }
         JobOpeningDetailDTO jobOpeningDetailDTO = jobOpeningService.상세채용공고(id);
-        ResumeInJobOpeningDTO resumeInJobOpeningDTO = resumeService.지원화면();
+        ResumeInJobOpeningDTO resumeInJobOpeningDTO = resumeService.지원화면(sessionUser.getId());
         Boolean userScrap = scrapService.채용정보스크랩유무(sessionUser.getId(), id);
         model.addAttribute("jobOpeningDetailDTO", jobOpeningDetailDTO);
         model.addAttribute("resumeInJobOpeningDTO", resumeInJobOpeningDTO);

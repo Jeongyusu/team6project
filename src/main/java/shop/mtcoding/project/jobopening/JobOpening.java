@@ -76,7 +76,7 @@ public class JobOpening {
     @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume;
 
-    @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "jobOpening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserScrap> userScrapList = new ArrayList<>();
 
     @JsonIgnore

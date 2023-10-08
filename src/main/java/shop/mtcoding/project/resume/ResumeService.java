@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,6 @@ import shop.mtcoding.project.resume.ResumeResponse.ApplyResumeInJobOpeningDTO;
 import shop.mtcoding.project.resume.ResumeResponse.ResumeInJobOpeningDTO;
 import shop.mtcoding.project.skill.HasSkill;
 import shop.mtcoding.project.skill.HasSkillRepository;
-import shop.mtcoding.project.skill.RequiredSkillRepository;
 import shop.mtcoding.project.skill.Skill;
 import shop.mtcoding.project.skill.SkillRepository;
 import shop.mtcoding.project.user.User;
@@ -50,6 +48,7 @@ public class ResumeService {
 
     @Autowired
     private HasSkillRepository hasSkillRepository;
+
 
 
 
@@ -234,10 +233,10 @@ public class ResumeService {
 
     }
 
-    public ResumeInJobOpeningDTO 지원화면() {
+    public ResumeInJobOpeningDTO 지원화면(Integer userId) {
         // User sessionUser = (User) session.getAttribute("sessionUser");
 
-        List<Resume> resumeList = resumeRepository.findByUserId(1);
+        List<Resume> resumeList = resumeRepository.findByUserId(userId);
 
         // 부가로직 - 이력서 null
         if (resumeList.isEmpty()) {
@@ -267,7 +266,7 @@ public class ResumeService {
 
         // view를 위한 DTO 생성
         ResumeInJobOpeningDTO resumeInJobOpeningDTO = ResumeInJobOpeningDTO.builder()
-                .userEmail("nnnnn@nnnnte.com")
+                .userEmail(resumeList.get(0).getUser().getUserEmailId())
                 .applyResumeInJobOpeningDTO(formatResume)
                 .totalResume(sumResume)
                 .build();

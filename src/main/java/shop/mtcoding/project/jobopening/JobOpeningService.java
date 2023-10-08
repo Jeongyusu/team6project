@@ -63,6 +63,11 @@ public class JobOpeningService {
     @Autowired
     private JobOpeningQueryRepository jobOpeningQueryRepository;
 
+    public List<JobOpening> 공고조회(Integer userId){
+       List<JobOpening> jobOpeningList =  jobOpeningRepository.findByUserId(userId);
+       return jobOpeningList;
+    }
+
     @Transactional
     public void 공고등록(JobOpeningRequest.JobOpeningSaveDTO jobOpeningSaveDTO, Integer sessionUserId) {
 
@@ -264,16 +269,6 @@ public class JobOpeningService {
     @Transactional
     public void 공고삭제(Integer id) {
 
-        List<RequiredSkill> requiredSkillList = requiredSkillRepository.findByJobOpeningId(id);
-        for (RequiredSkill requiredSkill : requiredSkillList) {
-            requiredSkill.setJobOpening(null);
-            requiredSkillRepository.save(requiredSkill);
-        }
-        List<RequiredPosition> requiredPositionList = requiredPositionRepository.findByJobOpeningId(id);
-        for (RequiredPosition requiredPosition : requiredPositionList) {
-            requiredPosition.setJobOpening(null);
-            requiredPositionRepository.save(requiredPosition);
-        }
         try {
             jobOpeningRepository.deleteById(id);
         } catch (Exception e) {

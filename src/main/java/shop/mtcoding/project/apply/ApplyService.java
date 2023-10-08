@@ -27,7 +27,7 @@ public class ApplyService {
         try {
             applyRepository.save(apply);
         } catch (Exception e) {
-            throw new MyException("지원하기 에러가 발생했습니다 : " + e.getClass().toString());
+            throw new MyException("이미 지원한 공고입니다");
         }
 
     }

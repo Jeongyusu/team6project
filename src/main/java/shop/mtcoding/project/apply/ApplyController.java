@@ -116,8 +116,14 @@ public class ApplyController {
             User user = userRepository.findById(sessionUser.getId()).get();
             List<Apply> applyList = applyRepository.findByUserIdofJobOpening(user.getId());
             int totalApply = applyList.size();
+            for (int i = 0; i < totalApply; i++) {
+                applyList.get(i).setId(i+1);
+            }
             List<Suggest> suggestList = suggestRepository.findByUserIdofJobOpeningInSuggest(user.getId());
             int totalSuggest = suggestList.size();
+            for (int i = 0; i < totalSuggest; i++) {
+            suggestList.get(i).setId(i+1);
+            }
             model.addAttribute("suggestList", suggestList);
             model.addAttribute("totalApply", totalApply);
             model.addAttribute("applyList", applyList);

@@ -165,11 +165,11 @@
                                 <div class="apply_user_information">
                                     <div class="user_information_email">
                                         <p>이메일</p>
-                                        <p>email@nate.com</p>
+                                        <p>{{resume.user.userEmailId}}</p>
                                     </div>
                                     <div class="user_information_phone">
                                         <p>연락처</p>
-                                        <p></p>
+                                        <p>{{resume.tel}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -194,13 +194,13 @@
                                           
                                       </div>
                                       <div class="about_resume">
-                                          <p class="resume_name">toss</p>
+                                          <p class="resume_name">{{title}}</p>
                                           <p class="resume_created_at">
-                                              <span>2023.08.25
+                                              <span>{{#createdAt}}{{createdAt}}{{/createdAt}}{{^createdAt}}No date{{/createdAt}}
                                                   <span>등록</span>
                                               </span>
                                               <span>
-                                                  <a href="user_resume_update.html"><img src="/image/write.png" alt="write_png"></a>
+                                                  <a href="/comp/jobOpening/{{id}}/updateForm"><img src="/image/write.png" alt="write_png"></a>
                                               </span>
                                           </p>
                                       </div>

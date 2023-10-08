@@ -29,7 +29,7 @@ public class SuggestService {
         try {
             suggestRepository.save(suggest);
         } catch (Exception e) {
-            throw new MyException("제안하기 에러가 발생했습니다. 이유 : " + e.getClass().toString());
+            throw new MyException("이미 제안한 이력서입니다.");
         }
 
     }
